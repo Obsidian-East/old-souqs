@@ -90,12 +90,16 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
-            ],
+          ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "5ea64afd-d0fd-4bd9-9ec8-b0f8ef3e57de"
   }
 }

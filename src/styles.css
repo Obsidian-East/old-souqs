@@ -1,1 +1,63 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marcellus:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --font-weight-body--bold: 700;
+    --font-weight-body--bolder: 700;
+
+    --font-color-body: #333333;
+    --font-size-body: 16px;
+    --background-color-body: #FFFFFF;
+    --extra-color-body: #f8f6f1;
+
+    --font-custom-stack-body: 'Manrope', sans-serif;
+    --font-custom-weight-body: 400;
+    --font-subtitle-weight-body: 600;
+    --font-custom-style-body: normal;
+
+    --font-letter-spacing-body: 0px;
+
+    --font-color-header: #333333;
+
+    --font-custom-stack-header: 'Manrope', sans-serif;
+    --font-custom-weight-header: 700;
+    --font-custom-style-header: normal;
+
+
+    --font-color-section-header: #333333;
+
+    --font-custom-stack-section-header: 'Manrope', sans-serif;
+    --font-custom-weight-section-header: 800;
+    --font-custom-style-section-header: normal;
+
+    --font-text-section-header: none;
+
+    --font-color-paragraph: #808080;
+
+    --font-custom-stack-paragraph: 'Manrope', sans-serif;
+    --font-custom-weight-paragraph: 400;
+    --font-custom-style-paragraph: normal;
+
+    --font-line-height-paragraph: 30px;
+
+
+    --font-custom-stack-other: 'Marcellus', sans-serif;
+
+
+    --font-color-primary: #b2905f;
+    --font-color-secondary: #333333;
+    --theme-border-color: rgba(128, 128, 128, 0.1);
+
+    --sti-color: #6F6F6F;
+    --sti-font-size: 16px;
+    --sti-bgcolor: #ffffff;
+    --sti-text: none;
+    --sti-font-weight: 600;
+    --sti-border: 1px solid rgba(128, 128, 128, 0.1);
+    --sti-border-radius: 0px;
+
+    --box-body-bgcolor: ;
+}

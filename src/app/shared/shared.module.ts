@@ -25,11 +25,10 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
   bootstrap: [AppComponent],
-  exports: [HeaderComponent, AppComponent] // ✅ Export HeaderComponent so it can be used in other modules
+  exports: [HeaderComponent, AppComponent] 
 })
 export class SharedModule { }
 
-// required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, 'src/assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

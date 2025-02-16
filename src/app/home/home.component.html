@@ -1,0 +1,94 @@
+<html lang="en">
+
+<body>
+    <main >
+        <section class="hero">
+            <div class="hero-container">
+                <span>Welcome to Antique Shop</span>
+                <p>When history comes alive</p>
+                <button class="button-beige">Shop Now</button>
+
+                <!-- <span>{{'HOME.HERO-SPAN'| translate }}</span>
+                <p>{{'HOME.HERO-P'| translate }}</p>
+                <button>{{'HOME.HERO-BUTTON'| translate }}</button> -->
+            </div>
+        </section>
+
+        <section class="content">
+            <article id="about-us">
+                <div class="about-container">
+                    <div class="about-img">
+                        <!-- <img src="../assets/about-us.jpg" alt="" fill/> -->
+                    </div>
+                    <div class="about-info">
+                        <h5 class="title">About Us</h5>
+                        <p class="headline"><span style="font-weight: 700;">Salford Co.</span> 
+                            <br/> Antique Collector</p>
+                        <p class="text">Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.
+                            <br/>Wiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+                        <button class="button-beige">Explore Now</button>
+    
+                    </div>
+                    <div class="about-years">
+                        <div class="year-container">
+                            <h5 class="title">Since 2001</h5>
+                            <p class="text">the company was born out of a desire to create fuctional conta.</p>
+                            <button class="button-underlined">SEE MORE</button>
+                        </div>
+                        <div class="year-container">
+                            <h5 class="title">In 2024</h5>
+                            <p class="text">the company was born out of a desire to create fuctional conta.</p>
+                            <button class="button-underlined">SEE MORE</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+<!-- collection -->
+            <article class="collection-article"> <!-- class for bg color -->
+                <div class="collection"><!-- for content  -->
+                <div class="collection-header">
+                    <h2 class="headline"><span style="font-weight: 700;">Our </span> Collection</h2>
+                    <div class="tabs">{{value}}
+                        <button (click)="TabAction(1)" class="tabs-button tabs-button-trending active" >TRENDING</button>
+                        <button (click)="TabAction(2)" class="tabs-button tabs-button-arrived " >NEW ARRIVED</button>
+                        
+                    </div><button (click)="testFunction(1)">Test Button</button>
+                </div>
+                <div class="collection-items trending">
+                    <div class="item">
+                        <img src='../assets/about-us.jpg' alt="Cityscape Painting" width="500" height="500" fill>
+                        <p class="item-name">Cityscape Painting</p>
+                        <span class="item-price">$44.00</span>
+                    </div>
+                    <div class="item">
+                        <img src="../assets/about-us.jpg" alt="Golden globe">
+                        <p class="item-name">Golden globe</p>
+                        <span class="item-price">$225.00</span>
+                    </div>
+                    <div class="item">
+                        <img src="../assets/about-us.jpg" alt="Cylinder hat">
+                        <p class="item-name">Cylinder hat</p>
+                        <span class="item-price">$99.00</span>
+                    </div>
+                    <div class="item">
+                        <img src="" alt="Wall sconce">
+                        <p class="item-name">Wall sconce</p>
+                        <span class="item-price">$155.00</span>
+                    </div> 
+
+
+                    <!-- <div *ngFor="let item of items" class="item">
+                        <img [src]="item.image" [alt]="item.name">
+                        <p class="item-name">{{ item.name }}</p>
+                        <span class="item-price">{{ item.price }}</span>
+                      </div> -->
+                </div>
+                </div>
+            </article>
+        </section>
+
+        
+       
+    </main>
+</body>
+</html>

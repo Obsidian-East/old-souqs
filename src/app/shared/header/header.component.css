@@ -1,0 +1,23 @@
+.announcement{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: var(--font-color-primary);
+    font-family: var(--font-custom-stack-header);
+    padding: 0.5% 2% 0% 2%;
+    color: white;
+}
+.announcement-slider{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 200px;
+    grid-row-gap: 0px;
+    text-align: center;
+}
+
+.announcement-contact{
+    text-align: right;
+}

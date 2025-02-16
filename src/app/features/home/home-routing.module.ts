@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppComponent } from '../app.component';
+
+
 
 @NgModule({
   declarations: [],
@@ -8,4 +9,4 @@ import { AppComponent } from '../app.component';
     CommonModule
   ]
 })
-export class HomeModule { }
+export class HomeRoutingModule { }

@@ -18,7 +18,7 @@ section{
   height: 60vh; 
     width: 98.8vw;
     /* height: 30rem; */
-    background: url(../assets/home-hero1.jpg) lightgray 50% / cover no-repeat;
+    background: url(../../assets/home-hero1.jpg) lightgray 50% / cover no-repeat;
 }
 .hero-container{
     margin-left: 4rem;
@@ -58,9 +58,6 @@ section{
     color: var(--button-secondary);
     border: 2px solid var(--button-secondary);
 }
-.button-black{
-
-}
 
 .content{
     padding: 3rem 0;
@@ -84,7 +81,7 @@ section{
     position: relative;
     width: 20rem;
     height: auto;
-    background: url(../assets/about-us.jpg) lightgray 50% / cover no-repeat;
+    background: url(../../assets/about-us.jpg) lightgray 50% / cover no-repeat;
 }
 
 .about-info{
@@ -214,7 +211,7 @@ section{
 .item img{
     width: 100%;
     height:12rem;
-    background: url(../assets/about-us.jpg) lightgray 50% / cover no-repeat;
+    background: url(../../assets/about-us.jpg) lightgray 50% / cover no-repeat;
 }
 .item-name{
     color: var(--title-text-primary);

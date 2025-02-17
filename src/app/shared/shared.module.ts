@@ -2,30 +2,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
-import { AppComponent } from '../app.component';
-
-//For Translation
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @NgModule({
-  declarations: [HeaderComponent], 
+  declarations: [HeaderComponent],
   imports: [
     CommonModule,
     RouterModule,
-    AppComponent,
-    TranslateModule.forRoot({
-        loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-        }
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     })
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
-  bootstrap: [AppComponent],
-  exports: [HeaderComponent, AppComponent] 
+  exports: [HeaderComponent, TranslateModule]
 })
 export class SharedModule { }
 

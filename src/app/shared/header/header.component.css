@@ -1,4 +1,4 @@
-.announcement{
+.announcement {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
@@ -9,7 +9,8 @@
     padding: 0.5% 2% 0% 2%;
     color: white;
 }
-.announcement-slider{
+
+.announcement-slider {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
@@ -18,6 +19,96 @@
     text-align: center;
 }
 
-.announcement-contact{
+.announcement-contact {
     text-align: right;
+}
+
+.header-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--font-custom-stack-header);
+    padding: 10px 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.logo img {
+    height: 100px;
+    width: auto;
+    margin: -10px -10px -10px 0;
+    padding-top: -10px;
+}
+
+.navigation .menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.menu-item {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+a {
+    position: relative;
+    color: var(--font-color-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+a::after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    bottom: -2px;
+    width: 0%;
+    height: 2px;
+    background-color: var(--font-color-primary);
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+a:hover {
+    color: var(--font-color-primary);
+}
+
+a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+
+.menu-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menu-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--font-color-secondary);
+    transition: fill 0.3s ease-in-out;
+}
+
+.menu-icon:hover svg {
+    fill: var(--font-color-primary);
+}
+
+#heart svg {
+    stroke: var(--font-color-secondary);
+}
+
+#heart:hover svg {
+    stroke: var(--font-color-primary);
+    transition: stroke 0.3s ease-in-out;
 }

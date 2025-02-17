@@ -1,22 +1,11 @@
-:root {
-    --light-background: #F8F6F1;    /*off-white */
-    --button-primary: #333333; /* black*/
-    --button-secondary: #b29060; 
-    --title-text-primary:#333333;
-    --title-text-secondary:#b29060;
-    --description-text:#808080; /* for grey text */
-    --button-text:#ffffff;
-
-    --font-title:Inter;
-  }
 section{
     margin: 0 0;
 }
 .hero{
     display: flex;
-  align-items: center; /* Centers items vertically */
-  height: 60vh; 
-    width: 98.8vw;
+    align-items: center; /* Centers items vertically */
+    height: 60vh; 
+    width: 100%;
     /* height: 30rem; */
     background: url(../../assets/home-hero1.jpg) lightgray 50% / cover no-repeat;
 }
@@ -25,38 +14,40 @@ section{
 }
 
 .hero-container span{
-    color: var(--title-text-secondary);
-    font-family: var(--font-title);
+    color: var(--font-color-primary);
+    font-family: var(--font-custom-stack-paragraph);
     font-size: 1.25rem;
     font-style: normal;
     font-weight: 400;
 }
-.hero-container p{
-    width: 29rem; /* or we put <br/>*/
-    margin: 0.75rem 0;
-    color: var(--button-text);
-    font-family: var(--font-title);
+.hero-title{
+    color: var(--font-color-standard);
+    font-family: var(--font-custom-stack-paragraph);
     font-size: 4rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
+    margin: 0;
 }
+
 /* most buttons style */
 .button-beige{
-    background-color: var(--button-secondary);
+    background-color: var(--font-color-primary);
     border: 0px;
     padding: 0.75rem 1.25rem;
-    color: var(--button-text);
-    font-family: var(--font-title);
+    color: var(--font-color-standard);
+    font-family: var(--font-custom-stack-paragraph);
     font-size: 1rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     margin: 2rem 0;
+    border: 2px solid transparent;
+
 }
 
 .button-beige:hover{
     background-color: transparent;
-    color: var(--button-secondary);
-    border: 2px solid var(--button-secondary);
+    color: var(--font-color-primary);
+    border: 2px solid var(--font-color-primary);
 }
 
 .content{
@@ -76,21 +67,26 @@ section{
     justify-content: space-between;
     gap: 3rem;
     padding: 1rem 0rem;
+    margin: 2rem 0;
 }
 .about-img{
     position: relative;
     width: 20rem;
-    height: auto;
-    background: url(../../assets/about-us.jpg) lightgray 50% / cover no-repeat;
+    height: 20rem;
 }
+.about-img img{
+    /* width: 20rem;
+    height: 20rem; */
+}
+
 
 .about-info{
     width: 23rem;
 }
 .title{
-    color: var(--title-text-secondary);
+    color: var(--font-color-primary);
     margin:1rem 0;
-    font-family: var(--font-title);
+    font-family: var(--font-custom-stack-paragraph);
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
@@ -98,24 +94,31 @@ section{
 
 }
 .headline{
-    color: var(--title-text-primary);
-    margin: 1rem 0;
+    color: var(--font-color-secondary);
     margin-bottom: 3rem;
-    font-family: var(--font-title);
-    font-size: 2.25rem;
+    margin:1rem 0;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 2.5rem;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 2.25rem;
     letter-spacing: -0.045rem;
 }
+
+.marcellus-font{
+    font-family: var(--font-custom-stack-other);
+    font-weight: 400;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+}
 .text{
-    color: var(--description-text);
+    color: var(--font-color-paragraph);
     margin:1rem 0;
-    font-family: var(--font-title);
-    font-size: 1.1rem;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 1.8rem;
+    line-height: 1.7rem;
 }
 .about-years{
     display: flex;
@@ -124,11 +127,11 @@ section{
 }
 .year-container{
     width: 12rem;
-    background-color: var(--light-background);
+    background-color: var(--extra-color-body);
     padding: 1.75rem 1.75rem;
 }
 .year-container h5{
-    color: var(--title-text-primary);
+    color: var(--font-color-secondary);
     font-weight: 700;
     font-size: 1.125rem;
     margin: 0;
@@ -139,32 +142,33 @@ section{
 .button-underlined{
     background-color: transparent;
     border: 0px;
-    border-bottom: 2px solid var(--button-secondary);
-    color: var(--button-secondary);
-    font-family: var(--font-title);
+    border-bottom: 2px solid var(--font-color-primary);
+    color: var(--font-color-primary);
+    font-family: var(--font-custom-stack-paragraph);
     font-size: 1rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
 }
 
 .button-underlined:hover{
-    color: var(--button-primary);
-    border-bottom: 2px solid var(--button-primary);
+    color: var(--font-color-secondary);
+    border-bottom: 2px solid var(--font-color-secondary);
 }
 
 /* collection style */
 .collection-article{
-    width: 98.8vw;
+    width: 100%;
     height:100vh;
-    background: var(--light-background);
+    background: var(--extra-color-body);
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom:5rem ;
+    padding-top: -1rem;
 }
 .collection{
     width: 77rem;
     height: 70vh;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -175,7 +179,7 @@ section{
     justify-content: space-between;
     align-items: baseline;
     width: 70rem;
-
+    margin-bottom: 1.5rem;
 }
 
 .tabs{
@@ -183,18 +187,19 @@ section{
     gap: 1.5rem;
 }
 .tabs-button{
-    background: var(--light-background);
+    background: var(--extra-color-body);
     border: 0px solid black;
-    
 }
 .active{
-   color: var(--title-text-secondary);
-   border-bottom: 1px solid var(--button-secondary);
+   color: var(--font-color-primary);
+   border-bottom: 1px solid var(--font-color-primary);
     
 }
+
 .collection-items{
+
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     align-items: center;
     justify-content: center;
 }
@@ -203,29 +208,28 @@ section{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 18rem;
-    border: 1px solid black;
-    background: var(--button-text);
+    width: 17rem;
+    background: var(--background-color-body);
     position: relative;
 }
 .item img{
     width: 100%;
-    height:12rem;
+    height:19rem;
     background: url(../../assets/about-us.jpg) lightgray 50% / cover no-repeat;
 }
 .item-name{
-    color: var(--title-text-primary);
+    color: var(--font-color-secondary);
     margin:1rem 0;
-    font-family: var(--font-title);
+    font-family: var(--font-custom-stack-paragraph);
     font-size: 1.1rem;
     font-style: normal;
     font-weight: 500;
     line-height: 1.8rem;
 }
 .item-price{
-    color: var(--title-text-secondary);
+    color: var(--font-color-secondary);
     margin:1rem 0;
-    font-family: var(--font-title);
+    font-family: var(--font-custom-stack-paragraph);
     font-size: 1.1rem;
     font-style: normal;
     font-weight: 400;

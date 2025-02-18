@@ -10,6 +10,16 @@
     },
     "HOMEPAGE": {
       "HERO": "Welcome"
+    },
+    "FOOTER":{
+      "INFO": "The place where you can find copper artifacts.",
+      "HOME": "Home",
+      "SHOP": "Shop",
+      "CONTACT": "Contact",
+      "ABOUT": "About",
+      "TERMS": "Terms & Conditions",
+      "PRIVACY": "Privacy Policy",
+      "COPYRIGHT": "Copyright © 2025 | Old Souqs"
     }
   }
   

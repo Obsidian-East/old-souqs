@@ -5,9 +5,10 @@ import { RouterModule } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, FooterComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -20,7 +21,7 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/
     })
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
-  exports: [HeaderComponent, TranslateModule]
+  exports: [HeaderComponent, TranslateModule, FooterComponent]
 })
 export class SharedModule { }
 

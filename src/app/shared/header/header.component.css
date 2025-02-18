@@ -37,10 +37,8 @@
 }
 
 .logo img {
-    height: 100px;
+    height: 70px;
     width: auto;
-    margin: -10px -10px -10px 0;
-    padding-top: -10px;
 }
 
 .navigation .menu {

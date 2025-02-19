@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
   styleUrl: './home.component.css'
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   // function to move from trending to new arrived in our collection section
   TabAction(index: number) {
 
@@ -145,6 +145,27 @@ export class HomeComponent {
 
 
 
+      }
+
+      // email subscription 
+      subscribed = false;
+      showSubscribe = false;
+      email = '';
+      
+      ngOnInit() {
+        setTimeout(() => {
+          if (!this.subscribed) {
+            this.showSubscribe = true;
+          }
+        }, 1000);
+      }
+      
+      closeSubscribe() {
+        this.showSubscribe = false;
+      }
+      
+      subscribe() {
+        this.showSubscribe = false;        
       }
 
 }

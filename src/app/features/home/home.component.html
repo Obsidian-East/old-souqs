@@ -198,10 +198,10 @@
        
         <div class="deals-carousel-container">
             <div class="deals-carousel" id="carousel">
-                <div class="deals-item" *ngFor="let item of deals">
-                    <div class="deals-item-img"
-                    (mouseenter)="showProductActionsInDeals(item)" 
+                <div class="deals-item" *ngFor="let item of deals"
+                (mouseenter)="showProductActionsInDeals(item)" 
                      (mouseleave)="hideProductActionsInDeals()">
+                    <div class="deals-item-img">
                         <img [src]="item.image" [alt]="item.name" *ngIf="hoveredDeal !== item">
                         <div id="product-actions-container" *ngIf="hoveredDeal === item">
                             <div class="product-actions">
@@ -285,4 +285,18 @@
             </div>
         </div>
     </article>
+
+    <div class="subscribe-overlay" *ngIf="!subscribed && showSubscribe">
+        <div class="subscribe-box">
+          <button class="close-btn" (click)="closeSubscribe()">&times;</button>
+          <div class="subscribe-content">
+            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 6L12 13L22 6V18H2V6Z" stroke="#C09B66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h2 class="subscribe-title">Subscribe to our Newsletter</h2>
+            <input type="email" placeholder="Enter your email" class="email-input" />
+            <button (click)="subscribe()" class="button-beige subscribe-btn">Subscribe</button>
+          </div>
+        </div>
+      </div>
 </section>

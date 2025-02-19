@@ -48,6 +48,7 @@
     padding: 0;
     margin: 0;
     align-items: center;
+    font-family: var(--font-custom-stack-body);
 }
 
 .menu-item {

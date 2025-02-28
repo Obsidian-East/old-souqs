@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
   styleUrl: './home.component.css'
 })
 
-export class HomeComponent implements OnInit{
+export class HomeComponent {
   // function to move from trending to new arrived in our collection section
   TabAction(index: number) {
 
@@ -61,23 +61,6 @@ export class HomeComponent implements OnInit{
       this.hoveredItem = null; // Reset on mouse leave
     }
 
-    // carousel function
-    //  currentIndex = 0;
-    //    carousel = document.getElementById("deals-carousel");
-    //     dots = document.querySelectorAll(".dot");
-
-    //     moveToSlide(index: number) {
-    //         this.currentIndex = index;
-    //         if(this.carousel)
-    //           this.carousel.style.transform = 'translateX(-${index * 50}%)';
-    //         this.updateDots();
-    //     }
-
-    //      updateDots() {
-    //         this.dots.forEach((dot, i) => {
-    //             dot.classList.toggle("active", i === this.currentIndex);
-    //         });
-    //     }
    
     // hide and show product action for deals of the day article
     deals = [

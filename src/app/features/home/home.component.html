@@ -1,13 +1,10 @@
 <app-header></app-header>
 <section class="hero">
     <div class="hero-container">
-        <span>Welcome to Antique Shop</span>
-        <p class="hero-title">When history</p> 
-        <p class="hero-title marcellus-font">comes alive</p>
-        <button class="button-beige">Shop Now</button>
-        <!-- <span>{{'HOME.HERO-SPAN'| translate }}</span>
-                <p>{{'HOME.HERO-P'| translate }}</p>
-                <button>{{'HOME.HERO-BUTTON'| translate }}</button> -->
+        <span>{{'HOMEPAGE.HERO'| translate }}</span>
+        <p class="hero-title">{{'HOMEPAGE.HERO-TEXT1'| translate }}</p> 
+        <p class="hero-title marcellus-font">{{'HOMEPAGE.HERO-TEXT2'| translate }}</p>
+        <button class="button-beige">{{'HOMEPAGE.SHOP-NOW'| translate }}</button>
     </div>
 </section>
 
@@ -18,26 +15,23 @@
                 <img src="https://old-souqs.sirv.com/Essential/logo.png" alt="old-souqs-logo" >
             </div>
             <div class="about-info">
-                <h5 class="title">About Us</h5>
-                <p class="headline">Salford Co.</p>
-                <p class="headline marcellus-font"> Antique Collector </p>
-                <p class="text">Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                    enim ad minim veniam, quis nostrud.
-                    <br />Wiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.
-                </p>
-                <button class="button-beige">Explore Now</button>
+                <h5 class="title">{{'HOMEPAGE.ABOUT-US' | translate }}</h5>
+                <p class="headline">{{'HOMEPAGE.NAME' | translate }}</p>
+                <p class="headline marcellus-font"> {{'HOMEPAGE.DESCRIPTION-TITLE' | translate }} </p>
+                <p class="text">{{'HOMEPAGE.DESCRIPTION-TEXT' | translate }}</p>
+                <button class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
 
             </div>
             <div class="about-years">
                 <div class="year-container">
-                    <h5 class="title">Since 2001</h5>
-                    <p class="text">the company was born out of a desire to create fuctional conta.</p>
-                    <button class="button-underlined">SEE MORE</button>
+                    <h5 class="title">{{'HOMEPAGE.SINCE-DATE' | translate }}</h5>
+                    <p class="text">{{'HOMEPAGE.SINCE-TEXT' | translate }}</p>
+                    <button class="button-underlined">{{'HOMEPAGE.SEE-MORE' | translate }}</button>
                 </div>
                 <div class="year-container">
-                    <h5 class="title">In 2024</h5>
-                    <p class="text">the company was born out of a desire to create fuctional conta.</p>
-                    <button class="button-underlined">SEE MORE</button>
+                    <h5 class="title">{{'HOMEPAGE.IN-DATE' | translate }}</h5>
+                    <p class="text">{{'HOMEPAGE.IN-TEXT' | translate }}</p>
+                    <button class="button-underlined">{{'HOMEPAGE.SEE-MORE' | translate }}</button>
                 </div>
             </div>
         </div>
@@ -47,11 +41,11 @@
         <div class="collection"><!-- for content  -->
             <div class="collection-header">
                 <p>
-                <span class="headline">Our </span>
-                <span class="headline marcellus-font">Collection</span></p>
+                <span class="headline">{{'HOMEPAGE.OUR' | translate }} </span>
+                <span class="headline marcellus-font">{{'HOMEPAGE.COLLECTION' | translate }}</span></p>
                 <div class="tabs">
-                    <button (click)="TabAction(1)" class="tabs-button tabs-button-trending active">TRENDING</button>
-                    <button (click)="TabAction(2)" class="tabs-button tabs-button-arrived ">NEW ARRIVED</button>
+                    <button (click)="TabAction(1)" class="tabs-button tabs-button-trending active">{{'HOMEPAGE.TRENDING' | translate }}</button>
+                    <button (click)="TabAction(2)" class="tabs-button tabs-button-arrived ">{{'HOMEPAGE.NEW-ARRIVED' | translate }}</button>
 
                 </div>
             </div>
@@ -94,7 +88,7 @@
                                 </div>
                             </div>
                             <div class="add-to-cart-button">
-                                <p>ADD TO CART</p>
+                                <p>{{'HOMEPAGE.ADD-TO-CART' | translate }}</p>
                             </div>
                         </div>
                     </div>
@@ -144,7 +138,7 @@
                                 </div>
                             </div>
                             <div class="add-to-cart-button" >
-                                <p>ADD TO CART</p>
+                                <p>{{'HOMEPAGE.ADD-TO-CART' | translate }}</p>
                             </div>
                         </div>
                     </div>
@@ -160,9 +154,9 @@
     <article id="explore-our-collection" class="explore-container">
         <!-- hero -->
         <div class="explore-hero">
-            <span>ARE YOU ANTIQUE LOVER</span>
-            <p class="explore-title">Explore Our Collection</p> 
-            <button class="button-beige">Explore Now</button>
+            <span>{{'HOMEPAGE.EXPLORE-MINI-TITLE' | translate }}</span>
+            <p class="explore-title">{{'HOMEPAGE.EXPLORE-TITLE' | translate }}</p> 
+            <button class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
         </div>
         <!-- content -->
         <div class="explore-content-container">
@@ -194,7 +188,7 @@
     </article>
 
     <article id="deals-of-the-day" class="deals-of-the-day-container">
-        <p><span class="headline">Deals of </span><span class="headline marcellus-font">The Day</span></p>
+        <p><span class="headline">{{'HOMEPAGE.DEALS-OF' | translate }} </span><span class="headline marcellus-font">{{'HOMEPAGE.THE-DAY' | translate }}</span></p>
        
         <div class="deals-carousel-container">
             <div class="deals-carousel" id="carousel">
@@ -237,7 +231,7 @@
                     <div class="deals-item-info">
                         <p class="item-name">{{ item.name }}</p>
                         <p class="item-price">{{ item.price }}</p>
-                        <button class="button-beige">ADD TO CART</button>
+                        <button class="button-beige">{{'HOMEPAGE.ADD-TO-CART' | translate }}</button>
                     </div>
                 </div>
             </div>
@@ -251,7 +245,7 @@
     </article>
 
     <article id="happy-quotes" class="happy-quotes">
-        <p><span class="headline">Happy </span> <span class="headline marcellus-font"> Quotes</span></p>
+        <p><span class="headline">{{'HOMEPAGE.HAPPY' | translate }} </span> <span class="headline marcellus-font"> {{'HOMEPAGE.QUOTES' | translate }}</span></p>
         <div class="happy-quotes-container">
             <div class="comment-and-buttons">
                 
@@ -286,6 +280,7 @@
         </div>
     </article>
 
+    <!-- Subscribe to our Newsletter -->
     <div class="subscribe-overlay" *ngIf="!subscribed && showSubscribe">
         <div class="subscribe-box">
           <button class="close-btn" (click)="closeSubscribe()">&times;</button>
@@ -293,9 +288,9 @@
             <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 6L12 13L22 6V18H2V6Z" stroke="#C09B66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <h2 class="subscribe-title">Subscribe to our Newsletter</h2>
-            <input type="email" placeholder="Enter your email" class="email-input" />
-            <button (click)="subscribe()" class="button-beige subscribe-btn">Subscribe</button>
+            <h2 class="subscribe-title">{{'HOMEPAGE.SUBSCRIBE-TEXT' | translate }}</h2>
+            <input type="email" placeholder="{{'HOMEPAGE.ENTER-YOUR-EMAIL' | translate }}" class="email-input" />
+            <button (click)="subscribe()" class="button-beige subscribe-btn">{{'HOMEPAGE.SUBSCRIBE' | translate }}</button>
           </div>
         </div>
       </div>

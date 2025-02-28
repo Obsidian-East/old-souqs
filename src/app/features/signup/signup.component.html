@@ -1,0 +1,43 @@
+<app-header></app-header>
+
+<section class="hero">
+    <div class="hero-container">
+        <p class="hero-title">{{ 'SIGNUP.HERO' | translate }}</p> 
+        <div>
+            <a class="home-link" routerLink="/home"><span>{{ 'SIGNUP.HERO-HOME' | translate }} </span> </a> 
+            <span> | {{ 'SIGNUP.CREATE-ACCOUNT' | translate }}</span>
+        </div>   
+    </div>
+</section>
+
+<section id="signup" class="signup" (ngSubmit)="handleSubmit()">
+    <form [formGroup]="signupForm">
+
+        <div class="signup-container">
+        
+            <p class="signup-title">{{ 'SIGNUP.CREATE-ACCOUNT' | translate }}</p>
+             
+            <!-- <div class="form-content"> -->
+                
+            <label for="firstname">{{ 'SIGNUP.FIRST-NAME' | translate }}</label>
+            <input id="firstname" type="text" placeholder="{{ 'SIGNUP.FIRST-NAME' | translate }}" formControlName="firstname" name="firstname">
+
+            <label for="lastname">{{ 'SIGNUP.LAST-NAME' | translate }}</label>
+            <input id="firstname" type="text" placeholder="{{ 'SIGNUP.LAST-NAME' | translate }}" formControlName="lastname" name="lastname">
+
+            <label for="emailaddress">{{ 'SIGNUP.EMAIL' | translate }}</label>
+            <input id="emailaddress" type="email" placeholder="{{ 'SIGNUP.EMAIL' | translate }}" formControlName="email" name="email">
+
+            <label for="password">{{ 'SIGNUP.PASSWORD' | translate }}</label>
+            <input id="password" type="text" placeholder="{{ 'SIGNUP.PASSWORD' | translate }}" formControlName="password" name="password">
+            <!-- </div> -->
+
+            <button type="submit" class="button-beige" >{{ 'SIGNUP.CREATE-ACCOUNT' | translate }}</button>
+            <p class="login-text">{{ 'SIGNUP.ACCOUNT-HOLDER' | translate }}</p>
+            <a routerLink="/login"><p class="login-link">{{ 'SIGNUP.LOGIN' | translate }}</p></a>
+        </div>
+    </form>
+</section>
+
+
+<app-footer></app-footer>

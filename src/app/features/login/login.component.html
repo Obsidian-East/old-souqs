@@ -1,0 +1,35 @@
+<app-header></app-header>
+
+<section class="hero">
+    <div class="hero-container">
+        <p class="hero-title">{{ 'LOGIN.HERO' | translate }}</p> 
+        <div>
+            <a class="home-link" routerLink="/home"><span>{{ 'LOGIN.HERO-HOME' | translate }} </span> </a> 
+            <span> | {{ 'LOGIN.CREATE-ACCOUNT' | translate }}</span>
+        </div>    
+    </div>
+</section>
+
+<section id="login" class="login">
+    <form>
+
+        <div class="login-container">
+        
+            <p class="login-title">{{ 'LOGIN.LOGIN' | translate }}</p>
+
+            <label for="emailaddress">{{ 'LOGIN.EMAIL' | translate }}</label>
+            <input id="emailaddress" type="email" placeholder="{{ 'LOGIN.EMAIL' | translate }}">
+
+            <label for="password">{{ 'LOGIN.PASSWORD' | translate }}</label>
+            <input id="password" type="text" placeholder="{{ 'LOGIN.PASSWORD' | translate }}">
+
+            <button type="submit" class="button-beige" >{{ 'LOGIN.SIGNIN' | translate }}</button>
+            <p class="forgot-password">{{ 'LOGIN.FORGOT-PASSWORD' | translate }}</p>
+            <p class="signup-text">{{ 'LOGIN.SIGNUP-QUESTION' | translate }}</p>
+            <a routerLink="/login"><p class="signup-link">{{ 'LOGIN.SIGNUP-LINK' | translate }}</p></a>
+        </div>
+    </form>
+</section>
+
+
+<app-footer></app-footer>

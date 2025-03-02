@@ -40,19 +40,19 @@
 
     },
     "SIGNUP":{
-      "HERO": "Create Account",
-      "HERO-HOME": "Home",
+      "HERO": "Join the Collector's Circle",
       "CREATE-ACCOUNT": "Create Account",
       "FIRST-NAME": "First name",
       "LAST-NAME": "Last name",
       "EMAIL": "Email address",
       "PASSWORD": "Password",
       "ACCOUNT-HOLDER": "Already an account holder?",
-      "LOGIN": "Log in"
+      "LOGIN": "Log in",
+      "LOCATION": "Location",
+      "PHONE-NUMBER": "Phone number"
     },
     "LOGIN":{
-      "HERO": "Create Account",
-      "HERO-HOME": "Home",
+      "HERO": "Join the Collector's Circle",
       "LOGIN": "Login",
       "CREATE-ACCOUNT": "Create Account",
       "EMAIL": "Email address",

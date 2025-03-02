@@ -2,11 +2,7 @@
 
 <section class="hero">
     <div class="hero-container">
-        <p class="hero-title">{{ 'SIGNUP.HERO' | translate }}</p> 
-        <div>
-            <a class="home-link" routerLink="/home"><span>{{ 'SIGNUP.HERO-HOME' | translate }} </span> </a> 
-            <span> | {{ 'SIGNUP.CREATE-ACCOUNT' | translate }}</span>
-        </div>   
+        <p class="hero-title">{{ 'SIGNUP.HERO' | translate }}</p>    
     </div>
 </section>
 
@@ -24,6 +20,12 @@
 
             <label for="lastname">{{ 'SIGNUP.LAST-NAME' | translate }}</label>
             <input id="firstname" type="text" placeholder="{{ 'SIGNUP.LAST-NAME' | translate }}" formControlName="lastname" name="lastname">
+
+            <label for="phonenumber">{{ 'SIGNUP.PHONE-NUMBER' | translate }}</label>
+            <input id="phonenumber" type="number" placeholder="{{ 'SIGNUP.PHONE-NUMBER' | translate }}" formControlName="lastname" name="lastname">
+           
+            <label for="location">{{ 'SIGNUP.LOCATION' | translate }}</label>
+            <input id="location" type="text" placeholder="{{ 'SIGNUP.LOCATION' | translate }}" formControlName="lastname" name="lastname">
 
             <label for="emailaddress">{{ 'SIGNUP.EMAIL' | translate }}</label>
             <input id="emailaddress" type="email" placeholder="{{ 'SIGNUP.EMAIL' | translate }}" formControlName="email" name="email">

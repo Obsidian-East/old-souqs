@@ -100,14 +100,12 @@ section{
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(2, 1fr); 
     gap: 10px;
-    padding: 10px;
     width: 80vw;
 }
 
 .grid-item {
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,4 +139,62 @@ section{
     font-style: normal;
     font-weight: 400;
     line-height: 1.7rem;
+}
+/* form style */
+
+.contact-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 4rem 0;
+}
+.input-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.input-form label{
+    color: var(--font-color-secondary);
+    margin:0.2rem 0;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.input-form input{
+    text-align: left;
+    width: 90%;
+    height: 2.25rem;
+    border: 0;
+    margin: 0.75rem 0;
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+    padding: 0.5rem 0.75rem;
+    /* background-color: var(--background-color-body); */
+        /* border: 0.5px solid var(--font-color-paragraph); */
+
+}
+.input-form textarea{
+    resize: none;
+    text-align: left;
+    width: 95%;
+    height: 8rem;
+    border: 0;
+    margin: 0.75rem 0;
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+    padding: 0.5rem 0.75rem;
+    /* background-color: var(--background-color-body);
+    border: 0.5px solid var(--font-color-paragraph); */
+
 }

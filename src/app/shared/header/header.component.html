@@ -60,11 +60,60 @@
                     </svg>
                 </li>
                 <li class="menu-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32.402" height="32" viewBox="0 0 32.402 32" id="cart">
+                    <svg (click)="toggleCart()" xmlns="http://www.w3.org/2000/svg" width="32.402" height="32" viewBox="0 0 32.402 32" id="cart">
                         <path d="M30 8H6c-.156 0-.292.054-.438.088l-.776-3.316A1 1 0 0 0 3.812 4H.942a1 1 0 0 0 0 2H3.02l1.242 5.312L6 20c0 .072.034.134.042.204l-1.018 4.58A.997.997 0 0 0 6 26h22.688a1 1 0 0 0 0-2H7.248l.458-2.06c.1.016.19.06.294.06h18.23c1.104 0 1.77-.218 2.302-1.5l3.248-9.964C32.344 8.75 31.106 8 30 8zM6 30a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0zm18 0a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0z"></path>
                       </svg>
                 </li>
             </ul>
         </div>
+    </div>
+</div>
+<div *ngIf="isCartVisible" id="cart-container" class="cart-container">
+    <div class="cart-box">
+        <button class="close-btn" (click)="closeCart()">&times;</button>
+        <p class="text"> 
+            <span *ngIf="products.length === 0">{{ 'HEADER.NO-PRODUCT' | translate }}</span>
+            <span *ngIf="products.length > 0">{{ 'HEADER.PRODUCT-MESSAGE1' | translate }} <span style="color: var(--font-color-primary);">{{products.length}} </span> {{ 'HEADER.PRODUCT-MESSAGE2' | translate }}</span>
+        </p>
+        <div *ngIf="products.length > 0" class="line"></div>  
+        <div *ngIf="products.length > 0" class="all-products-container">
+            <div *ngFor="let product of products; let last = last; let i = index" class="product-container">
+                <div class="product-item">
+                    <div class="img-container">
+                        <img src={{product.image}} />
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name">{{product.name}}</p>
+                        <p class="product-price">{{product.quantity}}<span style="color: var(--font-color-secondary);"> x </span>{{product.price}}</p>
+                        <div class="quantity-delete-container">
+                            <div class="counter">
+                                <!-- <button (click)="decrement()" [disabled]="number <= 1">-</button>
+                                <input type="number" [value]="number" (input)="onInputChange($event)" disabled/>
+                                <button (click)="increment()">+</button> -->
+                                <button (click)="decreaseQuantity(product)">-</button>
+                                <span>{{ product.quantity }}</span>
+                                <button (click)="increaseQuantity(product)">+</button>
+                            </div>
+                            <div class="delete-container">
+                                <svg (click)="removeProduct(i)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                    <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z" fill="cuttentColor"/>
+                                </svg>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!last" class="line"></div>
+            </div>
+        </div>
+        <span *ngIf="products.length > 0">
+            <div class="line"></div>
+            <div class="total-price-container">
+                <p class="text">Sub Total:</p>
+                <p class="text" style="color: var(--font-color-primary);">${{totalAmount}}</p>
+            </div>
+            <div class="line"></div>
+            <button class="button-beige" routerLink="/cart">{{ 'HEADER.VIEW-CART' | translate }}</button>
+            <button class="button-beige">{{ 'HEADER.CHECKOUT' | translate }}</button>
+        </span>
     </div>
 </div>

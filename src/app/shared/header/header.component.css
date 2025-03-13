@@ -111,3 +111,188 @@ a:hover::after {
     stroke: var(--font-color-primary);
     transition: stroke 0.3s ease-in-out;
 }
+
+/* cart styles */
+.cart-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: right;
+    align-items: flex-start;
+    z-index: 1000;
+}
+.cart-box{
+    background: var(--background-color-body);
+    padding: 20px;
+    text-align: left;
+    position: relative;
+    width: 20vw;
+    height: 100vh;
+}
+.close-btn {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    background: none;
+    border:0;
+    font-size: 25px;
+    cursor: pointer;
+    color: var(--font-color-secondary);
+  }
+.close-btn:hover{
+    color: var(--font-color-primary);
+}
+.text{
+    color: var(--font-color-secondary);
+    margin:1rem 0;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.7rem;
+}
+
+.line{
+    width: 100%;
+    margin: 0.25rem 0;
+    border-bottom: 0.2px solid var(--font-color-paragraph);
+}
+.all-products-container{
+    height: 55vh;
+    overflow-y: auto; /* Enable vertical scrolling */
+    scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #888888 var(--background-color-body); /* Firefox */
+}
+.product-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+    justify-content: center;
+}
+.product-item{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.img-container{
+    
+    width: 4rem;
+    height: 4rem;
+    border: 0.25px solid var(--font-color-paragraph);
+}
+.img-container img{
+    width: 4rem;
+    height: 4rem;
+}
+.product-info{
+    width: 75%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.product-name{
+    color: var(--font-color-secondary);
+    margin:0.2rem 0;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.7rem;
+}
+.product-price{
+    color: var(--font-color-primary);
+    margin:0.2rem 0;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.7rem;
+}
+.quantity-delete-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.counter{
+    margin: 0.25rem 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.counter button{
+    cursor: pointer;
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border: 0.1px solid var(--font-color-paragraph);
+    background: none;
+}
+.counter span{
+    text-align: center;
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    width: 1.7rem;
+    height: 1.59rem;
+    border: 0;
+    border-top: 0.1px solid var(--font-color-paragraph);
+    border-bottom: 0.1px solid var(--font-color-paragraph);
+    background: none;
+}
+.delete-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.delete-container svg, .delete-container path{
+    cursor: pointer;
+    width: 1rem;
+    height: 1rem;
+    fill: var(--font-color-paragraph);
+}
+.delete-container svg:hover, .delete-container path:hover{
+    fill: var(--font-color-primary);
+}
+.total-price-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.button-beige{
+    width: 100%;
+    background-color: var(--font-color-primary);
+    border: 0px;
+    padding: 0.75rem 1.25rem;
+    color: var(--extra-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    margin: 0.2rem 0;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.button-beige:hover{
+    background-color: transparent;
+    color: var(--font-color-primary);
+    border: 2px solid var(--font-color-primary);
+}

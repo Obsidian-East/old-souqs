@@ -1,0 +1,94 @@
+<app-header></app-header>
+<section id="content">
+    <article class="hero">
+        <div class="hero-container">
+            <p class="hero-title">{{ 'CART.HERO' | translate }}</p>    
+        </div>
+    </article>
+    <article id="cart">
+        <div *ngIf="products.length === 0" class="no-prod-container">
+            <p class="headline">{{ 'CART.EMPTY-CART' | translate }}</p>
+            <p class="text">{{ 'CART.CONTINUE-SHOPPING' | translate }} <a routerLink="/explore">{{ 'CART.HERE' | translate }} </a></p>
+        </div>
+        <div *ngIf="products.length != 0" class="cart-container">
+            <table>
+                <thead>
+                  <tr>
+                    <th>{{ 'CART.PRODUCT-ITEM' | translate }} </th>
+                    <th>{{ 'CART.PRICE' | translate }}</th>
+                    <th>{{ 'CART.QUANTITY' | translate }}</th>
+                    <th> {{ 'CART.TOTAL-PRICE' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of products; let i = index">
+                    <td class="product-info">
+                      <img [src]="product.image" alt="{{ product.name }}" />
+                      <span style="font-weight: 600;">{{ product.name }}</span>
+                    </td>
+                    <td>${{ product.price.toFixed(2) }}</td>
+                    <td class="quantity">
+                      
+                      <div class="quantity-delete-container">
+                        <div class="counter">
+                            <!-- <button (click)="decrement()" [disabled]="number <= 1">-</button>
+                            <input type="number" [value]="number" (input)="onInputChange($event)" disabled/>
+                            <button (click)="increment()">+</button> -->
+                            <button (click)="decreaseQuantity(product)">-</button>
+                            <span>{{ product.quantity }}</span>
+                            <button (click)="increaseQuantity(product)">+</button>
+
+                        </div>
+                        <div class="delete-container">
+                            <svg (click)="removeProduct(i)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z" fill="cuttentColor"/>
+                            </svg>
+                        </div>  
+                    </div>
+                    </td>
+                    <td>${{ getTotalPrice(product).toFixed(2) }}</td>
+    
+                  </tr>
+                </tbody>
+            </table>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <p class="title">{{ 'CART.SPECIAL-INSTRUCTIONS' | translate }}</p>
+                    <input class="instructions" type="text"/>
+                </div>
+                <div class="grid-item">
+                    <p class="title"> {{ 'CART.SHIPPING-INFO' | translate }}</p>
+
+                    <label class="subtitle"> {{ 'CART.COUNTRY' | translate }}</label>
+                    <select id="dropdown" (change)="onSelect($event)">
+                        <option *ngFor="let country of Countries"
+                                [value]="country"
+                                [selected]="country === selectedCountry"
+                                [ngClass]="{'selected': country === selectedCountry}">
+                          {{ country }}
+                        </option>
+                    </select>
+
+                    <label class="subtitle"> {{ 'CART.POSTAL-CODE' | translate }}</label>
+                    <input class="PostalCode" type="text" placeholder="{{ 'CART.POSTAL-CODE' | translate }}"/>
+
+                    <a class="calculate-shipping" > {{ 'CART.CALCULATE-SHIPPING' | translate }}</a>
+                </div>
+                <div class="grid-item">
+                    <p class="title"> {{ 'CART.TOTAL-AMOUNT' | translate }}</p>
+                    <div class="line"></div>
+                    <div class="amount-details">
+                        <p class="subtitle">{{ 'CART.TOTAL-AMOUNT' | translate }}</p>
+                        <p class="subtitle" style="color: var(--font-color-primary);">$ {{totalAmount.toFixed(2)}}</p>
+                    </div>
+                    <p class="text" style="color: var(--font-color-paragraph);">{{ 'CART.ABOUT-TAXES' | translate }} </p>
+                    <button class="button-beige"> {{ 'CART.CHECKOUT' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+
+</section>
+<app-footer></app-footer>

@@ -6,7 +6,12 @@
       "NEWS": "News",
       "CONTACT": "Contact",
       "CART": "My Cart",
-      "PHONE-NUMBER": "Order Online: +961 06 401 013"
+      "PHONE-NUMBER": "Order Online: +961 06 401 013",
+      "NO-PRODUCT": "No products in the cart.",
+      "PRODUCT-MESSAGE1": "There are ",
+      "PRODUCT-MESSAGE2": " products",
+      "VIEW-CART": "View Cart",
+      "CHECKOUT": "Checkout"
     },
     "HOMEPAGE": {
       "HERO": "Welcome to Antique Shop",
@@ -109,6 +114,54 @@
       "INFO2-TEXT": "Roanoke, VA, USA",
       "INFO3": "Customer email",
       "INFO3-TEXT": "info@yourdomain.com"
+    },
+    "EXPLORE":{
+      "HERO": "Shop the Past: Our Antique Collection",
+      "CATEGORIES" : "Categories",
+      "FILTER": "Filter",
+      "PRODUCTS": "Products",
+      "IN-STOCK": "In stock",
+      "CLEAR-ALL": "Clear all",
+      "AVAILABILITY": "Availability",
+      "SELECTED": "selected",
+      "RESET": "Reset",
+      "OUT-OF-STOCK": "Out of stock",
+      "HIGHEST-PRICE": "The highest price is",
+      "FROM" : "From",
+      "TO": "To",
+      "SORT-BY": "Sort by:",
+      "ADD-TO-CART": "Add To Cart"
+    },
+    "CART":{
+      "HERO": "Your Shopping Cart",
+      "EMPTY-CART": "Your cart is currently empty!",
+      "CONTINUE-SHOPPING": "Continue shopping",
+      "HERE": "here",
+      "PRODUCT-ITEM": "Product Item",
+      "PRICE": "Price",
+      "QUANTITY": "Quantity",
+      "TOTAL-PRICE": "Total Price",
+      "SPECIAL-INSTRUCTIONS": "Special instructions for seller",
+      "SHIPPING-INFO": "Shipping information",
+      "COUNTRY": "Country",
+      "POSTAL-CODE": "Zip/Postal code",
+      "CALCULATE-SHIPPING": "Calculate shipping",
+      "TOTAL-AMOUNT": " Total amount",
+      "ABOUT-TAXES": "Taxes and shipping calculated at checkout",
+      "CHECKOUT": "Checkout"
+    },
+    "PRODUCT":{
+      "BRAND": "Brand:",
+      "AVAILABILITY": "Availability:",
+      "IN-STOCK": "In stock",
+      "OUT-OF-STOCK": "out of stock",
+      "BUY-NOW": "BUY NOW",
+      "ADD-TO-CART": "ADD TO CART",
+      "DESCRIPTION": "Description",
+      "ADDITIONAL-INFO": "Additional information",
+      "VENDOR": "Vendor:",
+      "VENDOR-NAME": "salford Co.",
+      "RELATED-PRODUCT": "Related product"
     },
     "FOOTER":{
       "INFO": "The place where you can find copper artifacts.",

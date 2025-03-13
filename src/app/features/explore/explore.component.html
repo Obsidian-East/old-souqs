@@ -3,7 +3,7 @@
 <section id="content">
     <article class="hero">
         <div class="hero-container">
-            <p class="hero-title">Shop the Past: Our Antique Collection</p>    
+            <p class="hero-title">{{ 'EXPLORE.HERO' | translate }}</p>    
         </div>
     </article>
 
@@ -12,7 +12,7 @@
             <div class="filters-container">
                 <!-- categories -->
                 <div class="filter-item-container">
-                    <p class="headline">Categories</p>
+                    <p class="headline">{{ 'EXPLORE.CATEGORIES' | translate }}</p>
                     
                     <div class="category-item" *ngFor="let category of categories; let i = index">
                         <input
@@ -36,12 +36,12 @@
 
                 <!-- filter section -->
                  <div  class="filter-item-container">
-                    <p class="headline">Filter</p>
-                    <p class="text">{{totalCount}} products</p>
+                    <p class="headline">{{ 'EXPLORE.FILTER' | translate }}</p>
+                    <p class="text">{{totalCount}} {{ 'EXPLORE.PRODUCTS' | translate }}</p>
                     <div class="filter-buttons-container">
                         <button class="filter-button">0.00$ - 225.00$  &nbsp; x</button>
-                        <button class="filter-button">In stock (10) &nbsp; x</button>
-                        <button class="filter-button">Clear all</button>
+                        <button class="filter-button">{{ 'EXPLORE.IN-STOCK' | translate }} (10) &nbsp; x</button>
+                        <button class="filter-button">{{ 'EXPLORE.CLEAR-ALL' | translate }}</button>
                     </div>
                     
                 </div>
@@ -50,10 +50,10 @@
                  <div class="line"></div>
 
                  <div class="filter-item-container">
-                    <p class="headline">Availability</p>
+                    <p class="headline">{{ 'EXPLORE.AVAILABILITY' | translate }}</p>
                     <div class="text-container">
-                        <p class="text">{{selectednumber}} selected </p>
-                        <button class="reset-button">Reset</button>
+                        <p class="text">{{selectednumber}} {{ 'EXPLORE.SELECTED' | translate }} </p>
+                        <button class="reset-button">{{ 'EXPLORE.RESET' | translate }}</button>
                     </div>
                     <div class="category-item">
                         <input id="instock" type="checkbox"
@@ -61,7 +61,7 @@
                         (change)="toggleAvailability('instock')"/>
                         <label for="instock"  [class.checked]="selectedAvailability === 'instock'">
                             <span class="category-info">
-                                <span> In stock </span> 
+                                <span> {{ 'EXPLORE.IN-STOCK' | translate }} </span> 
                                 <span>({{totalCountInStock}})</span>
                             </span>
                         </label>
@@ -72,7 +72,7 @@
                         (change)="toggleAvailability('outofstock')"/>
                         <label for="outofstock" [class.checked]="selectedAvailability === 'outofstock'">
                             <span class="category-info">
-                                <span> Out of stock </span> 
+                                <span> {{ 'EXPLORE.OUT-OF-STOCK' | translate }} </span> 
                                 <span>({{totalCountOfOutStock}})</span>
                             </span>
                         </label>
@@ -84,8 +84,8 @@
                   <div class="filter-item-container">
                     <p class="headline">Price</p>
                     <div class="text-container">
-                        <p class="text"> The highest price is {{maxPrice}} </p>
-                        <button class="reset-button">Reset</button>
+                        <p class="text"> {{ 'EXPLORE.HIGHEST-PRICE' | translate }} {{maxPrice}} </p>
+                        <button class="reset-button">{{ 'EXPLORE.RESET' | translate }}</button>
                     </div>
 
                     <!-- try price -->
@@ -127,7 +127,7 @@
                       
                     <div class="inputs-container">
                         <div class="price-item">
-                            <p class="subtitle">From</p>
+                            <p class="subtitle">{{ 'EXPLORE.FROM' | translate }}</p>
                             <span class="dollar-input-container">
                                 <p class="dollar-container">$</p>
                                 <input class="price-input" type="number" [value]="minValue" (input)="updateMinValue($event)"/>
@@ -137,7 +137,7 @@
                         <div class="minus"> - </div>
                             
                         <div class="price-item">
-                            <p class="subtitle">To</p>
+                            <p class="subtitle">{{ 'EXPLORE.TO' | translate }}</p>
                             <span class="dollar-input-container">
                                 <p class="dollar-container">$</p>
                                 <input class="price-input" type="number" [value]="maxValue" (input)="updateMaxValue($event)"/>
@@ -154,7 +154,7 @@
     
             <!-- products section -->
              <div class="products-container">
-                <p class="headline">Products({{totalCount}})</p>
+                <p class="headline">{{ 'EXPLORE.PRODUCTS' | translate }} ({{totalCount}})</p>
 
                 <div class="products-hero"></div>
 
@@ -170,7 +170,7 @@
                     </div>
 
                     <div class="sort-container">
-                        <p class="sort-title">Sort by:</p>
+                        <p class="sort-title">{{ 'EXPLORE.SORT-BY' | translate }}</p>
                         <select id="dropdown" (change)="onSelect($event)">
                             <option *ngFor="let item of ['Featured', 'Best selling', 'Alphabetically, A-Z', 'Alphabetically, Z-A', 'Price, low to high', 'Price, high to low', 'Date, new to old', 'Date, old to new']"
                                     [value]="item"
@@ -223,7 +223,7 @@
                                 </div>
                             </div>
                             <div class="add-to-cart-button">
-                                <p>{{'HOMEPAGE.ADD-TO-CART' | translate }}</p>
+                                <p>{{'EXPLORE.ADD-TO-CART' | translate }}</p>
                             </div>
                         </div>
                     </div>
@@ -270,7 +270,7 @@
                                    
                                 
                                 <div class="add-to-cart-button-ul" >
-                                    <p>{{'HOMEPAGE.ADD-TO-CART' | translate }}</p>
+                                    <p>{{'EXPLORE.ADD-TO-CART' | translate }}</p>
                                 </div>
 
                                 <div class="quick-wishlist-ul">

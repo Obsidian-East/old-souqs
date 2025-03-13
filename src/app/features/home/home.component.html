@@ -4,7 +4,7 @@
         <span>{{'HOMEPAGE.HERO'| translate }}</span>
         <p class="hero-title">{{'HOMEPAGE.HERO-TEXT1'| translate }}</p> 
         <p class="hero-title marcellus-font">{{'HOMEPAGE.HERO-TEXT2'| translate }}</p>
-        <button class="button-beige">{{'HOMEPAGE.SHOP-NOW'| translate }}</button>
+        <button (click)="goToProduct(1)" class="button-beige">{{'HOMEPAGE.SHOP-NOW'| translate }}</button>
     </div>
 </section>
 
@@ -20,6 +20,7 @@
                 <p class="headline marcellus-font"> {{'HOMEPAGE.DESCRIPTION-TITLE' | translate }} </p>
                 <p class="text">{{'HOMEPAGE.DESCRIPTION-TEXT' | translate }}</p>
                 <button class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
+                <!-- <a routerLink="/product/1">Go to Product 1</a> -->
 
             </div>
             <div class="about-years">
@@ -94,7 +95,7 @@
                         </div>
                     </div>
             
-                    <p class="item-name"><a>{{ product.name }}</a></p>
+                    <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
                     <span class="item-price">{{ product.price }}</span>
                 </div>
             </div>
@@ -144,7 +145,7 @@
                         </div>
                     </div>
             
-                    <p class="item-name"><a>{{ product.name }}</a></p>
+                    <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
                     <span class="item-price">{{ product.price }}</span>
                 </div>
             </div>
@@ -230,7 +231,7 @@
                         </div>
                     </div>
                     <div class="deals-item-info">
-                        <p class="item-name">{{ item.name }}</p>
+                        <p class="item-name" (click)="goToProduct(item.id)">{{ item.name }}</p>
                         <p class="item-price">{{ item.price }}</p>
                         <button class="button-beige">{{'HOMEPAGE.ADD-TO-CART' | translate }}</button>
                     </div>

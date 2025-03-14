@@ -6,6 +6,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
@@ -18,7 +19,8 @@ import { FooterComponent } from './footer/footer.component';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    HttpClientModule,
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
   exports: [HeaderComponent, TranslateModule, FooterComponent]

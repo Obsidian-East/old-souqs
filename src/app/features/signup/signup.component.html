@@ -2,41 +2,49 @@
 
 <section class="hero">
     <div class="hero-container">
-        <p class="hero-title">{{ 'SIGNUP.HERO' | translate }}</p>    
+        <p class="hero-title">{{ 'SIGNUP.HERO' | translate }}</p>
     </div>
 </section>
 
-<section id="signup" class="signup" (ngSubmit)="handleSubmit()">
-    <form [formGroup]="signupForm">
+<section id="signup" class="signup">
+    <form [formGroup]="signupForm" (ngSubmit)="handleSubmit()">
 
         <div class="signup-container">
-        
+
             <p class="signup-title">{{ 'SIGNUP.CREATE-ACCOUNT' | translate }}</p>
-             
+
             <!-- <div class="form-content"> -->
-                
             <label for="firstname">{{ 'SIGNUP.FIRST-NAME' | translate }}</label>
-            <input id="firstname" type="text" placeholder="{{ 'SIGNUP.FIRST-NAME' | translate }}" formControlName="firstname" name="firstname">
+            <input id="firstname" type="text" placeholder="{{ 'SIGNUP.FIRST-NAME' | translate }}"
+                formControlName="firstname" name="firstname">
 
             <label for="lastname">{{ 'SIGNUP.LAST-NAME' | translate }}</label>
-            <input id="lastname" type="text" placeholder="{{ 'SIGNUP.LAST-NAME' | translate }}" formControlName="lastname" name="lastname">
+            <input id="lastname" type="text" placeholder="{{ 'SIGNUP.LAST-NAME' | translate }}"
+                formControlName="lastname" name="lastname">
 
             <label for="phonenumber">{{ 'SIGNUP.PHONE-NUMBER' | translate }}</label>
-            <input id="phonenumber" type="number" placeholder="{{ 'SIGNUP.PHONE-NUMBER' | translate }}" formControlName="lastname" name="lastname">
-           
+            <input id="phonenumber" type="text" placeholder="{{ 'SIGNUP.PHONE-NUMBER' | translate }}"
+                formControlName="phonenumber" name="phonenumber">
+
             <label for="location">{{ 'SIGNUP.LOCATION' | translate }}</label>
-            <input id="location" type="text" placeholder="{{ 'SIGNUP.LOCATION' | translate }}" formControlName="lastname" name="lastname">
+            <input id="location" type="text" placeholder="{{ 'SIGNUP.LOCATION' | translate }}"
+                formControlName="location" name="location">
 
             <label for="emailaddress">{{ 'SIGNUP.EMAIL' | translate }}</label>
-            <input id="emailaddress" type="email" placeholder="{{ 'SIGNUP.EMAIL' | translate }}" formControlName="email" name="email">
+            <input id="emailaddress" type="email" placeholder="{{ 'SIGNUP.EMAIL' | translate }}" formControlName="email"
+                name="email">
 
             <label for="password">{{ 'SIGNUP.PASSWORD' | translate }}</label>
-            <input id="password" type="text" placeholder="{{ 'SIGNUP.PASSWORD' | translate }}" formControlName="password" name="password">
+            <input id="password" type="text" placeholder="{{ 'SIGNUP.PASSWORD' | translate }}"
+                formControlName="password" name="password">
+
             <!-- </div> -->
 
-            <button type="submit" class="button-beige" >{{ 'SIGNUP.CREATE-ACCOUNT' | translate }}</button>
+            <button type="submit" class="button-beige">{{ 'SIGNUP.CREATE-ACCOUNT' | translate }}</button>
             <p class="login-text">{{ 'SIGNUP.ACCOUNT-HOLDER' | translate }}</p>
-            <a routerLink="/login"><p class="login-link">{{ 'SIGNUP.LOGIN' | translate }}</p></a>
+            <a routerLink="/login">
+                <p class="login-link">{{ 'SIGNUP.LOGIN' | translate }}</p>
+            </a>
         </div>
     </form>
 </section>

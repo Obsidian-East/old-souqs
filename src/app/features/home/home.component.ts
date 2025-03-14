@@ -1,11 +1,13 @@
 import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
+import { RouterModule, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, SharedModule], 
+  imports: [CommonModule, SharedModule, RouterModule], 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -45,10 +47,10 @@ export class HomeComponent {
       { id: 4, name: "Wall Sconce", price: "$155.00", image: "https://old-souqs.sirv.com/Essential/logo.png" }
     ];
     productsArrived = [
-      { id: 1, name: "Cityscape Painting Arrived", price: "$44.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
-      { id: 2, name: "Golden Globe Arrived", price: "$225.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
-      { id: 3, name: "Cylinder Hat Arrived", price: "$99.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
-      { id: 4, name: "Wall Sconce Arrived", price: "$155.00", image: "https://old-souqs.sirv.com/Essential/logo.png" }
+      { id: 5, name: "Cityscape Painting Arrived", price: "$44.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
+      { id: 6, name: "Golden Globe Arrived", price: "$225.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
+      { id: 7, name: "Cylinder Hat Arrived", price: "$99.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
+      { id: 8, name: "Wall Sconce Arrived", price: "$155.00", image: "https://old-souqs.sirv.com/Essential/logo.png" }
     ];
   
     hoveredItem: any = null; // Tracks the currently hovered product
@@ -64,11 +66,11 @@ export class HomeComponent {
    
     // hide and show product action for deals of the day article
     deals = [
-      { name: 'Old Uniform', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' },
-      { name: 'Cylinder Hat', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' },
-      { name: 'Vintage Boots', price: '$79.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' },
-      { name: 'Leather Gloves', price: '$49.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' }
-  ];
+      { id: 1, name: "Cityscape Painting", price: "$44.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
+      { id: 2, name: "Golden Globe", price: "$225.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
+      { id: 3, name: "Cylinder Hat", price: "$99.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
+      { id: 4, name: "Wall Sconce", price: "$155.00", image: "https://old-souqs.sirv.com/Essential/logo.png" }
+    ];
   hoveredDeal: any = null; // Tracks the currently hovered product
   
     showProductActionsInDeals(product: any): void {
@@ -149,6 +151,14 @@ export class HomeComponent {
       
       subscribe() {
         this.showSubscribe = false;        
+      }
+
+
+      // to send the product id to the product page when clicking on a product name
+
+      constructor(private router: Router) {}
+      goToProduct(id: number) {
+        this.router.navigate(['/product'], { state: { productId: id } });
       }
 
 }

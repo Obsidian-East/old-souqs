@@ -18,26 +18,45 @@ export class SignupComponent {
     firstname: new FormControl('', Validators.required),
     lastname: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phonenumber: new FormControl('', Validators.required),
+    phonenumber: new FormControl('', [
+      Validators.required,
+    ]),
     location: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
+    
   });
+
+  showPassword = false;
+  Freason = "";
 
   constructor(private authService: AuthService, private router: Router) { }  // Inject Router
 
-  handleSubmit() {
-    if (this.signupForm.valid) {
-      this.authService.signup(this.signupForm.value).subscribe(
-        (response) => {
-          console.log('Signup successful', response);
-          alert('Signup successful!');
-          this.router.navigate(['/profile']);  // Redirect to profile component
-        },
-        (error) => {
-          console.error('Signup failed', error);
-          alert('Signup failed. Please try again.');
-        }
-      );
-    }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
+
+  handleSubmit() {
+    console.log('Submitting:', this.signupForm.value); // Debugging log
+  
+    this.authService.signup(this.signupForm.value).subscribe(
+      (response) => {
+        alert('Signup successful!');
+        this.router.navigate(['/profile']); // Redirect to profile component
+      },
+      (error) => {
+        if (error.error) {
+          // Set detailed error message from the backend
+          this.Freason = typeof error.error === 'string' ? error.error : 'Signup failed. Please try again.';
+        } else {
+          this.Freason = 'An unexpected error occurred.';
+        }
+      }
+    );
+  }
+  
+  
+  
 }

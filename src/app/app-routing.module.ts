@@ -9,6 +9,8 @@ import { ExploreComponent } from './features/explore/explore.component';
 import { CartComponent } from './features/cart/cart.component';
 import { ProductComponent } from './features/product/product.component';
 import { ProfileComponent } from './features/profile/profile.component';
+import { SearchComponent } from './features/search/search.component';
+import { WishlistComponent } from './features/wishlist/wishlist.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,7 +22,9 @@ const routes: Routes = [
   { path: 'explore', component: ExploreComponent},
   { path: 'cart', component: CartComponent},
   { path: 'product', component: ProductComponent },
-  { path: 'profile', component: ProfileComponent}
+  { path: 'profile', component: ProfileComponent},
+  { path: 'search', component: SearchComponent},
+  { path: 'wishlist', component: WishlistComponent}
 
 ];
 

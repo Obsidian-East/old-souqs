@@ -133,8 +133,8 @@ export class HomeComponent {
       }
 
       // email subscription 
-      subscribed = true;
-      showSubscribe = true;
+      subscribed = false;
+      showSubscribe = false;
       email = '';
       
       ngOnInit() {

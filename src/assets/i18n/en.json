@@ -11,7 +11,12 @@
       "PRODUCT-MESSAGE1": "There are ",
       "PRODUCT-MESSAGE2": " products",
       "VIEW-CART": "View Cart",
-      "CHECKOUT": "Checkout"
+      "CHECKOUT": "Checkout",
+      "SEARCH-INPUT": "Find our search",
+      "SEARCH-TEXT1": "Your search for",
+      "SEARCH-TEXT2": "revealed the following.",
+      "SEE-ALL-RESULTS": "See all results",
+      "NO-RESULTS": "No results."
     },
     "HOMEPAGE": {
       "HERO": "Welcome to Antique Shop",
@@ -163,6 +168,21 @@
       "VENDOR-NAME": "salford Co.",
       "RELATED-PRODUCT": "Related product"
     },
+
+    "SEARCH":{
+      "HERO1": "Search :",
+      "HERO2": "results found",
+      "HEADLINE1": "Your search for",
+      "HEADLINE2": "revealed the following:",
+      "ADD-TO-CART": "ADD TO CART",
+      "NO-PRODUCTS": "No products found"
+    },
+    "WISHLIST":{
+      "HERO": "Whishlist",
+      "EMPTY-CART": "Your wishlist is currently empty!",
+      "CONTINUE-SHOPPING": "Continue shopping",
+      "HERE": "here"
+
     "PROFILE":{
       "HERO":"Account",
       "WELCOME": "Welcome",
@@ -183,6 +203,7 @@
       "LOCATION": "Location",
       "PHONENB": "Phone number",
       "UPDATE": "Update"
+
     },
     "FOOTER":{
       "INFO": "The place where you can find copper artifacts.",

@@ -7,17 +7,21 @@
 </section>
 
 <section id="login" class="login">
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
 
         <div class="login-container">
         
             <p class="login-title">{{ 'LOGIN.LOGIN' | translate }}</p>
 
             <label for="emailaddress">{{ 'LOGIN.EMAIL' | translate }}</label>
-            <input id="emailaddress" type="email" placeholder="{{ 'LOGIN.EMAIL' | translate }}">
+            <input id="emailaddress" type="email" placeholder="{{ 'LOGIN.EMAIL' | translate }}"
+            formControlName="email">
 
             <label for="password">{{ 'LOGIN.PASSWORD' | translate }}</label>
-            <input id="password" type="text" placeholder="{{ 'LOGIN.PASSWORD' | translate }}">
+            <input id="password" [type]="showPassword ? 'text' : 'password'" placeholder="{{ 'LOGIN.PASSWORD' | translate }}"
+            formControlName="password">
+            <button type="button" (click)="togglePasswordVisibility()">Show/Hide</button>
+            <span *ngIf="Lreason" style="color: red;">{{ Lreason }}</span>
 
             <button type="submit" class="button-beige" >{{ 'LOGIN.SIGNIN' | translate }}</button>
             <p class="forgot-password">{{ 'LOGIN.FORGOT-PASSWORD' | translate }}</p>

@@ -1,1 +1,41 @@
-<p>profile works!</p>
+<app-header></app-header>
+
+<section id="content">
+    <article class="hero">
+        <div class="hero-container">
+            <p class="hero-title">{{ 'PROFILE.HERO' | translate }}</p>    
+        </div>
+    </article>
+    <article id="account">
+        <div class="account-page">
+            <p class="welcome-title">{{ 'PROFILE.WELCOME' | translate }}</p>
+            <p class="user-name">{{userData.firstname}}  {{userData.lastname}}</p>
+
+            <div class="account-info-grid">
+                <div class="info-item">
+                    <p class="subtitle">{{ 'PROFILE.MY-ACCOUNT' | translate }}</p>
+                    <button (click)="goToWishlist()">{{ 'PROFILE.WISHLIST' | translate }}(4)</button>
+                    <button (click)="goToEditProfile()">{{ 'PROFILE.EDIT-PROFILE' | translate }}</button>
+                    <button (click)="Logout()">{{ 'PROFILE.LOGOUT' | translate }}</button>
+                </div>
+                <div class="info-item">
+                    <span class="subtitle">{{ 'PROFILE.ACCOUNT-DETAILS' | translate }}</span>
+                    <span class="text">{{userData.firstname}}  {{userData.lastname}}</span>
+                    <span class="text"> {{userData.email}}</span>
+                    <span class="text">{{userData.address}}</span>
+                </div>
+            </div>
+
+            <div class="order-history-container">
+                <p class="subtitle">{{ 'PROFILE.ORDER-HISTORY' | translate }}</p>
+
+                <div class="orders-container">
+                    <p class="no-orders-text" *ngIf="!orderExists">{{ 'PROFILE.NO-ORDERS' | translate }}</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+</section>    
+
+<app-footer></app-footer>

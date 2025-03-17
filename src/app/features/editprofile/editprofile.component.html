@@ -1,0 +1,59 @@
+<app-header></app-header>
+
+<section id="content">
+    <article class="hero">
+        <div class="hero-container">
+            <p class="hero-title">{{ 'EDITPROFILE.HERO' | translate }}</p>    
+        </div>
+    </article>
+
+    <article id="edit-profile">
+        <div class="edit-profile-page">
+            <p class="title">{{ 'EDITPROFILE.TITLE' | translate }}</p>
+            
+            <div class="profile-container">
+                <div class="profile-picture">
+                  <img [src]="profileImage" alt="Profile Photo" />
+                </div>
+                
+                <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" hidden />
+                <label for="fileInput" class="upload-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M149.1 64.8L138.7 96 64 96C28.7 96 0 124.7 0 160L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64l-74.7 0L362.9 64.8C356.4 45.2 338.1 32 317.4 32L194.6 32c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" fill="cuttentColor"/>
+                    </svg>
+                </label>
+                
+                <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+              </div>
+              
+
+            <div class="button-container">
+                <button (click)="goToProfile()" class="to-profile">{{ 'EDITPROFILE.RETURN' | translate }}</button>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-item">
+                    <label for="firstname">{{ 'EDITPROFILE.FIRSTNAME' | translate }}</label>
+                    <input id="firstname" type="text" placeholder="{{userData.firstname}}" />
+
+                    <label for="location">{{ 'EDITPROFILE.LOCATION' | translate }}</label>
+                    <input id="location" type="text" placeholder="{{userData.location}}" />
+                </div>
+                <div class="grid-item">
+                    <label for="lastname">{{ 'EDITPROFILE.LASTNAME' | translate }}</label>
+                    <input id="lastname" type="text" placeholder="{{userData.lastname}}" />
+
+                    <label for="phonenumber">{{ 'EDITPROFILE.PHONENB' | translate }}</label>
+                    <input id="phonenumber" type="text" placeholder="{{userData.phonenumber}}" />
+                </div>
+            </div>
+
+            <div class="update-container">
+                <button  class="button-beige">{{ 'EDITPROFILE.UPDATE' | translate }}</button>
+            </div>
+        </div>
+    </article>
+
+</section>
+
+<app-footer></app-footer>

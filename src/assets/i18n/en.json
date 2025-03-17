@@ -163,6 +163,27 @@
       "VENDOR-NAME": "salford Co.",
       "RELATED-PRODUCT": "Related product"
     },
+    "PROFILE":{
+      "HERO":"Account",
+      "WELCOME": "Welcome",
+      "MY-ACCOUNT": "My account",
+      "WISHLIST": "Wishlist",
+      "EDIT-PROFILE": "Edit profile",
+      "LOGOUT": "Logout",
+      "ACCOUNT-DETAILS": "Account details",
+      "ORDER-HISTORY": "Order history",
+      "NO-ORDERS": "You haven't placed any orders yet"
+    },
+    "EDITPROFILE":{
+      "HERO": "Edit your profile",
+      "TITLE": "Your Profile",
+      "RETURN": "Return to account details",
+      "FIRSTNAME": "First name",
+      "LASTNAME": "Last name",
+      "LOCATION": "Location",
+      "PHONENB": "Phone number",
+      "UPDATE": "Update"
+    },
     "FOOTER":{
       "INFO": "The place where you can find copper artifacts.",
       "HOME": "Home",

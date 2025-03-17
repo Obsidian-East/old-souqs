@@ -1,0 +1,140 @@
+section{
+    margin: 0 0;
+}
+article {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero{
+    display: flex;
+    align-items: center; /* Centers items vertically */
+    height: 30vh; 
+    width: 100%;
+    /* height: 30rem; */
+    background: url(../../assets/create-account-hero.jpg) lightgray 50% / cover no-repeat;
+}
+.hero-container{
+    margin:0 4rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-container span{
+    color: var(--extra-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 400;
+}
+.hero-title{
+    color: var(--extra-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    margin: 0;
+}
+.edit-profile-page{
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 5rem 0;
+}
+
+.title{
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    margin: 1rem 0;
+}
+
+.button-container{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+}
+.to-profile{
+    cursor: pointer;
+    color: var(--font-color-primary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    margin: 0;
+    border: 0;
+    background: none;
+    text-decoration: underline;
+}
+
+.grid-container{
+    width: 80vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 2.5rem;
+    margin: 1rem 0;
+}
+.grid-item{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: left;
+}
+label{
+    text-align: left;
+    width: 90%;
+    margin-top: 0.75rem;
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 500;
+    font-style: normal;
+}
+input{
+    text-align: left;
+    width: 95%;
+    height: 2.25rem;
+    border: 0;
+    margin: 0.75rem 0;
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+    padding: 0.5rem 0.75rem;
+    /* background: var(--background-color-body); */
+}
+
+.update-container{
+    width: 80vw;
+    text-align: right;
+}
+
+.button-beige{
+    background-color: var(--font-color-primary);
+    border: 0px;
+    padding: 0.75rem 1.25rem;
+    color: var(--extra-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    margin: 1rem 0;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.button-beige:hover{
+    background-color: transparent;
+    color: var(--font-color-primary);
+    border: 2px solid var(--font-color-primary);
+}
+

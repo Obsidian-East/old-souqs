@@ -35,8 +35,11 @@
                 name="email">
 
             <label for="password">{{ 'SIGNUP.PASSWORD' | translate }}</label>
-            <input id="password" type="text" placeholder="{{ 'SIGNUP.PASSWORD' | translate }}"
-                formControlName="password" name="password">
+            <input id="password" [type]="showPassword ? 'text' : 'password'"
+                placeholder="{{ 'SIGNUP.PASSWORD' | translate }}" formControlName="password" name="password">
+            <button type="button" (click)="togglePasswordVisibility()">Show/Hide</button>
+            <span *ngIf="Freason" style="color: red;">{{ Freason }}</span>
+
 
             <!-- </div> -->
 

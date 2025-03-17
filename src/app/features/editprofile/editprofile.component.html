@@ -1,0 +1,45 @@
+<app-header></app-header>
+
+<section id="content">
+    <article class="hero">
+        <div class="hero-container">
+            <p class="hero-title">{{ 'EDITPROFILE.HERO' | translate }}</p>    
+        </div>
+    </article>
+
+    <article id="edit-profile">
+        <div class="edit-profile-page">
+            <p class="title">{{ 'EDITPROFILE.TITLE' | translate }}</p>
+            
+            
+
+            <div class="button-container">
+                <button (click)="goToProfile()" class="to-profile">{{ 'EDITPROFILE.RETURN' | translate }}</button>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-item">
+                    <label for="firstname">{{ 'EDITPROFILE.FIRSTNAME' | translate }}</label>
+                    <input id="firstname" type="text" placeholder="{{userData.firstname}}" />
+
+                    <label for="location">{{ 'EDITPROFILE.LOCATION' | translate }}</label>
+                    <input id="location" type="text" placeholder="{{userData.location}}" />
+                </div>
+                <div class="grid-item">
+                    <label for="lastname">{{ 'EDITPROFILE.LASTNAME' | translate }}</label>
+                    <input id="lastname" type="text" placeholder="{{userData.lastname}}" />
+
+                    <label for="phonenumber">{{ 'EDITPROFILE.PHONENB' | translate }}</label>
+                    <input id="phonenumber" type="text" placeholder="{{userData.phonenumber}}" />
+                </div>
+            </div>
+
+            <div class="update-container">
+                <button  class="button-beige">{{ 'EDITPROFILE.UPDATE' | translate }}</button>
+            </div>
+        </div>
+    </article>
+
+</section>
+
+<app-footer></app-footer>

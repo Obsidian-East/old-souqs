@@ -1,0 +1,17 @@
+{
+  "routes": [
+    "/",
+    "/aboutus",
+    "/cart",
+    "/contact",
+    "/editprofile",
+    "/explore",
+    "/home",
+    "/login",
+    "/product",
+    "/profile",
+    "/search",
+    "/signup",
+    "/wishlist"
+  ]
+}

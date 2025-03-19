@@ -12,6 +12,7 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { SearchComponent } from './features/search/search.component';
 import { WishlistComponent } from './features/wishlist/wishlist.component';
 import { EditprofileComponent } from './features/editprofile/editprofile.component';
+import { CheckoutComponent } from './features/checkout/checkout.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'search', component: SearchComponent},
   { path: 'wishlist', component: WishlistComponent},
   { path: 'editprofile', component: EditprofileComponent},
+  { path: 'checkout', component: CheckoutComponent}
 ];
 
 @NgModule({

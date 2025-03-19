@@ -68,6 +68,8 @@
         </div>
     </div>
 </div>
+
+<!-- cart section -->
 <div *ngIf="isCartVisible" id="cart-container" class="cart-container">
     <div class="cart-box">
         <button class="close-btn" (click)="closeCart()">&times;</button>
@@ -113,7 +115,7 @@
             </div>
             <div class="line"></div>
             <button class="button-beige" routerLink="/cart">{{ 'HEADER.VIEW-CART' | translate }}</button>
-            <button class="button-beige">{{ 'HEADER.CHECKOUT' | translate }}</button>
+            <button class="button-beige" routerLink="/checkout">{{ 'HEADER.CHECKOUT' | translate }}</button>
         </span>
     </div>
 </div>

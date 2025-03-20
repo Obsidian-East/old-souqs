@@ -66,16 +66,24 @@ constructor( private router: Router,private el: ElementRef) { }
     { id: 1, name: 'Old Uniform', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
     { id: 2, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
     { id: 3, name: 'Vintage Boots', price: 79.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-    { id: 4, name: 'Leather Gloves', price: 49.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 6 },
-    { id: 5, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 5 },
+    { id: 4, name: 'Leather Gloves', price: 49.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 2 },
+    { id: 5, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 2 },
     { id: 6, name: 'Vintage Boots', price: 79.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 }
   ];
-  totalAmount =   this.products.reduce((sum, product) => sum + this.getTotalPrice(product), 0);
- 
+  shippingPrice = 0.00;
+  taxes = 50.00
+  subtotalAmount =   this.products.reduce((sum, product) => sum + this.getTotalPrice(product), 0);
+  totalAmount = (this.subtotalAmount + this.taxes + this.shippingPrice).toFixed(2);
 
   getTotalPrice(product: any) {
     return product.price * product.quantity;
   }
 
+  // hide and display card info
+  paymentMethod: string = ''; // Default selection
+
+  selectPaymentMethod(method: string) {
+    this.paymentMethod = method;
+  }
 
 }

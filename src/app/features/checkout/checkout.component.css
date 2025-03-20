@@ -186,8 +186,30 @@ section{
     transform: translateY(-12px) translateX(-5px) scale(0.95);
     transition: 0.3s ease-in-out;
   }
+.payment-method-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.card-payment{
+    width: 100%;
+}
+input[type=radio]{
+    cursor: pointer;
+    accent-color: var(--font-color-secondary);
+}
 
 
+  .payment-name{
+    color: var(--font-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+  }
   /* button black */
 
   .button-black{
@@ -217,6 +239,7 @@ section{
     font-style: normal;
     font-weight: 400;
 }
+
 
 /* right part   order info */
 

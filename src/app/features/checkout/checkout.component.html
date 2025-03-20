@@ -79,6 +79,45 @@
                     <p class="title">Payment</p>
                     <p class="note" >All transactions are secure and encrypted</p>
 
+                    <div class="payment-method-container">
+                        <label class="payment-name">
+                            <input type="radio" name="payment" value="card" (change)="selectPaymentMethod('card')" [checked]="paymentMethod === 'card'" />
+                            Pay by Card
+                        </label>
+                        
+                        <label class="payment-name">
+                            <input type="radio" name="payment" value="cod" (change)="selectPaymentMethod('cod')" [checked]="paymentMethod === 'cod'" />
+                            Cash on Delivery
+                        </label>
+                        
+                          <!-- Card Payment Section -->
+                        <div *ngIf="paymentMethod === 'card'" class="card-payment">
+                            <h4 class="subtitle">Enter Card Details</h4>
+                        
+                            <div class="formField">
+                                <input required="" type="text"/>
+                                <span>Card holder full name </span>
+                            </div>
+                            <div class="formField">
+                                <input required="" type="number"  maxlength="19"/>
+                                <span>Card number</span>
+                            </div>
+    
+                            <div class="grid-input">
+                                <div class="formField">
+                                    <input required="" type="text"  maxlength="5"/>
+                                    <span>Expiry date</span>
+                                </div>
+                                <div class="formField">
+                                    <input required="" type="number"  maxlength="3"/>
+                                    <span>CVV </span>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+                    
 
                     <button class="button-black">Pay now</button>
                 </div> 
@@ -113,8 +152,8 @@
                     <div class="line"></div>
 
                     <div class="order-details">
-                        <p class="order-subtitle">Subtotal • 7 items</p>
-                        <p class="order-subtitle">$ 316.00</p>
+                        <p class="order-subtitle">Subtotal • {{products.length}} items</p>
+                        <p class="order-subtitle">$ {{subtotalAmount.toFixed(2)}}</p>
                     </div>
 
                     <div class="order-details">
@@ -124,12 +163,12 @@
 
                     <div class="order-details">
                         <p class="order-subtitle">Estimated taxes</p>
-                        <p class="order-subtitle">$ 50.56</p>
+                        <p class="order-subtitle">$ {{taxes.toFixed(2)}}</p>
                     </div>
 
                     <div class="order-details">
                         <p class="title">Total</p>
-                        <p class="title">$ 366.00</p>
+                        <p class="title">$ {{totalAmount}}</p>
                     </div>
 
                 </div>

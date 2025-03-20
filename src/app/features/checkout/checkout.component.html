@@ -1,0 +1,180 @@
+<section>
+    <article id="header" class="header-article">
+        <div class="header-container">
+            <img (click)="goToHome()" src="https://old-souqs.sirv.com/Essential/logo.png" />
+            <svg (click)="goToCart()" xmlns="http://www.w3.org/2000/svg" width="32.402" height="32" viewBox="0 0 32.402 32" id="cart">
+                <path d="M30 8H6c-.156 0-.292.054-.438.088l-.776-3.316A1 1 0 0 0 3.812 4H.942a1 1 0 0 0 0 2H3.02l1.242 5.312L6 20c0 .072.034.134.042.204l-1.018 4.58A.997.997 0 0 0 6 26h22.688a1 1 0 0 0 0-2H7.248l.458-2.06c.1.016.19.06.294.06h18.23c1.104 0 1.77-.218 2.302-1.5l3.248-9.964C32.344 8.75 31.106 8 30 8zM6 30a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0zm18 0a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0z"></path>
+              </svg>
+        </div>
+    </article>
+
+    <div class="line"></div>
+
+    <article id="checkout">
+        <div class="grid-container">
+            <div class="delivery-info-container">
+
+                <div class="delivery-info-item">
+                    <p class="title">Account</p>
+                    <div class="formField">
+                        <input required="" type="text"/>
+                        <span>Email or Phone number</span>
+                    </div>
+                    <span class="email-checkbox">
+                        <input id="email" type="checkbox" /> <label for="email"> Email me with news and offers</label>
+                    </span>
+                </div>
+
+                <div class="delivery-info-item">
+                    <p class="title">Delivery</p>
+                    <div class="formField">
+                        <input required="" type="text"/>
+                        <span>Country</span>
+                    </div>
+
+                    <div class="grid-input">
+                        <div class="formField">
+                            <input required="" type="text"/>
+                            <span>First name</span>
+                        </div>
+                        <div class="formField">
+                            <input required="" type="text"/>
+                            <span>Last name</span>
+                        </div>
+                    </div>
+
+                    <div class="formField">
+                        <input required="" type="text"/>
+                        <span>Address</span>
+                    </div>
+
+                    <div class="formField">
+                        <input required="" type="text"/>
+                        <span>Apartment, suite, etc.</span>
+                    </div>
+
+                    <div class="grid-input">
+                        <div class="formField">
+                            <input required="" type="text"/>
+                            <span>City</span>
+                        </div>
+                        <div class="formField">
+                            <input required="" type="text"/>
+                            <span>Postal code (optional) </span>
+                        </div>
+                    </div>
+
+                    <span class="email-checkbox">
+                        <input id="email" type="checkbox" /> <label for="email"> Save this information for next time</label>
+                    </span>
+                    <p class="subtitle">Shipping method</p>
+                    <div class="shipping-container">
+                        <p class="text">Standard</p>
+                        <p class="text" style="font-weight: 700;">FREE</p>
+                    </div>
+                
+                </div>
+
+                <div class="delivery-info-item">
+                    <p class="title">Payment</p>
+                    <p class="note" >All transactions are secure and encrypted</p>
+
+                    <div class="payment-method-container">
+                        <label class="payment-name">
+                            <input type="radio" name="payment" value="card" (change)="selectPaymentMethod('card')" [checked]="paymentMethod === 'card'" />
+                            Pay by Card
+                        </label>
+                        
+                        <label class="payment-name">
+                            <input type="radio" name="payment" value="cod" (change)="selectPaymentMethod('cod')" [checked]="paymentMethod === 'cod'" />
+                            Cash on Delivery
+                        </label>
+                        
+                          <!-- Card Payment Section -->
+                        <div *ngIf="paymentMethod === 'card'" class="card-payment">
+                            <h4 class="subtitle">Enter Card Details</h4>
+                        
+                            <div class="formField">
+                                <input required="" type="text"/>
+                                <span>Card holder full name </span>
+                            </div>
+                            <div class="formField">
+                                <input required="" type="number"  maxlength="19"/>
+                                <span>Card number</span>
+                            </div>
+    
+                            <div class="grid-input">
+                                <div class="formField">
+                                    <input required="" type="text"  maxlength="5"/>
+                                    <span>Expiry date</span>
+                                </div>
+                                <div class="formField">
+                                    <input required="" type="number"  maxlength="3"/>
+                                    <span>CVV </span>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+                    
+
+                    <button class="button-black">Pay now</button>
+                </div> 
+                
+                <div class="delivery-info-item">
+                    <div class="line"></div>
+                <p class="note">All rights reserved salford co.</p>
+                </div>
+                
+            </div>
+
+            
+            <div class="order-info-container" id="rightDiv">
+                <div class="right-box" id="rightBox">
+                    <!-- product content as scroll view -->
+                    <div class="all-products-container">
+                        <div *ngFor="let product of products" class="products-container">
+
+                            <div class="cart-item">
+                                <div class="image-container">
+                                    <span class="quantity">{{product.quantity}}</span>
+                                    <img src="{{product.image}}" alt="Wall sconce">
+                                </div>
+                                <div class="item-details">
+                                    <p class="item-name">{{product.name}}</p>
+                                    <p class="item-price">$ {{product.price.toFixed(2)}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+
+                    <div class="order-details">
+                        <p class="order-subtitle">Subtotal • {{products.length}} items</p>
+                        <p class="order-subtitle">$ {{subtotalAmount.toFixed(2)}}</p>
+                    </div>
+
+                    <div class="order-details">
+                        <p class="order-subtitle">Shipping</p>
+                        <p class="order-subtitle">Free</p>
+                    </div>
+
+                    <div class="order-details">
+                        <p class="order-subtitle">Estimated taxes</p>
+                        <p class="order-subtitle">$ {{taxes.toFixed(2)}}</p>
+                    </div>
+
+                    <div class="order-details">
+                        <p class="title">Total</p>
+                        <p class="title">$ {{totalAmount}}</p>
+                    </div>
+
+                </div>
+              </div>
+
+        </div>
+    </article>
+
+</section>

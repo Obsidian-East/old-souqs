@@ -65,10 +65,15 @@ section{
 }
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: 1fr 2fr;
     gap: 10px;
     padding: 10px;
     width: 80vw;
+}
+.grid-tablet-screen{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
 .grid-item {
@@ -262,4 +267,349 @@ iframe {
     display: flex;
     align-items: flex-start;
     justify-content: center;
+}
+
+
+
+/* Responsive Design */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero {
+        height: 25vh;
+        text-align: center;
+    }
+
+    .hero-container {
+        margin: 0 2rem;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .explore-content {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 451px) and (max-width: 768px) {
+
+    .hero{
+        height: 25vh; 
+    }
+    .hero-title{
+       font-size: 1.6rem;
+    } 
+    /* most buttons style */
+    .button-beige{
+        font-size: 1rem;
+        margin: 0.5rem 0;   
+    }
+    
+    /* section 1 : grid style */
+    
+    .about-intro{
+        margin: 3rem 0;
+    }
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        width: 95vw;
+    }
+    
+    .grid-item {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .grid-tablet-screen{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }   
+    /* headline and paragraphs */
+    .headline{
+        margin:0.5rem 0;
+        font-size: 1.6rem;
+        line-height: 1.7rem;
+    } 
+    .marcellus-font{
+       margin-top: 0rem;
+        margin-bottom: 1rem;
+    }
+    .text{
+        margin:0.5rem 0 0 0;
+        font-size: 0.925rem;
+    }
+    .intro-img{
+        width: 40vw;
+        height:30rem;
+    }
+    .intro-features{
+        width: 44vw;
+       
+    }
+    
+    .intro-features svg , .intro-features path {
+        width: 2.5rem;
+        height:2.5rem;
+        margin-top: 0.5rem;
+    }
+    .intro-feature-title{
+        font-size: 1rem;
+    }
+    
+    /* features style  */
+    .features-section{
+        padding: 4rem 0;        
+    }
+    
+    .feature{    
+        width: 18.4rem;
+    }
+    .feature-title{
+        font-size: 1rem;        
+        margin-bottom: -0.5rem;
+    } 
+    .feature svg, .feature path{
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    
+    
+    /* informations style */
+    .info-article{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 2rem;
+    }
+    .infos-container{
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        flex-wrap: wrap;
+        width: 89vw;
+        margin: 5rem 0;
+        gap: 1rem;
+    }
+    .info{
+        width: 40vw;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    /* explore section */
+    .explore-container{
+        justify-content: center;
+       padding: 3rem 0;
+    
+    }
+    .explore-content{
+        width: 80%;
+        padding: 2rem;
+        margin-right: 0rem;
+    }
+    
+    /* location style */
+    .location{
+        width: 100%;
+        padding: 1rem 0;
+    }
+    .location-section {
+        max-width:95vw;
+        margin: 10px auto;
+        padding: 0 3rem;
+    }
+    .location-section h2 {
+        font-size: 1.6rem;
+    }
+    .address, .hours {
+        font-size: 0.95rem;
+    }
+    .location-info svg, .location-info path{
+        margin-top: 0.5rem;
+    }
+    iframe {
+        height: 250px;
+    }
+    .location-info{        
+        gap: 3rem;
+    }
+    
+}
+
+@media (min-width: 0px) and (max-width: 450px) {
+    .hero{
+       height: 20vh; 
+        /* width: 100%; */
+    }
+    .hero-container{
+        margin:0 1rem;
+       
+    }
+    .hero-title{
+        font-size: 1.2rem;
+    }
+   /* section 1 : grid style */
+    
+    .about-intro{
+        margin: 2rem 0;
+    }
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 95vw;
+    }
+    .grid-tablet-screen{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .grid-item {
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    
+    /* headline and paragraphs */
+    .headline{
+        margin:0.5rem 0;
+        font-size: 1.25rem;
+        line-height: 1rem;
+    }
+    .title-mobile{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    
+    .marcellus-font{
+         margin-top: 0.5rem;
+        margin-bottom: 0rem;
+    }
+    .text{
+        margin:0.5rem 0;
+        font-size: 0.85rem;
+        line-height: 1.5rem;
+    }
+    .intro-img{
+        width: 92vw;
+    }
+   
+    
+    .intro-features svg , .intro-features path {
+        width: 2rem;
+        height:2rem;
+        }
+    .intro-feature-title{
+        font-size: 1rem;
+    }
+    
+    /* features style  */
+    .features-section{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 3rem 0;
+    }
+
+    .features-container{
+        display: flex;
+        width: 90%;
+        gap: 2rem;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .feature{
+        width: 19rem;
+        padding:0.5rem 1rem;
+    }
+    .feature-title{
+       font-size: 1rem;        
+        margin-bottom: -0.5rem;
+    }
+    .feature svg, .feature path{
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    /* most buttons style */
+    .button-beige{
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        margin: 0.5rem 0;
+    }
+        
+    /* informations style */
+    .infos-container{
+        flex-direction: column;
+        width: 100%;
+        margin: 3rem 1rem;
+        gap: 0.5rem;
+    }
+    
+    /* explore section */
+    .explore-container{
+       
+        justify-content: center;
+        padding: 3rem 0;
+    }
+    .explore-content{
+        width: 80%;
+        padding: 1rem;
+        margin-right: 0;
+    }
+    
+    /* location style */
+    .location{
+        padding: 2rem 0;
+    }
+    .location-section {
+        max-width: 95vw;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .location-section h2 {
+        font-size: 1.25rem;
+    }
+    .address, .hours {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+    .location-info svg, .location-info path{
+        width: 1rem;
+        height: 1rem;
+        margin-right: 1rem;
+        margin-top: 0.75rem;
+    }
+    iframe {
+        height: 13rem;
+    }
+    .location-info{
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    
 }

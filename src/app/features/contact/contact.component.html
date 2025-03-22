@@ -47,42 +47,42 @@
 
     <article id="contact-form">
         <div class="contact-form">
-            <p>
-                <span class="headline"> Need Some Help</span>
-                <span class="headline marcellus-font"> Get in Reach Now</span>
+            <p class="title-mobile">
+                <span class="headline"> {{ 'CONTACT.TITLE1' | translate }}</span>
+                <span class="headline marcellus-font"> {{ 'CONTACT.TITLE2' | translate }}</span>
             </p>
 	    <form >
 		<div class="grid-container">
 		    <div class="grid-part">
                 <div class="input-form">
-                    <label for="firstname">First name</label>
-                    <input id="firstname" type="text"  placeholder="First name"/>
+                    <label for="firstname">{{ 'CONTACT.FIRST-NAME' | translate }}</label>
+                    <input id="firstname" type="text"  placeholder="{{ 'CONTACT.FIRST-NAME' | translate }}"/>
                 </div>
                 <div class="input-form">
-                    <label for="phonenumber">Phone number</label>
-                        <input id="phonenumber" type="text"  placeholder="Phone number">
+                    <label for="phonenumber"> {{ 'CONTACT.PHONE-NUMBER' | translate }}</label>
+                        <input id="phonenumber" type="text"  placeholder="{{ 'CONTACT.PHONE-NUMBER' | translate }} ">
                 </div>
                 
             </div>
                 
             <div class="grid-part">
                 <div class="input-form">
-                    <label for="lastname">Last name</label>
-                    <input id="lastname" type="text"  placeholder="Last name"/>
+                    <label for="lastname">{{ 'CONTACT.LAST-NAME' | translate }}</label>
+                    <input id="lastname" type="text"  placeholder="{{ 'CONTACT.LAST-NAME' | translate }}"/>
                 </div>
                 <div class="input-form">
-                    <label for="emailaddress">Email address</label>
-                    <input id="emailaddress" type="email"  placeholder="Email address">
+                    <label for="emailaddress">{{ 'CONTACT.EMAIL' | translate }} </label>
+                    <input id="emailaddress" type="email"  placeholder="{{ 'CONTACT.EMAIL' | translate }}">
                 </div>
 		    </div>
 		</div>
 		<div class="message-container">
 		    <div class="input-form">
-                <label for="message">Enter your message</label>
-                <textarea id="message" name="message" class="message-input" placeholder="Enter your message"></textarea>
+                <label for="message">{{ 'CONTACT.MESSAGE' | translate }}</label>
+                <textarea id="message" name="message" class="message-input" placeholder="{{ 'CONTACT.MESSAGE' | translate }}"></textarea>
 		    </div>
 		</div>
-        <button type="submit" class="button-beige" >Submit</button>
+        <button type="submit" class="button-beige" >{{ 'CONTACT.SEND-MESSAGE' | translate }}</button>
 
 	    </form>
         </div>

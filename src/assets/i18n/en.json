@@ -118,7 +118,15 @@
       "INFO2": "Store address",
       "INFO2-TEXT": "Roanoke, VA, USA",
       "INFO3": "Customer email",
-      "INFO3-TEXT": "info@yourdomain.com"
+      "INFO3-TEXT": "info@yourdomain.com",
+      "SEND-MESSAGE": "Send Message",
+      "TITLE1": "Need Some Help",
+      "TITLE2": "Get in Reach Now",
+      "FIRST-NAME": "First name",
+      "PHONE-NUMBER": "Phone number",
+      "LAST-NAME": "Last name",
+      "EMAIL": "Email address",
+      "MESSAGE": "Enter your message"
     },
     "EXPLORE":{
       "HERO": "Shop the Past: Our Antique Collection",

@@ -177,9 +177,6 @@ section{
     font-weight: 400;
     font-style: normal;
     padding: 0.5rem 0.75rem;
-    /* background-color: var(--background-color-body); */
-        /* border: 0.5px solid var(--font-color-paragraph); */
-
 }
 .input-form textarea{
     resize: none;
@@ -194,7 +191,188 @@ section{
     font-weight: 400;
     font-style: normal;
     padding: 0.5rem 0.75rem;
-    /* background-color: var(--background-color-body);
-    border: 0.5px solid var(--font-color-paragraph); */
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  
+    /* contacts style */
+    .contacts-container{ /*all contacts */
+        gap: 2rem;
+    }
+    
+    .grid-container {
+       width: 90vw;
+    }
+}
+
+@media (min-width: 451px) and (max-width: 768px) {
+    .hero{
+        height: 25vh; 
+    }
+    .hero-title{
+        font-size: 1.6rem;
+    }
+    /* most buttons style */
+    .button-beige{
+        font-size: 0.925rem;
+        margin: 1.5rem 0;
+    }
+
+    /* contacts style */
+   
+    .contacts-container{ /*all contacts */
+       justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin: 4rem 6rem 4rem 3rem;
+    }
+   
+    .contact-icon{
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+    .contact-icon svg, .contact-icon path{
+        width: 1.25rem;
+        height: 1.25rem;
+    } 
+    
+    .contact-title{
+        font-size: 1rem;
+        margin-bottom: -0.2rem;
+    }
+    
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px;
+        width: 90vw;
+    }
+    
+    /* headline and paragraphs */
+    .headline{
+        margin:1.25rem 0;
+        font-size: 1.6rem;
+        line-height: 2.5rem;
+    }
+    
+    .text{
+        margin:0.5rem 0;
+        font-size: 0.925rem;
+    }
+    /* form style */
+    
+    .contact-form{
+        margin: 3rem 0;
+    }
+  
+    .input-form label{
+        font-size: 0.925rem;
+    }
+    
+    .input-form input{
+        height: 2rem;
+        font-size: 0.925rem;
+    }
+    .input-form textarea{
+        height: 7rem;
+        font-size: 0.925rem;
+    }
 
 }
+
+@media (min-width: 0px) and (max-width: 450px) {
+    .hero{
+        height: 20vh; 
+    }
+    .hero-title{
+        font-size: 1.2rem;
+    }
+    /* most buttons style */
+    .button-beige{
+        font-size: 0.8rem;
+        margin: 1rem 0;
+    }
+
+    /* contacts style */
+   
+    .contacts-container{ /*all contacts */
+       justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin: 4rem 6rem 4rem 3rem;
+    }
+   
+    .contact-icon{
+        width: 3rem;
+        height: 3rem;
+    }
+    .contact-icon svg, .contact-icon path{
+        width: 1.1rem;
+        height: 1.1rem;
+    } 
+    
+    .contact-title{
+        font-size: 0.9rem;
+        margin-bottom: -0.2rem;
+    }
+    
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 90vw;
+    }
+    
+    .grid-part {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* headline and paragraphs */
+    .headline{
+        margin:-0.2rem 0;
+        font-size: 1.2rem;
+        line-height: 2rem;
+    }
+    
+    .text{
+        margin:0.5rem 0;
+        font-size: 0.9rem;
+    }
+    /* form style */
+    
+    .contact-form{
+        margin: 2rem 0;
+    }
+  
+    .input-form{
+        width: 100%;
+    }
+    .input-form label{
+        font-size: 0.85rem;
+    }
+    
+    .input-form input{
+        width: 92%;
+        height: 1.5rem;
+        font-size: 0.85rem;
+    }
+    .input-form textarea{
+        width: 92%;
+        height: 5rem;
+        font-size: 0.85rem;
+    }
+    .title-mobile{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+}    

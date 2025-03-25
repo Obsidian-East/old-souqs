@@ -354,3 +354,337 @@ input[type=radio]{
     font-style: normal;
     margin: 0;
 }
+.order-summary-container{
+    display: none;
+}
+.hide{
+    display: none;
+  }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+   
+    .header-container{
+        width: 85vw;
+    }
+   
+    
+      .grid-container{
+        width: 100vw;
+    }
+    /* left part  delivery info */
+   
+    .delivery-info-item{
+        width: 85%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 0 0 0 2rem ;
+    }
+}
+
+@media (min-width: 451px) and (max-width: 768px) {
+   
+    .header-container{
+        width: 85vw;
+    }
+    .header-container img{
+        width: 17vw;
+        height: 17vw;
+    }
+    .header-container svg, .header-container path{
+        width: 4vw;
+        height: 4vw;
+    }
+      .grid-container{
+        width: 100%;
+       flex-direction:column-reverse;
+       align-items:center;
+    }
+    /* left part  delivery info */
+    .delivery-info-container{
+        width: 90%;
+        margin: -2rem 0;
+    }
+    .delivery-info-item{
+        padding: 0 0 0 0rem ;
+    }
+    .title{
+        font-size: 1rem;
+    }
+    .email-checkbox{
+        font-size: 0.925rem;
+    }
+   
+    .subtitle{
+        font-size: 0.925rem;
+    }
+    .text{
+        font-size: 0.9rem;
+    }
+      .payment-name{
+        font-size: 0.925rem;
+      }
+      /* button black */
+      .button-black{
+        font-size: 0.925rem;
+    }
+    .note{
+        font-size: 0.925rem;
+    }
+    
+    
+    /* right part   order info */
+    
+    .order-info-container {
+        width: 100%; 
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    
+      
+      .right-box {
+        /* position: relative; */
+        width: 75%;
+        display: none;
+        flex-direction: column;
+        /* background: var(--extra-color-body); */
+        padding: 1rem;
+        margin-right: 2rem;
+        height: auto;
+        /* transition: top 0.3s ease-in-out; */
+      }
+    .all-products-container{
+        height: auto;
+    }
+    .products-container{
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+    
+    .cart-item {
+        width: 100%;
+    }
+    
+    .image-container {
+        width: 7vw;
+        height: 7vw;
+    }
+
+    .quantity {
+        width: 18px;
+        height: 18px;
+        font-size: 11px;
+    }
+    .item-name {
+        font-size: 0.925rem;
+    }
+    
+    .item-price {
+        font-size: 0.925rem;
+    }
+    .order-subtitle {
+        font-size: 0.925rem;
+    }
+
+    /* more design for order summary  */
+    .order-summary-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 73%;
+        margin-right: 3vw;
+        cursor: pointer;
+    }
+    .total-price{
+        color: var(--font-color-secondary);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: var(--font-custom-stack-paragraph);
+        font-style: normal;
+    }
+    .order-svg-container{
+        display: flex;
+        align-items: center;
+        justify-content:center;
+    }
+    .line-tablet{
+        width: 100%;
+        border-bottom: 0.25px solid var(--font-color-paragraph);
+      }
+      .order-summary-details{
+        margin: 0.75rem 0;
+        width: 73vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .hide{
+        display: flex;
+      }
+      .order-summary-subtitle {
+        color: var(--font-color-secondary);
+        font-size: 0.925rem;
+        font-weight: 400;
+        font-family: var(--font-custom-stack-paragraph);
+        font-style: normal;
+        margin: -0.5rem 0;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 450px) {
+    .header-container{
+        width: 90vw;
+    }
+    .header-container img{
+        width: 18vw;
+        height: 18vw;
+    }
+    .header-container svg, .header-container path{
+        width: 5vw;
+        height: 5vw;
+    }
+      .grid-container{
+        width: 100vw;
+       flex-direction:column-reverse;
+       align-items:center;
+    }
+    /* left part  delivery info */
+    .delivery-info-container{
+        width: 100%;
+        margin: -2rem 0;
+    }
+    .delivery-info-item{
+        padding: 0 0 0 0rem ;
+    }
+    .title{
+        font-size: 0.9rem;
+    }
+    .email-checkbox{
+        font-size: 0.85rem;
+    }
+   
+    .subtitle{
+        font-size: 0.85rem;
+    }
+    .text{
+        font-size: 0.85rem;
+    }
+      .payment-name{
+        font-size: 0.85rem;
+      }
+      /* button black */
+      .button-black{
+        font-size: 0.85rem;
+    }
+    .note{
+        font-size: 0.85rem;
+    }
+    
+    .grid-input{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0rem;
+        margin: 0 0 0 -4vw;
+    }
+    /* right part   order info */  
+    .order-info-container {
+        width: 100%; 
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .right-box {
+        width: 82%;
+        display: none;
+        flex-direction: column;
+        padding: 1rem;
+        margin-right: 0rem;
+        height: auto;
+      }
+    .all-products-container{
+        height: auto;
+    }
+    .products-container{
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+    
+    .cart-item {
+        width: 100%;
+    }
+    
+    .image-container {
+        width: 15vw;
+        height: 15vw;
+    }
+    .quantity {
+        width: 18px;
+        height: 18px;
+        font-size: 11px;
+    }
+    .item-name {
+        font-size: 0.85rem;
+    }
+    
+    .item-price {
+        font-size: 0.85rem;
+    }
+    .order-subtitle {
+        font-size: 0.85rem;
+    }
+
+    /* more design for order summary  */
+    .order-summary-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 80%;
+        margin-right: 3vw;
+        cursor: pointer;
+    }
+    .total-price{
+        color: var(--font-color-secondary);
+        font-size: 0.9rem;
+        font-weight: 700;
+        font-family: var(--font-custom-stack-paragraph);
+        font-style: normal;
+    }
+    .order-svg-container{
+        display: flex;
+        align-items: center;
+        justify-content:center;
+    }
+    .line-tablet{
+        width: 100%;
+        border-bottom: 0.25px solid var(--font-color-paragraph);
+      }
+      .order-summary-details{
+        margin: 0.75rem 0;
+        width: 80vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .hide{
+        display: flex;
+      }
+      .order-summary-subtitle {
+        color: var(--font-color-secondary);
+        font-size: 0.85rem;
+        font-weight: 400;
+        font-family: var(--font-custom-stack-paragraph);
+        font-style: normal;
+        margin: -0.5rem 0;
+    }
+}

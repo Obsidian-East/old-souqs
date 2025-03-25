@@ -15,123 +15,156 @@
             <div class="delivery-info-container">
 
                 <div class="delivery-info-item">
-                    <p class="title">Account</p>
+                    <p class="title">{{ 'CHECKOUT.ACCOUNT' | translate }}</p>
                     <div class="formField">
                         <input required="" type="text"/>
-                        <span>Email or Phone number</span>
+                        <span>{{ 'CHECKOUT.EMAIL' | translate }}</span>
                     </div>
                     <span class="email-checkbox">
-                        <input id="email" type="checkbox" /> <label for="email"> Email me with news and offers</label>
+                        <input id="email" type="checkbox" /> <label for="email"> {{ 'CHECKOUT.EMAIL-NEWS' | translate }}</label>
                     </span>
                 </div>
 
                 <div class="delivery-info-item">
-                    <p class="title">Delivery</p>
+                    <p class="title">{{ 'CHECKOUT.DELIVERY' | translate }}</p>
                     <div class="formField">
                         <input required="" type="text"/>
-                        <span>Country</span>
+                        <span>{{ 'CHECKOUT.COUNTRY' | translate }}</span>
                     </div>
 
                     <div class="grid-input">
                         <div class="formField">
                             <input required="" type="text"/>
-                            <span>First name</span>
+                            <span>{{ 'CHECKOUT.FIRST-NAME' | translate }} </span>
                         </div>
                         <div class="formField">
                             <input required="" type="text"/>
-                            <span>Last name</span>
+                            <span>{{ 'CHECKOUT.LAST-NAME' | translate }} </span>
                         </div>
                     </div>
-
                     <div class="formField">
                         <input required="" type="text"/>
-                        <span>Address</span>
+                        <span>{{ 'CHECKOUT.ADDRESS' | translate }}</span>
                     </div>
 
                     <div class="formField">
                         <input required="" type="text"/>
-                        <span>Apartment, suite, etc.</span>
+                        <span>{{ 'CHECKOUT.APARTMENT' | translate }}</span>
                     </div>
 
                     <div class="grid-input">
                         <div class="formField">
                             <input required="" type="text"/>
-                            <span>City</span>
+                            <span>{{ 'CHECKOUT.CITY' | translate }}</span>
                         </div>
                         <div class="formField">
                             <input required="" type="text"/>
-                            <span>Postal code (optional) </span>
+                            <span>{{ 'CHECKOUT.POSTAL-CODE' | translate }} </span>
                         </div>
                     </div>
 
                     <span class="email-checkbox">
-                        <input id="email" type="checkbox" /> <label for="email"> Save this information for next time</label>
+                        <input id="email" type="checkbox" /> <label for="email"> {{ 'CHECKOUT.SAVE-INFO' | translate }}</label>
                     </span>
-                    <p class="subtitle">Shipping method</p>
+                    <p class="subtitle">{{ 'CHECKOUT.SHIPPING-METHOD' | translate }}</p>
                     <div class="shipping-container">
-                        <p class="text">Standard</p>
-                        <p class="text" style="font-weight: 700;">FREE</p>
+                        <p class="text">{{ 'CHECKOUT.STANDARD' | translate }}</p>
+                        <p class="text" style="font-weight: 700;">{{ 'CHECKOUT.FREE' | translate }}</p>
                     </div>
                 
                 </div>
 
                 <div class="delivery-info-item">
-                    <p class="title">Payment</p>
-                    <p class="note" >All transactions are secure and encrypted</p>
+                    <p class="title">{{ 'CHECKOUT.PAYMENT' | translate }}</p>
+                    <p class="note" >{{ 'CHECKOUT.TRANSACTION-NOTE' | translate }}</p>
 
                     <div class="payment-method-container">
                         <label class="payment-name">
                             <input type="radio" name="payment" value="card" (change)="selectPaymentMethod('card')" [checked]="paymentMethod === 'card'" />
-                            Pay by Card
+                            {{ 'CHECKOUT.PAY-BY-CARD' | translate }}
                         </label>
                         
                         <label class="payment-name">
                             <input type="radio" name="payment" value="cod" (change)="selectPaymentMethod('cod')" [checked]="paymentMethod === 'cod'" />
-                            Cash on Delivery
+                            {{ 'CHECKOUT.CASH-ON-DELIVERY' | translate }}
                         </label>
                         
                           <!-- Card Payment Section -->
                         <div *ngIf="paymentMethod === 'card'" class="card-payment">
-                            <h4 class="subtitle">Enter Card Details</h4>
+                            <h4 class="subtitle">{{ 'CHECKOUT.CARD-DETAILS' | translate }}</h4>
                         
                             <div class="formField">
                                 <input required="" type="text"/>
-                                <span>Card holder full name </span>
+                                <span>{{ 'CHECKOUT.FULL-NAME' | translate }} </span>
                             </div>
                             <div class="formField">
                                 <input required="" type="number"  maxlength="19"/>
-                                <span>Card number</span>
+                                <span>{{ 'CHECKOUT.CARD-NUMBER' | translate }}</span>
                             </div>
     
                             <div class="grid-input">
                                 <div class="formField">
                                     <input required="" type="text"  maxlength="5"/>
-                                    <span>Expiry date</span>
+                                    <span>{{ 'CHECKOUT.EXPIRY-DATE' | translate }}</span>
                                 </div>
                                 <div class="formField">
                                     <input required="" type="number"  maxlength="3"/>
-                                    <span>CVV </span>
+                                    <span>{{ 'CHECKOUT.CVV' | translate }} </span>
                                 </div>
                             </div>
                            
                         </div>
                     </div>
 
-                    
+                    <div class="delivery-info-item hide">
+                        <p class="title" style="margin-bottom: 0.5rem;">{{ 'CHECKOUT.ORDER-SUMMARY' | translate }}</p>
+                        <div class="order-summary-details">
+                            <p class="order-summary-subtitle">{{ 'CHECKOUT.SUBTOTAL' | translate }} • {{products.length}} {{ 'CHECKOUT.ITEMS' | translate }}</p>
+                            <p class="order-summary-subtitle">$ {{subtotalAmount.toFixed(2)}}</p>
+                        </div>
+    
+                        <div class="order-summary-details">
+                            <p class="order-summary-subtitle">{{ 'CHECKOUT.SHIPPING' | translate }}</p>
+                            <p class="order-summary-subtitle">{{ 'CHECKOUT.FREE' | translate }}</p>
+                        </div>
+    
+                        <div class="order-summary-details">
+                            <p class="order-summary-subtitle">{{ 'CHECKOUT.TAXES' | translate }}</p>
+                            <p class="order-summary-subtitle">$ {{taxes.toFixed(2)}}</p>
+                        </div>
+    
+                        <div class="order-summary-details" style="margin: -1rem 0 1.5rem 0;">
+                            <p class="title">{{ 'CHECKOUT.TOTAL' | translate }}</p>
+                            <p class="title">$ {{totalAmount}}</p>
+                        </div>
+                    </div>
 
-                    <button class="button-black">Pay now</button>
+                    <button class="button-black">{{ 'CHECKOUT.PAY-NOW' | translate }}</button>
                 </div> 
                 
                 <div class="delivery-info-item">
                     <div class="line"></div>
-                <p class="note">All rights reserved salford co.</p>
+                <p class="note">{{ 'CHECKOUT.RIGHTS-NOTE' | translate }}</p>
                 </div>
                 
             </div>
 
             
             <div class="order-info-container" id="rightDiv">
-                <div class="right-box" id="rightBox">
+                <div (click)="toggleSummary()" class="order-summary-container">
+                    <div class="order-svg-container">
+                        <p class="item-name">{{ 'CHECKOUT.ORDER-SUMMARY' | translate }} </p>
+                        <svg *ngIf="!displaySummary" width="20" height="30" viewBox="0 0 20 35" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 15 L10 20 L15 15" stroke="black" stroke-width="2" fill="none" />
+                        </svg>
+                        <svg *ngIf="displaySummary" width="20" height="30" viewBox="0 0 20 35" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 25 L10 20 L15 25" stroke="black" stroke-width="2" fill="none" />
+                         </svg>
+                    </div>
+                    <p class="total-price">${{totalAmount}}</p>
+                </div>
+                <div class="line-tablet"></div>
+                <div id="rightBox" class="right-box"  id="rightBox">
                     <!-- product content as scroll view -->
                     <div class="all-products-container">
                         <div *ngFor="let product of products" class="products-container">
@@ -152,22 +185,22 @@
                     <div class="line"></div>
 
                     <div class="order-details">
-                        <p class="order-subtitle">Subtotal • {{products.length}} items</p>
+                        <p class="order-subtitle">{{ 'CHECKOUT.SUBTOTAL' | translate }} • {{products.length}} {{ 'CHECKOUT.ITEMS' | translate }}</p>
                         <p class="order-subtitle">$ {{subtotalAmount.toFixed(2)}}</p>
                     </div>
 
                     <div class="order-details">
-                        <p class="order-subtitle">Shipping</p>
-                        <p class="order-subtitle">Free</p>
+                        <p class="order-subtitle">{{ 'CHECKOUT.SHIPPING' | translate }}</p>
+                        <p class="order-subtitle">{{ 'CHECKOUT.FREE' | translate }}</p>
                     </div>
 
                     <div class="order-details">
-                        <p class="order-subtitle">Estimated taxes</p>
+                        <p class="order-subtitle">{{ 'CHECKOUT.TAXES' | translate }}</p>
                         <p class="order-subtitle">$ {{taxes.toFixed(2)}}</p>
                     </div>
 
                     <div class="order-details">
-                        <p class="title">Total</p>
+                        <p class="title">{{ 'CHECKOUT.TOTAL' | translate }}</p>
                         <p class="title">$ {{totalAmount}}</p>
                     </div>
 

@@ -29,10 +29,42 @@
         </div>
         <div class="navigation">
             <ul class="menu">
-                <li class="menu-item"><a routerLink="/home">{{ 'HEADER.HOME' | translate }}</a></li>
-                <li class="menu-item"><a routerLink="/explore">{{ 'HEADER.SHOP' | translate }}</a></li>
-                <li class="menu-item"><a routerLink="/contact">{{ 'HEADER.CONTACT' | translate }}</a></li>
-                <li class="menu-item"><a routerLink="/aboutus">{{ 'HEADER.ABOUT_US' | translate }}</a></li>
+                <span class="show-in-tablet">
+                    <span *ngIf="isMenuVissible" class="menu-item-container show-in-tablet">
+                        <span class="menu-item-box">
+                            <div class="close-btn-right-container">
+                                <button class="close-btn-right" (click)="closeMenu()">&times;</button>
+                            </div>
+                            <div class="line"></div>
+                            <li class="menu-item"><a routerLink="/home">{{ 'HEADER.HOME' | translate }}</a></li>
+                            <div class="line"></div>
+                            <li class="menu-item"><a routerLink="/explore">{{ 'HEADER.SHOP' | translate }}</a></li>
+                            <div class="line"></div>
+                            <li class="menu-item"><a routerLink="/contact">{{ 'HEADER.CONTACT' | translate }}</a></li>
+                            <div class="line"></div>
+                            <li class="menu-item"><a routerLink="/aboutus">{{ 'HEADER.ABOUT_US' | translate }}</a></li>
+                            <div class="line"></div>
+                        </span>
+                        
+                    </span>
+                </span>
+
+                <span class="hide-in-tablet">
+                <span class="menu-item-container">
+                    <li class="menu-item"><a routerLink="/home">{{ 'HEADER.HOME' | translate }}</a></li>
+                    <li class="menu-item"><a routerLink="/explore">{{ 'HEADER.SHOP' | translate }}</a></li>
+                    <li class="menu-item"><a routerLink="/contact">{{ 'HEADER.CONTACT' | translate }}</a></li>
+                    <li class="menu-item"><a routerLink="/aboutus">{{ 'HEADER.ABOUT_US' | translate }}</a></li>        
+                </span>
+                </span>
+                <span class="show-in-tablet">
+                    <li class="menu-icon">
+                        <svg (click)="openMenu()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+                        </svg>
+                    </li>
+                </span>
+                
                 <li class="menu-icon">
                     <svg (click)="toggleSearch()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search">
                         <g>
@@ -52,7 +84,7 @@
                     </a>
                 </li>
                 <li class="menu-icon" id="heart">
-                    <svg routerLink="/wishlist" xmlns="http://www.w3.org/2000/svg">
+                    <svg routerLink="/wishlist" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"
                             stroke-width="2"
                             d="M20.84 2.61a5.5 5.5 0 0 0-7.78 0L12 3.67l-1.06-1.06a5.501 5.501 0 0 0-7.78 7.78l1.06 1.06L12 19.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
@@ -85,13 +117,10 @@
                         <img src={{product.image}} />
                     </div>
                     <div class="product-info">
-                        <p class="product-name">{{product.name}}</p>
-                        <p class="product-price">{{product.quantity}}<span style="color: var(--font-color-secondary);"> x </span>{{product.price}}</p>
+                        <p class="cart-product-name">{{product.name}}</p>
+                        <p class="product-price">{{product.quantity}}<span style="color: var(--font-color-secondary);"> x </span>${{product.price.toFixed(2)}}</p>
                         <div class="quantity-delete-container">
                             <div class="counter">
-                                <!-- <button (click)="decrement()" [disabled]="number <= 1">-</button>
-                                <input type="number" [value]="number" (input)="onInputChange($event)" disabled/>
-                                <button (click)="increment()">+</button> -->
                                 <button (click)="decreaseQuantity(product)">-</button>
                                 <span>{{ product.quantity }}</span>
                                 <button (click)="increaseQuantity(product)">+</button>
@@ -142,10 +171,10 @@
     </div>
     <div *ngIf="isSearchResultVisible" class="search-result-container">
         <div class="search-text">{{ 'HEADER.SEARCH-TEXT1' | translate }} "{{textValue}}" {{ 'HEADER.SEARCH-TEXT2' | translate }}</div>
-        <div class="search-line"></div>
+        <div class="search-line" style="margin: 0;"></div>
 
         <!-- if there is product for this search -->
-        <span *ngIf="totalSearch">
+        <div *ngIf="totalSearch">
             <div class="all-search-products">
                 <div class="search-products">
                     <div class="one-product" *ngFor="let product of searchProducts; let last = last">
@@ -160,7 +189,7 @@
 
             <div class="line"></div>
             <button (click)="goToSearch()" class="see-result">  {{ 'HEADER.SEE-ALL-RESULTS' | translate }} ({{totalSearch}})</button>
-        </span>
+        </div>
 
         <!-- no product -->
          <span *ngIf="!totalSearch">

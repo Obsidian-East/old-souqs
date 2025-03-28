@@ -138,3 +138,104 @@ input{
     border: 2px solid var(--font-color-primary);
 }
 
+@media (min-width: 451px) and (max-width: 768px) {
+  
+    .hero{
+        height: 25vh; 
+     }
+   
+    .hero-title{
+        font-size: 1.5rem;
+    }
+    .edit-profile-page{
+        margin: 3rem 0;
+    }
+    
+    .title{
+         font-size: 1.5rem;
+    }
+    
+   
+    .to-profile{
+        font-size: 0.925rem;
+    }
+    
+    label{
+         font-size: 0.925rem;
+    }
+    input{
+        height: 2rem;
+        font-size: 0.925rem;
+    }
+    
+   
+    .button-beige{
+        font-size: 0.925rem;
+        margin: 0.5rem 0;
+    }
+    
+    .button-beige:hover{
+        background-color: transparent;
+        color: var(--font-color-primary);
+        border: 2px solid var(--font-color-primary);
+    }
+    
+    
+}
+@media (min-width: 0px) and (max-width: 450px) {
+  
+    .hero{
+        height: 23vh; 
+    }
+
+    .hero-title{
+        font-size: 1.4rem;
+    }
+    .edit-profile-page{
+        margin: 2rem 0;
+    }
+    
+    .title{
+        font-size: 1.4rem;
+        margin: 0.25rem 0;
+    }
+  
+    .to-profile{
+        margin-left: -1.1rem;
+        text-align: left;
+        font-size: 0.85rem;
+    }
+    
+    .grid-container{
+        width: 88vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        margin: 0.25rem 0;
+    }
+    .grid-item{
+        width: 100%;
+    }
+    label{
+        font-size: 0.85rem;
+    }
+    input{
+        width: 90%;
+        height: 1.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .update-container{
+        width: 84vw;
+        text-align: right;
+    }
+    
+    .button-beige{
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        margin: 0.25rem 0;
+    }
+    
+}

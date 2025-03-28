@@ -21,20 +21,29 @@ export class ProductComponent implements OnInit{
      console.log('Product ID:', this.productId);
   }
   products = [
-    { id: 1, name: 'Old Uniform', price: '$99.00', image:[ 'https://old-souqs.sirv.com/Essential/logo.png', 'https://old-souqs.sirv.com/Essential/logo.png', 'https://old-souqs.sirv.com/Essential/logo.png'],instock:true, quantity: 6 ,brand:"salford Co.", description: "Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor. Aquia sit amet, elitr, sed diam nonum eirmod tempor invidunt labore et dolore magna aliquyam.erat, sed diam voluptua. At vero accusam et justo duo dolores et ea rebum. Stet clitain vidunt ut labore eirmod tempor invidunt magna aliquyam. Stet clitain vidunt ut labore."},
+    { id: 1, name: 'Old Uniform', price: '$99.00', image:[ 'https://old-souqs.sirv.com/Essential/logo.png', 'https://old-souqs.sirv.com/Products/1f1.jpg', 'https://old-souqs.sirv.com/Images/Canon%20lenses.jpg'],instock:true, quantity: 6 ,brand:"salford Co.", description: "Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor. Aquia sit amet, elitr, sed diam nonum eirmod tempor invidunt labore et dolore magna aliquyam.erat, sed diam voluptua. At vero accusam et justo duo dolores et ea rebum. Stet clitain vidunt ut labore eirmod tempor invidunt magna aliquyam. Stet clitain vidunt ut labore."},
   ];
   
 
-  selectedImage: string = this.products[0].image[0]; // Initially set to first image
-  isTransitioning: boolean = false;
+  selectedIndex = 0;
+  transitioning = false;
+  direction: 'left' | 'right' = 'left';
 
-  changeImage(newImage: string) {
-    this.isTransitioning = true;
+  changeImage(index: number) {
+    if (this.selectedIndex === index) return;
+    this.direction = index > this.selectedIndex ? 'left' : 'right';
+    this.transitioning = true;
     setTimeout(() => {
-      this.selectedImage = newImage;
-      this.isTransitioning = false;
-    }, 300); // Match CSS transition duration
+      this.selectedIndex = index;
+      this.transitioning = false;
+    }, 300); // Match CSS transition
   }
+
+
+
+
+
+
 
 
   Counter: number = 1

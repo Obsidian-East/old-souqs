@@ -11,6 +11,19 @@ import { RouterModule, Router } from '@angular/router';
 })
 
 export class HeaderComponent {
+
+ // code for menu for tablet and mobile
+    // show and hide the cart div
+    isMenuVissible = false; // Initially hidden
+
+    openMenu() {
+      this.isMenuVissible = !this.isMenuVissible; // Toggle visibility
+    }
+  
+    closeMenu(){
+      this.isMenuVissible = false;
+    }
+
 // show and hide the cart div
   isCartVisible = false; // Initially hidden
 
@@ -21,58 +34,6 @@ export class HeaderComponent {
   closeCart(){
     this.isCartVisible = false;
   }
-
-  // products in cart
-    // products = [
-    //   { id: 1, name: 'Old Uniform', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' },
-    //   { id: 2, name: 'Cylinder Hat', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' },
-    //   { id: 3, name: 'Vintage Boots', price: '$79.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' },
-    //   { id: 4, name: 'Leather Gloves', price: '$49.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' },
-    //   { id: 5, name: 'Cylinder Hat', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' },
-    //   { id: 6, name: 'Vintage Boots', price: '$79.00', image: 'https://old-souqs.sirv.com/Essential/logo.png' }
-    // ];
-
-    // number: number = 1;
-
-    // increment() {
-    //   this.number++;
-    // }
-
-    // decrement() {
-    //   if (this.number > 1) {
-    //     this.number--;
-    //   }
-    // }
-
-    // counter
-
-  //   onInputChange(event: any) {
-  //     let newValue = event.target.value;
-
-  //   // Convert the value to a number
-  //   let parsedValue = parseInt(newValue, 10);
-
-  //   // If the parsed value is NaN (not a number) or less than 1, set it to 1
-  //   if (isNaN(parsedValue) || parsedValue < 1) {
-  //     this.number = 1;
-  //   } else {
-  //     this.number = parsedValue;
-  //   }
-  // }
-
-  //   totalPrice = this.products.reduce((total, product) => {
-  //     // Remove '$' and ',' from the price, then convert to number
-  //     const price = parseFloat(product.price.replace('$', '').replace(',', ''));
-  //     return total + price;
-  //   }, 0);
-
-
-    // Function to remove a product using its ID
-    // remove(productId: number) {
-    //   this.products = this.products.filter(product => product.id !== productId);
-    // }
-
-
 
     products = [
       { id: 1, name: 'Old Uniform', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },

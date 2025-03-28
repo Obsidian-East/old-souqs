@@ -31,9 +31,6 @@
                       
                       <div class="quantity-delete-container">
                         <div class="counter">
-                            <!-- <button (click)="decrement()" [disabled]="number <= 1">-</button>
-                            <input type="number" [value]="number" (input)="onInputChange($event)" disabled/>
-                            <button (click)="increment()">+</button> -->
                             <button (click)="decreaseQuantity(product)">-</button>
                             <span>{{ product.quantity }}</span>
                             <button (click)="increaseQuantity(product)">+</button>

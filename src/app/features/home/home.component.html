@@ -12,13 +12,16 @@
     <article id="about-us">
         <div class="about-container">
             <div class="about-img">
-                <img src="https://old-souqs.sirv.com/Essential/logo.png" alt="old-souqs-logo" >
+                <img src="https://old-souqs.sirv.com/Banners/DSC00252.jpg" alt="old-souqs-logo" >
             </div>
             <div class="about-info">
                 <h5 class="title">{{'HOMEPAGE.ABOUT-US' | translate }}</h5>
-                <p class="headline">{{'HOMEPAGE.NAME' | translate }}</p>
-                <p class="headline marcellus-font"> {{'HOMEPAGE.DESCRIPTION-TITLE' | translate }} </p>
-                <p class="text">{{'HOMEPAGE.DESCRIPTION-TEXT' | translate }}</p>
+                <!-- aligned in mobile -->
+                <span class="name-aligned-mobile">
+                    <p class="headline">{{'HOMEPAGE.NAME' | translate }}</p>
+                    <p class="headline marcellus-font"> {{'HOMEPAGE.DESCRIPTION-TITLE' | translate }} </p>
+                </span>
+                <p class="text">{{'HOMEPAGE.DESCRIPTION-TEXT1' | translate }} <br /> {{'HOMEPAGE.DESCRIPTION-TEXT2' | translate }}</p>
                 <button class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
                 <!-- <a routerLink="/product/1">Go to Product 1</a> -->
 
@@ -38,7 +41,7 @@
         </div>
     </article>
     <!-- collection -->
-    <article id="our-collection" class="collection-article"> <!-- class for bg color -->
+    <article id="our-collection" class="collection-article "> <!-- class for bg color -->
         <div class="collection"><!-- for content  -->
             <div class="collection-header">
                 <p>
@@ -51,6 +54,7 @@
 
                 </div>
             </div>
+            <span class="hide-in-tablet">
             <div class="collection-items" id="trending">
                 <div class="item" 
                      *ngFor="let product of products" 
@@ -99,57 +103,64 @@
                     <span class="item-price">{{ product.price }}</span>
                 </div>
             </div>
-            <!-- arrived part -->
-             <!-- for products variables only change productsArrived -->
-            <div class="collection-items"  style="display: none;" id="arrived">
-                <div class="item" 
-                     *ngFor="let product of productsArrived" 
-                     (mouseenter)="showProductActions(product)" 
-                     (mouseleave)="hideProductActions()">
+            </span>
+            
+            <span class="show-in-tablet">
+                <div class="collection-items-container">
+                <div class="collection-items" id="collection">
+                    <div class="item" 
+                    *ngFor="let product of products">
             
                     <!-- Show image only when not hovering -->
-                    <img *ngIf="hoveredItem !== product" [src]="product.image" alt="{{ product.name }}" class="product-image">
+                    <img class="product-image" [src]="product.image" alt="{{ product.name }}" >            
+                
+                    <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
+                    <span class="item-price">{{ product.price }}</span>
             
-                    <!-- Show product actions when hovering -->
-                    <div id="product-actions-container" *ngIf="hoveredItem === product">
-                        <div class="product-actions">
+                    <div id="product-actions-container">
+                    <div class="product-actions">
                             <div class="quick-wishlist-container">
                                 <div class="quick-wishlist right-border">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
-                                        72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
-                                        526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
-                                        207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 
-                                        24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 
-                                        356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 
-                                        80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5
-                                         0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z"/>
-                                        </svg>
-    
+                                            72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
+                                            526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
+                                            207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 
+                                            24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 
+                                            356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 
+                                            80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5
+                                                0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" fill="cuttentColor"/>
+                                    </svg>
+                                </div>
+            
+                                <div class="add-to-cart-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32.402" height="32" viewBox="0 0 32.402 32" id="cart">
+                                        <path d="M30 8H6c-.156 0-.292.054-.438.088l-.776-3.316A1 1 0 0 0 3.812 4H.942a1 1 0 0 0 0 2H3.02l1.242 5.312L6 20c0 .072.034.134.042.204l-1.018 4.58A.997.997 0 0 0 6 26h22.688a1 1 0 0 0 0-2H7.248l.458-2.06c.1.016.19.06.294.06h18.23c1.104 0 1.77-.218 2.302-1.5l3.248-9.964C32.344 8.75 31.106 8 30 8zM6 30a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0zm18 0a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0z"></path>
+                                    </svg>
                                 </div>
                                 <div class="quick-wishlist">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <path d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8l0-3.3c0-70.4 50-130.8 
-                                        119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 
-                                        7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5l0 3.3c0 
-                                        41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1
-                                        145c-.4-.3-.7-.7-1-1.1l-17.8-20-.1-.1s0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48
-                                        189.5l0 3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2l0-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69
-                                         5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/>
+                                            119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 
+                                            7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5l0 3.3c0 
+                                            41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1
+                                            145c-.4-.3-.7-.7-1-1.1l-17.8-20-.1-.1s0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48
+                                            189.5l0 3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2l0-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69
+                                                5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="add-to-cart-button" >
-                                <p>{{'HOMEPAGE.ADD-TO-CART' | translate }}</p>
-                            </div>
                         </div>
                     </div>
-            
-                    <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                    <span class="item-price">{{ product.price }}</span>
                 </div>
             </div>
-            
+            </div>
+            </span>
+            <div class="dots show-in-tablet">
+                <div class="dot-collection active-dot" (click)="moveCollection(0)"></div>
+                <div class="dot-collection" (click)="moveCollection(1)"></div>
+                <div class="dot-collection" (click)="moveCollection(2)"></div>
+            </div>
         </div>
     </article>
 
@@ -164,11 +175,13 @@
         <div class="explore-content-container">
             <div class="explore-item">
                 <div class="explore-img">
-
+                    <img src="https://old-souqs.sirv.com/Products/1f1.jpg" />
                 </div>
                 <div class="explore-info">
-                    <p class="headline">Stunning</p>
-                    <p class="headline marcellus-font">Painting</p>
+                    <span class="name-aligned">
+                        <p class="headline">Stunning</p>
+                        <p class="headline marcellus-font">Painting</p>
+                    </span>
                     <p class="text">A ring is a round band, use made of metal, worn couple.</p>
                     <button class="button-beige">Only $55.00</button>
                 </div>
@@ -176,11 +189,14 @@
 
             <div class="explore-item">
                 <div class="explore-img img-antique">
-                    
+                    <img src="https://old-souqs.sirv.com/Products/1f1.jpg" />
+
                 </div>
                 <div class="explore-info">
-                    <p class="headline " style="color: var(--font-color-primary);">Antique</p>
-                    <p class="headline marcellus-font"style="color: var(--font-color-primary);">Items</p>
+                    <span class="name-aligned">
+                        <p class="headline " style="color: var(--font-color-primary);">Antique</p>
+                        <p class="headline marcellus-font"style="color: var(--font-color-primary);">Items</p>
+                    </span>
                     <p class="text">A ring is a round band, use made of metal, worn couple.</p>
                     <button class="button-black">Only $55.00</button>
                 </div>
@@ -192,6 +208,7 @@
     <article id="deals-of-the-day" class="deals-of-the-day-container">
         <p><span class="headline">{{'HOMEPAGE.DEALS-OF' | translate }} </span><span class="headline marcellus-font">{{'HOMEPAGE.THE-DAY' | translate }}</span></p>
        
+        <span class="hide-in-tablet">
         <div class="deals-carousel-container">
             <div class="deals-carousel" id="carousel">
                 <div class="deals-item" *ngFor="let item of deals"
@@ -233,12 +250,67 @@
                     <div class="deals-item-info">
                         <p class="item-name" (click)="goToProduct(item.id)">{{ item.name }}</p>
                         <p class="item-price">{{ item.price }}</p>
-                        <button class="button-beige">{{'HOMEPAGE.ADD-TO-CART' | translate }}</button>
+                        <button id="add-to-cart"  class="button-beige">{{'HOMEPAGE.ADD-TO-CART' | translate }}</button>
                     </div>
                 </div>
             </div>
             
         </div>
+        </span>
+
+        <span class="show-in-tablet">
+        <div class="collection-items-container">
+        <div class="collection-items" id="carousel-tablet">
+            <div class="item" 
+            *ngFor="let product of deals">
+
+            <!-- Show image only when not hovering -->
+            <img class="product-image" [src]="product.image" alt="{{ product.name }}" >
+        
+    
+            <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
+            <span class="item-price">{{ product.price }}</span>
+
+            <div id="product-actions-container">
+                <div class="product-actions">
+                    <div class="quick-wishlist-container">
+                        <div class="quick-wishlist right-border">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
+                                72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
+                                526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
+                                207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 
+                                24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 
+                                356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 
+                                80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5
+                                    0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" fill="cuttentColor"/>
+                                </svg>
+
+                        </div>
+
+                        <div class="add-to-cart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32.402" height="32" viewBox="0 0 32.402 32" id="cart">
+                            <path d="M30 8H6c-.156 0-.292.054-.438.088l-.776-3.316A1 1 0 0 0 3.812 4H.942a1 1 0 0 0 0 2H3.02l1.242 5.312L6 20c0 .072.034.134.042.204l-1.018 4.58A.997.997 0 0 0 6 26h22.688a1 1 0 0 0 0-2H7.248l.458-2.06c.1.016.19.06.294.06h18.23c1.104 0 1.77-.218 2.302-1.5l3.248-9.964C32.344 8.75 31.106 8 30 8zM6 30a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0zm18 0a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0z"></path>
+                          </svg>
+                    </div>
+                        <div class="quick-wishlist">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8l0-3.3c0-70.4 50-130.8 
+                                119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 
+                                7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5l0 3.3c0 
+                                41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1
+                                145c-.4-.3-.7-.7-1-1.1l-17.8-20-.1-.1s0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48
+                                189.5l0 3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2l0-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69
+                                    5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </span>
         <div class="dots">
             <div class="dot active-dot" (click)="moveToSlide(0)"></div>
             <div class="dot" (click)="moveToSlide(1)"></div>

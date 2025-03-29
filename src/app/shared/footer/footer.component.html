@@ -7,6 +7,7 @@
             <p>{{ 'FOOTER.INFO' | translate }}</p>
         </div>
     </div>
+    <span class="footer-links hide-in-mobile">
     <div class="quick-links">
         <h3>Quick Actions</h3>
         <ul class="menu">
@@ -23,6 +24,47 @@
             <li class="menu-item"><a routerLink="/terms-conditions">{{ 'FOOTER.TERMS' | translate }}</a></li>
         </ul>
     </div>
+    </span>
+
+    <span class="footer-links show-in-mobile">
+        <div class="line"></div>
+        <div class="quick-links">
+            <span (click)="toggleQuickActions()" class="menu-title-container">
+                <h3>Quick Actions</h3>
+                <p *ngIf="!isQuickActionsVisible">+</p>
+                <p *ngIf="isQuickActionsVisible">-</p>
+            </span>
+            <ul *ngIf="isQuickActionsVisible" class="menu">
+                <li class="menu-item"><a routerLink="/home">{{ 'FOOTER.HOME' | translate }}</a></li>
+                <li class="menu-item"><a routerLink="/shop">{{ 'FOOTER.SHOP' | translate }}</a></li>
+                <li class="menu-item"><a routerLink="/contact">{{ 'FOOTER.CONTACT' | translate }}</a></li>
+            </ul>
+        </div>
+        <div class="line"></div>
+
+        <div class="company-info">
+            <span (click)="toggleCompanyInfo()" class="menu-title-container">
+                <h3>Company Info</h3>
+                <p *ngIf="!isCompanyInfoVisible">+</p>
+                <p *ngIf="isCompanyInfoVisible">-</p>
+            </span>
+            <ul *ngIf="isCompanyInfoVisible" class="menu">
+                <li class="menu-item"><a routerLink="/about">{{ 'FOOTER.ABOUT' | translate }}</a></li>
+                <li class="menu-item"><a routerLink="/privacy-policy">{{ 'FOOTER.PRIVACY' | translate }}</a></li>
+                <li class="menu-item"><a routerLink="/terms-conditions">{{ 'FOOTER.TERMS' | translate }}</a></li>
+            </ul>
+        </div>
+        <div class="line"></div>
+
+        </span>
+
+    <button *ngIf="showButton" class="back-to-top" (click)="scrollToTop()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+            <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/>
+        </svg>
+
+    </button>
+
 </div>  
 <div class="copyright">
     <span>{{ 'FOOTER.COPYRIGHT' | translate}}</span>

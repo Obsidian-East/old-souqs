@@ -4,7 +4,7 @@
         <span>{{'HOMEPAGE.HERO'| translate }}</span>
         <p class="hero-title">{{'HOMEPAGE.HERO-TEXT1'| translate }}</p> 
         <p class="hero-title marcellus-font">{{'HOMEPAGE.HERO-TEXT2'| translate }}</p>
-        <button (click)="goToProduct(1)" class="button-beige">{{'HOMEPAGE.SHOP-NOW'| translate }}</button>
+        <button routerLink="/explore" class="button-beige">{{'HOMEPAGE.SHOP-NOW'| translate }}</button>
     </div>
 </section>
 
@@ -100,7 +100,7 @@
                     </div>
             
                     <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                    <span class="item-price">{{ product.price }}</span>
+                    <span class="item-price">${{ product.price }}</span>
                 </div>
             </div>
             </span>

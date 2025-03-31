@@ -29,25 +29,6 @@
         </div>
         <div class="navigation">
             <ul class="menu">
-                <span class="show-in-tablet">
-                    <span *ngIf="isMenuVissible" class="menu-item-container show-in-tablet">
-                        <span class="menu-item-box">
-                            <div class="close-btn-right-container">
-                                <button class="close-btn-right" (click)="closeMenu()">&times;</button>
-                            </div>
-                            <div class="line"></div>
-                            <li class="menu-item"><a routerLink="/home">{{ 'HEADER.HOME' | translate }}</a></li>
-                            <div class="line"></div>
-                            <li class="menu-item"><a routerLink="/explore">{{ 'HEADER.SHOP' | translate }}</a></li>
-                            <div class="line"></div>
-                            <li class="menu-item"><a routerLink="/contact">{{ 'HEADER.CONTACT' | translate }}</a></li>
-                            <div class="line"></div>
-                            <li class="menu-item"><a routerLink="/aboutus">{{ 'HEADER.ABOUT_US' | translate }}</a></li>
-                            <div class="line"></div>
-                        </span>
-                        
-                    </span>
-                </span>
 
                 <span class="hide-in-tablet">
                 <span class="menu-item-container">
@@ -57,12 +38,31 @@
                     <li class="menu-item"><a routerLink="/aboutus">{{ 'HEADER.ABOUT_US' | translate }}</a></li>        
                 </span>
                 </span>
-                <span class="show-in-tablet">
+                <span class="show-in-tablet menu-tablet">
                     <li class="menu-icon">
                         <svg (click)="openMenu()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                             <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
                         </svg>
                     </li>
+                    <span class="show-in-tablet">
+                        <span *ngIf="isMenuVissible" class="menu-item-container show-in-tablet">
+                            <span class="menu-item-box">
+                                <!-- <div class="close-btn-right-container">
+                                    <button class="close-btn-right" (click)="closeMenu()">&times;</button>
+                                </div> -->
+                                <!-- <div class="line" style="margin-top: 0rem;"></div> -->
+                                <li class="menu-item"><a routerLink="/home">{{ 'HEADER.HOME' | translate }}</a></li>
+                                <div class="line-menu"></div>
+                                <li class="menu-item"><a routerLink="/explore">{{ 'HEADER.SHOP' | translate }}</a></li>
+                                <div class="line-menu"></div>
+                                <li class="menu-item"><a routerLink="/contact">{{ 'HEADER.CONTACT' | translate }}</a></li>
+                                <div class="line-menu"></div>
+                                <li class="menu-item"><a routerLink="/aboutus">{{ 'HEADER.ABOUT_US' | translate }}</a></li>
+                                <div class="line-menu" style="margin-bottom: 0rem;"></div>
+                            </span>
+                            
+                        </span>
+                    </span>
                 </span>
                 
                 <li class="menu-icon">
@@ -99,6 +99,8 @@
             </ul>
         </div>
     </div>
+    
+
 </div>
 
 <!-- cart section -->

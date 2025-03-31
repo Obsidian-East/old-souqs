@@ -141,6 +141,8 @@ article {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 1rem 0;
+
 }
 .img-name-container{
     display: flex;
@@ -208,4 +210,191 @@ article {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+@media (min-width: 451px) and (max-width: 768px) {
+   
+    .hero{
+         height: 25vh; 
+    }
+    .hero-title{
+        font-size: 1.5rem;
+    }
+    
+    /* most buttons style */
+    .button-beige{
+        font-size: 0.925rem;
+        margin: 1rem 0;
+        padding: 0.5rem 1rem;
+    }
+ 
+    .headline{
+        font-size: 1.7rem;
+    }
+    .text{
+         font-size: 0.925rem;
+    }
+    .text a{
+        font-size: 0.925rem;
+    }
+    .cart-container{
+        width: 90vw;
+        margin: 4rem 0;
+    }
+ 
+    .title{
+        font-size: 1rem;
+    }
+    .number{
+        font-size: 0.925rem;
+    }
+   
+    /* to move the middle div below div1 and div3 */
+    .product-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap; /* Allow items to wrap in smaller screens */
+        margin: 1rem 0;
+    }
+
+    .img-name-container, .price-container {
+        width: 50%; /* Ensure div1 and div3 stay in the same row */
+        display: flex;
+    }
+    
+    .img-name-container{
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        gap: 1rem;
+    }
+    .img-name-container img{
+        width: 7rem;
+        height: 7rem;
+    }
+    .name{
+        font-size: 0.925rem;
+    }
+ 
+    .product-actions-container{
+        margin-top: 1rem;
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0rem;
+        order: 1; /* Move div2 below div1 and div3 */
+    }
+    .action-button{
+        font-size: 0.925rem;
+    }
+   
+    .price{
+       font-size: 0.925rem;
+    }
+
+}
+@media (min-width: 0px) and (max-width: 450px) {
+
+    .hero{
+        height: 23vh; 
+    }
+   
+    .hero-title{
+        font-size: 1.4rem;
+    }
+    
+    /* most buttons style */
+    .button-beige{
+        width: 100%;
+        text-align: center;
+       padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        margin: 0.75rem 0 0 0;
+    }
+  
+    .headline{
+       font-size: 1.6rem;
+    }
+    .text{
+       font-size: 0.85rem;
+    }
+    .text a{
+        font-size: 0.85rem;
+    }
+    .cart-container{
+        width: 90vw;
+        margin: 3rem 0;
+    }
+ 
+    .title{
+        font-size: 0.925rem;
+    }
+    .number{
+        font-size: 0.85rem;
+    }
+    
+    .product-item{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem 0;
+        margin: 0.8rem 0;
+    
+    }
+    .img-name-container{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        gap: 1rem;
+    }
+    .img-name-container img{
+        width: 6rem;
+        height: 6rem;
+    }
+    .name{
+        font-size: 0.85rem;
+    }
+  
+    .product-actions-container{
+        width: 104%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    .action-button{
+        font-size: 0.85rem;
+    }
+    .price-container{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .price-container svg , .price-container path{
+        width: 1rem;
+        height: 1rem;
+        fill: red;
+        cursor: pointer;
+    }
+    .price{
+        font-size: 0.85rem;
+    }
+    .action-buttons-container{
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+   
 }

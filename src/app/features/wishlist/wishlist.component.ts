@@ -15,7 +15,7 @@ export class WishlistComponent {
   availableProducts: Boolean = true;
    // products in cart
    products = [
-    { id: 1, name: 'Old Uniform', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
+    { id: 1, name: 'Old Uniform', price: 99.00, image: 'https://old-souqs.sirv.com/Products/1f1.jpg', quantity: 1 },
     { id: 2, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
     { id: 3, name: 'Vintage Boots', price: 79.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
     { id: 4, name: 'Leather Gloves', price: 49.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },

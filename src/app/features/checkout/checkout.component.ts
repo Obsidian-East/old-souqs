@@ -23,25 +23,9 @@ constructor( private router: Router,private el: ElementRef) { }
 
   // when user scroll right div is fixed when it hits the top of the screen 
   @HostListener('window:scroll', [])
-  // onWindowScroll() {
-  //   const rightDiv = this.el.nativeElement.querySelector('#rightDiv');
-  //   const rightBox = this.el.nativeElement.querySelector('#rightBox');
-  //   const topOffset = rightDiv.offsetTop;
-  //   const scrollPosition = window.scrollY;
-
-  //   if (scrollPosition >= topOffset) {
-  //     rightBox.style.position = 'fixed';
-  //     rightBox.style.top = '0';
-  //     rightBox.style.width = `90%`; // Maintain width
-  //   } else {
-  //     rightBox.style.position = 'relative';
-  //     rightBox.style.top = 'auto';
-  //     // rightBox.style.width = `94%`; // Maintain width
-
-  //   }
-  // }
 
   onWindowScroll() {
+    if (window.innerWidth >= 769 ) { 
     const rightDiv = this.el.nativeElement.querySelector('#rightDiv') as HTMLElement;
     const rightBox = this.el.nativeElement.querySelector('#rightBox') as HTMLElement;
     const topOffset = rightDiv.offsetTop;
@@ -55,6 +39,7 @@ constructor( private router: Router,private el: ElementRef) { }
       rightBox.style.position = 'relative';
       rightBox.style.top = 'auto';
       rightBox.style.width = '90%'; // Reset width
+    }
     }
   }
 
@@ -86,4 +71,17 @@ constructor( private router: Router,private el: ElementRef) { }
     this.paymentMethod = method;
   }
 
+  // to show and hide svg
+  displaySummary: Boolean = false;
+   toggleSummary(){
+    this.displaySummary = !this.displaySummary;
+    const rightBox = this.el.nativeElement.querySelector('#rightBox') as HTMLElement;
+    
+    if(rightBox.style.display==='flex'){
+      rightBox.style.display='none';
+    } else if(rightBox.style.display='none'){
+      rightBox.style.display='flex';
+    }
+    
+  }
 }

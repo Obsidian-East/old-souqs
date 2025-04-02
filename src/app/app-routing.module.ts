@@ -14,7 +14,8 @@ import { WishlistComponent } from './features/wishlist/wishlist.component';
 import { EditprofileComponent } from './features/editprofile/editprofile.component';
 import { CheckoutComponent } from './features/checkout/checkout.component';
 import { PasswordComponent } from './features/password/password.component';
-
+import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy.component';
+import { TermsConditionsComponent } from './features/terms-conditions/terms-conditions.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,7 +32,9 @@ const routes: Routes = [
   { path: 'wishlist', component: WishlistComponent},
   { path: 'editprofile', component: EditprofileComponent},
   { path: 'checkout', component: CheckoutComponent},
-  { path: 'password', component: PasswordComponent}
+  { path: 'password', component: PasswordComponent},
+  { path: 'privacy-policy', component: PrivacyPolicyComponent},
+  { path: 'terms-conditions', component: TermsConditionsComponent}
 ];
 
 @NgModule({

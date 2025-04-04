@@ -36,7 +36,7 @@ export class ExploreComponent  {
 
     // all poducts
     allproducts = [
-      { id: '1', name: 'American stamps', price: '$15.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2,3],instock:true },
+      { id: '1', name: 'American stamps', price: '$15.00', image: 'https://old-souqs.sirv.com/Products/1f1.jpg',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2,3],instock:true },
       { id: '2', name: 'Amphora', price: '$105.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2],instock:true  },
       { id: '3', name: 'Cityscape Painting', price: '$44.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2] ,instock:true  },
       { id: '4', name: 'Cylinder hat', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1] , instock:true },
@@ -170,11 +170,11 @@ export class ExploreComponent  {
      
       if (filter) {
         if (filter.style.display==='flex') {
-          // Grid svg clicked
+          // to hide
           filter.style.display='none'
           }
           else if(filter.style.display==='none'){
-            // List svg clicked
+            // to show
             filter.style.display='flex'
           } 
         }  

@@ -156,9 +156,10 @@
             </div>
             </span>
             <div class="dots show-in-tablet">
-                <div class="dot-collection active-dot" (click)="moveCollection(0)"></div>
-                <div class="dot-collection" (click)="moveCollection(1)"></div>
-                <div class="dot-collection" (click)="moveCollection(2)"></div>
+                <span *ngFor="let num of products; let i = index; let first=first; let last=last">
+                    <div *ngIf="first && !last" class="dot-collection active-dot" (click)="moveCollection(i)"></div>
+                    <div *ngIf="!first && !last" class="dot-collection" (click)="moveCollection(i)"></div>
+                </span>
             </div>
         </div>
     </article>
@@ -313,9 +314,11 @@
         </div>
         </span>
         <div class="dots">
-            <div class="dot active-dot" (click)="moveToSlide(0)"></div>
-            <div class="dot" (click)="moveToSlide(1)"></div>
-            <div class="dot" (click)="moveToSlide(2)"></div>
+            <span *ngFor="let num of deals; let i = index; let first=first; let last=last">
+                <div *ngIf="first && !last" class="dot active-dot" (click)="moveToSlide(i)"></div>
+                <div *ngIf="!first && !last" class="dot" (click)="moveToSlide(i)"></div>
+            </span>
+            
         </div>
     </article>
 <!--

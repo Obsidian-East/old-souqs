@@ -462,13 +462,19 @@ section{
 
 .deals-item-img{
     width: 16rem;
-    height: 22rem;
+    height: 16rem;
 }
-
+.deals-item-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
 /* dots style */
 .dots {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
     margin-top: 10px;
 }

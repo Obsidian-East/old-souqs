@@ -7,11 +7,14 @@ section{
     height: 30vh; 
     width: 100%;
     /* height: 30rem; */
-    background: url(../../assets/create-account-hero.jpg) lightgray 50% / cover no-repeat;
+    background: url('https://old-souqs.sirv.com/Banners/DSC00272.jpg') lightgray 50% / cover no-repeat;
 }
 .hero-container{
-    margin:0 4rem;
+    margin:0;
     width: 100%;
+    height: 100%;
+    /* background: linear-gradient(to right,rgba(0,0,0,0),rgba(0,0,0,0.8),rgba(0,0,0,0)); */
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,6 +28,7 @@ section{
     font-weight: 400;
 }
 .hero-title{
+
     color: var(--extra-color-body);
     font-family: var(--font-custom-stack-paragraph);
     font-size: 2rem;
@@ -302,11 +306,11 @@ iframe {
         height: 25vh; 
     }
     .hero-title{
-       font-size: 1.6rem;
+       font-size: 1.5rem;
     } 
     /* most buttons style */
     .button-beige{
-        font-size: 1rem;
+        font-size: 0.925rem;
         margin: 0.5rem 0;   
     }
     
@@ -452,20 +456,17 @@ iframe {
 
 @media (min-width: 0px) and (max-width: 450px) {
     .hero{
-       height: 20vh; 
+       height: 22vh; 
         /* width: 100%; */
     }
-    .hero-container{
-        margin:0 1rem;
-       
-    }
+  
     .hero-title{
         font-size: 1.2rem;
     }
    /* section 1 : grid style */
     
     .about-intro{
-        margin: 2rem 0;
+        margin: 1rem 0;
     }
     .grid-container {
         display: flex;
@@ -556,7 +557,7 @@ iframe {
     /* most buttons style */
     .button-beige{
         padding: 0.75rem 1.25rem;
-        font-size: 1rem;
+        font-size: 0.85rem;
         margin: 0.5rem 0;
     }
         

@@ -1,0 +1,164 @@
+section{
+    margin: 0 0;
+}
+article {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero{
+    display: flex;
+    align-items: center; /* Centers items vertically */
+    height: 30vh; 
+    width: 100%;
+    /* height: 30rem; */
+    background: url('https://old-souqs.sirv.com/Banners/DSC00272.jpg') lightgray 50% / cover no-repeat;
+}
+.hero-container{
+    margin:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-title{
+    color: var(--extra-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    margin: 0;
+}
+.headline{
+    color: var(--font-color-secondary);
+    margin:0.5rem 0;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 3rem;
+    letter-spacing: -0.045rem;
+}
+
+.marcellus-font{
+    font-family: var(--font-custom-stack-other);
+    font-weight: 400;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+}
+
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem 0;
+}
+.section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 70vw;
+}
+.section h2{
+    color: var(--font-color-secondary);
+    margin:0.75rem 0;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.7rem;
+}
+.section p, .section li{
+    color: var(--font-color-paragraph);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.7rem;
+}
+.last-updated{
+    color: var(--font-color-secondary);
+    margin:0.75rem 0;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2rem;
+}
+@media (min-width: 451px) and (max-width: 768px) {
+   
+    .hero{
+        height: 25vh; 
+    }
+    .hero-container{
+        margin:0;
+    }
+    
+    .hero-title{
+        font-size: 1.5rem;
+    }
+    .headline{
+        font-size: 1.65rem;
+    }
+    
+    .page{
+        margin: 3rem 0;
+    }
+    .section{
+        width: 90vw;
+    }
+    .section h2{
+       font-size: 1.2rem;
+    }
+    .section p, .section li{
+        font-size: 0.925rem;
+    }
+    .last-updated{
+        font-size: 0.925rem;
+    }
+}
+@media (min-width: 0px) and (max-width: 450px) {
+    .hero{
+        height: 22vh; 
+    }
+    .hero-container{
+        margin:0;
+    }
+    
+    .hero-title{
+        font-size: 1.2rem;
+    }
+    .headline{
+        font-size: 1.3rem;
+    }
+    
+    .page{
+        margin: 2rem 0;
+    }
+    .section{
+        width: 93vw;
+        margin-bottom: 1rem;
+    }
+    .section h2{
+        margin:0.25rem 0;
+
+       font-size: 1rem;
+       line-height: 1.25rem;
+    }
+    ul{
+        margin: 0;
+    }
+    .section p, .section li{
+        margin:0.25rem 0;
+
+        font-size: 0.85rem;
+    }
+    .last-updated{
+        font-size: 0.85rem;
+    }
+}

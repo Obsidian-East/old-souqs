@@ -15,8 +15,11 @@ import { ProductService } from '../../services/product.service';
 export class HomeComponent {
 	trendingCollectionId = '67ea6d0cc4338e7d55573ac4';
 	newArrivedCollectionId = '67eb079f48a62338c7e3185c';
+	dealsCollectionId = '67eb0a7048a62338c7e31860';
+
 	productsTrending: { id: string; name: string; price: number; image: string }[] = [];
 	productsArrived: { id: string; name: string; price: number; image: string }[] = [];
+	deals: { id: string; name: string; price: number; image: string }[] = [];
 
 	constructor(private router: Router,
 		private el: ElementRef,
@@ -30,42 +33,51 @@ export class HomeComponent {
 			}
 		}, 1000);
 	}
-	
+
 	fetchProductsByCollection(): void {
 		this.productService.getProductsByCollection(this.trendingCollectionId).subscribe({
-		  next: (data) => {
-			this.productsTrending = data.map((product: any) => ({
-			  id: String(product.ID),
-			  name: product.Title,   
-			  price: product.Price, 
-			  image: product.Image
-			}));
-			console.log(this.productsTrending);
-			console.log(data)
-			// Initialize the products array with trending products
-			this.products = this.productsTrending;
-		  },
-		  error: (error) => {
-			console.error('Error fetching products:', error);
-		  }
+			next: (data) => {
+				this.productsTrending = data.map((product: any) => ({
+					id: String(product.ID),
+					name: product.Title,
+					price: product.Price,
+					image: product.Image
+				}));
+				// Initialize the products array with trending products
+				this.products = this.productsTrending;
+			},
+			error: (error) => {
+				console.error('Error fetching products:', error);
+			}
 		});
 		this.productService.getProductsByCollection(this.newArrivedCollectionId).subscribe({
 			next: (data) => {
-			  this.productsArrived = data.map((product: any) => ({
-				id: String(product.ID),
-				name: product.Title,   
-				price: product.Price, 
-				image: product.Image
-			  }));
-			  console.log(this.productsArrived);
-			  console.log(data);
+				this.productsArrived = data.map((product: any) => ({
+					id: String(product.ID),
+					name: product.Title,
+					price: product.Price,
+					image: product.Image
+				}));
 			},
 			error: (error) => {
-			  console.error('Error fetching products:', error);
+				console.error('Error fetching products:', error);
 			}
-		  });
-	  }
-	  
+		});
+		this.productService.getProductsByCollection(this.dealsCollectionId).subscribe({
+			next: (data) => {
+				this.deals = data.map((product: any) => ({
+					id: String(product.ID),
+					name: product.Title,
+					price: product.Price,
+					image: product.Image
+				}));
+			},
+			error: (error) => {
+				console.error('Error fetching products:', error);
+			}
+		});
+	}
+
 	// collection showing 
 	products = this.productsTrending
 	hoveredItem: any = null; // Tracks the currently hovered product
@@ -121,16 +133,6 @@ export class HomeComponent {
 	hideProductActions(): void {
 		this.hoveredItem = null; // Reset on mouse leave
 	}
-
-
-	// hide and show product action for deals of the day article
-	deals = [
-		{ id: "1" , name: "Cityscape Painting", price: 44.00, image: "https://old-souqs.sirv.com/Essential/logo.png" },
-		{ id: "2" , name: "Golden Globe", price: 225.00, image: "https://old-souqs.sirv.com/Essential/logo.png" },
-		{ id: "3" , name: "Cylinder Hat", price: 99.00, image: "https://old-souqs.sirv.com/Essential/logo.png" },
-		{ id: "4", name: "Wall Sconce", price: 155.00, image: "https://old-souqs.sirv.com/Essential/logo.png" }
-	];
-
 
 	hoveredDeal: any = null;
 

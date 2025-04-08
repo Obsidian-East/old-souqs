@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-explore',
@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './explore.component.css'
 })
 export class ExploreComponent  {
+  constructor(private router: Router) {}
   // categories
     categories = [
       {id:'1', name: 'Home', count: 4 },
@@ -35,16 +36,16 @@ export class ExploreComponent  {
 
     // all poducts
     allproducts = [
-      { id: '1', name: 'American stamps', price: '$15.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1,2,3],instock:true },
-      { id: '2', name: 'Amphora', price: '$105.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1,2],instock:true  },
-      { id: '3', name: 'Cityscape Painting', price: '$44.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1,2] ,instock:true  },
-      { id: '4', name: 'Cylinder hat', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1] , instock:true },
-      { id: '5', name: 'Denarius', price: '$23.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1,3] ,instock:true },
-      { id: '6', name: 'Golden globe', price: '$225.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1,2,3] , instock:true },
-      { id: '7', name: 'Jewelry set', price: '$199.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1,2,3] ,instock:true  },
-      { id: '8', name: 'Old uniform', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1,2,3] , instock:true },
-      { id: '9', name: 'Shakespears sonnets', price: '$55.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1,2,3] ,instock:false  },
-      { id: '10', name: 'Wall sconce', price: '$155.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor1 Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor....', categoryId:[1,2,3] , instock:false }
+      { id: '1', name: 'American stamps', price: '$15.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2,3],instock:true },
+      { id: '2', name: 'Amphora', price: '$105.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2],instock:true  },
+      { id: '3', name: 'Cityscape Painting', price: '$44.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2] ,instock:true  },
+      { id: '4', name: 'Cylinder hat', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1] , instock:true },
+      { id: '5', name: 'Denarius', price: '$23.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,3] ,instock:true },
+      { id: '6', name: 'Golden globe', price: '$225.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2,3] , instock:true },
+      { id: '7', name: 'Jewelry set', price: '$199.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2,3] ,instock:true  },
+      { id: '8', name: 'Old uniform', price: '$99.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2,3] , instock:true },
+      { id: '9', name: 'Shakespears sonnets', price: '$55.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2,3] ,instock:false  },
+      { id: '10', name: 'Wall sconce', price: '$155.00', image: 'https://old-souqs.sirv.com/Essential/logo.png',description: 'Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur.', categoryId:[1,2,3] , instock:false }
     ];
 
 
@@ -128,28 +129,27 @@ export class ExploreComponent  {
 
     
    // function to move from trending to new arrived in our collection section
+   showGridProduct: boolean = true;
+   showListProduct: boolean = false;
    TabAction(index: number) {
-
     let buttonGrid = document.querySelector('.grid-list')
     let buttonList = document.querySelector('.ul-list')
-    let GridContainer = document.getElementById('grid-product-list')
-    let ListContainer = document.getElementById('ul-product-list')
-
-    if (buttonGrid && buttonList && ListContainer && GridContainer) {
+   
+    if (buttonGrid && buttonList) {
       if (index === 1) {
         // Grid svg clicked
+          this.showGridProduct=true;
+          this.showListProduct=false;
           buttonList.classList.remove("active")
           buttonGrid.classList.add("active")
-          ListContainer.style.display='none' 
-          GridContainer.style.display='flex'
         }
         else if(index === 2){
           // List svg clicked
+          this.showGridProduct=false;
+          this.showListProduct=true;
           buttonGrid.classList.remove("active")
           buttonList.classList.add("active")
-          ListContainer.style.display='flex'
-          GridContainer.style.display='none'
-      } 
+        } 
       }  
     }
 
@@ -162,5 +162,34 @@ export class ExploreComponent  {
     hideProductActions(): void {
       this.hoveredItem = null; // Reset on mouse leave
     }
+
+
+       // show and hide the filter div in tablet and mobile
+    toggleFilter() {
+      let filter = document.getElementById('filter')
+     
+      if (filter) {
+        if (filter.style.display==='flex') {
+          // Grid svg clicked
+          filter.style.display='none'
+          }
+          else if(filter.style.display==='none'){
+            // List svg clicked
+            filter.style.display='flex'
+          } 
+        }  
+    }
+
+    closeFilter(){
+      let filter = document.getElementById('filter')
+      if(filter)
+        filter.style.display='none'
+    }
+   
+       // to send the product id to the product page when clicking on a product name
+  
+       goToProduct(id: string) {
+        this.router.navigate(['/product'], { state: { productId: id } });
+      }
 }
 

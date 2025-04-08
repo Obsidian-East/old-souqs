@@ -14,8 +14,8 @@
         <div *ngIf="availableProducts" class="cart-container">
             <div  class="line"></div>
             <div class="title-container">
-                <p class="title">My Wishlist:</p>
-                <p class="number">{{totalCount}} item</p>
+                <p class="title">{{ 'WISHLIST.MY-WISHLIST' | translate }}</p>
+                <p class="number">{{totalCount}} {{ 'WISHLIST.ITEM' | translate }}</p>
             </div>
             <div class="line"></div>
 
@@ -27,8 +27,8 @@
                     </div>
 
                     <div class="product-actions-container">
-                        <button class="action-button">Add to cart</button>
-                        <button class="action-button">Buy Now</button>
+                        <button class="action-button">{{ 'WISHLIST.ADD-TO-CART' | translate }}</button>
+                        <button class="action-button">{{ 'WISHLIST.BUY-NOW' | translate }}</button>
                     </div>
 
                     <div class="price-container">
@@ -48,8 +48,8 @@
             </div>
 
             <div class="action-buttons-container">
-                <button class="button-beige">Continue Shopping</button>
-                <button class="button-beige">Clear Wishlist</button>
+                <button class="button-beige">{{ 'WISHLIST.CONTINUE-SHOPPING' | translate }}</button>
+                <button class="button-beige">{{ 'WISHLIST.CLEAR' | translate }}</button>
             </div>
         </div>
     </article>

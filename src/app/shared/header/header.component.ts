@@ -110,5 +110,4 @@ export class HeaderComponent {
             if(this.textValue != '')
               this.router.navigate(['/search'], { state: { SearchText: this.textValue } });
         }
-    
 }

@@ -125,10 +125,11 @@ export class HomeComponent {
 
 	// hide and show product action for deals of the day article
 	deals = [
-		{ id: "1" , name: "Cityscape Painting", price: 44.00, image: "https://old-souqs.sirv.com/Essential/logo.png" },
-		{ id: "2" , name: "Golden Globe", price: 225.00, image: "https://old-souqs.sirv.com/Essential/logo.png" },
-		{ id: "3" , name: "Cylinder Hat", price: 99.00, image: "https://old-souqs.sirv.com/Essential/logo.png" },
-		{ id: "4", name: "Wall Sconce", price: 155.00, image: "https://old-souqs.sirv.com/Essential/logo.png" }
+		{ id: "1" , name: "Cityscape Painting", price: 44.00, image: "https://old-souqs.sirv.com/Products/1f1.jpg" },
+		{ id: "2" , name: "Golden Globe", price: 225.00, image: "https://old-souqs.sirv.com/Products/1f1.jpg" },
+		{ id: "3" , name: "Cylinder Hat", price: 99.00, image: "https://old-souqs.sirv.com/Products/1f1.jpg" },
+		{ id: "4", name: "Wall Sconce", price: 155.00, image: "https://old-souqs.sirv.com/Products/1f1.jpg" },
+		{ id: "4", name: "Wall Sconce", price: 155.00, image: "https://old-souqs.sirv.com/Products/1f1.jpg" }
 	];
 
 

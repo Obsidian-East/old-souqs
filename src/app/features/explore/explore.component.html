@@ -10,7 +10,9 @@
     <article id="all-products">
         <div class="page-container">
             <!-- left part -->
-             <div id="filter" class="filters-container-box">
+             <div  class="hide-in-tablet">
+
+             <div class="filters-container-box">
             <div class="filters-container">
                     <button (click)="closeFilter()" class="close-btn show-in-tablet">&times;</button>
                 <!-- categories -->
@@ -93,22 +95,8 @@
 
                     <!-- try price -->
                     <div class="slider-container">
-                        <div class="range-slider">
-                          <!-- <input 
-                            type="range" 
-                            [min]="minLimit" 
-                            [max]="maxLimit" 
-                            [value]="minValue"
-                            (input)="updateValues('min', $event)"
-                          />
-                          <input 
-                            type="range" 
-                            [min]="minLimit" 
-                            [max]="maxLimit" 
-                            [value]="maxValue"
-                            (input)="updateValues('max', $event)"
-                          /> -->
-
+                        <!-- <div class="range-slider">
+                          
                           <input 
                             id="minrange"
                             type="range" 
@@ -125,7 +113,7 @@
                             [value]="maxValue"
                             (input)="updateValues('max', $event)"
                             />
-                        </div>
+                        </div> -->
                     </div>    
                       
                     <div class="inputs-container">
@@ -150,6 +138,138 @@
                 </div>   
             </div>
             </div>
+        </div>
+
+        <!-- for tablet and mobile -->
+        <div id="filter" class="show-in-tablet" style="display: none;" >
+
+            <div class="filters-container-box">
+           <div class="filters-container">
+                   <button (click)="closeFilter()" class="close-btn show-in-tablet">&times;</button>
+               <!-- categories -->
+               <div class="filter-item-container">
+                   <p class="headline">{{ 'EXPLORE.CATEGORIES' | translate }}</p>
+                   
+                   <div class="category-item" *ngFor="let category of categories; let i = index">
+                       <input
+                         type="checkbox"
+                         [id]="'checkbox-' + i"
+                         [checked]="selectedCategory === category"
+                         (change)="toggleCategory(category)"
+                       />
+                       <label [for]="'checkbox-' + i" [class.checked]="selectedCategory === category">
+                           <span class="category-info">
+                               <span> {{ category.name }} </span> 
+                               <span>({{ category.count }})</span>
+                           </span>
+                       </label>
+                     </div>
+               </div>
+               <!-- to display selected category name -->
+               {{selectedName}}
+               <!-- br -->
+               <div class="line"></div>
+
+               <!-- filter section -->
+                <div  class="filter-item-container">
+                   <p class="headline">{{ 'EXPLORE.FILTER' | translate }}</p>
+                   <p class="text">{{totalCount}} {{ 'EXPLORE.PRODUCTS' | translate }}</p>
+                   <div class="filter-buttons-container">
+                       <button class="filter-button">0.00$ - 225.00$  &nbsp; x</button>
+                       <button class="filter-button">{{ 'EXPLORE.IN-STOCK' | translate }} (10) &nbsp; x</button>
+                       <button class="filter-button">{{ 'EXPLORE.CLEAR-ALL' | translate }}</button>
+                   </div>
+                   
+               </div>
+
+                <!-- br -->
+                <div class="line"></div>
+
+                <div class="filter-item-container">
+                   <p class="headline">{{ 'EXPLORE.AVAILABILITY' | translate }}</p>
+                   <div class="text-container">
+                       <p class="text">{{selectednumber}} {{ 'EXPLORE.SELECTED' | translate }} </p>
+                       <button class="reset-button">{{ 'EXPLORE.RESET' | translate }}</button>
+                   </div>
+                   <div class="category-item">
+                       <input id="instock" type="checkbox"
+                       [checked]="selectedAvailability === 'instock'"
+                       (change)="toggleAvailability('instock')"/>
+                       <label for="instock"  [class.checked]="selectedAvailability === 'instock'">
+                           <span class="category-info">
+                               <span> {{ 'EXPLORE.IN-STOCK' | translate }} </span> 
+                               <span>({{totalCountInStock}})</span>
+                           </span>
+                       </label>
+                   </div>
+                   <div class="category-item">
+                       <input id="outofstock" type="checkbox"
+                       [checked]="selectedAvailability === 'outofstock'"
+                       (change)="toggleAvailability('outofstock')"/>
+                       <label for="outofstock" [class.checked]="selectedAvailability === 'outofstock'">
+                           <span class="category-info">
+                               <span> {{ 'EXPLORE.OUT-OF-STOCK' | translate }} </span> 
+                               <span>({{totalCountOfOutStock}})</span>
+                           </span>
+                       </label>
+                   </div>
+                </div>
+
+                <!-- br -->
+                 <div class="line"></div>
+                 <div class="filter-item-container">
+                   <p class="headline">Price</p>
+                   <div class="text-container">
+                       <p class="text"> {{ 'EXPLORE.HIGHEST-PRICE' | translate }} {{maxPrice}} </p>
+                       <button class="reset-button">{{ 'EXPLORE.RESET' | translate }}</button>
+                   </div>
+
+                   <!-- try price -->
+                   <div class="slider-container">
+                       <div class="range-slider">
+
+                         <!-- <input 
+                           id="minrange"
+                           type="range" 
+                           [min]="minLimit" 
+                           [max]="maxLimit" 
+                           [value]="minValue"
+                           (input)="updateValues('min', $event)"
+                           />
+                           <input 
+                           id="maxrange"
+                           type="range" 
+                           [min]="minLimit" 
+                           [max]="maxLimit" 
+                           [value]="maxValue"
+                           (input)="updateValues('max', $event)"
+                           /> -->
+                       </div>
+                   </div>    
+                     
+                   <div class="inputs-container">
+                       <div class="price-item">
+                           <p class="subtitle">{{ 'EXPLORE.FROM' | translate }}</p>
+                           <span class="dollar-input-container">
+                               <p class="dollar-container">$</p>
+                               <input class="price-input" type="number" [value]="minValue" (input)="updateMinValue($event)"/>
+                           </span>
+                       </div>
+
+                       <div class="minus"> - </div>
+                           
+                       <div class="price-item">
+                           <p class="subtitle">{{ 'EXPLORE.TO' | translate }}</p>
+                           <span class="dollar-input-container">
+                               <p class="dollar-container">$</p>
+                               <input class="price-input" type="number" [value]="maxValue" (input)="updateMaxValue($event)"/>
+                           </span>
+                       </div>         
+                   </div>
+               </div>   
+           </div>
+           </div>
+           </div>
     
             <!-- products section -->
              <!-- right part -->

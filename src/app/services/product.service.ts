@@ -26,4 +26,13 @@ export class ProductService {
         return this.http.get<any[]>(`${this.apiCollectionUrl}/${collectionId}/products`);
     }
 
+    //Fetch all products
+    getProducts(): Observable<any> {
+        return this.http.get<any[]>(`${this.apiProductUrl}`)
+    }
+
+    getProductById(productId: string): Observable<any>{
+        return this.http.get<any[]>(`${this.apiProductUrl}/${ productId }`)
+    }
+
 }

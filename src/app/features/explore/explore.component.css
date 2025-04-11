@@ -346,14 +346,7 @@ input[type="checkbox"] {
     justify-content:start;
     width: 75%;
 }
-.products-hero{
-    display: flex;
-    align-items: center; /* Centers items vertically */
-    height: 45vh; 
-    width: 100%;
-    /* height: 30rem; */
-    background: url('https://old-souqs.sirv.com/Banners/DSC00279.jpg') lightgray 50% / cover no-repeat;
-}
+
 .display-sort-container{
     width: 100%;
     margin:  0;
@@ -800,9 +793,6 @@ input[type="checkbox"] {
     .products-container{
         width: 100%;
     }
-    .products-hero{
-       height: 40vh; 
-    }
    
     .filter-svg{
         color: var(--font-color-secondary);
@@ -1130,9 +1120,6 @@ input[type="checkbox"] {
     /* products section style */
     .products-container{
         width: 100%;
-    }
-    .products-hero{
-       height: 20vh; 
     }
     .display-sort-container{
         flex-direction: column;

@@ -276,8 +276,6 @@
              <div class="products-container">
                 <p class="headline">{{ 'EXPLORE.PRODUCTS' | translate }} ({{totalCount}})</p>
 
-                <div class="products-hero"></div>
-
                 <div class="display-sort-container">
                     <div class="list-icon-container">
                             <span (click)="toggleFilter()" class="filter-svg show-in-tablet">
@@ -289,7 +287,7 @@
                             
                             <span class="list-icon-svg-container">
                             <svg class="grid-list active" (click)="TabAction(1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                <path d="M128 136c0-22.1-17.9-40-40-40L40 96C17.9 96 0 113.9 0 136l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm0 192c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm32-192l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zM288 328c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm32-192l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zM448 328c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48z" fill="cuttentColor"/>
+                                <path d="M128 136c0-22.1-17.9-40-40-40L40 96C17.9 96 0 113.9 0 136l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm0 192c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm32-192l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zM288 328c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm32-192l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zM448 328c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48z" fill="currentColor"/>
                             </svg>
 
                             <svg class="ul-list" (click)="TabAction(2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -360,7 +358,7 @@
                     </div>
             
                     <p class="item-name"><a>{{ product.name }}</a></p>
-                    <span class="item-price">{{ product.price }}</span>
+                    <span class="item-price">$ {{ product.price }}</span>
                 </div>
             </div>
             </span>

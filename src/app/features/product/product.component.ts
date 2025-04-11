@@ -1,8 +1,8 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
-
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -11,19 +11,37 @@ import { RouterModule, Router } from '@angular/router';
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
-export class ProductComponent implements OnInit{
-  constructor(private router: Router) {}
+
+export class ProductComponent implements OnInit {
+  constructor(private router: Router,
+    private productService: ProductService,
+  ) { }
+
   productId: number | null = null;
   ngOnInit() {
-    if (typeof window !== 'undefined') { //  Ensure we are in the browser
+    this.fetchProductById()
+    if (typeof window !== 'undefined') {
       this.productId = window.history.state.productId;
     }
-     console.log('Product ID:', this.productId);
+    console.log('Product ID:', this.productId);
   }
-  products = [
-    { id: 1, name: 'Old Uniform', price: '$99.00', image:[ 'https://old-souqs.sirv.com/Essential/logo.png', 'https://old-souqs.sirv.com/Products/1f1.jpg', 'https://old-souqs.sirv.com/Images/Canon%20lenses.jpg'],instock:true, quantity: 6 ,brand:"salford Co.", description: "Dicta sunt explicabo. Nemo enim ipsam voluptatem voluptas sit odit aut fugit, sed quia consequuntur. Lorem ipsum nonum eirmod dolor. Aquia sit amet, elitr, sed diam nonum eirmod tempor invidunt labore et dolore magna aliquyam.erat, sed diam voluptua. At vero accusam et justo duo dolores et ea rebum. Stet clitain vidunt ut labore eirmod tempor invidunt magna aliquyam. Stet clitain vidunt ut labore."},
-  ];
-  
+
+  products: { id: string; name: string; description:string; price: number; image: string; stock: number }[] = [];
+  fetchProductById() {
+    this.productService.getProductById(String(this.productId)).subscribe({
+      next: (data) => {
+        this.products = data.map((product: any) => ({
+          id: product.ID,
+          name: product.title,
+          description: product.description,
+          price: product.price,
+          image: product.image,
+          stock: product.stock,
+        }));
+      }
+    })
+  }
+
 
   selectedIndex = 0;
   transitioning = false;
@@ -48,8 +66,8 @@ export class ProductComponent implements OnInit{
 
   Counter: number = 1
   increaseQuantity() {
-    if(this.Counter < this.products[0].quantity){
-      this.Counter ++;
+    if (this.Counter < this.products[0].stock) {
+      this.Counter++;
     }
 
   }
@@ -67,7 +85,7 @@ export class ProductComponent implements OnInit{
     { id: 4, name: "Wall Sconce", price: "$155.00", image: "https://old-souqs.sirv.com/Essential/logo.png" }
   ];
   hoveredItem: any = null; // Tracks the currently hovered product
-  
+
   showProductActions(product: any): void {
     this.hoveredItem = product; // Set hovered item
   }
@@ -77,7 +95,7 @@ export class ProductComponent implements OnInit{
   }
   // to send the product id to the product page when clicking on a product name
 
-  
+
   goToProduct(id: number) {
     this.router.navigate(['/product'], { state: { productId: id } });
   }

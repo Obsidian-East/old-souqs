@@ -1,0 +1,591 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms'; // <== Import this
+
+interface Product {
+  image: string;
+  nameEn: string;
+  nameAr: string;
+  categoryId: string;
+  price: number | null;
+  quantity: number | null;
+  descriptionEn: string;
+  descriptionAr: string;
+  [key: string]: any;  // This allows any other property to be indexed
+}
+// new dicount
+type DiscountField = 'type' | 'targetId' | 'value';
+
+@Component({
+  selector: 'app-admin',
+  standalone: true,
+  imports: [CommonModule, SharedModule, RouterModule, FormsModule],
+  templateUrl: './admin.component.html',
+  styleUrl: './admin.component.css'
+})
+
+export class AdminComponent implements OnInit {
+
+  categories: { id: string; nameEn: string ; nameAr: string }[] = [
+    { id: '1', nameEn: 'Clocks', nameAr: 'ساعات' },
+    { id: '2', nameEn: 'Maps', nameAr: 'خرائط' },
+    { id: '3', nameEn: 'Jewelry', nameAr: 'مجوهرات' },
+    { id: '4', nameEn: 'Kitchenware', nameAr: 'أدوات المطبخ' },
+    { id: '5', nameEn: 'Rugs', nameAr: 'سجاد' },
+    { id: '6', nameEn: 'Ceramics', nameAr: 'سيراميك' },
+    { id: '7', nameEn: 'Coins', nameAr: 'عملات' }
+  ];
+  products: { id: string; image: string; nameEn: string; nameAr: string; categoryId: string; price: number; quantity: number; descriptionEn: string; descriptionAr: string }[] = [
+    {
+      id: '1',
+      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
+      nameEn: 'Vintage Clock',
+      nameAr: 'ساعة قديمة',
+      categoryId: '1',
+      price: 120,
+      quantity: 5,
+      descriptionEn: 'An exquisite antique brass wall clock from the early 19th century. This vintage clock features intricate engravings, a Roman numeral dial, and a beautiful aged patina that adds character to any space. A perfect addition for collectors and vintage lovers.',
+      descriptionAr: 'ساعة حائط نحاسية عتيقة من أوائل القرن التاسع عشر. تتميز هذه الساعة المحفورة بتفاصيل دقيقة ومينا بأرقام رومانية، مما يضفي عليها طابعًا كلاسيكيًا رائعًا. إضافة مثالية لمحبي التحف والقطع النادرة.'
+    },
+    {
+      id: '2',
+      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
+      nameEn: 'Old Map',
+      nameAr: 'خريطة قديمة',
+      categoryId: '2',
+      price: 85,
+      quantity: 2,
+      descriptionEn: 'A rare historical map of the Middle East from the 18th century. This meticulously detailed map showcases the geography, trade routes, and major cities of the era, printed on aged parchment paper. An excellent decorative piece or gift for history enthusiasts.',
+      descriptionAr: 'خريطة تاريخية نادرة لمنطقة الشرق الأوسط من القرن الثامن عشر. تعرض هذه الخريطة التفصيلية جغرافيا المنطقة ومسارات التجارة والمدن الكبرى في ذلك الوقت، مطبوعة على ورق بردي قديم. قطعة رائعة للزينة أو هدية لهواة التاريخ.'
+    },
+    {
+      id: '3',
+      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
+      nameEn: 'Handcrafted Silver Dagger',
+      nameAr: 'خنجر فضي مصنوع يدويًا',
+      categoryId: '3',
+      price: 250,
+      quantity: 3,
+      descriptionEn: 'A beautifully handcrafted silver dagger featuring detailed filigree work and an intricately designed handle. This traditional Middle Eastern piece is a symbol of heritage and craftsmanship, making it a valuable collector’s item.',
+      descriptionAr: 'خنجر فضي مصنوع يدويًا بتفاصيل رائعة وتصميم معقد على المقبض. هذه القطعة التقليدية من الشرق الأوسط تعتبر رمزًا للتراث والحرفية، مما يجعلها إضافة قيمة لمجموعات التحف.'
+    },
+    {
+      id: '4',
+      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
+      nameEn: 'Antique Brass Teapot',
+      nameAr: 'إبريق شاي نحاسي عتيق',
+      categoryId: '1',
+      price: 180,
+      quantity: 6,
+      descriptionEn: 'An elegant antique brass teapot with intricate carvings and a sturdy handle. This traditional teapot was commonly used in Middle Eastern households for serving tea during gatherings. A stunning addition to any antique kitchenware collection.',
+      descriptionAr: 'إبريق شاي نحاسي عتيق مزخرف بنقوش دقيقة ومقبض قوي. كان هذا الإبريق يُستخدم بشكل شائع في المنازل العربية لتقديم الشاي خلال المناسبات. إضافة رائعة لأي مجموعة أدوات مطبخ عتيقة.'
+    },
+    {
+      id: '5',
+      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
+      nameEn: 'Persian Handwoven Rug',
+      nameAr: 'سجادة فارسية يدوية الصنع',
+      categoryId: '2',
+      price: 600,
+      quantity: 1,
+      descriptionEn: 'A luxurious Persian handwoven rug featuring traditional motifs and vibrant colors. Made using natural wool and plant-based dyes, this exquisite rug is a timeless piece of art that enhances the aesthetic of any living space.',
+      descriptionAr: 'سجادة فارسية فاخرة مصنوعة يدويًا بزخارف تقليدية وألوان زاهية. مصنوعة من الصوف الطبيعي والأصباغ النباتية، مما يجعلها قطعة فنية خالدة تضفي جمالًا وأناقة على أي مكان.'
+    }
+   
+  ];
+   // Set active section and toggle sidebar styles
+   activeSection = 'products'; // default section
+
+   selectSection(section: string) {
+    this.activeSection = section;
+    const allButtons = document.querySelectorAll('.menu-item');
+    allButtons.forEach(btn => btn.classList.remove('active'));
+    const target = document.getElementById(`${section}-btn`);
+    target?.classList.add('active');
+  }
+
+  // get category name for each product in the product section
+  getCategoryName(categoryId: string): string {
+    const category = this.categories.find(cat => cat.id === categoryId);
+    return category ? category.nameEn + ' - '+category.nameAr : 'Unknown';
+  }
+
+
+  deleteProduct(productId:string){
+    alert('delete product'+productId);
+  }
+
+
+  // update product
+  showPopup = false;
+  selectedProduct: any = null;
+
+  // Open the popup with selected product
+  openEditPopup(product: any) {
+    this.selectedProduct = { ...product }; // Clone the object to avoid modifying original directly
+    this.showPopup = true;
+  }
+
+  // Close the popup
+  closePopup() {
+    this.showPopup = false;
+  }
+
+  // Handle input changes
+  updateField(field: string, event: Event) {
+    const input = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+    if (this.selectedProduct) {
+      this.selectedProduct[field] = input.value;
+    }
+  }
+  
+
+  // Handle image upload
+  handleImageUpload(event: any) {
+    const file = event.target.files[0];
+    
+    // Check if a file is selected and if it's an image
+    if (file) {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.selectedProduct.image = e.target.result; // Store the image
+        };
+        reader.readAsDataURL(file); // Convert to base64 string
+      } else {
+        // Show error message if file is not an image
+        alert("Please select a valid image file.");
+        event.target.value = ''; // Clear the file input
+      }
+    }
+  }
+  
+  // Update the product in the array
+  updateProduct() {
+    const index = this.products.findIndex(p => p.id === this.selectedProduct.id);
+    if (index !== -1) {
+      this.products[index] = { ...this.selectedProduct }; // Save the updated product
+    }
+    this.closePopup(); // Close popup after updating
+  }
+
+
+  // add new product
+  showAddPopup: boolean = false;
+  newProduct: Product = {
+    image: '',
+    nameEn: '',
+    nameAr: '',
+    categoryId: '',
+    price: null,
+    quantity: null,
+    descriptionEn: '',
+    descriptionAr: ''
+  };
+
+  openAddPopup() {
+    this.showAddPopup = true;
+  }
+
+  closeAddPopup() {
+    this.showAddPopup = false;
+  }
+
+  updateFieldNewProduct(field: string, event: any) {
+    const value = event.target.value;
+    this.newProduct[field] = value;
+  }
+
+  handleNewImageUpload(event: any) {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.newProduct.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert('Please select a valid image file.');
+      event.target.value = '';
+    }
+  }
+
+  addNewProduct() {
+    if (this.newProduct.nameEn && this.newProduct.nameAr && this.newProduct.price != null && this.newProduct.quantity != null) {
+      // Add the product to your array of products
+      console.log('New product added:', this.newProduct);
+      alert("new prod added");
+      this.closeAddPopup();
+      // Reset the newProduct object for the next entry
+      this.newProduct = {
+        image: '',
+        nameEn: '',
+        nameAr: '',
+        categoryId: '',
+        price: null,
+        quantity: null,
+        descriptionEn: '',
+        descriptionAr: ''
+      };
+    } else {
+      alert('Please fill in all fields.');
+    }
+  }
+
+// collection section
+  expandedCollectionId: string | null = null;
+  editingStates: { [key: string]: boolean } = {}; // for edit mode
+  inputValuesEn: { [key: string]: string } = {};     // temp input value for editing
+  inputValuesAr: { [key: string]: string } = {};     // temp input value for editing
+
+ 
+
+  // Return products related to a collection
+  getProductsByCategory(categoryId: string) {
+    return this.products.filter(product => product.categoryId === categoryId);
+  }
+
+  toggleExpand(collectionId: string) {
+    this.expandedCollectionId = this.expandedCollectionId === collectionId ? null : collectionId;
+  }
+  
+  // Start editing
+  editCollectionName(collectionId: string, currentNameEn: string, currentNameAr: string) {
+    this.editingStates[collectionId] = true;
+    this.inputValuesEn[collectionId] = currentNameEn;
+    this.inputValuesAr[collectionId] = currentNameAr;
+  }
+
+  // Save updated name
+  saveCollectionName(collectionId: string) {
+    const collection = this.categories.find(c => c.id === collectionId);
+    if (collection) {
+      collection.nameEn = this.inputValuesEn[collectionId];
+      collection.nameAr = this.inputValuesAr[collectionId];
+    }
+    this.editingStates[collectionId] = false;
+  }
+
+  // Cancel editing
+  cancelEditing(collectionId: string) {
+    this.editingStates[collectionId] = false;
+    delete this.inputValuesEn[collectionId]; // optional: clean up
+    delete this.inputValuesAr[collectionId]; // optional: clean up
+  }
+
+  // Handle input change
+  onInputChangeEn(collectionId: string, event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.inputValuesEn[collectionId] = input.value;
+  }
+  onInputChangeAr(collectionId: string, event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.inputValuesAr[collectionId] = input.value;
+  }
+  
+    // add new category
+    showAddCollectionPopup = false;
+    
+    newCollectionNameEn = '';
+    newCollectionNameAr = '';
+
+    openAddCollectionPopup() {
+      this.showAddCollectionPopup = true;
+      this.newCollectionNameEn = '';
+      this.newCollectionNameAr = '';
+    }
+
+    closeAddCollectionPopup() {
+      this.showAddCollectionPopup = false;
+    }
+
+    handleCollectionNameInputEn(event: Event) {
+      const input = event.target as HTMLInputElement;
+      this.newCollectionNameEn = input.value;
+    }
+    handleCollectionNameInputAr(event: Event) {
+      const input = event.target as HTMLInputElement;
+      this.newCollectionNameAr = input.value;
+    }
+
+    addNewCollection() {
+      const nameEn = this.newCollectionNameEn.trim();
+      const nameAr = this.newCollectionNameAr.trim();
+      if (nameEn && nameAr) {
+        alert(`New collection name: ${nameEn} - ${nameAr}`);
+        this.closeAddCollectionPopup();
+      } else {
+        alert('Please enter a collection name.');
+      }
+    }
+    deleteCollection(collectinId:string){
+      alert('delete collection'+ collectinId)
+    }
+
+
+    // orders section
+    expandedOrderId: string | null = null;
+
+    orders = [
+      {
+        orderId: 'ORD001',
+        orderDate: '2025-04-03',
+        userId: '1',
+        productsIds: [
+          { id: '1', quantity: 1 },
+          { id: '2', quantity: 2 }
+        ]
+      },
+      {
+        orderId: 'ORD002',
+        orderDate: '2025-04-03',
+        userId: '2',
+        productsIds: [
+          { id: '3', quantity: 1 }
+        ]
+      },
+      {
+        orderId: 'ORD003',
+        orderDate: '2025-03-31',
+        userId: '3',
+        productsIds: [
+          { id: '2', quantity: 3 },
+          { id: '4', quantity: 1 }
+        ]
+      }
+    ];
+    users = [
+      { id: '1', name: 'Ali Ahmed' },
+      { id: '2', name: 'Sarah Khalil' },
+      { id: '3', name: 'Mohammed Said' },
+    ];
+    
+
+    selectedSort = 'latest';
+
+    get groupedOrders() {
+      const sorted = [...this.orders].sort((a, b) => {
+        const d1 = new Date(a.orderDate).getTime();
+        const d2 = new Date(b.orderDate).getTime();
+        return this.selectedSort === 'latest' ? d2 - d1 : d1 - d2;
+      });
+
+      const groups: { [key: string]: any[] } = {};
+      sorted.forEach(order => {
+        if (!groups[order.orderDate]) groups[order.orderDate] = [];
+        groups[order.orderDate].push(order);
+      });
+
+      return Object.entries(groups);
+    }
+    getProductById(id: string) {
+      return this.products.find(p => p.id === id);
+    }
+    getUserNameById(id: string): string {
+      const user = this.users.find(u => u.id === id);
+      return user ? user.name : 'Unknown User';
+    }
+
+    // to hide and show order details
+    expandedOrderIds: Set<string> = new Set();
+
+    toggleOrderDetails(orderId: string) {
+      if (this.expandedOrderIds.has(orderId)) {
+        this.expandedOrderIds.delete(orderId);
+      } else {
+        this.expandedOrderIds.add(orderId);
+      }
+    }
+
+    isOrderDetailsShown(orderId: string): boolean {
+      return this.expandedOrderIds.has(orderId);
+    }
+
+    // calculate total price
+    calculateTotalPrice(productsInOrder: { id: string; quantity: number }[]): number {
+      let total = 0;
+    
+      for (const item of productsInOrder) {
+        const product = this.products.find(p => p.id === item.id);
+        if (product) {
+          total += product.price * item.quantity;
+        }
+      }
+    
+      return total;
+    }
+    
+  //  discount section
+    newDiscount: Record<DiscountField, string> = {
+      type: 'product',
+      targetId: '',
+      value: ''
+    };
+
+    showAddDiscountPopup = false;
+
+    discounts = [
+      {
+        id: 'd1',
+        type: 'product',
+        targetId: '1',
+        value: '10',
+        createdAt: new Date('2024-12-01')
+      },
+      {
+        id: 'd2',
+        type: 'category',
+        targetId: '2',
+        value: '15',
+        createdAt: new Date('2024-12-03')
+      },
+      {
+        id: 'd3',
+        type: 'product',
+        targetId: '2',
+        value: '10',
+        createdAt: new Date('2024-12-01')
+      },
+      {
+        id: 'd4',
+        type: 'product',
+        targetId: '3',
+        value: '10',
+        createdAt: new Date('2024-11-11')
+      },
+      {
+        id: 'd5',
+        type: 'category',
+        targetId: '1',
+        value: '10',
+        createdAt: new Date('2024-12-12')
+      },
+      {
+        id: 'd6',
+        type: 'category',
+        targetId: '3',
+        value: '10',
+        createdAt: new Date('2025-1-01')
+      }
+    ];
+
+    handleDiscountField(field: DiscountField, event: Event){
+      const input = event.target as HTMLInputElement | HTMLSelectElement;
+      this.newDiscount[field] = input.value;
+    }
+
+
+
+    editingId: string | null = null;
+    editingIndex: number | null = null; // To track the index of the editing discount
+    editingValue: string = ''; // Initialize as an empty string instead of null
+    newDiscountValue: string = ''; // New discount value for adding a discount
+    newDiscountTargetId: string = ''; // Target ID for new discount
+    newDiscountType: 'product' | 'category' = 'product'; // Default type for new discount
+  
+    discountNames: { [key: string]: string } = {}; // Store computed names
+  
+    isValidValue: boolean = true; // To track if the value is valid
+
+    ngOnInit() {
+      this.computeDiscountNames();
+    }
+  
+    // Precompute the names of products or categories
+    computeDiscountNames() {
+      this.discounts.forEach(d => {
+        if (d.type === 'product') {
+          const product = this.products.find(p => p.id === d.targetId);
+          this.discountNames[d.id] = product ? product.nameEn +' - '+ product.nameAr : 'Unknown Product';
+        } else if (d.type === 'category') {
+          const category = this.categories.find(c => c.id === d.targetId);
+          this.discountNames[d.id] = category ? category.nameEn +' - '+ category.nameAr  : 'Unknown Category';
+        }
+      });
+    }
+    addDiscount() {
+      if (!this.newDiscount.targetId || !this.newDiscount.value) {
+        alert('Please fill all fields');
+        return;
+      }
+
+      this.discounts.push({
+        id: Date.now().toString(),
+        type: this.newDiscount.type as 'product' | 'category',
+        targetId: this.newDiscount.targetId,
+        value: this.newDiscount.value,
+        createdAt: new Date()
+      });
+
+      alert(`Discount added for ${this.newDiscount.type} ${this.newDiscount.targetId}`);
+      this.showAddDiscountPopup = false;
+      this.newDiscount = { type: 'product', targetId: '', value: '' };
+      this.computeDiscountNames();
+    }
+
+    
+    // Method to start editing a discount
+  editDiscount(id: string) {
+    this.editingId = id;
+    const discount = this.discounts.find(d => d.id === id);
+    if (discount) {
+      this.editingValue = discount.value;
+      this.isValidValue = true;
+    }
+  }
+
+  // Method to save the edited discount
+  saveDiscount() {
+    if (this.isValidValue && this.editingId) {
+      const discount = this.discounts.find(d => d.id === this.editingId);
+      if (discount) {
+        discount.value = this.editingValue;
+        discount.createdAt = new Date(); // Update the date when saving
+        this.editingId = null;
+        this.editingValue = '';
+      }
+    } else {
+      alert('Please enter a valid discount value between 0 and 100.');
+    }
+  }
+
+  // Method to cancel the editing
+  cancelEdit() {
+    this.editingId = null;
+    this.editingValue = '';
+  }
+
+  // Method to delete a discount
+  deleteDiscount(id: string) {
+    this.discounts = this.discounts.filter(d => d.id !== id);
+  }
+
+  // Method to handle the input change when editing the discount value
+  onEditValue(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = Number(input.value);
+
+    if (value >= 0 && value <= 100) {
+      this.isValidValue = true;
+      this.editingValue = input.value;
+    } else {
+      this.isValidValue = false;
+    }
+  }
+
+  // Get the product and category discounts
+  get productDiscounts() {
+    return this.discounts
+      .filter(d => d.type === 'product')
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()); // Sort by date descending
+  }
+
+  get categoryDiscounts() {
+    return this.discounts
+      .filter(d => d.type === 'category')
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()); // Sort by date descending
+  }
+
+}

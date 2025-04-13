@@ -18,47 +18,35 @@
                 <!-- categories -->
                 <div class="filter-item-container">
                     <p class="headline">{{ 'EXPLORE.CATEGORIES' | translate }}</p>
-                    
+                  
+                    <div *ngIf="categories.length === 0">Loading categories...</div>
+                  
                     <div class="category-item" *ngFor="let category of categories; let i = index">
-                        <input
-                          type="checkbox"
-                          [id]="'checkbox-' + i"
-                          [checked]="selectedCategory === category"
-                          (change)="toggleCategory(category)"
-                        />
-                        <label [for]="'checkbox-' + i" [class.checked]="selectedCategory === category">
-                            <span class="category-info">
-                                <span> {{ category.name }} </span> 
-                                <span>({{ category.count }})</span>
-                            </span>
-                        </label>
-                      </div>
-                </div>
+                      <input
+                        type="checkbox"
+                        [id]="'checkbox-' + i"
+                        [checked]="selectedCategory?.id === category.id"
+                        (change)="toggleCategory(category)"
+                      />
+                      <label [for]="'checkbox-' + i" [class.checked]="selectedCategory?.id === category.id">
+                        <span class="category-info">
+                          <span *ngIf="category.name">{{ category.name }}</span>
+                          <span *ngIf="category.count !== undefined">({{ category.count }})</span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  
                 <!-- to display selected category name -->
                 {{selectedName}}
                 <!-- br -->
                 <div class="line"></div>
 
-                <!-- filter section -->
-                 <div  class="filter-item-container">
-                    <p class="headline">{{ 'EXPLORE.FILTER' | translate }}</p>
-                    <p class="text">{{totalCount}} {{ 'EXPLORE.PRODUCTS' | translate }}</p>
-                    <div class="filter-buttons-container">
-                        <button class="filter-button">0.00$ - 225.00$  &nbsp; x</button>
-                        <button class="filter-button">{{ 'EXPLORE.IN-STOCK' | translate }} (10) &nbsp; x</button>
-                        <button class="filter-button">{{ 'EXPLORE.CLEAR-ALL' | translate }}</button>
-                    </div>
-                    
-                </div>
-
-                 <!-- br -->
-                 <div class="line"></div>
-
                  <div class="filter-item-container">
                     <p class="headline">{{ 'EXPLORE.AVAILABILITY' | translate }}</p>
                     <div class="text-container">
                         <p class="text">{{selectednumber}} {{ 'EXPLORE.SELECTED' | translate }} </p>
-                        <button class="reset-button">{{ 'EXPLORE.RESET' | translate }}</button>
+                        <button class="reset-button" (click)="clearAvailabiltyFilters()">{{ 'EXPLORE.RESET' | translate }}</button>
                     </div>
                     <div class="category-item">
                         <input id="instock" type="checkbox"
@@ -89,8 +77,8 @@
                   <div class="filter-item-container">
                     <p class="headline">Price</p>
                     <div class="text-container">
-                        <p class="text"> {{ 'EXPLORE.HIGHEST-PRICE' | translate }} {{maxPrice}} </p>
-                        <button class="reset-button">{{ 'EXPLORE.RESET' | translate }}</button>
+                        <p class="text"> {{ 'EXPLORE.HIGHEST-PRICE' | translate }} {{maxValue}} </p>
+                        <button class="reset-button" (click)="clearMoneyFilters()">{{ 'EXPLORE.RESET' | translate }}</button>
                     </div>
 
                     <!-- try price -->
@@ -150,7 +138,7 @@
                <div class="filter-item-container">
                    <p class="headline">{{ 'EXPLORE.CATEGORIES' | translate }}</p>
                    
-                   <div class="category-item" *ngFor="let category of categories; let i = index">
+                   <div class="category-item" *ngFor="let category of categories; let i = index" (click)="toggleCategory(category)">
                        <input
                          type="checkbox"
                          [id]="'checkbox-' + i"
@@ -189,7 +177,7 @@
                    <p class="headline">{{ 'EXPLORE.AVAILABILITY' | translate }}</p>
                    <div class="text-container">
                        <p class="text">{{selectednumber}} {{ 'EXPLORE.SELECTED' | translate }} </p>
-                       <button class="reset-button">{{ 'EXPLORE.RESET' | translate }}</button>
+                       <button class="reset-button" (click)="clearAvailabiltyFilters()">{{ 'EXPLORE.RESET' | translate }}</button>
                    </div>
                    <div class="category-item">
                        <input id="instock" type="checkbox"
@@ -220,8 +208,8 @@
                  <div class="filter-item-container">
                    <p class="headline">Price</p>
                    <div class="text-container">
-                       <p class="text"> {{ 'EXPLORE.HIGHEST-PRICE' | translate }} {{maxPrice}} </p>
-                       <button class="reset-button">{{ 'EXPLORE.RESET' | translate }}</button>
+                       <p class="text"> {{ 'EXPLORE.HIGHEST-PRICE' | translate }} {{maxValue}} </p>
+                       <button class="reset-button" (click)="clearMoneyFilters()">{{ 'EXPLORE.RESET' | translate }}</button>
                    </div>
 
                    <!-- try price -->
@@ -299,7 +287,7 @@
                     <div class="sort-container">
                         <p class="sort-title">{{ 'EXPLORE.SORT-BY' | translate }}</p>
                         <select id="dropdown" (change)="onSelect($event)">
-                            <option *ngFor="let item of ['Featured', 'Best selling', 'Alphabetically, A-Z', 'Alphabetically, Z-A', 'Price, low to high', 'Price, high to low', 'Date, new to old', 'Date, old to new']"
+                            <option *ngFor="let item of ['Price, high to low', 'Price, low to high']"
                                     [value]="item"
                                     [selected]="item === selectedItem"
                                     [ngClass]="{'selected': item === selectedItem}">

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { Console, error } from 'node:console';
 
 @Component({
 	selector: 'app-explore',
@@ -12,88 +13,195 @@ import { ProductService } from '../../services/product.service';
 	styleUrl: './explore.component.css'
 })
 export class ExploreComponent {
-	constructor(private router: Router,
+	constructor(
+		private router: Router,
 		private productService: ProductService,
-	) {}
+	) { }
 
 	ngOnInit(): void {
+		this.fetchCollections();
 		this.fetchProducts();
 	}
+
 	// categories
-	categories = [
-		{ id: '1', name: 'Home', count: 4 },
-		{ id: '2', name: 'New Arrived', count: 5 },
-		{ id: '3', name: 'Trending', count: 5 }
-	];
-	// total nb of products in all categories
-	selectedCategoryNumber = this.categories.reduce((sum, category) => sum + category.count, 0);
-
+	categories: any[] = [];
 	selectedCategory: any = null;
-	selectedName: string = "";  // to display selected category name
-	// to track nb of products in a selected category initially = total nb of prod
-	totalCount = this.categories.reduce((sum, category) => sum + category.count, 0);
+	selectedName: string = "";
 
-	toggleCategory(category: any) {
-		// if selected === new selected one so remove selection -> null 
-		this.selectedCategory = this.selectedCategory === category ? null : category;
-		this.selectedName = this.selectedName === category.name ? null : category.name;
-		this.totalCount = this.selectedCategory === category ? this.selectedCategory.count : this.selectedCategoryNumber;
+	// Filtered Products
+	originalProducts: any[] = []; // Holds the full, unfiltered list
+	filteredProducts: any[] = [];
+	allproducts: any[] = [];
 
-	}
+	// Stock tracking
+	totalCountInStock = 0;
+	totalCountOfOutStock = 0;
+	selectednumber = 0;
 
-	// all poducts
-	allproducts: { id: string; name: string; description:string; price: number; image: string; stock: number }[] = [];
-	fetchProducts() {
-		this.productService.getProducts().subscribe({
-			next: (data) => {
-				this.allproducts = data.map((product: any) => ({
-					id: product.ID,
-					name: product.title,
-					description: product.description,
-					price: product.price,
-					image: product.image,
-					stock: product.stock,
-				}));
-			}
-		})
-	}
+	// Category counts
+	selectedCategoryNumber = 0;
+	totalCount = 0;
 
-	// in stock and out of stock number
-	totalCountInStock = this.allproducts.reduce((sum, product) => product.stock ? sum + 1 : sum, 0);
-	totalCountOfOutStock = this.allproducts.reduce((sum, product) => product.stock ? sum : sum + 1, 0);
+	// Price
+	minValue = 0;
+	maxValue = 0;
+	minLimit = 0;
+	maxLimit = 0;
 
+	// Availability
 	selectedAvailability: any = null;
-	selectednumber: number = this.totalCountInStock + this.totalCountOfOutStock
+
+	// Selected sort
+	selectedItem: string = 'Best selling';
+
+	// --- Fetching Functions ---
+	fetchCollections() {
+		this.productService.getCollections().subscribe({
+			next: (data) => {
+				this.categories = data.map((collection: any) => ({
+					id: collection.ID,
+					name: collection.CollectionName,
+					count: Array.isArray(collection.ProductIds) ? collection.ProductIds.length : 0,
+				}));
+				this.selectedCategoryNumber = this.categories.reduce((sum, c) => sum + c.count, 0);
+				this.totalCount = this.selectedCategoryNumber;
+			},
+			error: (error) => {
+				console.error('Error fetching collections:', error);
+			}
+		});
+	}
+
+	fetchProducts() {
+		if (this.selectedCategory) {
+			// Fetch by selected category
+			this.fetchProductsByCollection(this.selectedCategory.id);
+		} else {
+			// Fetch all products
+			this.productService.getProducts().subscribe({
+				next: (data) => {
+					this.originalProducts = data.map((product: any) => ({
+						id: product.id,
+						name: product.title,
+						description: product.description,
+						price: product.price,
+						image: product.image,
+						stock: product.stock,
+						instock: product.stock > 0,
+					}));
+
+					this.allproducts = [...this.originalProducts];
+					this.setPriceLimits();
+					this.calculateStock();
+					this.applyFilters();
+				},
+				error: (error) => {
+					console.error('Error fetching products:', error);
+				}
+			});
+		}
+	}
+
+
+
+	// --- Filtering Functions ---
+	toggleCategory(collection: any) {
+		if (this.selectedCategory?.id === collection.id) {
+			this.selectedCategory = null; // unselect
+		} else {
+			this.selectedCategory = collection;
+		}
+		this.fetchProducts(); // single point of logic
+	}
+
+
+	applyFilters() {
+		this.allproducts = this.originalProducts.filter(product => {
+			const matchesAvailability =
+				!this.selectedAvailability ||
+				(this.selectedAvailability === 'instock' && product.instock) ||
+				(this.selectedAvailability === 'outofstock' && !product.instock);
+
+			const matchesPrice = product.price >= this.minValue && product.price <= this.maxValue;
+
+			return matchesAvailability && matchesPrice;
+		});
+
+		this.selectednumber = this.allproducts.length;
+		this.totalCount = this.selectednumber;
+		this.sortProducts();
+	}
+
+
+	fetchProductsByCollection(collectionId: string) {
+		this.productService.getProductsByCollection(collectionId).subscribe({
+			next: (data) => {
+				this.originalProducts = data.map((product: any) => ({
+					id: product.ID,
+					name: product.Title,
+					description: product.Description,
+					price: product.Price,
+					image: product.Image,
+					stock: product.Stock,
+					instock: product.Stock > 0,
+				}));
+				console.log(data);
+				console.log(this.originalProducts)
+
+				this.allproducts = [...this.originalProducts];
+				this.totalCount = this.allproducts.length
+				this.setPriceLimits();
+				this.calculateStock();
+				this.applyFilters();
+			}
+		});
+	}
+
+	calculateStock() {
+		this.totalCountInStock = 0;
+		this.totalCountOfOutStock = 0;
+
+		this.allproducts.forEach((product) => {
+			if (product.instock) this.totalCountInStock++;
+			else this.totalCountOfOutStock++;
+		});
+	}
 
 	toggleAvailability(availibility: any) {
-		// if selected === new selected one so remove selection -> null 
 		this.selectedAvailability = this.selectedAvailability === availibility ? null : availibility;
-		if (availibility === 'instock') this.selectednumber = this.totalCountInStock
-		if (availibility === 'outofstock') this.selectednumber = this.totalCountOfOutStock
-		if (this.selectedAvailability === null) this.selectednumber = this.totalCountInStock + this.totalCountOfOutStock
 
+		if (availibility === 'instock') this.selectednumber = this.totalCountInStock;
+		if (availibility === 'outofstock') this.selectednumber = this.totalCountOfOutStock;
+		if (this.selectedAvailability === null) this.selectednumber = this.totalCountInStock + this.totalCountOfOutStock;
+
+		this.applyFilters();
 	}
 
+	// --- Price Functions ---
 
+	setPriceLimits() {
+		const prices = this.allproducts.map(p => p.price);
+		this.minLimit = Math.min(...prices);
+		this.maxLimit = Math.max(...prices);
+		this.minValue = this.minLimit;
+		this.maxValue = this.maxLimit;
+	}
 
-	// minimum ans maximum price
-	minPrice = this.allproducts.reduce((min, product) => {
-		const price = product.price; // Convert "$15.00" to 15.00
-		return price < min ? price : min;
-	}, Infinity); // Start with a very high value
+	updateMinValue(event: Event) {
+		const value = Number((event.target as HTMLInputElement).value);
+		if (value < this.maxValue) {
+			this.minValue = value;
+			this.applyFilters();
+		}
+	}
 
-	maxPrice = this.allproducts.reduce((max, product) => {
-		const price = product.price; // Convert "$15.00" to 15.00
-		return price > max ? price : max;
-	}, 0); // Start with a very low value
-
-
-
-	// try price
-	minValue: number = 0;
-	maxValue: number = this.maxPrice;
-	minLimit: number = 0;
-	maxLimit: number = this.maxPrice;
+	updateMaxValue(event: Event) {
+		const value = Number((event.target as HTMLInputElement).value);
+		if (value > this.minValue) {
+			this.maxValue = value;
+			this.applyFilters();
+		}
+	}
 
 	updateValues(type: 'min' | 'max', event: Event) {
 		const value = Number((event.target as HTMLInputElement).value);
@@ -106,36 +214,10 @@ export class ExploreComponent {
 		}
 	}
 
-
-	updateMinValue(event: Event) {
-		const value = Number((event.target as HTMLInputElement).value);
-		if (value < this.maxValue) {
-			this.minValue = value;
-		} else {
-			// add message to tell the user that min should be < max
-			this.minValue = this.maxValue - 1; // Prevent overlap
-		}
-	}
-
-	// Function to update the max value from slider or input
-	updateMaxValue(event: Event) {
-		const value = Number((event.target as HTMLInputElement).value);
-		if (value > this.minValue) {
-			this.maxValue = value;
-		} else {
-			// add message to tell the user that max should be > min
-			this.maxValue = this.minValue + 1; // Prevent overlap
-		}
-	}
-
-	selectedItem: string = 'Best selling'; // Set the 3rd item as default selected
-
 	onSelect(event: Event) {
 		this.selectedItem = (event.target as HTMLSelectElement).value;
+		this.sortProducts();
 	}
-
-
-
 
 	// function to move from trending to new arrived in our collection section
 	showGridProduct: boolean = true;
@@ -200,5 +282,51 @@ export class ExploreComponent {
 	goToProduct(id: string) {
 		this.router.navigate(['/product'], { state: { productId: id } });
 	}
+
+	// --- Misc ---
+
+	get activeFilters() {
+		const filters = [];
+		if (this.minValue !== this.minLimit || this.maxValue !== this.maxLimit) {
+			filters.push(`${this.minValue}$ - ${this.maxValue}$`);
+		}
+		if (this.selectedAvailability) {
+			filters.push(this.selectedAvailability === 'instock' ? 'In stock' : 'Out of stock');
+		}
+		if (this.selectedCategory) {
+			filters.push(this.selectedCategory.name);
+		}
+		return filters;
+	}
+
+	clearAllFilters() {
+		this.selectedCategory = null;
+		this.selectedAvailability = null;
+		this.minValue = this.minLimit;
+		this.maxValue = this.maxLimit;
+		this.fetchProducts(); // Refetch all products and apply filters
+	}
+
+	clearAvailabiltyFilters() {
+		this.selectedCategory = null;
+		this.selectedAvailability = null;
+		this.fetchProducts(); // Refetch all products and apply filters
+	}
+
+	clearMoneyFilters() {
+		this.minValue = this.minLimit;
+		this.maxValue = this.maxLimit;
+		this.fetchProducts(); // Refetch all products and apply filters
+	}
+
+	// --Sorting--
+	sortProducts() {
+		if (this.selectedItem === 'Price, low to high') {
+			this.allproducts.sort((a, b) => a.price - b.price);
+		} else if (this.selectedItem === 'Price, high to low') {
+			this.allproducts.sort((a, b) => b.price - a.price);
+		}
+	}
+
 }
 

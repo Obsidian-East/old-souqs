@@ -134,6 +134,70 @@ article {
     line-height: 1.7rem;
 }
 
+/* order history */
+.order-card {
+    width: 97%;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    margin: 1rem 0;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .order-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+
+  }
+  .order-header button {
+    cursor: pointer;
+    font-family: var(--font-custom-stack-paragraph);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1rem;
+    background: none;
+    color: #ff4040;
+    border: none;
+    text-decoration: underline;
+  }
+  .order-header span{
+    font-family: var(--font-custom-stack-paragraph);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 1rem;
+  }
+  .order-details {
+    /* margin-top: 1rem; */
+    border-top: 1px dashed #999;
+    padding-top: 1rem;
+  }
+  .product-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .product-img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .product-info {
+    /* flex: 1; */
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1rem;
+  }
+  .product-info p{
+    line-height: 1.25rem;
+    margin: 0.75rem 0;
+  }
+ 
 @media (min-width: 451px) and (max-width: 768px) {
    
     .hero{
@@ -173,7 +237,7 @@ article {
          font-size: 0.925rem;
     }
     .order-history-container{
-        width: 89vw;
+        width: 88vw;
         display: grid;
         grid-template-columns: repeat(1, 1fr); 
         gap: 1rem;
@@ -181,11 +245,32 @@ article {
         padding:0rem 0rem;
     }
     .orders-container{
-        width: 88vw;
-        margin: 0 0;
-        padding: 0.25rem;
-
+        width: 95%;
+    padding: 1rem 1rem;
+    align-items: center;
+    justify-content: center;
     }
+    
+/* order history */
+  .order-header button {
+    font-size: 0.925rem;
+  }
+  .order-header span{
+    font-size: 0.925rem;
+  }
+ 
+  .product-img {
+    width: 90px;
+    height: 90px;
+  }
+  .product-info {
+    font-size: 0.925rem;
+  }
+  .product-info p{
+    line-height: 1.2rem;
+    margin: 0.5rem 0;
+  }
+  
 }
 @media (min-width: 0px) and (max-width: 450px) {
    
@@ -242,17 +327,48 @@ article {
     }
 
     .order-history-container{
-        width: 90vw;
-        display: grid;
-        grid-template-columns: repeat(1, 1fr); 
+        width: 88vw;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
         gap: 1rem;
         margin: 2rem 0;
         padding:0rem 0rem;
     }
     .orders-container{
-        width: 88vw;
-        margin: 0 0;
-        padding: 0.25rem;
-
+        width: 95%;
+    padding: 0.75rem 0.75rem;
+    align-items: center;
+    justify-content: center;
     }
+    .order-card {
+        width: 90%;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+        margin: 1rem 0;
+        padding: 0.5rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+    
+/* order history */
+  .order-header button {
+    font-size: 0.85rem;
+  }
+  .order-header span{
+    font-size: 0.85rem;
+  }
+ 
+  .product-img {
+    width: 80px;
+    height: 80px;
+  }
+  .product-info {
+    font-size: 0.85rem;
+  }
+  .product-info p{
+    line-height: 1.2rem;
+    margin: 0.5rem 0;
+  }
+
 }

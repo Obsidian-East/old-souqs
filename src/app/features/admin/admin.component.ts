@@ -588,4 +588,19 @@ export class AdminComponent implements OnInit {
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()); // Sort by date descending
   }
 
+   // show and hide the filter div in tablet and mobile
+   showSidebar() {
+    let sidebar = document.getElementById('sidebar')
+   
+    if (sidebar) {
+          sidebar.style.display='flex'
+      }  
+  }
+
+  closeSidebar(){
+    let sidebar = document.getElementById('sidebar')
+    if(sidebar)
+      sidebar.style.display='none'
+  }
+
 }

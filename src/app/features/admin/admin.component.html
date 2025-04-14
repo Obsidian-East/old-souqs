@@ -1,25 +1,33 @@
 <section class="page">
 
-<div class="sidebar">
-    <div class="sidebar-header">
-      <!-- <img src="https://old-souqs.sirv.com/Essential/logo%20old%20souq%203%20colors-1.png" alt="Logo" class="logo" /> -->
-      <span class="site-name">Old Souq Admin</span>
+    <div id="sidebar" class="sidebar-box">
+        <div class="sidebar">
+            <button (click)="closeSidebar()" class="close-btn show-in-tablet">✖</button>
+            <div class="sidebar-header">
+              <!-- <img src="https://old-souqs.sirv.com/Essential/logo%20old%20souq%203%20colors-1.png" alt="Logo" class="logo" /> -->
+              <span class="site-name">{{ 'ADMIN.OLD-SOUQ-ADMIN' | translate }} </span>
+            </div>
+          
+            <nav class="sidebar-menu">
+              <a id="products-btn" (click)="selectSection('products')" class="menu-item active"> {{ 'ADMIN.PRODUCTS' | translate }} </a>
+              <a id="collections-btn" (click)="selectSection('collections')" class="menu-item"> {{ 'ADMIN.COLLECTIONS' | translate }} </a>
+              <a id="discounts-btn" (click)="selectSection('discounts')" class="menu-item"> {{ 'ADMIN.DISCOUNTS' | translate }} </a>
+              <a id="orders-btn" (click)="selectSection('orders')" class="menu-item"> {{ 'ADMIN.ORDERS' | translate }} </a>
+            </nav>
+          
+            <div class="sidebar-footer">
+              &copy; {{ 'ADMIN.OLD-SOUQ' | translate }} 
+            </div>
+        </div>
     </div>
-  
-    <nav class="sidebar-menu">
-      <a id="products-btn" (click)="selectSection('products')" class="menu-item active"> Products</a>
-      <a id="collections-btn" (click)="selectSection('collections')" class="menu-item"> Collections</a>
-      <a id="discounts-btn" (click)="selectSection('discounts')" class="menu-item"> Discounts</a>
-      <a id="orders-btn" (click)="selectSection('orders')" class="menu-item"> Orders</a>
-    </nav>
-  
-    <div class="sidebar-footer">
-      &copy; 2025 Old Souq Admin
-    </div>
-</div>
 <!-- Main content wrapper -->
 <div id="product-section" *ngIf="activeSection === 'products'" class="main-content">
-    <button (click)="openAddPopup()" class="add-product-btn">+ Add New Product</button>
+    <div class="menu-container show-in-tablet">
+        <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+        </svg>
+    </div>
+    <button (click)="openAddPopup()" class="add-product-btn">+ {{ 'ADMIN.ADD-NEW-PRODUCT' | translate }} </button>
   
     <!-- Products list -->
     <div class="products-list">
@@ -29,8 +37,8 @@
         <div class="product-info">
           <h2 class="product-name">{{ product.nameEn }} - {{ product.nameAr }}</h2>
           <span class="product-category-tag">{{ getCategoryName(product.categoryId) }}</span>
-          <p class="product-price">Price: {{ product.price }} USD</p>
-          <p class="product-quantity">Quantity: {{ product.quantity }}</p>
+          <p class="product-price">{{ 'ADMIN.PRICE' | translate }} : {{ product.price }} USD</p>
+          <p class="product-quantity">{{ 'ADMIN.QUANTITY' | translate }} : {{ product.quantity }}</p>
           <p class="product-description">
             {{ product.descriptionEn }}<br />
             {{ product.descriptionAr }}
@@ -38,8 +46,8 @@
         </div>
   
         <div class="product-actions">
-          <button class="edit-btn" (click)="openEditPopup(product)">Edit Product</button>
-          <button class="delete-btn" (click)="deleteProduct(product.id)">Delete Product</button>
+          <button class="edit-btn" (click)="openEditPopup(product)">{{ 'ADMIN.EDIT-PRODUCT' | translate }} </button>
+          <button class="delete-btn" (click)="deleteProduct(product.id)">{{ 'ADMIN.DELETE-PRODUCT' | translate }} </button>
         </div>
       </div>
     </div>
@@ -49,7 +57,7 @@
 <div class="edit-popup" *ngIf="showPopup">
     <div class="popup-content">
       <button class="close-btn" (click)="closePopup()">✖</button>
-      <h2 class="headline">Edit Product</h2>
+      <h2 class="headline">{{ 'ADMIN.EDIT-PRODUCT' | translate }} </h2>
   
       <!-- <label>Product Image</label> -->
       <img [src]="selectedProduct.image" class="popup-image-preview" />
@@ -58,19 +66,19 @@
   
       <div class="grid-two">
         <span class="label-input-container">
-            <label>Name (English)</label>
+            <label>{{ 'ADMIN.NAME-EN' | translate }} </label>
             <input type="text" [value]="selectedProduct.nameEn" (input)="updateField('nameEn', $event)" />
         </span>
         
         <span class="label-input-container">
-            <label>Name (Arabic)</label>
+            <label>{{ 'ADMIN.NAME-AR' | translate }} </label>
             <input type="text" [value]="selectedProduct.nameAr" (input)="updateField('nameAr', $event)" />
         </span>
         
       </div>
       <div class="grid-three">
         <span class="label-input-container">
-            <label>Category</label>
+            <label>{{ 'ADMIN.CATEGORY' | translate }} </label>
             <select (change)="updateField('categoryId', $event)">
                 <option *ngFor="let category of categories" [value]="category.id" [selected]="category.id === selectedProduct.categoryId">
                 {{ category.nameEn }} - {{category.nameAr}}
@@ -79,26 +87,26 @@
         </span>
         
         <span class="label-input-container">
-            <label>Price</label>
+            <label>{{ 'ADMIN.PRICE' | translate }} </label>
             <input type="number" [value]="selectedProduct.price" (input)="updateField('price', $event)" />
         </span>
         
         <span class="label-input-container">
-            <label>Quantity</label>
+            <label>{{ 'ADMIN.QUANTITY' | translate }} </label>
             <input type="number" [value]="selectedProduct.quantity" (input)="updateField('quantity', $event)" />    
         </span>
     </div>
       
     <span class="label-input-container">
-      <label>Description (English)</label>
+      <label>{{ 'ADMIN.DESC-EN' | translate }} </label>
       <textarea (input)="updateField('descriptionEn', $event)">{{ selectedProduct.descriptionEn }}</textarea>
     </span>
     <span class="label-input-container"> 
-      <label>Description (Arabic)</label>
+      <label>{{ 'ADMIN.DESC-AR' | translate }} </label>
       <textarea (input)="updateField('descriptionAr', $event)">{{ selectedProduct.descriptionAr }}</textarea>
     </span> 
       
-      <button class="update-btn" (click)="updateProduct()">Update</button>
+      <button class="update-btn" (click)="updateProduct()">{{ 'ADMIN.UPDATE' | translate }} </button>
     </div>
   </div>
 
@@ -106,7 +114,7 @@
   <div class="add-popup" *ngIf="showAddPopup">
     <div class="popup-content">
       <button class="close-btn" (click)="closeAddPopup()">✖</button>
-      <h2 class="headline">Add New Product</h2>
+      <h2 class="headline">{{ 'ADMIN.ADD-NEW-PRODUCT' | translate }} </h2>
   
       <img [src]="newProduct.image" class="popup-image-preview" *ngIf="newProduct.image" />
   
@@ -114,19 +122,19 @@
   
       <div class="grid-two">
         <span class="label-input-container">
-          <label>Name (English)</label>
+          <label>{{ 'ADMIN.NAME-EN' | translate }} </label>
           <input type="text" [value]="newProduct.nameEn" (input)="updateFieldNewProduct('nameEn', $event)" />
         </span>
   
         <span class="label-input-container">
-          <label>Name (Arabic)</label>
+          <label>{{ 'ADMIN.NAME-AR' | translate }} </label>
           <input type="text" [value]="newProduct.nameAr" (input)="updateFieldNewProduct('nameAr', $event)" />
         </span>
       </div>
   
       <div class="grid-three">
         <span class="label-input-container">
-          <label>Category</label>
+          <label>{{ 'ADMIN.CATEGORY' | translate }} </label>
           <select [value]="newProduct.categoryId" (change)="updateFieldNewProduct('categoryId', $event)">
             <option *ngFor="let category of categories" [value]="category.id">
               {{ category.nameEn }} - {{category.nameAr}}
@@ -135,27 +143,27 @@
         </span>
   
         <span class="label-input-container">
-          <label>Price</label>
+          <label>{{ 'ADMIN.PRICE' | translate }} </label>
           <input type="number" [value]="newProduct.price" (input)="updateFieldNewProduct('price', $event)" />
         </span>
   
         <span class="label-input-container">
-          <label>Quantity</label>
+          <label>{{ 'ADMIN.QUANTITY' | translate }} </label>
           <input type="number" [value]="newProduct.quantity" (input)="updateFieldNewProduct('quantity', $event)" />
         </span>
       </div>
   
       <span class="label-input-container">
-        <label>Description (English)</label>
+        <label>{{ 'ADMIN.DESC-EN' | translate }} </label>
         <textarea [value]="newProduct.descriptionEn" (input)="updateFieldNewProduct('descriptionEn', $event)"></textarea>
       </span>
   
       <span class="label-input-container">
-        <label>Description (Arabic)</label>
+        <label>{{ 'ADMIN.DESC-AR' | translate }} </label>
         <textarea [value]="newProduct.descriptionAr" (input)="updateFieldNewProduct('descriptionAr', $event)"></textarea>
       </span>
   
-      <button class="add-btn" (click)="addNewProduct()">Add Product</button>
+      <button class="add-btn" (click)="addNewProduct()">{{ 'ADMIN.ADD-PRODUCT' | translate }} </button>
     </div>
   </div>
   
@@ -164,12 +172,17 @@
 
 <!-- collection section -->
  <!-- Collections Section -->
-<div id="collection-section" *ngIf="activeSection === 'collections'" class="collections-container">
-    <button (click)="openAddCollectionPopup()" class="add-collection-btn">+ Add New Collection</button>
+<div id="collection-section" *ngIf="activeSection === 'collections'" class="main-content">
+    <div class="menu-container show-in-tablet">
+        <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+        </svg>
+    </div>
+    <button (click)="openAddCollectionPopup()" class="add-collection-btn">+ {{ 'ADMIN.ADD-NEW-COLLECTION' | translate }} </button>
   
     <div *ngFor="let collection of categories" class="collection-wrapper">
       <div class="collection-header">
-        <span>
+        <span class="collection-name-input-container">
             <input
             [disabled]="!editingStates[collection.id]"
             [value]="inputValuesEn[collection.id] || collection.nameEn"
@@ -186,22 +199,22 @@
            
     
         <span class="save-cancel-container" *ngIf="!editingStates[collection.id]" >
-            <button (click)="editCollectionName(collection.id, collection.nameEn, collection.nameAr)">
-                Edit
+            <button class="red-btn" (click)="editCollectionName(collection.id, collection.nameEn, collection.nameAr)">
+              {{ 'ADMIN.EDIT' | translate }} 
            </button>
                
-            <button  (click)="deleteCollection(collection.id)">
-               Delete
+            <button class="black-btn"  (click)="deleteCollection(collection.id)">
+              {{ 'ADMIN.DELETE' | translate }} 
            </button>
         </span>
         
         <span class="save-cancel-container" *ngIf="editingStates[collection.id]" >
-            <button (click)="saveCollectionName(collection.id)">
-                Save
+            <button class="red-btn" (click)="saveCollectionName(collection.id)">
+              {{ 'ADMIN.SAVE' | translate }} 
            </button>
            
-           <button  (click)="cancelEditing(collection.id)">
-               X
+           <button class="black-btn" (click)="cancelEditing(collection.id)">
+            {{ 'ADMIN.CANCEL' | translate }} 
            </button>
         </span>
 
@@ -216,13 +229,13 @@
             <img [src]="product.image" class="collection-product-img" />
             <div class="collection-product-info">
               <div class="product-name"><strong>{{ product.nameEn }}</strong> - {{ product.nameAr }}</div>
-              <div class="product-price">Price: ${{ product.price }}</div>
-              <div class="product-qty">Qty: {{ product.quantity }}</div>
+              <div class="product-price">{{ 'ADMIN.PRICE' | translate }} : ${{ product.price }}</div>
+              <div class="product-qty">{{ 'ADMIN.QUANTITY' | translate }} : {{ product.quantity }}</div>
             </div>
           </div>
         </div>
         <ng-template #noProducts>
-          <p class="no-products-msg">No products in this collection yet.</p>
+          <p class="no-products-msg">{{ 'ADMIN.NO-PRODUCT' | translate }} </p>
         </ng-template>
       </div>
   
@@ -233,7 +246,7 @@
     <div class="add-collection-popup" *ngIf="showAddCollectionPopup">
         <div class="collection-popup-content">
           <button class="collection-close-btn" (click)="closeAddCollectionPopup()">✖</button>
-          <h2 class="collection-headline">Add New Collection</h2>
+          <h2 class="collection-headline">{{ 'ADMIN.ADD-NEW-COLLECTION' | translate }} </h2>
       
           <input
             type="text"
@@ -248,19 +261,24 @@
             class="collection-input"
           />
       
-          <button class="collection-add-btn" (click)="addNewCollection()">Add</button>
+          <button class="collection-add-btn" (click)="addNewCollection()">{{ 'ADMIN.ADD' | translate }} </button>
         </div>
       </div>
  </div>   
 
   <!-- orders section -->
-   <div class="collections-container" id="orders-section" *ngIf="activeSection === 'orders'">
+   <div class="main-content" id="orders-section" *ngIf="activeSection === 'orders'">
+    <div class="menu-container show-in-tablet">
+        <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+        </svg>
+    </div>
 
         <div class="order-menu-container">
-          <h2 class="order-title">Order List</h2>
+          <h2 class="order-title">{{ 'ADMIN.ORDER-LIST' | translate }} </h2>
           <select class="date-menu" (change)="selectedSort = $any($event.target).value">
-            <option value="latest">Date: Latest</option>
-            <option value="earliest">Date: Earliest</option>
+            <option value="latest">{{ 'ADMIN.LATEST' | translate }} </option>
+            <option value="earliest">{{ 'ADMIN.EARLIEST' | translate }} </option>
           </select>
         </div>
       
@@ -270,14 +288,14 @@
           <div *ngFor="let order of group[1]" class="order-card">
             <div class="info-button-container">
                 <span>
-                    <p><strong>Order ID:</strong> {{ order.orderId }}</p>
+                    <p><strong>{{ 'ADMIN.ORDER-ID' | translate }} :</strong> {{ order.orderId }}</p>
                     <!-- <p><strong>User:</strong> {{ order.userName }}</p> -->
-                    <p><strong>User:</strong> {{ getUserNameById(order.userId) }}</p>
-                    <p><strong>Total Price:</strong> {{ calculateTotalPrice(order.productsIds) }} $</p>
+                    <p><strong>{{ 'ADMIN.USER' | translate }} :</strong> {{ getUserNameById(order.userId) }}</p>
+                    <p><strong> {{ 'ADMIN.TOTAL-PRICE' | translate }} :</strong> {{ calculateTotalPrice(order.productsIds) }} $</p>
                 </span>
             
                 <button class="details-button" (click)="toggleOrderDetails(order.orderId)">
-                    {{ isOrderDetailsShown(order.orderId) ? 'Hide' : 'Show' }} Order Details
+                    {{ isOrderDetailsShown(order.orderId) ? 'Hide' : 'SHOW' }} {{ 'ADMIN.ORDER-DETAILS' | translate }} 
                 </button>
             </div>
             
@@ -288,8 +306,8 @@
                       <img [src]="product.image" alt="{{ product.nameEn }}" />
                       <div>
                         <p><strong>{{ product.nameEn }} - {{ product.nameAr }}</strong></p>
-                        <p>Price: ${{ product.price }}</p>
-                        <p>Quantity: {{ item.quantity }}</p>
+                        <p>{{ 'ADMIN.PRICE' | translate }} : ${{ product.price }}</p>
+                        <p>{{ 'ADMIN.QUANTITY' | translate }} : {{ item.quantity }}</p>
                       </div>
                     </ng-container>
                   </div>
@@ -303,28 +321,33 @@
 
 
    <!-- discounts -->
-   <div class="collections-container" id="discounts-section" *ngIf="activeSection === 'discounts'">
+   <div class="main-content" id="discounts-section" *ngIf="activeSection === 'discounts'">
+    <div class="menu-container show-in-tablet">
+        <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+        </svg>
+    </div>
 
-                <!-- Button to show popup -->
-        <button class="add-collection-btn" (click)="showAddDiscountPopup = true">+ Add a Discount</button>
+                <!-- Button to show popup -->    
+        <button class="add-collection-btn" (click)="showAddDiscountPopup = true">+ {{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }} </button>
 
         <!-- add new discount Popup -->
         <div *ngIf="showAddDiscountPopup" class="discount-popup">
         <button class="discount-close-btn" (click)="showAddDiscountPopup = false">&times;</button>
-        <h3 class="collection-headline">Add New Discount</h3>
+        <h3 class="collection-headline">{{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }}</h3>
 
         <div class="label-select-container">
             <label>Type:</label>
             <select (change)="handleDiscountField('type', $event)">
-                <option value="product">Product</option>
-                <option value="category">Category</option>
+                <option value="product">{{ 'ADMIN.PRODUCT' | translate }} </option>
+                <option value="category">{{ 'ADMIN.CATEGORY' | translate }} </option>
             </select>            
         </div>
         
         <div class="label-select-container">
-        <label>Target:</label>
+        <label>{{ 'ADMIN.TARGET' | translate }}:</label>
         <select (change)="handleDiscountField('targetId', $event)">
-            <option disabled selected>Select</option>
+            <option disabled selected>{{ 'ADMIN.SELECT' | translate }}</option>
             <ng-container *ngIf="newDiscount.type === 'product'">
             <option *ngFor="let p of products" [value]="p.id">{{ p.nameEn }} - {{ p.nameAr}}</option>
             </ng-container>
@@ -335,30 +358,30 @@
         </div>
 
         <div class="label-select-container">
-            <label>Value (%):</label>
+            <label>{{ 'ADMIN.VALUE' | translate }} (%):</label>
             <input type="number" (input)="handleDiscountField('value', $event)" />
         </div>
         <div class="label-select-container">
-            <button class="add-product-btn" style="width: 100%;" (click)="addDiscount()">Add</button>
+            <button class="add-product-btn" style="width: 100%;" (click)="addDiscount()">{{ 'ADMIN.ADD' | translate }}</button>
         </div>
         </div>
 
         <!-- Discounts List -->
-        <h3 class="existing-title">Existing Discounts </h3>
+        <h3 class="existing-title">{{ 'ADMIN.EXISTING-DISCOUNTS' | translate }} </h3>
         <div>
             <!-- Display Product Discounts -->
-            <h3 class="subtitle">Discounts on Products</h3>
+            <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-PRODUCTS' | translate }}</h3>
             <div class="discounts-container" *ngFor="let d of productDiscounts">
               <div class="discount-container">
                 <p>
-                  <strong>Target: </strong>{{ discountNames[d.id] }} <br />
-                  <strong>Value: </strong>{{ d.value }}%  <br />
-                  <strong>Created At: </strong> {{ d.createdAt | date: 'mediumDate' }}
+                  <strong>{{ 'ADMIN.TARGET' | translate }}: </strong>{{ discountNames[d.id] }} <br />
+                  <strong>{{ 'ADMIN.VALUE' | translate }}: </strong>{{ d.value }}%  <br />
+                  <strong>{{ 'ADMIN.CREATED-AT' | translate }}: </strong> {{ d.createdAt | date: 'mediumDate' }}
                 </p>
 
                 <span class="buttons-container">
-                   <button class="edit-discount" *ngIf="editingId != d.id" (click)="editDiscount(d.id)">Edit Value</button>
-                    <button class="delete-discount" *ngIf="editingId != d.id" (click)="deleteDiscount(d.id)">Delete Discount</button>
+                   <button class="edit-discount" *ngIf="editingId != d.id" (click)="editDiscount(d.id)">{{ 'ADMIN.EDIT-VALUE' | translate }}</button>
+                    <button class="delete-discount" *ngIf="editingId != d.id" (click)="deleteDiscount(d.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate }}</button>
                 </span>
                 
                 <!-- Save and Cancel Buttons for Editing -->
@@ -371,8 +394,8 @@
                     [class.invalid]="!isValidValue"
                   />
                   
-                    <button class="edit-discount" (click)="saveDiscount()">Save</button>
-                    <button class="delete-discount" (click)="cancelEdit()">Cancel</button>
+                    <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
+                    <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
                 </div>  
 
                   
@@ -380,17 +403,17 @@
             </div>
           
             <!-- Display Category Discounts -->
-            <h3 class="subtitle">Discounts on Categories</h3>
+            <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-CATEGORIES' | translate }}</h3>
             <div class="discounts-container" *ngFor="let d of categoryDiscounts">
               <div class="discount-container">
                 <p>
-                 <strong>Target: </strong> {{ discountNames[d.id] }} <br />
-                 <strong>Value: </strong> {{ d.value }}% <br />
-                 <strong>Created At: </strong> {{ d.createdAt | date: 'mediumDate' }}
+                 <strong>{{ 'ADMIN.TARGET' | translate }}: </strong> {{ discountNames[d.id] }} <br />
+                 <strong>{{ 'ADMIN.VALUE' | translate }}: </strong> {{ d.value }}% <br />
+                 <strong>{{ 'ADMIN.CREATED-AT' | translate }}: </strong> {{ d.createdAt | date: 'mediumDate' }}
                 </p>
                 <span *ngIf="editingId != d.id" class="buttons-container">
-                   <button class="edit-discount" (click)="editDiscount(d.id)">Edit Value</button>
-                    <button class="delete-discount" (click)="deleteDiscount(d.id)">Delete Discount</button>
+                   <button class="edit-discount" (click)="editDiscount(d.id)">{{ 'ADMIN.EDIT-VALUE' | translate }}</button>
+                    <button class="delete-discount" (click)="deleteDiscount(d.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate }}</button>
                 </span>
                 
                 <!-- Save and Cancel Buttons for Editing -->
@@ -402,8 +425,8 @@
                     min="0" max="100"
                     [class.invalid]="!isValidValue" 
                   />
-                    <button class="edit-discount" (click)="saveDiscount()">Save</button>
-                    <button class="delete-discount" (click)="cancelEdit()">Cancel</button>
+                    <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
+                    <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
 
                 </div>
               </div>

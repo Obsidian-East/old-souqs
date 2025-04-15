@@ -35,7 +35,8 @@ export class ProfileComponent {
       productsIds: [
         { id: '1', quantity: 1 },
         { id: '2', quantity: 2 }
-      ]
+      ],
+      location: 'zahle, lebanon'
     },
     {
       orderId: 'ORD002',
@@ -43,7 +44,8 @@ export class ProfileComponent {
       userId: '1',
       productsIds: [
         { id: '3', quantity: 1 }
-      ]
+      ],
+      location: 'zahle, lebanon'
     },
     {
       orderId: 'ORD003',
@@ -52,7 +54,8 @@ export class ProfileComponent {
       productsIds: [
         { id: '2', quantity: 3 },
         { id: '4', quantity: 1 }
-      ]
+      ],
+      location: 'zahle, lebanon'
     }
   ];
 

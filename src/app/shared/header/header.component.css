@@ -10,14 +10,57 @@
     color: white;
 }
 
-.announcement-slider {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 200px;
-    grid-row-gap: 0px;
+.slider-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    /* max-width: 600px; */
+    margin: auto;
+    overflow: hidden;
+  }
+  
+  .slider-container {
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .slider-track {
+    display: flex;
+    width: 100%; /* 2 messages */
+  }
+  
+  .slider-message {
+    flex: 0 0 100%;
     text-align: center;
-}
+    /* padding: 2rem; */
+    font-size: 1rem;
+    /* background: #333; */
+    color: white;
+  }
+  
+  .nav-btn {
+    position: absolute;
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+    font-size: 1rem;
+    color: white;
+    /* background: rgba(0, 0, 0, 0.5); */
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .nav-btn.left {
+    left: 0.5rem;
+  }
+  
+  .nav-btn.right {
+    right: 0.5rem;
+  }
+  
 
 .announcement-contact {
     text-align: right;
@@ -473,8 +516,19 @@ a:hover::after {
 
 @media (min-width: 451px) and (max-width: 768px) {
   
+    .announcement {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .announcement-slider {
-       grid-column-gap: 10vw;
+        gap: 2rem;
+    }
+    .announcement-contact{
+        display: none;
+    }
+    .announcement-offer{
+        display: none;
     }
     
     .logo img {

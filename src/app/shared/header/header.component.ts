@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,NgZone, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
@@ -10,10 +10,42 @@ import { RouterModule, Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy{
+
+  messages: string[] = ['HEADER.ANNOUNCEMENT1', 'HEADER.ANNOUNCEMENT2'];
+  currentIndex: number = 0;
+  intervalId: any;
+  transitionStyle: string = 'transform 0.5s ease-in-out';
+
+  constructor(private router: Router, private ngZone: NgZone) {
+    this.ngZone.runOutsideAngular(() => {
+      this.intervalId = setInterval(() => {
+        // re-enter Angular zone only when updating view
+        this.ngZone.run(() => this.showNextSlide());
+      }, 5000);
+    });
+  }
+
+  showNextSlide() {
+    this.currentIndex = (this.currentIndex + 1) % this.messages.length;
+  }
+
+  showPrevSlide() {
+    this.currentIndex = (this.currentIndex - 1 + this.messages.length) % this.messages.length;
+  }
+
+  getTransform(): string {
+    return `translateX(-${this.currentIndex * 100}%)`;
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) clearInterval(this.intervalId);
+  }
+ 
+ 
 
  // code for menu for tablet and mobile
-    // show and hide the cart div
+    // show and hide the menu div
     isMenuVissible = false; // Initially hidden
 
     openMenu() {
@@ -102,12 +134,9 @@ export class HeaderComponent {
     else 
         this.isSearchResultVisible=false;  
   }
-
-
-  // to send the input field to the search page
-  constructor(private router: Router) {}
-        goToSearch() {
-            if(this.textValue != '')
-              this.router.navigate(['/search'], { state: { SearchText: this.textValue } });
-        }
+   // to send the input field to the search page
+   goToSearch() {
+       if(this.textValue != '')
+         this.router.navigate(['/search'], { state: { SearchText: this.textValue } });
+   }
 }

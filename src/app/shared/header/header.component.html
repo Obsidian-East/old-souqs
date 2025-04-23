@@ -3,20 +3,26 @@
         <div class="announcement-offer">
             <span>{{ 'HEADER.OFFER' | translate }} </span>
         </div>
-        <div class="announcement-slider">
-            <div id="arrow-left">
-                <svg style="transform: rotate(180deg);" fill="white" xmlns="http://www.w3.org/2000/svg" width="24"
-                    height="24">
-                    <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
-                </svg>
+
+        <div class="slider-wrapper">
+            <button (click)="showPrevSlide()" class="nav-btn left">
+              &#10094;
+            </button>
+          
+            <div class="slider-container">
+              <div class="slider-track" [style.transform]="getTransform()" [style.transition]="transitionStyle">
+                <div class="slider-message" *ngFor="let message of messages">
+                  {{ message | translate }}
+                </div>
+              </div>
             </div>
-            <span>Hello!</span>
-            <div id="arrow-right">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="24" height="24">
-                    <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
-                </svg>
-            </div>
-        </div>
+          
+            <button (click)="showNextSlide()" class="nav-btn right">
+              &#10095;
+            </button>
+          </div>
+          
+          
         <div class="announcement-contact">
             <span>{{ 'HEADER.PHONE-NUMBER' | translate }} </span>
         </div>

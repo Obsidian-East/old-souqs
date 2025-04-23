@@ -20,9 +20,11 @@ export class ProfileComponent {
     this.router.navigate(['/wishlist']);
   }
 
-  Logout(){
+  Logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }  
 
-  }
   goToEditProfile(){
     this.router.navigate(['/editprofile']);
   }

@@ -315,6 +315,13 @@ a:hover::after {
     border: 2px solid var(--font-color-primary);
 }
 
+.logged-in-icon {
+  color: var(--font-color-primary) !important;
+}
+
+.logged-out-icon {
+  color: var(--font-color-secondary) !important;
+}
 
 /* dearch bar style */
 .search-container{

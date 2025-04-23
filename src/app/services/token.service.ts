@@ -32,16 +32,16 @@ export class TokenService {
     return token != null && !this.isTokenExpired(token);
   }
 
-  getUserId(): string | null {
+  getUserId(): string {
     const token = this.getToken();
-    if (!token) return null;
+    if (!token) return "";
   
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload.sub || null;  // Use 'sub' since that's where the userId is
     } catch (e) {
       console.error("Failed to decode token:", e);
-      return null;
+      return "";
     }
   }
    

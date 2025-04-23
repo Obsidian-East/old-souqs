@@ -2,9 +2,7 @@
     <article id="header" class="header-article">
         <div class="header-container">
             <img (click)="goToHome()" src="https://old-souqs.sirv.com/Essential/logo.png" />
-            <svg (click)="goToCart()" xmlns="http://www.w3.org/2000/svg" width="32.402" height="32" viewBox="0 0 32.402 32" id="cart">
-                <path d="M30 8H6c-.156 0-.292.054-.438.088l-.776-3.316A1 1 0 0 0 3.812 4H.942a1 1 0 0 0 0 2H3.02l1.242 5.312L6 20c0 .072.034.134.042.204l-1.018 4.58A.997.997 0 0 0 6 26h22.688a1 1 0 0 0 0-2H7.248l.458-2.06c.1.016.19.06.294.06h18.23c1.104 0 1.77-.218 2.302-1.5l3.248-9.964C32.344 8.75 31.106 8 30 8zM6 30a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0zm18 0a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0z"></path>
-              </svg>
+            <p (click)="goToCart()" id="editOrder"><- Edit Order</p>
         </div>
     </article>
 
@@ -17,8 +15,8 @@
                 <div class="delivery-info-item">
                     <p class="title">{{ 'CHECKOUT.ACCOUNT' | translate }}</p>
                     <div class="formField">
-                        <input required="" type="text"/>
-                        <span>{{ 'CHECKOUT.EMAIL' | translate }}</span>
+                        <input required type="text"/>
+                        <span>{{ 'CHECKOUT.PHONE' | translate }}*</span>
                     </div>
                     <span class="email-checkbox">
                         <input id="email" type="checkbox" /> <label for="email"> {{ 'CHECKOUT.EMAIL-NEWS' | translate }}</label>
@@ -28,40 +26,43 @@
                 <div class="delivery-info-item">
                     <p class="title">{{ 'CHECKOUT.DELIVERY' | translate }}</p>
                     <div class="formField">
-                        <input required="" type="text"/>
-                        <span>{{ 'CHECKOUT.COUNTRY' | translate }}</span>
+                        <input required type="text"/>
+                        <span>{{ 'CHECKOUT.COUNTRY' | translate }}*</span>
                     </div>
 
-                    <div class="grid-input">
-                        <div class="formField">
-                            <input required="" type="text"/>
-                            <span>{{ 'CHECKOUT.FIRST-NAME' | translate }} </span>
+                    <form [formGroup]="checkoutForm">
+                        <div class="grid-input">
+                          <div class="formField">
+                            <input required type="text" formControlName="firstName"/>
+                            <span>{{ 'CHECKOUT.FIRST-NAME' | translate }}* </span>
+                          </div>
+                          <div class="formField">
+                            <input required type="text" formControlName="lastName"/>
+                            <span>{{ 'CHECKOUT.LAST-NAME' | translate }}* </span>
+                          </div>
                         </div>
                         <div class="formField">
-                            <input required="" type="text"/>
-                            <span>{{ 'CHECKOUT.LAST-NAME' | translate }} </span>
+                          <input required type="text" formControlName="address"/>
+                          <span>{{ 'CHECKOUT.ADDRESS' | translate }}*</span>
                         </div>
-                    </div>
-                    <div class="formField">
-                        <input required="" type="text"/>
-                        <span>{{ 'CHECKOUT.ADDRESS' | translate }}</span>
-                    </div>
-
-                    <div class="formField">
-                        <input required="" type="text"/>
-                        <span>{{ 'CHECKOUT.APARTMENT' | translate }}</span>
-                    </div>
-
-                    <div class="grid-input">
+                      
                         <div class="formField">
-                            <input required="" type="text"/>
-                            <span>{{ 'CHECKOUT.CITY' | translate }}</span>
+                          <input required type="text" formControlName="apartment"/>
+                          <span>{{ 'CHECKOUT.APARTMENT' | translate }}*</span>
                         </div>
-                        <div class="formField">
-                            <input required="" type="text"/>
+                      
+                        <div class="grid-input">
+                          <div class="formField">
+                            <input required type="text" formControlName="city"/>
+                            <span>{{ 'CHECKOUT.CITY' | translate }}*</span>
+                          </div>
+                          <div class="formField">
+                            <input type="text" formControlName="postalCode"/>
                             <span>{{ 'CHECKOUT.POSTAL-CODE' | translate }} </span>
+                          </div>
                         </div>
-                    </div>
+                      </form>
+                      
 
                     <span class="email-checkbox">
                         <input id="email" type="checkbox" /> <label for="email"> {{ 'CHECKOUT.SAVE-INFO' | translate }}</label>
@@ -76,16 +77,12 @@
 
                 <div class="delivery-info-item">
                     <p class="title">{{ 'CHECKOUT.PAYMENT' | translate }}</p>
-                    <p class="note" >{{ 'CHECKOUT.TRANSACTION-NOTE' | translate }}</p>
+                    <!-- <p class="note" >{{ 'CHECKOUT.TRANSACTION-NOTE' | translate }}</p> -->
 
                     <div class="payment-method-container">
-                        <label class="payment-name">
-                            <input type="radio" name="payment" value="card" (change)="selectPaymentMethod('card')" [checked]="paymentMethod === 'card'" />
-                            {{ 'CHECKOUT.PAY-BY-CARD' | translate }}
-                        </label>
                         
                         <label class="payment-name">
-                            <input type="radio" name="payment" value="cod" (change)="selectPaymentMethod('cod')" [checked]="paymentMethod === 'cod'" />
+                            <input type="radio" name="payment" value="cod" (change)="selectPaymentMethod('cod')" checked/>
                             {{ 'CHECKOUT.CASH-ON-DELIVERY' | translate }}
                         </label>
                         
@@ -125,12 +122,7 @@
     
                         <div class="order-summary-details">
                             <p class="order-summary-subtitle">{{ 'CHECKOUT.SHIPPING' | translate }}</p>
-                            <p class="order-summary-subtitle">{{ 'CHECKOUT.FREE' | translate }}</p>
-                        </div>
-    
-                        <div class="order-summary-details">
-                            <p class="order-summary-subtitle">{{ 'CHECKOUT.TAXES' | translate }}</p>
-                            <p class="order-summary-subtitle">$ {{taxes.toFixed(2)}}</p>
+                            <p class="order-summary-subtitle">$ {{ shippingPrice }}</p>
                         </div>
     
                         <div class="order-summary-details" style="margin: -1rem 0 1.5rem 0;">
@@ -139,7 +131,7 @@
                         </div>
                     </div>
 
-                    <button class="button-black">{{ 'CHECKOUT.PAY-NOW' | translate }}</button>
+                    <button class="button-black" (click) = "placeOrder()">{{ 'CHECKOUT.PAY-NOW' | translate }}</button>
                 </div> 
                 
                 <div class="delivery-info-item">
@@ -191,12 +183,7 @@
 
                     <div class="order-details">
                         <p class="order-subtitle">{{ 'CHECKOUT.SHIPPING' | translate }}</p>
-                        <p class="order-subtitle">{{ 'CHECKOUT.FREE' | translate }}</p>
-                    </div>
-
-                    <div class="order-details">
-                        <p class="order-subtitle">{{ 'CHECKOUT.TAXES' | translate }}</p>
-                        <p class="order-subtitle">$ {{taxes.toFixed(2)}}</p>
+                        <p class="order-subtitle">$ {{ shippingPrice.toFixed(2) }}</p>
                     </div>
 
                     <div class="order-details">

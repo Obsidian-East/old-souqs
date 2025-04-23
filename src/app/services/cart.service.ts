@@ -38,7 +38,6 @@ export class CartService {
   }
 
   // Public API
-
   getCart(): CartItem[] {
     return this.cartSubject.getValue();
   }

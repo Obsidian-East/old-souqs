@@ -18,7 +18,7 @@ export class LoginComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(10)]),
   });
-
+  
   showPassword = false;
   Lreason = "";
 
@@ -34,6 +34,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe(
       (response) => {
         localStorage.setItem('token', response.token);
+        console.log(localStorage.getItem('userId'));
         alert('Login successful!');
         this.router.navigate(['/profile']);
       },

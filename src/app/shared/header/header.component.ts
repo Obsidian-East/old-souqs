@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartService } from '../../services/cart.service';
+import { CartService, CartItem } from '../../services/cart.service';
 import { CartStateService } from '../../services/cart-state.service';
 import { TokenService } from '../../services/token.service';
 
@@ -12,20 +12,17 @@ import { TokenService } from '../../services/token.service';
 
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
-  products: any[] = [];
+  products: CartItem[] = []
   totalAmount: number = 0;
 
   constructor(private cartService: CartService, 
     private router: Router, 
-    private cartStateService: CartStateService,
     private tokenService: TokenService,) {}
 
   ngOnInit() {
-    this.cartService.getCart().subscribe(items => {
+    this.cartService.cart$.subscribe(items => {
       this.products = items;
-      this.cartStateService.getTotalAmount().subscribe(total => {
-        this.totalAmount = total
-      });
+      this.totalAmount = this.cartService.getTotalAmount();
     });
     this.checkLoginStatus();
   }
@@ -67,28 +64,29 @@ export class HeaderComponent implements OnInit {
     this.isCartVisible = false;
   }
 
-  increaseQuantity(product: any) {
-    this.cartService.updateQuantity(product, product.quantity + 1);
+  addToCart(product: any) {
+    const item: CartItem = {
+      id: product.id,
+      title: product.name,
+      image: product.image,
+      price: product.price,
+      quantity: 1
+    };
+    this.cartService.addToCart(item);
   }
 
-  decreaseQuantity(product: any) {
-    if (product.quantity > 1) {
-      this.cartService.updateQuantity(product, product.quantity - 1);
+  increaseQuantity(item: CartItem) {
+    this.cartService.updateQuantity(item.id, item.quantity + 1);
+  }
+
+  decreaseQuantity(item: CartItem) {
+    if (item.quantity > 1) {
+      this.cartService.updateQuantity(item.id, item.quantity - 1);
     }
   }
 
-  removeProduct(index: number) {
-    const cartItems = this.cartStateService.getCartItems();
-    const item = cartItems[index];
-  
-    if (!item) return;
-  
-    const productId = item.productId;
-  
-    this.cartStateService.removeProduct(productId);
-    this.cartService.removeItem(productId).subscribe(() => {
-      console.log(`Removed product with ID: ${productId}`);
-    });
+  removeProductFromCart(id: string) {
+    this.cartService.removeFromCart(id);
   }
   
 

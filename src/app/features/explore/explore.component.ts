@@ -4,8 +4,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartStateService } from '../../services/cart-state.service';
-import { CartService } from '../../services/cart.service';
-import { Console, error } from 'node:console';
+import { CartService, CartItem } from '../../services/cart.service';
 
 @Component({
 	selector: 'app-explore',
@@ -332,15 +331,16 @@ export class ExploreComponent {
 		}
 	}
 
-	//Cart
-	addToCart(productId: string) {
-		this.cartState.addProduct(productId);
-		const quantity = this.cartState.getQuantity(productId);
-	  
-		this.cartService.addToCartItem(productId, quantity).subscribe({
-		  next: () => console.log(`Added ${productId} to cart with quantity ${quantity}`),
-		  error: err => console.error('Error adding to cart', err)
-		});
+	// --- Cart Actions aligned with CartService ---
+	addToCart(product: any): void {
+		const item: CartItem = {
+		  id: product.id,
+		  title: product.name,
+		  image: product.image,
+		  price: product.price,
+		  quantity: 1
+		};
+		this.cartService.addToCart(item);
 	  }
 
 }

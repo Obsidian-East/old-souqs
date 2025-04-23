@@ -339,9 +339,9 @@
                                     </svg>
                                 </div>
                             </div>
-                            <div class="add-to-cart-button">
-                                <p>{{'EXPLORE.ADD-TO-CART' | translate }}</p>
-                            </div>
+                            <div class="add-to-cart-button" (click)="addToCart(product.id)">
+                                <p>{{ 'EXPLORE.ADD-TO-CART' | translate }}</p>
+                              </div>                              
                         </div>
                     </div>
             

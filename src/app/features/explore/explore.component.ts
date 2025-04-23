@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { CartStateService } from '../../services/cart-state.service';
+import { CartService } from '../../services/cart.service';
 import { Console, error } from 'node:console';
 
 @Component({
@@ -16,6 +18,8 @@ export class ExploreComponent {
 	constructor(
 		private router: Router,
 		private productService: ProductService,
+		private cartState: CartStateService,
+  		private cartService: CartService
 	) { }
 
 	ngOnInit(): void {
@@ -327,6 +331,17 @@ export class ExploreComponent {
 			this.allproducts.sort((a, b) => b.price - a.price);
 		}
 	}
+
+	//Cart
+	addToCart(productId: string) {
+		this.cartState.addProduct(productId);
+		const quantity = this.cartState.getQuantity(productId);
+	  
+		this.cartService.addToCartItem(productId, quantity).subscribe({
+		  next: () => console.log(`Added ${productId} to cart with quantity ${quantity}`),
+		  error: err => console.error('Error adding to cart', err)
+		});
+	  }
 
 }
 

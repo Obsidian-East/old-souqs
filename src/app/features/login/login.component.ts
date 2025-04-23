@@ -30,7 +30,7 @@ export class LoginComponent {
 
   handleLogin() {
     console.log('Logging in with:', this.loginForm.value);
-
+  
     this.authService.login(this.loginForm.value).subscribe(
       (response) => {
         localStorage.setItem('token', response.token);
@@ -38,8 +38,16 @@ export class LoginComponent {
         this.router.navigate(['/profile']);
       },
       (error) => {
-        this.Lreason = error.error;
+        console.error('Login error:', error);
+        if (typeof error.error === 'string') {
+          this.Lreason = error.error;
+        } else if (error.error?.message) {
+          this.Lreason = error.error.message;
+        } else {
+          this.Lreason = 'Login failed. Please try again.';
+        }
       }
     );
   }
+  
 }

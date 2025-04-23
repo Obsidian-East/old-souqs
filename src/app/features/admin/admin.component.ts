@@ -607,4 +607,114 @@ export class AdminComponent implements OnInit {
       sidebar.style.display='none'
   }
 
+  // code to change announcement
+  announcementsEn: string[] = [];
+
+  editingAnnouncementStates: { [key: number]: boolean } = {};
+  AnnouncementinputValuesEn: { [key: number]: string } = {};
+  // AnnouncementinputValuesAr: { [key: number]: string } = {};
+  
+  newAnnouncementEn = '';
+  // newAnnouncementAr = '';
+  showAddAnnouncementPopup = false;
+  
+  private readonly announcementKey = 'sliderMessages';
+  
+  constructor() {
+    this.loadAnnouncements();
+  }
+  
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && !!window.localStorage;
+  }
+  
+  private loadAnnouncements(): void {
+    if (this.isBrowser()) {
+      const stored = localStorage.getItem(this.announcementKey);
+      this.announcementsEn = stored ? JSON.parse(stored) : [];
+    }
+  }
+  
+  //  Save to localStorage
+  private saveAnnouncements(): void {
+    if (this.isBrowser()) {
+      localStorage.setItem(this.announcementKey, JSON.stringify(this.announcementsEn));
+    }
+  }
+  
+  openAddAnnouncementPopup() {
+    this.showAddAnnouncementPopup = true;
+    this.newAnnouncementEn = '';
+    // this.newAnnouncementAr = '';
+  }
+  
+  closeAddAnnouncementPopup() {
+    this.showAddAnnouncementPopup = false;
+  }
+  
+  handleAnnouncementInputEn(event: Event) {
+    this.newAnnouncementEn = (event.target as HTMLInputElement).value;
+  }
+  
+  // handleAnnouncementInputAr(event: Event) {
+  //   this.newAnnouncementAr = (event.target as HTMLInputElement).value;
+  // }
+  
+  addNewAnnouncement() {
+    const en = this.newAnnouncementEn.trim();
+    // const ar = this.newAnnouncementAr.trim();
+    if (en) {
+      this.announcementsEn.push(en)
+      this.saveAnnouncements();
+      this.closeAddAnnouncementPopup();
+    } else {
+      alert('Please enter both EN and AR announcements.');
+    }
+  }
+  
+  editAnnouncementName(index: number, en: string) {
+    this.editingAnnouncementStates[index] = true;
+    this.AnnouncementinputValuesEn[index] = en;
+    // this.AnnouncementinputValuesAr[index] = ar;
+  }
+  
+  saveAnnouncementName(index: number) {
+    this.announcementsEn[index] = this.AnnouncementinputValuesEn[index];
+    this.saveAnnouncements();
+    this.editingAnnouncementStates[index] = false;
+  }
+  
+  cancelAnnouncementEditing(index: number) {
+    this.editingAnnouncementStates[index] = false;
+    delete this.AnnouncementinputValuesEn[index];
+    // delete this.AnnouncementinputValuesAr[index];
+  }
+  
+  AnnouncementChangeEn(index: number, event: Event) {
+    this.AnnouncementinputValuesEn[index] = (event.target as HTMLInputElement).value;
+  }
+  
+  AnnouncementChangeAr(index: number, event: Event) {
+    // this.AnnouncementinputValuesAr[index] = (event.target as HTMLInputElement).value;
+  }
+  
+  confirmDeleteAnnouncement(index: number) {
+    if (confirm('Are you sure you want to delete this announcement?')) {
+      this.announcementsEn.splice(index, 1);
+      this.saveAnnouncements();
+    }
+  }
+  
+ 
+ 
+
+ 
+
+ 
+  
+
+
+
+
+ 
 }

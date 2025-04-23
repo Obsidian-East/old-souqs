@@ -17,6 +17,7 @@ import { PasswordComponent } from './features/password/password.component';
 import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy.component';
 import { TermsConditionsComponent } from './features/terms-conditions/terms-conditions.component';
 import { AdminComponent } from './features/admin/admin.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,7 +29,11 @@ const routes: Routes = [
   { path: 'explore', component: ExploreComponent},
   { path: 'cart', component: CartComponent},
   { path: 'product', component: ProductComponent },
-  { path: 'profile', component: ProfileComponent},
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'search', component: SearchComponent},
   { path: 'wishlist', component: WishlistComponent},
   { path: 'editprofile', component: EditprofileComponent},

@@ -658,7 +658,7 @@ section{
     /* collection style */
     .collection-article{
         width: 100vw;
-        height:100vh;
+        height:auto;
     }
     .collection{
         width: 93vw;
@@ -1069,6 +1069,7 @@ section{
     .collection-article{
         padding-bottom:1rem ;
         padding-top: 1rem;
+        height: auto;
     }
     .collection{
         width: 90vw;

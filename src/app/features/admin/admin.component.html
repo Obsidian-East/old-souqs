@@ -218,12 +218,12 @@
            </button>
         </span>
 
-        <span class="expand-btn" (click)="toggleExpand(collection.id)">
-            {{ expandedCollectionId === collection.id ? 'Collapse' : 'View Products' }}
+        <span class="expand-btn" (click)="toggleCategoryDetails(collection.id)">
+            {{ isCategoryDetailsShown(collection.id) ? 'Collapse' : 'View Products' }}
           </span>
       </div>
   
-      <div class="products-in-collection" *ngIf="expandedCollectionId === collection.id">
+      <div class="products-in-collection" *ngIf="isCategoryDetailsShown(collection.id)">
         <div *ngIf="getProductsByCategory(collection.id).length; else noProducts">
           <div class="collection-product" *ngFor="let product of getProductsByCategory(collection.id)">
             <img [src]="product.image" class="collection-product-img" />

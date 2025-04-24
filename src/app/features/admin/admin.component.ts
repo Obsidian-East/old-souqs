@@ -235,11 +235,24 @@ export class AdminComponent implements OnInit {
   }
 
 // collection section
-  expandedCollectionId: string | null = null;
   editingStates: { [key: string]: boolean } = {}; // for edit mode
   inputValuesEn: { [key: string]: string } = {};     // temp input value for editing
   inputValuesAr: { [key: string]: string } = {};     // temp input value for editing
 
+  // to hide and show order details
+  expandedCategoriesIds: Set<string> = new Set();
+
+  toggleCategoryDetails(CategoryId: string) {
+    if (this.expandedCategoriesIds.has(CategoryId)) {
+      this.expandedCategoriesIds.delete(CategoryId);
+    } else {
+      this.expandedCategoriesIds.add(CategoryId);
+    }
+  }
+
+  isCategoryDetailsShown(CategoryId: string): boolean {
+    return this.expandedCategoriesIds.has(CategoryId);
+  }
  
 
   // Return products related to a collection
@@ -247,10 +260,6 @@ export class AdminComponent implements OnInit {
     return this.products.filter(product => product.categoryId === categoryId);
   }
 
-  toggleExpand(collectionId: string) {
-    this.expandedCollectionId = this.expandedCollectionId === collectionId ? null : collectionId;
-  }
-  
   // Start editing
   editCollectionName(collectionId: string, currentNameEn: string, currentNameAr: string) {
     this.editingStates[collectionId] = true;

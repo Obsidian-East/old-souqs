@@ -13,6 +13,7 @@
               <a id="collections-btn" (click)="selectSection('collections')" class="menu-item"> {{ 'ADMIN.COLLECTIONS' | translate }} </a>
               <a id="discounts-btn" (click)="selectSection('discounts')" class="menu-item"> {{ 'ADMIN.DISCOUNTS' | translate }} </a>
               <a id="orders-btn" (click)="selectSection('orders')" class="menu-item"> {{ 'ADMIN.ORDERS' | translate }} </a>
+              <a id="announcements-btn" (click)="selectSection('announcements')" class="menu-item"> {{ 'ADMIN.ANNOUNCEMENT' | translate }} </a>
             </nav>
           
             <div class="sidebar-footer">
@@ -433,14 +434,54 @@
               </div>
             </div>
           </div>
-          
-          
-          
-             
-          
-        
-          
-    
+   </div>
+
+   <div id="announcements-section" *ngIf="activeSection === 'announcements'" class="main-content">
+
+    <div class="menu-container show-in-tablet">
+      <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+          <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+      </svg>
+  </div>
+    <button (click)="openAddAnnouncementPopup()" class="add-collection-btn">+ {{'ADMIN.ADD-NEW-ANNOUNCEMENT' | translate}}</button>
+
+    <div *ngIf="announcementsEn.length === 0" class="no-announcements">
+      {{'ADMIN.NO-ANNOUNCEMENT' | translate}}
+    </div>
   
+    <!-- Popup -->
+<div *ngIf="showAddAnnouncementPopup" class="add-collection-popup">
+  <div class="collection-popup-content">
+    <span class="announcement-close-btn-container">
+      <button class="announcement-close-btn" (click)="closeAddAnnouncementPopup()">✖</button>
+    </span>
+    <input class="collection-input" placeholder="Announcement EN" [value]="newAnnouncementEn" (input)="handleAnnouncementInputEn($event)" />
+    <!-- <input placeholder="Announcement AR" [value]="newAnnouncementAr" (input)="handleAnnouncementInputAr($event)" /> -->
+    <button class="collection-add-btn" (click)="addNewAnnouncement()">{{'ADMIN.ADD' | translate}}</button>
+  </div>
+</div>
+
+<!-- Announcements List -->
+<div *ngFor="let msg of announcementsEn; let i = index" class="collection-wrapper">
+  <div *ngIf="!editingAnnouncementStates[i]" class="collection-header">
+    <p class="announcement-message">{{ msg }}</p>
+    <!-- <p>{{ msg.ar }}</p> -->
+     <span class="save-cancel-container">
+        <button class="red-btn" (click)="editAnnouncementName(i, msg)">{{'ADMIN.EDIT' | translate}}</button>
+        <button class="black-btn" (click)="confirmDeleteAnnouncement(i)">{{'ADMIN.DELETE' | translate}}</button>
+     </span>
+    
+  </div>
+  <div *ngIf="editingAnnouncementStates[i]" class="collection-header">
+    <input [value]="AnnouncementinputValuesEn[i]" class="announcement-input" (input)="AnnouncementChangeEn(i, $event)" />
+    <!-- <input [value]="AnnouncementinputValuesAr[i]" (input)="AnnouncementChangeAr(i, $event)" /> -->
+     <span class="save-cancel-container">
+        <button class="red-btn" (click)="saveAnnouncementName(i)">{{'ADMIN.SAVE' | translate}}</button>
+        <button class="black-btn" (click)="cancelAnnouncementEditing(i)">{{'ADMIN.CANCEL' | translate}}</button>  
+      </span>
+     </div>
+</div>
+
+
    </div>
 </section>

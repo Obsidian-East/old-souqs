@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone,OnDestroy  } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.service';
 import { CartStateService } from '../../services/cart-state.service';
@@ -10,14 +10,59 @@ import { TokenService } from '../../services/token.service';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit {
-  isLoggedIn = false;
-  products: CartItem[] = []
-  totalAmount: number = 0;
+export class HeaderComponent implements OnInit, OnDestroy{
+  // messages: string[] = ['Welcome to Old Souq!', 'Discover rare antiques today!'];
+  currentIndex: number = 0;
+  intervalId: any;
+  transitionStyle: string = 'transform 0.5s ease-in-out';
+  announcements: string[] = [];
+
+  private readonly announcementKey = 'sliderMessages';
+
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && !!window.localStorage;
+  }
+
+  private getAnnouncements(): string[] {
+    if (!this.isBrowser()) return ['Welcome to Old Souq!'];
+    const stored = localStorage.getItem(this.announcementKey);
+    return stored ? JSON.parse(stored) : ['Welcome to Old Souq!', 'Discover rare antiques today!','helloo'];
+  }
 
   constructor(private cartService: CartService, 
     private router: Router, 
-    private tokenService: TokenService,) {}
+    private cartStateService: CartStateService,
+    private tokenService: TokenService,
+    private ngZone: NgZone) {
+
+      this.ngZone.runOutsideAngular(() => {
+        this.intervalId = setInterval(() => {
+          // re-enter Angular zone only when updating view
+          this.ngZone.run(() => this.showNextSlide());
+        }, 5000);
+      });
+    }
+
+  
+  showNextSlide() {
+    this.currentIndex = (this.currentIndex + 1) % this.announcements.length;
+  }
+
+  showPrevSlide() {
+    this.currentIndex = (this.currentIndex - 1 + this.announcements.length) % this.announcements.length;
+  }
+
+  getTransform(): string {
+    return `translateX(-${this.currentIndex * 100}%)`;
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) clearInterval(this.intervalId);
+  }
+
+  isLoggedIn = false;
+  products: CartItem[] = []
+  totalAmount: number = 0;
 
   ngOnInit() {
     this.cartService.cart$.subscribe(items => {
@@ -25,6 +70,8 @@ export class HeaderComponent implements OnInit {
       this.totalAmount = this.cartService.getTotalAmount();
     });
     this.checkLoginStatus();
+
+    this.announcements = this.getAnnouncements();
   }
 
   checkLoginStatus(): void {

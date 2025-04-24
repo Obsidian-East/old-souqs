@@ -100,12 +100,14 @@ section{
 .about-img{
     position: relative;
     width: 20rem;
-    height: 20rem;
+    height: 28rem;
 }
 .about-img img{
-     width: 20rem;
-    height: auto;
-    object-fit: fill; 
+    width: auto;
+    height: 29rem;
+     /* width: 20rem; */
+    /* height: auto; */
+    object-fit: contain; 
 }
 
 
@@ -741,8 +743,8 @@ section{
         /* height: 42; */
     }
     .about-img img{
-         width: 42vw;
-        height: auto; 
+         width: auto;
+        height:40vw ; 
     } 
     .about-info{
         width: 40vw;

@@ -12,7 +12,7 @@
     <article id="about-us">
         <div class="about-container">
             <div class="about-img">
-                <img src="https://old-souqs.sirv.com/Banners/DSC00252.jpg" alt="old-souqs-logo" >
+                <img src="https://old-souqs.sirv.com/Banners/ban2.png" alt="old-souqs-logo" >
             </div>
             <div class="about-info">
                 <h5 class="title">{{'HOMEPAGE.ABOUT-US' | translate }}</h5>
@@ -21,20 +21,24 @@
                     <p class="headline">{{'HOMEPAGE.NAME' | translate }}</p>
                     <p class="headline marcellus-font"> {{'HOMEPAGE.DESCRIPTION-TITLE' | translate }} </p>
                 </span>
-                <p class="text">{{'HOMEPAGE.DESCRIPTION-TEXT1' | translate }} <br /> {{'HOMEPAGE.DESCRIPTION-TEXT2' | translate }}</p>
-                <button class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
+                <p class="text"><b>Salim Hassoun: A Copper Legacy </b><br />
+                    Born in 1947 in Qalamoun, Salim Hassoun inherited his father's craft of copper engraving, becoming a master artisan.  
+                    <br /> Through The Eastern Gallery, he created timeless pieces that preserved Lebanon's rich heritage.
+                    <br />Today, his legacy continues through The Old Souk, where his family keeps the tradition alive.
+                </p>
+                <button routerLink="/explore" class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
 
             </div>
             <div class="about-years">
                 <div class="year-container">
                     <h5 class="title">{{'HOMEPAGE.SINCE-DATE' | translate }}</h5>
                     <p class="text">{{'HOMEPAGE.SINCE-TEXT' | translate }}</p>
-                    <button class="button-underlined">{{'HOMEPAGE.SEE-MORE' | translate }}</button>
+                    <button routerLink="/aboutus" class="button-underlined">{{'HOMEPAGE.SEE-MORE' | translate }}</button>
                 </div>
                 <div class="year-container">
                     <h5 class="title">{{'HOMEPAGE.IN-DATE' | translate }}</h5>
                     <p class="text">{{'HOMEPAGE.IN-TEXT' | translate }}</p>
-                    <button class="button-underlined">{{'HOMEPAGE.SEE-MORE' | translate }}</button>
+                    <button routerLink="/aboutus" class="button-underlined">{{'HOMEPAGE.SEE-MORE' | translate }}</button>
                 </div>
             </div>
         </div>
@@ -251,7 +255,7 @@
                     </div>
                     <div class="deals-item-info">
                         <p class="item-name" (click)="goToProduct(item.id)">{{ item.name }}</p>
-                        <p class="item-price">{{ item.price }}</p>
+                        <p class="item-price">$ {{ item.price }}</p>
                         <button id="add-to-cart"  class="button-beige">{{'HOMEPAGE.ADD-TO-CART' | translate }}</button>
                     </div>
                 </div>
@@ -271,7 +275,7 @@
         
     
             <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-            <span class="item-price">{{ product.price }}</span>
+            <span class="item-price">$ {{ product.price }}</span>
 
             <div id="product-actions-container">
                 <div class="product-actions">

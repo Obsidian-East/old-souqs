@@ -100,9 +100,11 @@ section{
     font-size: 12px;
     font-weight: bold;
 }
-
-.grid-input{
+form{
     width: 94.5%;
+}
+.grid-input{
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
     gap: 1rem;
@@ -143,6 +145,9 @@ section{
     /* margin: 10px; */
     position: relative;
     margin: 0.5rem 0;
+  }
+  .long-field{
+    width: 95%;
   }
   
   .formField input {
@@ -596,7 +601,9 @@ input[type=radio]{
     .note{
         font-size: 0.85rem;
     }
-    
+    form{
+        width: 100%;
+    }
     .grid-input{
         width: 100%;
         display: flex;
@@ -606,6 +613,9 @@ input[type=radio]{
         gap: 0rem;
         margin: 0 0 0 -4vw;
     }
+    .long-field{
+        width: 90%;
+      }
     /* right part   order info */  
     .order-info-container {
         width: 100%; 

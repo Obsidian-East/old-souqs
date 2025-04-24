@@ -1,9 +1,12 @@
 .announcement {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0rem;
+    /* grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    grid-row-gap: 0px; */
     background-color: var(--font-color-primary);
     font-family: var(--font-custom-stack-header);
     padding: 0.5% 2% 0% 2%;
@@ -15,7 +18,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    width: 100%;
+    width: 45%;
     /* max-width: 600px; */
     margin: auto;
     overflow: hidden;
@@ -554,8 +557,8 @@ a:hover::after {
         align-items: center;
         justify-content: center;
     }
-    .announcement-slider {
-        gap: 2rem;
+    .slider-wrapper {
+        width: 75%;
     }
     .announcement-contact{
         display: none;
@@ -662,8 +665,8 @@ a:hover::after {
    
     .img-container{
         
-        width: 9vw;
-        height: 9vw;
+        width: 12vw;
+        height: 12vw;
         object-fit: contain;
     }
     .img-container img{
@@ -671,7 +674,7 @@ a:hover::after {
         height:100% ;
     }
     .product-info{
-        width: 75%;
+        width: 70%;
         display: flex;
         align-items: flex-start;
         justify-content: left;
@@ -739,11 +742,9 @@ a:hover::after {
         justify-content: center;
     }
     
-    .announcement-slider {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-     }
+    .slider-wrapper {
+        width: 95%;
+    }
      .announcement-contact{
         display: none;
      }
@@ -860,8 +861,8 @@ a:hover::after {
     
      .img-container{
          
-         width: 15vw;
-         height: 15vw;
+         width: 20vw;
+         height: 20vw;
          object-fit: contain;
      }
      .img-container img{
@@ -869,7 +870,7 @@ a:hover::after {
          height:100% ;
      }
      .product-info{
-         width: 75%;
+         width: 70%;
          display: flex;
          align-items: flex-start;
          justify-content: left;

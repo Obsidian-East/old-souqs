@@ -338,14 +338,15 @@ article {
       thead{
         display: none;
       }
-      
-      th {
+      tbody{
         display: block;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        padding: 10px;
       }
+      tr{
+        width: 90vw;
+      }
+      
       td{
+        width: 90vw;
         display: flex;
         justify-content: flex-start;
         padding: 10px;

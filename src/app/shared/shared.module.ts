@@ -9,7 +9,6 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -21,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
       }
     }),
     HttpClientModule,
+    HeaderComponent,
+    FooterComponent,
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
   exports: [HeaderComponent, TranslateModule, FooterComponent]

@@ -9,12 +9,20 @@ import { tap } from 'rxjs';
 export class AuthService {
   private apiUrlSignup = 'https://oldsouqs-backend-production.up.railway.app/signup';
   private apiUrlLogin = 'https://oldsouqs-backend-production.up.railway.app/login';
-
+  
   constructor(private http: HttpClient) { }
+
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && !!window.localStorage;
+  }
 
   signup(userData: any): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.post(this.apiUrlSignup, JSON.stringify(userData), { headers });
+    return this.http.post(this.apiUrlSignup, userData, { headers }).pipe(
+      tap((res: any) => {
+        localStorage.setItem('token', res.token);
+      })
+    );
   }
 
   login(userData: any): Observable<any> {

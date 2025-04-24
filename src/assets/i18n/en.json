@@ -233,7 +233,7 @@
     },
     "CHECKOUT":{
       "ACCOUNT": "Account",
-      "EMAIL" : "Email or Phone number",
+      "PHONE" : "Phone number",
       "EMAIL-NEWS": "Email me with news and offers",
       "DELIVERY": "Delivery",
       "COUNTRY":"Country",
@@ -263,7 +263,7 @@
       "TAXES": "Estimated taxes",
       "TOTAL": "Total",
       "PAY-NOW": "Pay now",
-      "RIGHTS-NOTE": "All rights reserved salford co."
+      "RIGHTS-NOTE": "All rights reserved Old Souq."
     },
     "PASSWORD":{
       "HERO": "Account",

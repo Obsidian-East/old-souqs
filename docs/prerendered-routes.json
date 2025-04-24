@@ -2,16 +2,21 @@
   "routes": [
     "/",
     "/aboutus",
+    "/admin",
     "/cart",
+    "/checkout",
     "/contact",
     "/editprofile",
     "/explore",
     "/home",
     "/login",
+    "/password",
+    "/privacy-policy",
     "/product",
     "/profile",
     "/search",
     "/signup",
+    "/terms-conditions",
     "/wishlist"
   ]
 }

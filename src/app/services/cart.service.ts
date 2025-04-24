@@ -1,32 +1,81 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+export interface CartItem {
+  id: string;
+  title: string;
+  image: string;
+  price: number;
+  quantity: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private baseUrl = 'https://oldsouqs-backend-production.up.railway.app'; // Replace with your backend URL
-  private userId = '67b384859e88cda0f13afee2'; // Replace with actual logged-in user ID logic
+  private readonly cartKey = 'cart';
 
-  constructor(private http: HttpClient) {}
+  // Internal state
+  private cartSubject = new BehaviorSubject<CartItem[]>(this.loadCart());
+  cart$: Observable<CartItem[]> = this.cartSubject.asObservable();
 
-  getCart(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/cart?userId=${this.userId}`);
-  }  
+  constructor() {}
 
-  addToCart(product: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/cart?userId=${this.userId}`, product);
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && !!window.localStorage;
   }
 
-  addToCartItem(productId: string, quantity: number = 1): Observable<any> {
-    const payload = { productId, quantity };
-    return this.http.post(`${this.baseUrl}/cart?userId=${this.userId}`, payload);
+  // Load from localStorage
+  private loadCart(): CartItem[] {
+    if (!this.isBrowser()) return [];
+    const data = localStorage.getItem(this.cartKey);
+    return data ? JSON.parse(data) : [];
   }
 
-  updateQuantity(productId: string, quantity: number): Observable<any> {
-    return this.http.put(`${this.baseUrl}/cart/${productId}?userId=${this.userId}`, { quantity });
+  // Persist to localStorage and emit
+  private saveCart(cart: CartItem[]): void {
+    if (!this.isBrowser()) return;
+    localStorage.setItem(this.cartKey, JSON.stringify(cart));
+    this.cartSubject.next(cart);
   }
 
-  removeItem(productId: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/cart/${productId}?userId=${this.userId}`);
+  // Public API
+  getCart(): CartItem[] {
+    return this.cartSubject.getValue();
+  }
+
+  addToCart(item: CartItem): void {
+    const cart = this.loadCart();
+    const idx = cart.findIndex(i => i.id === item.id);
+
+    if (idx > -1) {
+      cart[idx].quantity += item.quantity;
+    } else {
+      cart.push({ ...item });
+    }
+
+    this.saveCart(cart);
+  }
+
+  updateQuantity(id: string, quantity: number): void {
+    const cart = this.loadCart();
+    const idx = cart.findIndex(i => i.id === id);
+    if (idx > -1) {
+      cart[idx].quantity = quantity;
+      this.saveCart(cart);
+    }
+  }
+
+  removeFromCart(id: string): void {
+    const cart = this.loadCart().filter(i => i.id !== id);
+    this.saveCart(cart);
+  }
+
+  clearCart(): void {
+    localStorage.removeItem(this.cartKey);
+    this.cartSubject.next([]);
+  }
+
+  // Utility
+  getTotalAmount(): number {
+    return this.getCart().reduce((sum, i) => sum + i.price * i.quantity, 0);
   }
 }

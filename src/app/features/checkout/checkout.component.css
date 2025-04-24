@@ -354,13 +354,25 @@ input[type=radio]{
     font-style: normal;
     margin: 0;
 }
+
 .order-summary-container{
     display: none;
 }
+
 .hide{
     display: none;
   }
 
+#editOrder{
+    font-family:  var(--font-custom-stack-header);
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.15s;
+}
+
+#editOrder:hover{
+    color: var(--font-color-primary);
+}
 @media (min-width: 769px) and (max-width: 1024px) {
    
     .header-container{

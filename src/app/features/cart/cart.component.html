@@ -29,6 +29,7 @@
           <tr *ngFor="let item of products">
             <td class="product-info">
               <!-- display title since CartItem has title -->
+               <img src="{{item.image}}"/>
               <span style="font-weight: 600;">{{ item.title }}</span>
             </td>
             <td>${{ item.price.toFixed(2) }}</td>
@@ -41,8 +42,11 @@
                 </div>
                 <div class="delete-container">
                   <svg (click)="removeProduct(item)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 ..." />
+                    <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" fill="cuttentColor"/>
                   </svg>
+                  <!-- <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 ..." />
+                  </svg> -->
                 </div>
               </div>
             </td>
@@ -60,7 +64,7 @@
         <div class="grid-item">
           <p class="title">{{ 'CART.SHIPPING-INFO' | translate }}</p>
           <label class="subtitle">{{ 'CART.COUNTRY' | translate }}</label>
-          <select (change)="onSelect($event)">
+          <select id="dropdown" (change)="onSelect($event)">
             <option *ngFor="let country of Countries" [value]="country">
               {{ country }}
             </option>

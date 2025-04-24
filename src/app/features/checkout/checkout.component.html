@@ -41,12 +41,12 @@
                             <span>{{ 'CHECKOUT.LAST-NAME' | translate }}* </span>
                           </div>
                         </div>
-                        <div class="formField">
+                        <div class="formField long-field">
                           <input required type="text" formControlName="address"/>
                           <span>{{ 'CHECKOUT.ADDRESS' | translate }}*</span>
                         </div>
                       
-                        <div class="formField">
+                        <div class="formField long-field">
                           <input required type="text" formControlName="apartment"/>
                           <span>{{ 'CHECKOUT.APARTMENT' | translate }}*</span>
                         </div>
@@ -70,7 +70,7 @@
                     <p class="subtitle">{{ 'CHECKOUT.SHIPPING-METHOD' | translate }}</p>
                     <div class="shipping-container">
                         <p class="text">{{ 'CHECKOUT.STANDARD' | translate }}</p>
-                        <p class="text" style="font-weight: 700;">{{ 'CHECKOUT.FREE' | translate }}</p>
+                        <p class="text" style="font-weight: 700;">{{shippingPrice.toFixed(2)}}</p>
                     </div>
                 
                 </div>
@@ -122,12 +122,12 @@
     
                         <div class="order-summary-details">
                             <p class="order-summary-subtitle">{{ 'CHECKOUT.SHIPPING' | translate }}</p>
-                            <p class="order-summary-subtitle">$ {{ shippingPrice }}</p>
+                            <p class="order-summary-subtitle">$ {{ shippingPrice.toFixed(2) }}</p>
                         </div>
     
                         <div class="order-summary-details" style="margin: -1rem 0 1.5rem 0;">
                             <p class="title">{{ 'CHECKOUT.TOTAL' | translate }}</p>
-                            <p class="title">$ {{totalAmount}}</p>
+                            <p class="title">$ {{totalAmount.toFixed(2)}}</p>
                         </div>
                     </div>
 
@@ -153,7 +153,7 @@
                             <path d="M5 25 L10 20 L15 25" stroke="black" stroke-width="2" fill="none" />
                          </svg>
                     </div>
-                    <p class="total-price">${{totalAmount}}</p>
+                    <p class="total-price">${{totalAmount.toFixed(2)}}</p>
                 </div>
                 <div class="line-tablet"></div>
                 <div id="rightBox" class="right-box"  id="rightBox">
@@ -167,7 +167,7 @@
                                     <img src="{{product.image}}" alt="Wall sconce">
                                 </div>
                                 <div class="item-details">
-                                    <p class="item-name">{{product.name}}</p>
+                                    <p class="item-name">{{product.title}}</p>
                                     <p class="item-price">$ {{product.price.toFixed(2)}}</p>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
 
                     <div class="order-details">
                         <p class="title">{{ 'CHECKOUT.TOTAL' | translate }}</p>
-                        <p class="title">$ {{totalAmount}}</p>
+                        <p class="title">$ {{totalAmount.toFixed(2)}}</p>
                     </div>
 
                 </div>

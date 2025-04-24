@@ -118,7 +118,7 @@
                     <img class="product-image" [src]="product.image" alt="{{ product.name }}" >            
                 
                     <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                    <span class="item-price">{{ product.price }}</span>
+                    <span class="item-price">$ {{ product.price }}</span>
             
                     <div id="product-actions-container">
                     <div class="product-actions">
@@ -174,7 +174,7 @@
             <div class="back">
                 <span>{{'HOMEPAGE.EXPLORE-MINI-TITLE' | translate }}</span>
                 <p class="explore-title">{{'HOMEPAGE.EXPLORE-TITLE' | translate }}</p> 
-                <button class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
+                <button routerLink="/explore" class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
             </div>
         </div>
         <!-- content -->

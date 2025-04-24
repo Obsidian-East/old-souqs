@@ -256,7 +256,7 @@
                     <div class="deals-item-info">
                         <p class="item-name" (click)="goToProduct(item.id)">{{ item.name }}</p>
                         <p class="item-price">$ {{ item.price }}</p>
-                        <button id="add-to-cart"  class="button-beige" (click)="addToCart(product)">{{'HOMEPAGE.ADD-TO-CART' | translate }}</button>
+                        <button id="add-to-cart"  class="button-beige" (click)="addToCart(item)">{{'HOMEPAGE.ADD-TO-CART' | translate }}</button>
                     </div>
                 </div>
             </div>

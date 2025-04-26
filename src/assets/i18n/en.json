@@ -316,7 +316,8 @@
       "LAST-UPDATED": "Last updated: 2 April 2025"
     },
     "PRIVACY":{
-      "PRIVACY-POLICY": "Privacy Policy",
+      "PRIVACY": "Privacy ",
+      "POLICY": "Policy",
       "INTRO-TEXT1": "This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.",
       "INTRO-TEXT2": "We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the Free Privacy Policy Generator.",
       "INTERPRETATION-DEFINITIONS": "Interpretation and Definitions",
@@ -453,10 +454,12 @@
       "CHANGES-TEXT3": "You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.",
       "CONTACT": "Contact Us",
       "CONTACT-TEXT": "If you have any questions about this Privacy Policy, You can contact us:",
-      "CONTACT-LI1": "By email: info@old-souq.com",
+      "CONTACT-LI1-1": "By email: ",
+      "CONTACT-LI1-2": " info@old-souq.com",
       "CONTACT-LI2-1": "By visiting this page on our website:",
-      "CONTACT-LI2-2": "Old Souqs",
-      "CONTACT-LI3": "By phone number: +961 06 401 013",
+      "CONTACT-LI2-2": "Old Souq",
+      "CONTACT-LI3-1": "By phone number:",
+      "CONTACT-LI3-2": " +961 06 401 013",
       "LAST-UPDATED": "Last updated: 2 April 2025"
     },
     "ADMIN": {

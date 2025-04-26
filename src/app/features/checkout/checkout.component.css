@@ -558,8 +558,8 @@ input[type=radio]{
         width: 90vw;
     }
     .header-container img{
-        width: 18vw;
-        height: 18vw;
+        width: 21vw;
+        height: 21vw;
     }
     .header-container svg, .header-container path{
         width: 5vw;
@@ -596,6 +596,7 @@ input[type=radio]{
       }
       /* button black */
       .button-black{
+        width: 85vw;
         font-size: 0.85rem;
     }
     .note{
@@ -670,8 +671,8 @@ input[type=radio]{
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 80%;
-        margin-right: 3vw;
+        width: 83%;
+        /* margin-right: 3vw; */
         cursor: pointer;
     }
     .total-price{
@@ -692,7 +693,7 @@ input[type=radio]{
       }
       .order-summary-details{
         margin: 0.75rem 0;
-        width: 80vw;
+        width: 85vw;
         display: flex;
         align-items: center;
         justify-content: space-between;

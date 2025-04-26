@@ -166,7 +166,9 @@
                 <button class="close-search-btn" (click)="closeSearch()">&times;</button>
             </div>
             <div class="search-input-container">
-                <input type="text" class="search-input" placeholder="{{ 'HEADER.SEARCH-INPUT' | translate }}" (input)="searchChange($event)"/>
+                <input type="text" class="search-input" placeholder="{{ 'HEADER.SEARCH-INPUT' | translate }}" (input)="onInput($event)" />
+                <!-- <input type="text" class="search-input" placeholder="{{ 'HEADER.SEARCH-INPUT' | translate }}" (input)="searchChange($event)"/> -->
+
                 <svg (click)="goToSearch()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search">
                     <g>
                         <path
@@ -177,18 +179,18 @@
             </div>
         </div> 
     </div>
-    <div *ngIf="isSearchResultVisible" class="search-result-container">
-        <div class="search-text">{{ 'HEADER.SEARCH-TEXT1' | translate }} "{{textValue}}" {{ 'HEADER.SEARCH-TEXT2' | translate }}</div>
-        <div class="search-line" style="margin: 0;"></div>
+    <div  class="search-result-container">
+        <!-- <div class="search-text">{{ 'HEADER.SEARCH-TEXT1' | translate }} {{ 'HEADER.SEARCH-TEXT2' | translate }}</div> -->
+        <!-- <div class="search-line" style="margin: 0;"></div> -->
 
         <!-- if there is product for this search -->
-        <div *ngIf="totalSearch">
+        <div *ngIf="showDropdown && filteredResults.length" style="border: 0.2px solid var(--font-color-paragraph);">
             <div class="all-search-products">
                 <div class="search-products">
-                    <div class="one-product" *ngFor="let product of searchProducts; let last = last">
+                    <div class="one-product" *ngFor="let product of filteredResults; let last = last">
                         <div class="product-data">
                             <img src="{{product.image}}" />
-                            <p class="product-name">{{product.name}}</p>
+                            <p class="product-name">{{product.title}}</p>
                         </div>
                         <div *ngIf="!last" class="search-line"></div>
                     </div>
@@ -196,12 +198,13 @@
             </div>
 
             <div class="line"></div>
-            <button (click)="goToSearch()" class="see-result">  {{ 'HEADER.SEE-ALL-RESULTS' | translate }} ({{totalSearch}})</button>
+            <button (click)="goToSearch()" class="see-result">  {{ 'HEADER.SEE-ALL-RESULTS' | translate }} <!--({{totalSearch}})--></button>
         </div>
 
         <!-- no product -->
-         <span *ngIf="!totalSearch">
+         <span *ngIf="showDropdown && !filteredResults.length && query">
             <p class="search-text">{{ 'HEADER.NO-RESULTS' | translate }}</p>
          </span>
     </div>
+    
  </div>

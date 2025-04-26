@@ -35,4 +35,10 @@ export class ProductService {
         return this.http.get<any[]>(`${this.apiProductUrl}/${ productId }`)
     }
 
+
+     //  Search products by name
+  searchProducts(query: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiProductUrl}/search?q=${query}`);
+  }
+
 }

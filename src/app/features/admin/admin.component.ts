@@ -114,7 +114,9 @@ export class AdminComponent implements OnInit {
 
 
   deleteProduct(productId:string){
-    alert('delete product'+productId);
+      if (confirm('Are you sure you want to delete this product?')) {  
+        
+      }
   }
 
 
@@ -330,7 +332,9 @@ export class AdminComponent implements OnInit {
       }
     }
     deleteCollection(collectinId:string){
-      alert('delete collection'+ collectinId)
+      if (confirm('Are you sure you want to delete this collection?')) {  
+        
+      }
     }
 
 
@@ -572,7 +576,9 @@ export class AdminComponent implements OnInit {
 
   // Method to delete a discount
   deleteDiscount(id: string) {
-    this.discounts = this.discounts.filter(d => d.id !== id);
+    if (confirm('Are you sure you want to delete this discount?')) {  
+         this.discounts = this.discounts.filter(d => d.id !== id);
+    }
   }
 
   // Method to handle the input change when editing the discount value

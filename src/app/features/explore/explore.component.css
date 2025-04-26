@@ -693,12 +693,14 @@ input[type="checkbox"] {
         align-items: flex-start;
         z-index: 1000;
         overflow-y: scroll;
-        height: 100vh; /* Full height of the viewport */
+        height: fit-content; 
+        max-height: 100vh;
         overflow-y: auto; /* Enables vertical scrolling */
     }
  
     /* filter part style */
     .filters-container{
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -978,7 +980,9 @@ input[type="checkbox"] {
     }
 
     .hero-title{
-       font-size: 1.2rem;
+        width: 80vw;
+        text-align: center;
+       font-size: 1.1rem;
     }
     
     /* most buttons style */
@@ -1021,12 +1025,15 @@ input[type="checkbox"] {
         align-items: flex-start;
         z-index: 1000;
         overflow-y: scroll;
-        height: 100vh; /* Full height of the viewport */
+        height: fit-content; 
+        max-height: 100vh;
         overflow-y: auto; /* Enables vertical scrolling */
     }
  
     /* filter part style */
     .filters-container{
+        min-height: 100vh;
+
         display: flex;
         flex-direction: column;
         align-items: center;

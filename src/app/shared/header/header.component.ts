@@ -1,8 +1,9 @@
-import { Component, OnInit,NgZone,OnDestroy  } from '@angular/core';
+import { Component, OnInit,NgZone,OnDestroy,ElementRef, ViewChild  } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.service';
 import { CartStateService } from '../../services/cart-state.service';
 import { TokenService } from '../../services/token.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-header',
@@ -33,7 +34,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
     private router: Router, 
     private cartStateService: CartStateService,
     private tokenService: TokenService,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,
+    private productService: ProductService) {
 
       this.ngZone.runOutsideAngular(() => {
         this.intervalId = setInterval(() => {
@@ -72,6 +74,15 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.checkLoginStatus();
 
     this.announcements = this.getAnnouncements();
+
+    // for search 
+    this.productService.getProducts().subscribe(
+      products => {
+        this.allProducts = products;
+        // console.log('Loaded products:', this.allProducts); 
+      },
+      error => console.error('Error loading products:', error)
+    );
   }
 
   checkLoginStatus(): void {
@@ -150,29 +161,66 @@ export class HeaderComponent implements OnInit, OnDestroy{
   closeSearch() {
     this.isSearchVisible = false;
   }
-  searchProducts = [
-    { id: 1, name: 'Old Uniform', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-    { id: 2, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-    { id: 3, name: 'Vintage Boots', price: 79.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-    { id: 4, name: 'Leather Gloves', price: 49.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-    { id: 5, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-    { id: 6, name: 'Vintage Boots', price: 79.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 }
-  ];
-  totalSearch = this.searchProducts.length
+  // searchProducts = [
+  //   { id: 1, name: 'Old Uniform', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
+  //   { id: 2, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
+  //   { id: 3, name: 'Vintage Boots', price: 79.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
+  //   { id: 4, name: 'Leather Gloves', price: 49.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
+  //   { id: 5, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
+  //   { id: 6, name: 'Vintage Boots', price: 79.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 }
+  // ];
+  // for search bar
 
-  isSearchResultVisible = false;
-  textValue: string = '';
+  // totalSearch = this.searchProducts.length
 
-  searchChange(event: any) {
-    this.textValue = event.target.value;
-    if (this.textValue)
-      this.isSearchResultVisible = true;
-    else
-      this.isSearchResultVisible = false;
+  // isSearchResultVisible = false;
+  // textValue: string = '';
+
+  // searchChange(event: any) {
+  //   this.textValue = event.target.value;
+  //   if (this.textValue)
+  //     this.isSearchResultVisible = true;
+  //   else
+  //     this.isSearchResultVisible = false;
+  // }
+
+  // goToSearch() {
+  //   if (this.textValue != '')
+  //     this.router.navigate(['/search'], { state: { SearchText: this.textValue } });
+  // }
+
+
+
+
+  // @ViewChild('searchInput') searchInputRef!: ElementRef;
+  allProducts: any[] = [];
+  filteredResults: any[] = [];
+  query = '';
+  showDropdown = false;
+
+  onInput(event: Event): void {
+    const input = (event.target as HTMLInputElement).value.trim();
+    this.query = input;
+
+    if (this.query) {
+      this.filteredResults = this.allProducts.filter(product =>
+        (product.title || '').toLowerCase().includes(this.query.toLowerCase())
+      );
+      this.showDropdown = true;
+    } else {
+      this.filteredResults = [];
+      this.showDropdown = false;
+    }
   }
 
-  goToSearch() {
-    if (this.textValue != '')
-      this.router.navigate(['/search'], { state: { SearchText: this.textValue } });
+  goToSearch(): void {
+    if (this.query.trim()) {
+      this.router.navigate(['/search'], { queryParams: { q: this.query.trim() } });
+      this.showDropdown = false;
+      this.closeSearch();
+    }
   }
+  
+
+
 }

@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { CartService, CartItem } from '../../services/cart.service';
 
 @Component({
 	selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent {
 
 	constructor(private router: Router,
 		private el: ElementRef,
-		private productService: ProductService) { }
+		private productService: ProductService,
+		private cartService: CartService) { }
 
 	ngOnInit(): void {
 		this.fetchProductsByCollection();
@@ -214,6 +216,18 @@ export class HomeComponent {
 	goToProduct(id: string) {
 		this.router.navigate(['/product'], { state: { productId: id } });
 	}
+
+	// --- Cart Actions aligned with CartService ---
+	addToCart(product: any): void {
+		const item: CartItem = {
+		  id: product.id,
+		  title: product.name,
+		  image: product.image,
+		  price: product.price,
+		  quantity: 1
+		};
+		this.cartService.addToCart(item);
+	  }
 
 }
 

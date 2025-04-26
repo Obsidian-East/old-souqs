@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "docs",
+            "outputPath": "dist/ecommerce-copper",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -49,11 +49,17 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kB",
-                  "maximumError": "15kB"
+                  "maximumWarning": "20kB",
+                  "maximumError": "25kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "inlineStyleLanguage": "css",
+              "optimization": {
+                "fonts": {
+                  "inline": false
+                }
+              }
             },
             "development": {
               "optimization": false,
@@ -95,9 +101,12 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
-          ],
+            ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

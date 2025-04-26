@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { CartStateService } from '../../services/cart-state.service';
 import { CartService, CartItem } from '../../services/cart.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class ExploreComponent {
 	constructor(
 		private router: Router,
 		private productService: ProductService,
-		private cartState: CartStateService,
   		private cartService: CartService
 	) { }
 

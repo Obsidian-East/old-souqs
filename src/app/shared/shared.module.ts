@@ -9,7 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations:[HeaderComponent, FooterComponent],
   imports: [
     CommonModule,
     RouterModule,

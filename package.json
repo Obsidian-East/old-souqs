@@ -20,7 +20,7 @@
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/platform-server": "^18.2.0",
     "@angular/router": "^18.2.0",
-    "@angular/ssr": "^18.2.3",
+    "@angular/ssr": "^18.2.19",
     "@colsen1991/ngx-translate-extract-marker": "^3.0.1",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
@@ -32,7 +32,7 @@
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.2.3",
+    "@angular-devkit/build-angular": "^18.2.9",
     "@angular/cli": "^18.2.3",
     "@angular/compiler-cli": "^18.2.0",
     "@types/express": "^4.17.17",

@@ -952,7 +952,9 @@ option{
       
     /*edit product Popup Styling */
     .edit-popup {
-        height: 90vh;
+      height:fit-content;
+      max-height: 80vh;
+        /* height: 90vh; */
         overflow-y: scroll;     
       width: 65vw;
     }
@@ -971,6 +973,12 @@ option{
     .label-input-container textarea{
         height: 3rem;
     }
+    
+.popup-content {
+  min-height: fit-content;
+  /* overflow-y: scroll; */
+}
+
   
     .close-btn {
       font-size: 14px;
@@ -1249,7 +1257,8 @@ option{
     /* margin-left: 18vw; */
     padding: 10px;
   width: 85vw;
-  height: 85vh;
+  height:fit-content;
+  max-height: 80vh;
     overflow-y: scroll;
 }
 .headline{
@@ -1282,8 +1291,8 @@ option{
 }
 
 .popup-content {
-    min-height: 85vh;
-    overflow-y: scroll;
+    min-height: fit-content;
+    /* overflow-y: scroll; */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1305,12 +1314,13 @@ option{
 /* add new product */
 .add-popup {
     width: 85vw;
-    height:85vh ;
+    height:fit-content;
+    max-height: 80vh;
     overflow-y: scroll;
   }
   .add-popup .popup-content {
     /* width: 85vw; */
-    min-height:85vh;
+    min-height:fit-content;
     display: flex;
     flex-direction: column;
     gap: 10px;

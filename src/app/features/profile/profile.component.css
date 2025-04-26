@@ -157,10 +157,11 @@ article {
     font-style: normal;
     font-size: 1rem;
     background: none;
-    color: #ff4040;
+    color: var(--font-color-primary);
     border: none;
     text-decoration: underline;
   }
+  
   .order-header span{
     font-family: var(--font-custom-stack-paragraph);
     font-weight: 400;
@@ -279,7 +280,7 @@ article {
     }
    
     .hero-title{
-         font-size: 1.2rem;
+         font-size: 1.3rem;
     }
     
     /* account page style */
@@ -288,11 +289,11 @@ article {
     }
     .welcome-title{
         margin:0.5rem 0;
-        font-size: 0.85rem;
+        font-size: 0.925rem;
     }
     .user-name{
         margin:0.5rem 0;
-        font-size: 1.25rem;
+        font-size: 1.35rem;
     }
     .account-info-grid{
         width: 85vw;

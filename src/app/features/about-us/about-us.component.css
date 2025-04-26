@@ -492,7 +492,7 @@ iframe {
     
     /* headline and paragraphs */
     .headline{
-        margin:0.5rem 0;
+        margin:-0.5rem 0;
         font-size: 1.25rem;
         line-height: 1rem;
     }

@@ -153,6 +153,7 @@ article {
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 0.1px solid var(--font-color-paragraph);
 }
 .counter button{
     cursor: pointer;
@@ -164,7 +165,8 @@ article {
     text-align: center;
     width: 1.7rem;
     height: 1.7rem;
-    border: 0.1px solid var(--font-color-paragraph);
+    border: 0;
+    /* border: 0.1px solid var(--font-color-paragraph); */
     background: none;
 }
 .counter span{
@@ -177,8 +179,8 @@ article {
     width: 1.7rem;
     height: 1.59rem;
     border: 0;
-    border-top: 0.1px solid var(--font-color-paragraph);
-    border-bottom: 0.1px solid var(--font-color-paragraph);
+    border-left: 0.1px solid var(--font-color-paragraph);
+    border-right: 0.1px solid var(--font-color-paragraph);
     background: none;
 }
 .delete-container{

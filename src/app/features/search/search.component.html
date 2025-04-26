@@ -3,15 +3,15 @@
 <section id="content">
     <article class="hero">
         <div class="hero-container">
-            <p class="hero-title">{{ 'SEARCH.HERO1' | translate }} {{productsCount}} {{ 'SEARCH.HERO2' | translate }}</p>    
+            <p class="hero-title">{{ 'SEARCH.HERO1' | translate }} {{filteredProducts.length}} {{ 'SEARCH.HERO2' | translate }}</p>    
         </div>
     </article>
 
     <article id="search" class="search-page">
-        <p class="headline"> {{ 'SEARCH.HEADLINE1' | translate }} "{{searchText}}" {{ 'SEARCH.HEADLINE2' | translate }} </p>
+        <p class="headline"> {{ 'SEARCH.HEADLINE1' | translate }} "{{finalSearchText}}" {{ 'SEARCH.HEADLINE2' | translate }} </p>
         <div class="search-container">
-            <input type="text" class="search-input" value="{{searchText}}" />
-            <button class="button-beige">
+            <input type="text" class="search-input"  #searchInput value="{{finalSearchText}}" placeholder="Search for a product" (input)="searchText = searchInput.value" />
+            <button (click)="runSearch()" class="button-beige">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search">
                     <g>
                         <path
@@ -23,14 +23,14 @@
         </div>
 
         <span class="hide-in-tablet">
-        <div *ngIf="availableProducts" class="grid-product-list" id="grid-product-list">
+        <div *ngIf="availableProducts; else noResults" class="grid-product-list" id="grid-product-list">
             <div class="item" 
-             *ngFor="let product of allproducts" 
+             *ngFor="let product of filteredProducts" 
              (mouseenter)="showProductActions(product)" 
              (mouseleave)="hideProductActions()">
     
             <!-- Show image only when not hovering -->
-            <img *ngIf="hoveredItem !== product" [src]="product.image" alt="{{ product.name }}" class="product-image">
+            <img *ngIf="hoveredItem !== product" [src]="product.image" alt="{{ product.title }}" class="product-image">
     
             <!-- Show product actions when hovering -->
             <div id="product-actions-container" *ngIf="hoveredItem === product">
@@ -67,23 +67,23 @@
                 </div>
             </div>
     
-            <p class="item-name"><a>{{ product.name }}</a></p>
-            <span class="item-price">{{ product.price }}</span>
+            <p class="item-name"><a>{{ product.title }}</a></p>
+            <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
         </div>
     </div>
     </span>
 
     <!-- product design for tablet and mobile -->
      <span class="show-in-tablet">
-        <div *ngIf="availableProducts" class="grid-product-list">
+        <div *ngIf="availableProducts; else noResults" class="grid-product-list">
             <div class="item" 
-                *ngFor="let product of allproducts" >
+                *ngFor="let product of filteredProducts" >
         
                     <!-- Show image only when not hovering -->
-                <img class="product-image" [src]="product.image" alt="{{ product.name }}" >
+                <img class="product-image" [src]="product.image" alt="{{ product.title }}" >
                 
-                <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                <span class="item-price">{{ product.price }}</span>
+                <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.title }}</a></p>
+                <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
     
                 <div id="product-actions-container">
                     <div class="product-actions">
@@ -123,7 +123,9 @@
             </div>
         </div>
      </span>
-    <p *ngIf="!availableProducts" class="text">{{ 'SEARCH.NO-PRODUCTS' | translate }}</p>
+     <ng-template #noResults>
+        <p class="text">{{ 'SEARCH.NO-PRODUCTS' | translate }}</p>
+    </ng-template>
     </article>
 </section>
 

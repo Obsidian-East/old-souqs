@@ -90,6 +90,14 @@ section{
     align-items:flex-start;
     justify-content:space-between;
 }
+.contact-info a{
+    cursor: pointer;
+    color:var(--font-color-paragraph);
+    text-decoration: none;
+}
+.contact-info a:hover{
+    color:var(--font-color-primary);
+}
 .contact-title{
     color: var(--font-color-secondary);
     font-family: var(--font-custom-stack-paragraph);
@@ -293,7 +301,7 @@ section{
         height: 22vh; 
     }
     .hero-title{
-        font-size: 1.2rem;
+        font-size: 1.45rem;
     }
     /* most buttons style */
     .button-beige{
@@ -344,7 +352,7 @@ section{
     /* headline and paragraphs */
     .headline{
         margin:-0.2rem 0;
-        font-size: 1.25rem;
+        font-size: 1.55rem;
         line-height: 2rem;
     }
     

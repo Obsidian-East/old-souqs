@@ -1,26 +1,32 @@
 <app-header></app-header>
-
+<!-- {{productId}} -->
 <section>
     <article class="product-info-article" id="product-info-container">
-        <div class="product-info-container">
+        <div *ngIf="isLoading" class="spinner-container">
+            <div class="spinner"></div>
+            <p>Loading product...</p>
+          </div>
+          
+        <div *ngIf="!isLoading && product" class="product-info-container">
 
 
             <div class="image-slider-container">
-                <div class="image-container">
+                <img [src]="product.image" class="single-image" />
+                <!-- <div class="image-container">
                   <div 
                     class="slider" 
                     [class.transitioning]="transitioning" 
                     [style.transform]="'translateX(' + (-selectedIndex * 100) + '%)'">
-                    <img *ngFor="let img of products[0].image" [src]="img" class="main-image" />
+                    <img *ngFor="let img of product?.image" [src]="img" class="main-image" />
                   </div>
                 </div>
                 <div class="thumbnails">
-                  <img *ngFor="let img of products[0].image; let i = index" 
+                  <img *ngFor="let img of product?.image; let i = index" 
                        [src]="img" 
                        (click)="changeImage(i)" 
                        [class.active]="i === selectedIndex" 
                        class="thumbnail" />
-                </div>
+                </div> -->
               </div>
             <!-- <div class="image-product-container">
                 <div class="image-container">
@@ -36,16 +42,16 @@
                 </div>
             </div> -->
              <div class="info-product-container">
-                <p class="title">{{products[0].name}}</p>
+                <p class="title">{{product.name}}</p>
                 <div class="more-info">
-                    <p class="product-price">{{products[0].price}}</p>
+                    <p class="product-price">$ {{(+product.price).toFixed(2)}}</p>
                     <div>
-                        <p class="text"><span style="font-weight: 700;">{{'PRODUCT.BRAND' | translate }} </span> {{products[0].name}}</p>
+                        <p class="text"><span style="font-weight: 700;">{{'PRODUCT.BRAND' | translate }} </span> {{product.name}}</p>
                         <p class="text"><span style="font-weight: 700;">{{'PRODUCT.AVAILABILITY' | translate }} </span> 
-                        <span class="instock" *ngIf="products[0].stock">
-                            {{'PRODUCT.IN-STOCK' | translate }} ({{products[0].stock}})
+                        <span class="instock" *ngIf="product.stock">
+                            {{'PRODUCT.IN-STOCK' | translate }} ({{product.stock}})
                         </span>
-                        <span class="outofstock" *ngIf="!products[0].stock">
+                        <span class="outofstock" *ngIf="!product.stock">
                             {{'PRODUCT.OUT-OF-STOCK' | translate }}
                         </span>
                         </p>
@@ -73,7 +79,7 @@
         <div class="grid-container">
             <div class="grid-item">
                 <p class="subtitle">{{'PRODUCT.DESCRIPTION' | translate }}</p>
-                <p class="text" style="color: var(--font-color-paragraph);">{{products[0].description}}</p>
+                <p class="text" style="color: var(--font-color-paragraph);">{{product?.description}}</p>
             </div>
             <div class="grid-item">
                 <p class="subtitle">{{'PRODUCT.ADDITIONAL-INFO' | translate }}</p>
@@ -82,7 +88,7 @@
         </div>
     </article>
 
-    <article class="related-product-article" id="related-product">
+    <article *ngIf="relatedProducts.length > 0"  class="related-product-article" id="related-product">
         <div class="related-product-container">
             <p class="title">{{'PRODUCT.RELATED-PRODUCT' | translate }}</p>
 
@@ -95,14 +101,14 @@
                          (mouseleave)="hideProductActions()">
                 
                         <!-- Show image only when not hovering -->
-                        <img class="product-image" *ngIf="hoveredItem !== product" [src]="product.image" alt="{{ product.name }}" >
+                        <img class="product-image" *ngIf="hoveredItem !== product" [src]="product?.image" alt="{{ product.name }}" >
                 
                         <!-- Show product actions when hovering -->
                         <div id="product-actions-container" *ngIf="hoveredItem === product">
                             <div class="product-actions">
                                 <div class="quick-wishlist-container">
                                     <div class="quick-wishlist right-border">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                        <svg (click)="goToProduct(product.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                             <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
                                             72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
                                             526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
@@ -133,7 +139,7 @@
                         </div>
                 
                         <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                        <span class="item-price">{{ product.price }}</span>
+                        <span class="item-price">$ {{ (+product.price).toFixed(2) }}</span>
                     </div>
                 </div>
             </span>
@@ -142,24 +148,22 @@
 
             <!-- for tablet and mobile  -->
             <span class="show">
-                <div class="collection-items " id="trending">
+                <div  class="collection-items " id="trending">
                     <div class="item" 
-                    *ngFor="let product of relatedProducts" 
-                    (mouseenter)="showProductActions(product)" 
-                    (mouseleave)="hideProductActions()">
+                    *ngFor="let product of relatedProducts" >
         
                     <!-- Show image only when not hovering -->
-                    <img class="product-image" [src]="product.image" alt="{{ product.name }}" >
+                    <img class="product-image" [src]="product?.image" alt="{{ product.name }}" >
                 
             
                     <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                    <span class="item-price">{{ product.price }}</span>
+                    <span class="item-price">$ {{ (+product.price).toFixed(2) }}</span>
     
                     <div id="product-actions-container">
                         <div class="product-actions">
                             <div class="quick-wishlist-container">
                                 <div class="quick-wishlist right-border">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <svg (click)="goToProduct(product.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
                                         72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
                                         526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
@@ -195,6 +199,10 @@
             </div>
             </span>
         </div>
+
+        <div *ngIf="!isLoading && !product">
+            <p>Product not found.</p>
+          </div>
     </article>
 </section>
 

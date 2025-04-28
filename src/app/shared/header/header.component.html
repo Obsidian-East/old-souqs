@@ -125,7 +125,7 @@
                         <img src={{product.image}} />
                     </div>
                     <div class="product-info">
-                        <p class="cart-product-name">{{product.title}}</p>
+                        <p class="cart-product-name" (click)="goToProduct(product.id)">{{product.title}}</p>
                         <p class="product-price">{{product.quantity}}<span style="color: var(--font-color-secondary);"> x </span>${{product.price.toFixed(2)}}</p>
                         <div class="quantity-delete-container">
                             <div class="counter">
@@ -148,7 +148,7 @@
             <div class="line"></div>
             <div class="total-price-container">
                 <p class="text">Sub Total:</p>
-                <p class="text" style="color: var(--font-color-primary);">${{totalAmount}}</p>
+                <p class="text" style="color: var(--font-color-primary);">${{totalAmount.toFixed(2)}}</p>
             </div>
             <div class="line"></div>
             <button class="button-beige" routerLink="/cart">{{ 'HEADER.VIEW-CART' | translate }}</button>
@@ -190,7 +190,7 @@
                     <div class="one-product" *ngFor="let product of filteredResults; let last = last">
                         <div class="product-data">
                             <img src="{{product.image}}" />
-                            <p class="product-name">{{product.title}}</p>
+                            <p class="product-name" (click)="goToProduct(product.id)">{{product.title}}</p>
                         </div>
                         <div *ngIf="!last" class="search-line"></div>
                     </div>

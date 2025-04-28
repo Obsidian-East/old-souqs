@@ -23,7 +23,7 @@
                 <div class="product-item">
                     <div class="img-name-container">
                         <img src="{{product.image}}"/>
-                        <p class="name"><a>{{product.name}}</a></p>
+                        <p class="name" (click)="goToProduct(product.id.toString())"><a>{{product.name}}</a></p>
                     </div>
 
                     <div class="product-actions-container">

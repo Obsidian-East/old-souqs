@@ -46,6 +46,11 @@ article{
   height: 33rem;
   object-fit:contain;
 }
+.single-image{
+    width: 30rem;
+    height: 30rem;
+    object-fit: contain;
+}
 
 .thumbnails {
   display: flex;
@@ -263,7 +268,6 @@ article{
 .item img{
     width: 100%;
     height:19rem;
-    background: url(../../assets/about-us.jpg) lightgray 50% / cover no-repeat;
 }
 .item-name{
     color: var(--font-color-secondary);
@@ -337,6 +341,9 @@ article{
 .add-to-cart-button:hover{
     background-color: var(--font-color-secondary);
 }
+.spinner-container{
+    font-family: var(--font-custom-stack-paragraph);
+}
 
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -370,6 +377,9 @@ article{
 
 @media (min-width: 451px) and (max-width: 768px) {
 
+    .product-info-article{
+        padding: 4rem 0;
+    }
     .product-info-container{
         flex-direction: column;
         align-items: center;
@@ -385,8 +395,12 @@ article{
     .main-image {
         /* width: 68.75vw;
         height: 68.75vw; */
-        width: 79.2vw;
-        height: 79.2vw;
+        width: 60vw;
+        height: 60vw;
+    }
+    .single-image{
+        width: 60vw;
+        height: 60vw;
     }
     
     .thumbnails {
@@ -481,8 +495,7 @@ article{
     }
     .item img{
         width: 100%;
-        height:25vw;
-        background: url(../../assets/about-us.jpg) lightgray 50% / cover no-repeat;
+        height:auto;
     }
     .item-name{
         margin:0rem 0;
@@ -539,6 +552,9 @@ article{
 
 @media (min-width: 0px) and (max-width: 450px) {
 
+    .product-info-article{
+        padding: 3rem 0;
+    }
     .product-info-container{
         flex-direction: column;
         align-items: center;
@@ -554,6 +570,10 @@ article{
     .main-image {
         /* width: 68.75vw;
         height: 68.75vw; */
+        width: 79.2vw;
+        height: 79.2vw;
+    }
+    .single-image{
         width: 79.2vw;
         height: 79.2vw;
     }
@@ -651,9 +671,8 @@ article{
     }
     .item img{
         width: 100%;
-        height:33vw;
+        height:auto;
         object-fit: cover;
-        background: url(../../assets/about-us.jpg) lightgray 50% / cover no-repeat;
     }
     .item-name{
         margin:0rem 0;

@@ -132,6 +132,10 @@ article {
     display: flex;
     align-items: center;
   }
+  .product-info span:hover{
+    cursor: pointer;
+    color: var(--font-color-primary);
+  }
   
   .product-info img {
     width: 7rem;
@@ -302,7 +306,18 @@ article {
   .calculate-shipping:hover{
     color: var(--font-color-secondary);
   }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    
 
+  table {
+    width: 90vw;
+  }
+  
+.grid-container {
+  width: 90vw;
+}
+
+  }
 @media (min-width: 451px) and (max-width: 768px) {
 
     .hero{

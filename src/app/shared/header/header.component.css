@@ -290,6 +290,7 @@ a:hover::after {
 }
 
 .cart-product-name{
+    cursor: pointer;
     color: var(--font-color-secondary);
     margin:0.2rem 0;
     font-family: var(--font-custom-stack-paragraph);
@@ -297,6 +298,9 @@ a:hover::after {
     font-style: normal;
     font-weight: 400;
     line-height: 1.7rem;
+}
+.cart-product-name:hover{
+    color: var(--font-color-primary);
 }
 .product-price{
     color: var(--font-color-primary);
@@ -544,6 +548,7 @@ a:hover::after {
     border-bottom: 0.2px solid var(--font-color-paragraph);
 }
 .product-name{
+    cursor: pointer;
     padding: 0 1rem;
     color: var(--font-color-secondary);
     font-family: var(--font-custom-stack-paragraph);
@@ -551,6 +556,18 @@ a:hover::after {
     font-style: normal;
     font-weight: 700;
     line-height: 1.7rem;
+}
+.product-name:hover{
+    color: var(--font-color-primary);
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    .slider-wrapper {
+        width: 40%;
+      }
+      .cart-box{
+        width: 35vw;
+    }
 }
 
 @media (min-width: 451px) and (max-width: 768px) {

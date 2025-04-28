@@ -30,7 +30,7 @@
             <td class="product-info">
               <!-- display title since CartItem has title -->
                <img src="{{item.image}}"/>
-              <span style="font-weight: 600;">{{ item.title }}</span>
+              <span (click)="goToProduct(item.id)" style="font-weight: 600;">{{ item.title }}</span>
             </td>
             <td>${{ item.price.toFixed(2) }}</td>
             <td class="quantity">

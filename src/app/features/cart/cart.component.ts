@@ -54,4 +54,8 @@ export class CartComponent implements OnInit {
     // Navigate to checkout page
     this.router.navigate(['/checkout']);
   }
+
+  goToProduct(id: string) {
+		this.router.navigate(['/product'], { state: { productId: id } });
+	}
 }

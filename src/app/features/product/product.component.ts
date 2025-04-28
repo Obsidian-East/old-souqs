@@ -17,30 +17,113 @@ export class ProductComponent implements OnInit {
     private productService: ProductService,
   ) { }
 
-  productId: number | null = null;
+  isLoading: boolean = true;
+  productId: string | null = null;
+  // relatedProducts = [
+  //   { id: 1, name: "Cityscape Painting", price: "$44.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
+  //   { id: 2, name: "Golden Globe", price: "$225.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
+  //   { id: 3, name: "Cylinder Hat", price: "$99.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
+  //   { id: 4, name: "Wall Sconce", price: "$155.00", image: "https://old-souqs.sirv.com/Essential/logo.png" }
+  // ];
+  // relatedProducts: { id: string; name: string; price: number; image: string; stock: number }| null = null;
+
+
   ngOnInit() {
-    this.fetchProductById()
     if (typeof window !== 'undefined') {
       this.productId = window.history.state.productId;
+      if (this.productId) {
+        this.fetchProductById();
+      } else {
+        console.error('No Product ID received');
+      }
     }
-    console.log('Product ID:', this.productId);
   }
 
-  products: { id: string; name: string; description:string; price: number; image: string; stock: number }[] = [];
+  // currentProduct: any;
+  relatedProducts: any[] = [];
+
+  product: { id: string; name: string; description:string; price: number; image: string; stock: number;tag:string }| null = null;
   fetchProductById() {
-    this.productService.getProductById(String(this.productId)).subscribe({
-      next: (data) => {
-        this.products = data.map((product: any) => ({
+    this.productService.getProductById(this.productId!).subscribe({
+      next: (product: any) => {
+        this.product = {
           id: product.ID,
           name: product.title,
           description: product.description,
           price: product.price,
           image: product.image,
           stock: product.stock,
-        }));
+          tag: product.tag || [],
+        };
+        this.fetchRelatedProducts(this.product.tag[0]); // take the first collection for now
+
+        this.isLoading = false; // stop loading after data is ready
+      },
+      
+      error: (err) => {
+        console.error('Error fetching product:', err);
+        this.isLoading = false; // also stop loading if error
       }
-    })
+    });
   }
+  fetchRelatedProducts(collectionName: string) {
+    this.productService.getCollections().subscribe({
+      next: (collectionsData) => {
+        console.log('All collections:', collectionsData);
+  
+        // Find the collection by name
+        const collection = collectionsData.find((col: any) => col.CollectionName === collectionName);
+        console.log(collection)
+  
+        if (!collection) {
+          console.error('Collection not found');
+          return;
+        }
+  
+        // Filter out current product ID from related products
+        const relatedProductIds = Array.isArray(collection.ProductIds)
+        ? collection.ProductIds.filter((id: string) => id !== this.productId)  // Filter out the current product's ID
+        : []; 
+        if (relatedProductIds.length === 0) {
+          console.log('No related products found.');
+          this.relatedProducts = [];
+          return;
+        }
+  
+        // Fetch all products to match related product IDs
+        this.productService.getProductsByIds(relatedProductIds).subscribe({
+          next: (allProducts) => {
+            console.log("all prod", allProducts)
+            // Filter products by the related product IDs and map them into a simplified format
+            this.relatedProducts = allProducts
+              // .filter((product: any) => relatedProductIds.includes(product.id))
+              .map((product: any) => ({
+                id: product.Id,
+                name: product.Title,
+                price: +product.Price,
+                image: product.Image
+              }));
+  
+            // Limit to max 4 related products
+            if (this.relatedProducts.length > 4) {
+              this.relatedProducts = this.relatedProducts.slice(0, 4);
+            }
+  
+            console.log('Related products:', this.relatedProducts);
+          },
+          error: (err) => {
+            console.error('Error fetching products:', err);
+            this.relatedProducts = [];
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching collections:', err);
+        this.relatedProducts = [];
+      }
+    });
+  }
+  
 
 
   selectedIndex = 0;
@@ -66,11 +149,14 @@ export class ProductComponent implements OnInit {
 
   Counter: number = 1
   increaseQuantity() {
-    if (this.Counter < this.products[0].stock) {
+    if (!this.product) return; // If product not loaded, stop.
+  
+    const stock = this.product.stock ?? 0;
+    if (this.Counter < stock) {
       this.Counter++;
     }
-
   }
+  
 
   decreaseQuantity() {
     if (this.Counter > 1) {
@@ -78,12 +164,7 @@ export class ProductComponent implements OnInit {
 
     }
   }
-  relatedProducts = [
-    { id: 1, name: "Cityscape Painting", price: "$44.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
-    { id: 2, name: "Golden Globe", price: "$225.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
-    { id: 3, name: "Cylinder Hat", price: "$99.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
-    { id: 4, name: "Wall Sconce", price: "$155.00", image: "https://old-souqs.sirv.com/Essential/logo.png" }
-  ];
+  
   hoveredItem: any = null; // Tracks the currently hovered product
 
   showProductActions(product: any): void {
@@ -96,7 +177,7 @@ export class ProductComponent implements OnInit {
   // to send the product id to the product page when clicking on a product name
 
 
-  goToProduct(id: number) {
+  goToProduct(id: string) {
     this.router.navigate(['/product'], { state: { productId: id } });
   }
 

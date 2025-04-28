@@ -88,7 +88,7 @@ section{
 
 .about-container{
     width: 68rem;
-    height: 30rem; 
+    height: auto; 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -103,7 +103,7 @@ section{
     height: 28rem;
 }
 .about-img img{
-    width: auto;
+    width: 100%;
     height: 29rem;
      /* width: 20rem; */
     /* height: auto; */
@@ -269,8 +269,7 @@ section{
 }
 .item img{
     width: 100%;
-    height:19rem;
-    background: url(../../assets/about-us.jpg) lightgray 50% / cover no-repeat;
+    height:auto;
 }
 .item-name{
     color: var(--font-color-secondary);
@@ -298,7 +297,7 @@ section{
 /* product actions styles */
 .product-actions{
     /* same as height of item class */
-    height: 19rem; 
+    height: 17rem; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -648,7 +647,7 @@ section{
   .show-in-tablet{
     display: none;
   }
-  @media (min-width: 769px) and (max-width: 1024px) {
+  @media (min-width: 826px) and (max-width: 1024px) {
 
     /* about us style */
     
@@ -673,27 +672,56 @@ section{
         width: 21vw;
     }
     .item img{
-        height:17rem;
+        height:24vw;
     }
    
     /* product actions styles */
     .product-actions{
         /* same as height of item class */
-        height: 17rem; 
+        height: 24vw; 
+    }
+    
+    .quick-wishlist{
+        width: 4rem;
+    }
+
+    .add-to-cart-button{
+        width: 8rem;
     }
     /* explore our collection article style */
-   
     .explore-hero{
         height: 50vh; 
+    }
+    .explore-img{
+        width: 20vw;
+        height: auto;
+    }
+    .name-aligned .headline{
+        font-size: 2rem ;
     }
 
     /* explore content styles */
     .explore-content-container{
         width: 93vw;
     }  
+    
+/* deals of the day style */
+
+    .deals-item-img{
+        width: 22vw;
+        height: 22vw;
+    }
+    .deals-item-img img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .button-beige{       
+        margin: 1rem 0;
+    }
 }
 
-@media (min-width: 451px) and (max-width: 768px) {
+@media (min-width: 451px) and (max-width: 825px) {
   
     .hero{
         height: 60vh; 

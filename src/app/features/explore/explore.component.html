@@ -313,7 +313,7 @@
                         <div class="product-actions">
                             <div class="quick-wishlist-container">
                                 <div class="quick-wishlist right-border">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <svg (click)="goToProduct(product.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
                                         72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
                                         526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
@@ -343,7 +343,7 @@
                         </div>
                     </div>
             
-                    <p class="item-name"><a>{{ product.name }}</a></p>
+                    <p class="item-name" (click)="goToProduct(product.id)"><a>{{ product.name }}</a></p>
                     <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
                 </div>
             </div>
@@ -365,7 +365,7 @@
                     <div class="product-actions">
                         <div class="quick-wishlist-container">
                             <div class="quick-wishlist right-border">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                <svg (click)="goToProduct(product.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                     <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
                                     72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
                                     526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
@@ -410,7 +410,7 @@
                             <img *ngIf="hoveredItem !== product" [src]="product.image" alt="{{ product.name }}" class="product-image">
                         </div>
                         <div class="product-content">
-                            <p class="item-name"><a>{{ product.name }}</a></p>
+                            <p class="item-name" (click)="goToProduct(product.id)">{{ product.name }}</p>
                             <span class="price-ul">$ {{ product.price.toFixed(2) }}</span>
                             <p class="description">{{product.description}}</p>
 
@@ -424,7 +424,7 @@
                             <div class="product-actions-ul">
                                 
                                 <div class="quick-wishlist-ul">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <svg (click)="goToProduct(product.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
                                         72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
                                         526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 

@@ -220,6 +220,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
       this.closeSearch();
     }
   }
+  goToProduct(id: string) {
+    this.router.navigate(['/product'], { state: { productId: id } });
+  }
   
 
 

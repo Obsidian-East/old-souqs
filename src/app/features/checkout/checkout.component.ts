@@ -54,11 +54,13 @@ export class CheckoutComponent {
       if (scrollPosition >= topOffset) {
         rightBox.style.position = 'fixed';
         rightBox.style.top = '0';
+        rightBox.style.padding = '2rem';
         rightBox.style.width = `${rightDiv.clientWidth - 66}px`; // Set width dynamically
       } else {
         rightBox.style.position = 'relative';
         rightBox.style.top = 'auto';
         rightBox.style.width = '90%'; // Reset width
+        rightBox.style.padding = '2rem 1.5rem';
       }
     }
   }

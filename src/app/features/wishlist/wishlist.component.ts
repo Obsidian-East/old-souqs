@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-wishlist',
@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './wishlist.component.css'
 })
 export class WishlistComponent {
+  constructor(private router: Router
+    ) { }
 
   availableProducts: Boolean = true;
    // products in cart
@@ -30,6 +32,9 @@ export class WishlistComponent {
 
   getTotalPrice(product: any) {
     return product.price * product.quantity;
+  }
+  goToProduct(id: string) {
+    this.router.navigate(['/product'], { state: { productId: id } });
   }
 
 }

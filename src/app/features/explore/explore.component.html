@@ -77,7 +77,6 @@
                   <div class="filter-item-container">
                     <p class="headline">Price</p>
                     <div class="text-container">
-                        <p class="text"> {{ 'EXPLORE.HIGHEST-PRICE' | translate }} {{maxValue}} </p>
                         <button class="reset-button" (click)="clearMoneyFilters()">{{ 'EXPLORE.RESET' | translate }}</button>
                     </div>
 
@@ -208,7 +207,6 @@
                  <div class="filter-item-container">
                    <p class="headline">Price</p>
                    <div class="text-container">
-                       <p class="text"> {{ 'EXPLORE.HIGHEST-PRICE' | translate }} {{maxValue}} </p>
                        <button class="reset-button" (click)="clearMoneyFilters()">{{ 'EXPLORE.RESET' | translate }}</button>
                    </div>
 
@@ -439,7 +437,7 @@
                                 </div>
                                    
                                 <span class="hide-in-tablet">
-                                    <div class="add-to-cart-button-ul" >
+                                    <div class="add-to-cart-button-ul" (click)="addToCart(product)">
                                     <p>{{'EXPLORE.ADD-TO-CART' | translate }}</p>
                                 </div>
                                 </span>

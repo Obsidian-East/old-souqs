@@ -27,4 +27,12 @@ export class FooterComponent {
   toggleCompanyInfo(){
     this.isCompanyInfoVisible = ! this.isCompanyInfoVisible;
   }
+  currentLanguage: 'en' | 'ar' = 'en';
+  
+  toggleLanguage() {
+    this.currentLanguage = this.currentLanguage === 'en' ? 'ar' : 'en';
+    alert(`Language switched to: ${this.currentLanguage.toUpperCase()}`);
+  }
+
+  
 }

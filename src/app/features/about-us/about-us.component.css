@@ -476,7 +476,7 @@ iframe {
     }
   
     .hero-title{
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
    /* section 1 : grid style */
     
@@ -507,7 +507,7 @@ iframe {
     /* headline and paragraphs */
     .headline{
         margin:-0.5rem 0;
-        font-size: 1.25rem;
+        font-size: 1.4rem;
         line-height: 1rem;
     }
     .title-mobile{
@@ -595,6 +595,11 @@ iframe {
         width: 80%;
         padding: 1rem;
         margin-right: 0;
+    }
+    .explore-content .headline{
+        margin-bottom: 0.1rem;
+        font-size: 1.2rem;
+        line-height: 1rem;
     }
     
     /* location style */

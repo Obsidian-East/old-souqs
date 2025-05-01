@@ -229,5 +229,92 @@ export class HomeComponent {
 		this.cartService.addToCart(item);
 	  }
 
+
+	//   customized items section
+
+	customized = [
+		{
+		  "name": "Engraved Copper Plate1",
+		  "price": 120,
+		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+		  "description": "A hand-engraved copper plate featuring traditional patterns and ornate detailing."
+		},
+		{
+		  "name": "Antique Brass Teapot2",
+		  "price": 185,
+		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+		  "description": "This vintage teapot, crafted in the early 1900s, boasts elegant curves and aged charm."
+		},
+		{
+		  "name": "Custom Calligraphy Wall Art3",
+		  "price": 250,
+		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+		  "description": "Personalized Arabic calligraphy hand-etched onto a copper panel for a timeless wall display."
+		},
+		{
+		  "name": "Decorative Copper Lantern4",
+		  "price": 95,
+		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+		  "description": "A traditionally styled lantern with intricate carvings, perfect for ambient lighting or decor."
+		},
+		{
+		  "name": "Custom Nameplate in Copper5",
+		  "price": 70,
+		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+		  "description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
+		},
+		{
+			"name": "Custom Nameplate in Copper6",
+			"price": 70,
+			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+			"description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
+		},
+		{
+			"name": "Custom Nameplate in Copper7",
+			"price": 70,
+			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+			"description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
+		  }
+	  ];
+	  private currentCustomizedIndex: number = 0;
+	  maxDots=this.customized.length-3;
+	  maxDotsTablet = this.customized.length;
+
+	// using width only 4 is showing on click on a dot we got an index to translate so another item is showing
+	moveCustomizedToSlide(index: number): void {
+		let carousel = document.getElementById("customized-carousel");
+		let carouselTablet = document.getElementById("customized-carousel-tablet");
+		if (!carousel || !carouselTablet ) { return };
+		this.currentCustomizedIndex= index;
+		carousel.style.transform = `translateX(-${this.currentCustomizedIndex * 25}%)`; /* use 33.33 to show 3 items*/
+		carouselTablet.style.transform = `translateX(-${this.currentCustomizedIndex * 50}%)`; /* use 33.33 to show 3 items*/
+		this.updateCustomizedDots();// to update the color of the clicked dot
+	}
+
+	updateCustomizedDots() {
+		let dots = document.querySelectorAll(".customized-dot");
+		let dotsTablet = document.querySelectorAll(".customized-dot-tablet");
+		dots.forEach((dot, i) => {
+			if (dot) {
+				if (i === this.currentCustomizedIndex) {//clicked dot
+					dot.classList.add("customized-active-dot")
+				}
+				else {
+					dot.classList.remove("customized-active-dot")
+				}
+			}
+		});
+		dotsTablet.forEach((dot, i) => {
+			if (dot) {
+				if (i === this.currentCustomizedIndex) {//clicked dot
+					dot.classList.add("customized-active-dot")
+				}
+				else {
+					dot.classList.remove("customized-active-dot")
+				}
+			}
+		});
+	}
+	  
 }
 

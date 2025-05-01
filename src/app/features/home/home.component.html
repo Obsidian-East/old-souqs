@@ -178,7 +178,7 @@
             </div>
         </div>
         <!-- content -->
-        <div class="explore-content-container">
+        <!-- <div class="explore-content-container">
             <div class="explore-item">
                 <div class="explore-img">
                     <img src="https://old-souqs.sirv.com/Products/1f1.jpg" />
@@ -207,7 +207,74 @@
                     <button class="button-black">Only $55.00</button>
                 </div>
             </div>
+        </div> -->
+        <span class="hide-in-tablet">
+        <div class="custom-container">
+            <p><span class="headline"> Custom-Made</span><span class="headline marcellus-font"> Masterpieces</span></p>
+            <p class="engaging-sentence">Every piece is crafted to reflect YOUR vision — designed by you, brought to life by our skilled artisans.</p>
+
+            <div class="items-container">
+
+                <div class="customized-carousel-container">
+                    <div class="customized-carousel" id="customized-carousel">
+                        <div class="customized-item" *ngFor="let item of customized">
+                            <div class="customized-item-img">
+                                <img [src]="item.image" [alt]="item.name">
+                            </div>
+                            <div class="customized-item-info">
+                                <p class="item-name" >{{ item.name }}</p>
+                                <!-- <p class="item-price">$ {{ item.price }}</p> -->
+                                <!-- <p class="item-description"> {{ item.description }}</p> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="customized-dots">
+                <span *ngFor="let num of customized; let i = index; let first=first; let last=last">
+                    <div *ngIf="i < maxDots && first && !last" class="customized-dot customized-active-dot" (click)="moveCustomizedToSlide(i)"></div>
+                    <div *ngIf=" i < maxDots && !first && !last" class="customized-dot" (click)="moveCustomizedToSlide(i)"></div>
+                </span>   
+            </div>
+
+
+            <p class="engaging-sentence">Have a design in mind? <a routerLink="/contact">Contact us</a> to create a one-of-a-kind piece made just for you.</p>
         </div>
+        </span>
+        <span class="show-in-tablet">
+            <div class="custom-container">
+                <p><span class="headline"> Custom-Made</span><span class="headline marcellus-font"> Masterpieces</span></p>
+                <p class="engaging-sentence">Every piece is crafted to reflect YOUR vision — designed by you, brought to life by our skilled artisans.</p>
+    
+                <div class="items-container">
+    
+                    <div class="customized-carousel-container">
+                        <div class="customized-carousel" id="customized-carousel-tablet">
+                            <div class="customized-item" *ngFor="let item of customized">
+                                <div class="customized-item-img">
+                                    <img [src]="item.image" [alt]="item.name">
+                                </div>
+                                <div class="customized-item-info">
+                                    <p class="item-name" >{{ item.name }}</p>
+                                    <!-- <p class="item-price">$ {{ item.price }}</p> -->
+                                    <!-- <p class="item-description"> {{ item.description }}</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="customized-dots">
+                    <span *ngFor="let num of customized; let i = index; let first=first; let last=last">
+                        <div *ngIf="first && !last" class="customized-dot-tablet customized-active-dot" (click)="moveCustomizedToSlide(i)"></div>
+                        <div *ngIf="!first && !last" class="customized-dot-tablet" (click)="moveCustomizedToSlide(i)"></div>
+                    </span>   
+                </div>
+    
+                <p class="engaging-sentence">Have a design in mind? <a routerLink="/contact">Contact us</a> to create a one-of-a-kind piece made just for you.</p>
+            </div>
+        </span>
         
     </article>
 

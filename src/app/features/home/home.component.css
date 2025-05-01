@@ -423,6 +423,110 @@ section{
 .explore-info{
     width: 14rem;
 }
+/* custom section */
+.custom-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem 0;
+}
+.engaging-sentence{
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+}
+.engaging-sentence a{
+    cursor: pointer;
+    color: var(--font-color-primary);
+    text-decoration: none;
+}
+
+.customized-carousel-container {
+    width: 90vw;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    margin: 1rem 0;
+}
+.customized-carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.customized-item {
+    /* min-width: 48.5%; */
+    /* min-width: 31.5%;*/ /* to show 3 items */
+    min-width: 23.5%;
+    box-sizing: border-box; 
+    background: var(--extra-color-body);
+    margin: 10px;
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.customized-item-img{
+    width: 100%;
+    height: auto;
+}
+.customized-item-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.item-description{
+    width: auto;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal; 
+    color: var(--font-color-paragraph);
+}
+/* .customized-item-info{
+    width: 45%;
+} */
+
+/* dots style */
+.customized-dots {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+.customized-dot {
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.customized-dot-tablet {
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.customized-dot-collection {
+    /* for collection section in tablet */
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+ .customized-active-dot {
+    background-color: #a77b4d;
+}
 
 
 /* deals of the day style */
@@ -883,10 +987,27 @@ section{
     .name-aligned p{
         font-size: 1.6rem;
     }
-
+    /* custom section */
+    .custom-container{
+        margin: 2rem 0;
+    }
+    .engaging-sentence{
+        width: 90vw;
+        text-align: center;
+        font-size: 0.95rem;
+    }
+    .customized-item {
+        min-width: 47%;
+        /* min-width: 31.5%;*/ /* to show 3 items */
+        padding-bottom: 1rem;
+    }
     
     
     /* deals of the day style */
+    .deals-of-the-day-container{
+        padding: 2rem 0;
+
+    }
     .hide-in-tablet{
         display: none;
       }
@@ -1000,18 +1121,18 @@ section{
         height: 30vh;
     }
    .hero-container {
-        padding-left: 2rem;
+        padding-left: 1rem;
     }
     .hero-container span{
-        font-size: 0.95rem;
+        font-size: 1.05rem;
     }
     .hero-title{
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         margin: 0 0  0.25rem 0;
     }
     /* most buttons style */
     .button-beige{
-        font-size: 0.85rem;
+        font-size: 0.875rem;
         margin: 0.25rem 0;
         padding: 0.5rem 1rem;
     }
@@ -1131,7 +1252,7 @@ section{
         font-size: 0.95rem;
     }
     .explore-title{
-        font-size: 1.45rem;
+        font-size: 1.6rem;
         margin: 1rem 0;
     }
     /* explore content styles */
@@ -1170,7 +1291,19 @@ section{
     .name-aligned p{
         font-size: 1.3rem;
     }
-
+ /* custom section */
+ 
+.engaging-sentence{
+    width: 90vw;
+    text-align: center;
+    font-size: 0.85rem;
+}
+.customized-item {
+    min-width: 47%;
+    /* min-width: 31.5%;*/ /* to show 3 items */
+    padding-bottom: 1rem;
+    margin: 5px;
+}
     
     
     /* deals of the day style */

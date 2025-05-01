@@ -1,4 +1,5 @@
 .footer {
+    position: relative;
     background-color: var(--extra-color-body);
     padding: 40px 30px;
     text-align: center;
@@ -100,6 +101,78 @@ h3 {
   }
   
 
+
+
+
+/* The switch - the box around the slider */
+.language-switch{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    top: 1.25rem;
+    right:1.25rem;
+}
+.language-switch span{
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-style: normal;
+}
+.switch {
+    margin: 0 0.25rem;
+    font-size: 14px;
+    position: relative;
+    display: inline-block;
+    width: 2.5em;
+    height: 1.3em;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: var(--font-color-primary);
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.3em;
+    width: 1.3em;
+    inset: 0;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .switch input:checked + .slider {
+    background: var(--font-color-primary);
+  }
+  
+  .switch input:focus + .slider {
+    box-shadow: 0 0 1px var(--font-color-primary);
+  }
+  
+  .switch input:checked + .slider:before {
+    transform: translateX(1.2em);
+  }
+
 @media (min-width: 451px) and (max-width: 768px) {
     .footer {
         flex-direction: column;
@@ -146,6 +219,25 @@ h3 {
       .back-to-top svg{
         width: 0.925rem;
         height: 0.925rem;
+      }
+
+    .language-switch span{
+        font-size: 0.85rem;
+    }
+    .switch {
+        margin: 0 0.25rem;
+        font-size: 12px;
+        width: 2.5em;
+        height: 1.3em;
+      }
+
+      .slider:before {
+        height: 1.3em;
+        width: 1.3em;
+      }
+    
+      .switch input:checked + .slider:before {
+        transform: translateX(1.2em);
       }
 }
 
@@ -222,4 +314,23 @@ h3 {
         width: 0.85rem;
         height: 0.85rem;
       }
+      .language-switch span{
+        font-size: 0.8rem;
+    }
+    .switch {
+        margin: 0 0.25rem;
+        font-size: 12px;
+        width: 2.5em;
+        height: 1.3em;
+      }
+
+      .slider:before {
+        height: 1.3em;
+        width: 1.3em;
+      }
+    
+      .switch input:checked + .slider:before {
+        transform: translateX(1em);
+      }
+
 }

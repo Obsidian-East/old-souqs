@@ -9,7 +9,7 @@
     <article id="account">
         <div class="account-page">
             <p class="welcome-title">{{ 'PROFILE.WELCOME' | translate }}</p>
-            <p class="user-name">{{userData.firstname}}  {{userData.lastname}}</p>
+            <p class="user-name" *ngIf="userData.firstName">{{userData.firstName}}  {{userData.lastName}}</p>
 
             <div class="account-info-grid">
                 <div class="info-item">
@@ -21,9 +21,9 @@
                 <div class="line"></div>
                 <div class="info-item">
                     <span class="subtitle">{{ 'PROFILE.ACCOUNT-DETAILS' | translate }}</span>
-                    <span class="text">{{userData.firstname}}  {{userData.lastname}}</span>
-                    <span class="text"> {{userData.email}}</span>
-                    <span class="text">{{userData.address}}</span>
+                    <span class="text" *ngIf="userData.firstName">{{userData.firstName}}  {{userData.lastName}}</span>
+                    <span class="text" *ngIf="userData.email"> {{userData.email}}</span>
+                    <span class="text" *ngIf="userData.location">{{userData.location}}</span>
                 </div>
             </div>
 
@@ -37,8 +37,8 @@
                         <div class="order-header">
                             <span>
                                 <p><strong>{{ 'PROFILE.ORDER-ID' | translate }}: {{ order.orderId }}</strong></p>
-                                <p>{{ 'PROFILE.DATE' | translate }}: {{ order.orderDate }}</p>
-                                <p>{{ 'PROFILE.LOCATION' | translate }}: {{ order.location }}</p>
+                                <p>{{ 'PROFILE.DATE' | translate }}: {{ order.creationDate }}</p>
+                                <p>{{ 'PROFILE.LOCATION' | translate }}: {{ order.userLocation }}</p>
                                 <p>{{ 'PROFILE.TOTAL' | translate }}: ${{ getTotalAmount(order).toFixed(2) }}</p>
                           
                             </span>
@@ -48,8 +48,8 @@
                         </div>
                       
                         <div *ngIf="openOrders[order.orderId]" class="order-details">
-                          <div *ngFor="let item of order.productsIds" class="product-item">
-                            <ng-container *ngIf="getProductDetails(item.id) as product">
+                          <div *ngFor="let item of order.items" class="product-item">
+                            <ng-container *ngIf="getProductDetails(item.productId) as product">
                               <img [src]="product.image" alt="{{ product.nameEn }}" class="product-img" />
                               <div class="product-info">
                                 <p><strong>{{ product.nameEn }} - {{ product.nameAr }}</strong></p>
@@ -65,8 +65,8 @@
                 </div>
             </div>
         </div>
-    </article>
+    </article> 
 
-</section>    
+ </section>    
 
 <app-footer></app-footer>

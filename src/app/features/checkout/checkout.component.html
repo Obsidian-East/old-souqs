@@ -167,7 +167,7 @@
                                     <img src="{{product.image}}" alt="Wall sconce">
                                 </div>
                                 <div class="item-details">
-                                    <p class="item-name">{{product.title}}</p>
+                                    <p (click)="goToProduct(product.id)" class="item-name">{{product.title}}</p>
                                     <p class="item-price">$ {{product.price.toFixed(2)}}</p>
                                 </div>
                             </div>

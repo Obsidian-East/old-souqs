@@ -21,10 +21,10 @@
                     <p class="headline">{{'HOMEPAGE.NAME' | translate }}</p>
                     <p class="headline marcellus-font"> {{'HOMEPAGE.DESCRIPTION-TITLE' | translate }} </p>
                 </span>
-                <p class="text"><b>Salim Hassoun: A Copper Legacy </b><br />
-                    Born in 1947 in Qalamoun, Salim Hassoun inherited his father's craft of copper engraving, becoming a master artisan.  
-                    <br /> Through The Eastern Gallery, he created timeless pieces that preserved Lebanon's rich heritage.
-                    <br />Today, his legacy continues through The Old Souk, where his family keeps the tradition alive.
+                <p class="text"><b>{{'HOMEPAGE.DESCRIPTION-TEXT1' | translate }}  </b><br />
+                    {{'HOMEPAGE.DESCRIPTION-TEXT2' | translate }} 
+                    <br /> {{'HOMEPAGE.DESCRIPTION-TEXT3' | translate }} 
+                    <br /> {{'HOMEPAGE.DESCRIPTION-TEXT4' | translate }} 
                 </p>
                 <button routerLink="/explore" class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
 
@@ -71,8 +71,8 @@
                     <div id="product-actions-container" *ngIf="hoveredItem === product">
                         <div class="product-actions">
                             <div class="quick-wishlist-container">
-                                <div class="quick-wishlist right-border">
-                                    <svg (click)="goToProduct(product.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                <div (click)="goToProduct(product.id)" class="quick-wishlist right-border">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
                                         72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
                                         526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
@@ -123,8 +123,8 @@
                     <div id="product-actions-container">
                     <div class="product-actions">
                             <div class="quick-wishlist-container">
-                                <div class="quick-wishlist right-border">
-                                    <svg (click)="goToProduct(product.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                <div (click)="goToProduct(product.id)" class="quick-wishlist right-border">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
                                             72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
                                             526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
@@ -210,8 +210,8 @@
         </div> -->
         <span class="hide-in-tablet">
         <div class="custom-container">
-            <p><span class="headline"> Custom-Made</span><span class="headline marcellus-font"> Masterpieces</span></p>
-            <p class="engaging-sentence">Every piece is crafted to reflect YOUR vision — designed by you, brought to life by our skilled artisans.</p>
+            <p><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span class="headline marcellus-font"> {{'HOMEPAGE.MASTERPIECES' | translate }}</span></p>
+            <p class="engaging-sentence">{{'HOMEPAGE.ENGAGING-SENTENCE' | translate }}</p>
 
             <div class="items-container">
 
@@ -239,13 +239,13 @@
             </div>
 
 
-            <p class="engaging-sentence">Have a design in mind? <a routerLink="/contact">Contact us</a> to create a one-of-a-kind piece made just for you.</p>
+            <p class="engaging-sentence">{{'HOMEPAGE.CONTACT-SENTENCE1' | translate }} <a routerLink="/contact">{{'HOMEPAGE.CONTACT-SENTENCE2' | translate }}</a> {{'HOMEPAGE.CONTACT-SENTENCE3' | translate }}</p>
         </div>
         </span>
         <span class="show-in-tablet">
             <div class="custom-container">
-                <p><span class="headline"> Custom-Made</span><span class="headline marcellus-font"> Masterpieces</span></p>
-                <p class="engaging-sentence">Every piece is crafted to reflect YOUR vision — designed by you, brought to life by our skilled artisans.</p>
+                <p><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span class="headline marcellus-font"> {{'HOMEPAGE.MASTERPIECES' | translate }}</span></p>
+                <p class="engaging-sentence">{{'HOMEPAGE.ENGAGING-SENTENCE' | translate }}</p>
     
                 <div class="items-container">
     
@@ -272,7 +272,7 @@
                     </span>   
                 </div>
     
-                <p class="engaging-sentence">Have a design in mind? <a routerLink="/contact">Contact us</a> to create a one-of-a-kind piece made just for you.</p>
+                <p class="engaging-sentence">{{'HOMEPAGE.CONTACT-SENTENCE1' | translate }} <a routerLink="/contact">{{'HOMEPAGE.CONTACT-SENTENCE2' | translate }}</a> {{'HOMEPAGE.CONTACT-SENTENCE3' | translate }}</p>
             </div>
         </span>
         
@@ -292,8 +292,8 @@
                         <div id="product-actions-container" *ngIf="hoveredDeal === item">
                             <div class="product-actions">
                                 <div class="quick-wishlist-container">
-                                    <div class="quick-wishlist right-border">
-                                        <svg (click)="goToProduct(item.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                    <div (click)="goToProduct(item.id)" class="quick-wishlist right-border">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                             <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
                                             72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
                                             526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 
@@ -347,8 +347,8 @@
             <div id="product-actions-container">
                 <div class="product-actions">
                     <div class="quick-wishlist-container">
-                        <div class="quick-wishlist right-border">
-                            <svg (click)="goToProduct(product.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <div (click)="goToProduct(product.id)" class="quick-wishlist right-border">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                 <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 
                                 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 
                                 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 

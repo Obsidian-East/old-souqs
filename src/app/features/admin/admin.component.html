@@ -17,7 +17,8 @@
             </nav>
           
             <div class="sidebar-footer">
-              &copy; {{ 'ADMIN.OLD-SOUQ' | translate }} 
+              <button (click)="Logout()" class="logout-btn">logout</button>
+             <p> &copy; {{ 'ADMIN.OLD-SOUQ' | translate }} </p>
             </div>
         </div>
     </div>
@@ -220,8 +221,8 @@
         </span>
 
         <span class="expand-btn" (click)="toggleCategoryDetails(collection.id)">
-            {{ isCategoryDetailsShown(collection.id) ? 'Collapse' : 'View Products' }}
-          </span>
+          {{ isCategoryDetailsShown(collection.id) ? ('ADMIN.COLLAPSE' | translate) : ('ADMIN.VIEW-PRODUCTS' | translate) }}
+        </span>
       </div>
   
       <div class="products-in-collection" *ngIf="isCategoryDetailsShown(collection.id)">
@@ -297,7 +298,8 @@
                 </span>
             
                 <button class="details-button" (click)="toggleOrderDetails(order.orderId)">
-                    {{ isOrderDetailsShown(order.orderId) ? 'Hide' : 'SHOW' }} {{ 'ADMIN.ORDER-DETAILS' | translate }} 
+
+                    {{ isOrderDetailsShown(order.orderId) ? ('ADMIN.HIDE' | translate) : ('ADMIN.SHOW' | translate) }} {{ 'ADMIN.ORDER-DETAILS' | translate }} 
                 </button>
             </div>
             

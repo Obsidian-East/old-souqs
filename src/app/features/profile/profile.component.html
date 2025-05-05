@@ -43,7 +43,7 @@
                           
                             </span>
                           <button (click)="toggleDetails(order.orderId)">
-                            {{ openOrders[order.orderId] ? 'Hide Details' : 'Show Details' }}
+                            {{ openOrders[order.orderId] ? ('PROFILE.HIDE' | translate) : ('PROFILE.SHOW' | translate) }}
                           </button>
                         </div>
                       

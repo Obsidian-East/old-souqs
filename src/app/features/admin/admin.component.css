@@ -63,8 +63,28 @@
   .active{
     background-color: #ff4040;
   }
-  
   .sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .logout-btn{
+    background-color: #ff4040;
+    color: white;
+    border: none;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    padding: 5px 15px;
+    font-weight: 400;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .logout-btn:hover{
+    background-color: black;
+    border: 1px solid #ff4040;
+  }
+  .sidebar-footer p{
     font-family: var(--font-custom-stack-paragraph);
     text-align: center;
     font-size: 12px;
@@ -890,6 +910,10 @@ option{
       .sidebar-footer {
         font-size: 0.75rem;
       }
+      .logout-btn{
+        font-size: 0.925rem;
+        padding: 5px 15px;
+      }
     
      /* product section */
      .menu-container svg{
@@ -1193,6 +1217,10 @@ option{
       }
       .sidebar-footer {
         font-size: 0.7rem;
+      }
+      .logout-btn{
+        font-size: 0.85rem;
+        padding: 5px 15px;
       }
       .menu-container svg{
         width: 1.5rem;

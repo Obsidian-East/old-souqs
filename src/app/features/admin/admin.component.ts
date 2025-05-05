@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // <== Import this
+import { RouterModule, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 
 interface Product {
   image: string;
@@ -27,6 +28,9 @@ type DiscountField = 'type' | 'targetId' | 'value';
 })
 
 export class AdminComponent implements OnInit {
+   constructor(private router: Router) {
+    this.loadAnnouncements();
+   }
 
   categories: { id: string; nameEn: string ; nameAr: string }[] = [
     { id: '1', nameEn: 'Clocks', nameAr: 'ساعات' },
@@ -635,9 +639,6 @@ export class AdminComponent implements OnInit {
   
   private readonly announcementKey = 'sliderMessages';
   
-  constructor() {
-    this.loadAnnouncements();
-  }
   
   private isBrowser(): boolean {
     return typeof window !== 'undefined' && !!window.localStorage;
@@ -720,6 +721,13 @@ export class AdminComponent implements OnInit {
     }
   }
   
+
+  // logout
+  Logout() {
+    localStorage.removeItem('admin-token');
+    this.router.navigate(['/login-admin']);
+  }  
+
  
  
 

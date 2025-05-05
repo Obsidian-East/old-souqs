@@ -1,0 +1,309 @@
+section{
+    margin: 0 0;
+}
+.hero{
+    display: flex;
+    align-items: center; /* Centers items vertically */
+    height: 30vh; 
+    width: 100%;
+    /* height: 30rem; */
+    background: url('https://old-souqs.sirv.com/Banners/DSC00272.jpg') lightgray 50% / cover no-repeat;
+}
+.hero-container{
+    margin:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-container span{
+    color: var(--extra-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 400;
+}
+.hero-title{
+    color: var(--extra-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* most buttons style */
+.button-red{
+    background-color: #ff4040;
+    border: 0px;
+    padding: 0.75rem 1.25rem;
+    color: var(--extra-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    margin: 2rem 0;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.button-red:hover{
+    background-color: transparent;
+    color: #ff4040;
+    border: 2px solid #ff4040;
+}
+
+/* sign up container style */
+.login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5rem 0;
+}
+
+.login-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 37vw;
+    background: var(--extra-color-body);
+    padding: 3rem;
+}
+.login-title{
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: normal;
+}
+label{
+    text-align: left;
+    width: 90%;
+    margin-top: 0.75rem;
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: normal;
+}
+input{
+    text-align: left;
+    width: 90%;
+    height: 2.25rem;
+    border: 0;
+    margin: 0.75rem 0;
+    color: var(--font-color-secondary);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+    padding: 0.5rem 0.75rem;
+    /* background: var(--background-color-body); */
+}
+
+.reason-text{
+    color: red;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 1rem;
+}
+.pass-eye-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    left: 1vw;
+}
+
+.pass-eye-container input {
+    width: 90%;
+    height: 2.5rem;
+    font-size: 1rem;   
+    height: 2rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem 0.75rem;
+}
+
+.eyes-container {
+    position: absolute;
+    right: 3vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.eyes-container svg {
+    width: 1rem;
+    height: 1rem;
+    /* fill: ; */
+    cursor: pointer;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+   
+    /* sign up container style */
+    .login{
+       margin: 4rem 0;
+    }
+    
+    .login-container{
+        width: 60vw;
+    }
+}
+
+@media (min-width: 451px) and (max-width: 768px) {
+   
+    .hero{
+        height: 25vh; 
+    }
+    .hero-title{
+         font-size: 1.5rem;
+    }
+    
+    /* most buttons style */
+    .button-beige{
+        font-size: 0.925rem;
+        margin: 1rem 0;
+    }
+    
+    /* sign up container style */
+    .login{
+        margin: 3rem 0;
+    }
+    
+    .login-container{
+        width: 80vw;
+        padding: 1rem;
+    }
+    .login-title{
+        font-size: 1.5rem;
+    }
+    label{
+        width: 93%;
+        margin-top: 0.5rem;
+        font-size: 0.925rem;
+    }
+    input{
+        height: 2rem;
+        margin: 0.5rem 0;
+        font-size: 0.925rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .signup-text{
+        font-size: 0.925rem;
+    }
+    .signup-link{
+        font-size: 0.925rem;
+    }
+    .forgot-password{
+        font-size: 0.925rem;
+    }
+    .reason-text{
+        font-size: 0.925rem;
+        margin-top: 0.75rem;
+    }
+ 
+    .pass-eye-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        left: 2.2vw;
+    }
+    .pass-eye-container input {
+        width: 90%;
+        height: 2.5rem;
+        font-size: 1rem;
+        height: 2rem;
+        margin: 0.5rem 0;
+        padding: 0.5rem 0.75rem;
+    }    
+    .eyes-container {
+        position: absolute;
+        right: 6vw;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 450px) {
+    .hero{
+        height: 22vh; 
+    }
+    .hero-title{
+        font-size: 1.4rem;
+   }
+   
+   /* most buttons style */
+   .button-beige{
+    padding: 0.5rem 1rem;
+       font-size: 0.85rem;
+       margin: 1rem 0;
+   } 
+   /* sign up container style */
+   .login{
+       margin: 2rem 0;
+   }
+   .login-container{
+       width: 80vw;
+       padding: 1rem;
+   }
+   .login-title{
+       font-size: 1.35rem;
+   }
+   label{
+       width: 93%;
+       margin-top: 0.5rem;
+       font-size: 0.85rem;
+   }
+   input{
+       height: 1.5rem;
+       margin: 0.5rem 0;
+       font-size: 0.85rem;
+       padding: 0.5rem 0.75rem;
+   }
+   
+   .signup-text{
+       font-size: 0.85rem;
+   }
+   .signup-link{
+       font-size: 0.85rem;
+   }
+   .forgot-password{
+       font-size: 0.85rem;
+   }
+   .reason-text{
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    }
+    .pass-eye-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        left: 1vw;
+    }
+    .pass-eye-container input {
+        width: 90%;
+        height: 2.5rem;
+        font-size: 1rem;
+        height: 2rem;
+        margin: 0.5rem 0;
+        padding: 0.5rem 0.75rem;
+    }    
+    .eyes-container {
+        position: absolute;
+        right: 6vw;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+   
+}    

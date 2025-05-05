@@ -29,8 +29,10 @@
       "ABOUT-US": "About Us",
       "NAME": "Old Souq.",
       "DESCRIPTION-TITLE": " Antique Collector",
-      "DESCRIPTION-TEXT1": "Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
-      "DESCRIPTION-TEXT2": "Wiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.",
+      "DESCRIPTION-TEXT1": "Salim Hassoun: A Copper Legacy",
+      "DESCRIPTION-TEXT2": "Born in 1947 in Qalamoun, Salim Hassoun inherited his father's craft of copper engraving, becoming a master artisan.",
+      "DESCRIPTION-TEXT3": "Through The Eastern Gallery, he created timeless pieces that preserved Lebanon's rich heritage.",
+      "DESCRIPTION-TEXT4": "Today, his legacy continues through The Old Souk, where his family keeps the tradition alive.",
       "EXPLORE-NOW": "Explore Now",
       "SEE-MORE": "SEE MORE",
       "SINCE-DATE": "Since 2001",
@@ -50,8 +52,13 @@
       "QUOTES": " Quotes",
       "SUBSCRIBE-TEXT": "Subscribe to our Newsletter",
       "SUBSCRIBE": "Subscribe",
-      "ENTER-YOUR-EMAIL": "Enter your email"
-
+      "ENTER-YOUR-EMAIL": "Enter your email",
+      "CUSTOM-MADE": "Custom-Made",
+      "MASTERPIECES": "Masterpieces",
+      "ENGAGING-SENTENCE": "Every piece is crafted to reflect YOUR vision — designed by you, brought to life by our skilled artisans.",
+      "CONTACT-SENTENCE1": "Have a design in mind?",
+      "CONTACT-SENTENCE2": "Contact us",
+      "CONTACT-SENTENCE3": "to create a one-of-a-kind piece made just for you."
     },
     "SIGNUP":{
       "HERO": "Join the Collector's Circle",
@@ -136,8 +143,10 @@
     },
     "EXPLORE":{
       "HERO": "Shop the Past: Our Antique Collection",
+      "LOADING": "Loading categories...",
       "CATEGORIES" : "Categories",
       "FILTER": "Filter",
+      "PRICE": "Price",
       "PRODUCTS": "Products",
       "IN-STOCK": "In stock",
       "CLEAR-ALL": "Clear all",
@@ -170,6 +179,7 @@
       "CHECKOUT": "Checkout"
     },
     "PRODUCT":{
+      "LOADING-PRODUCT": "Loading product...",
       "BRAND": "Brand:",
       "AVAILABILITY": "Availability:",
       "IN-STOCK": "In stock",
@@ -180,7 +190,8 @@
       "ADDITIONAL-INFO": "Additional information",
       "VENDOR": "Vendor:",
       "VENDOR-NAME": "Old Souq",
-      "RELATED-PRODUCT": "Related product"
+      "RELATED-PRODUCT": "Related product",
+      "NO-PRODUCT": "Product not found"
     },
 
     "SEARCH":{
@@ -218,7 +229,9 @@
       "TOTAL": "Total",
       "PRICE": "Price",
       "QUANTITY": "Quantity",
-      "SUBTOTAL": "Subtotal"
+      "SUBTOTAL": "Subtotal",
+      "HIDE": "Hide Details",
+      "SHOW": "Show Details"
     },
     "EDITPROFILE":{
       "HERO": "Edit your profile",
@@ -483,6 +496,8 @@
       "UPDATE": "Update",
       "ADD-PRODUCT": "Add Product",
       "ADD-NEW-COLLECTION": "Add New Collection",
+      "COLLAPSE": "Collapse",
+      "VIEW-PRODUCTS": "View Products",
       "EDIT": "Edit",
       "DELETE": "Delete",
       "SAVE": "Save",
@@ -512,6 +527,10 @@
       "DISCOUNTS-ON-CATEGORIES": "Discounts on Categories",
       "ADD-NEW-ANNOUNCEMENT":"Add New Announcement",
       "NO-ANNOUNCEMENT":"No announcements yet."
+    },
+    "LOGIN-ADMIN": {
+      "LOGIN": "Login",
+      "PASSWORD": "Password"
     },
     "FOOTER":{
       "INFO": "The place where you can find copper artifacts.",

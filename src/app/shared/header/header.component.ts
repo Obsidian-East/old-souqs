@@ -1,7 +1,6 @@
 import { Component, OnInit,NgZone,OnDestroy,ElementRef, ViewChild  } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.service';
-import { CartStateService } from '../../services/cart-state.service';
 import { TokenService } from '../../services/token.service';
 import { ProductService } from '../../services/product.service';
 
@@ -12,7 +11,6 @@ import { ProductService } from '../../services/product.service';
 })
 
 export class HeaderComponent implements OnInit, OnDestroy{
-  // messages: string[] = ['Welcome to Old Souq!', 'Discover rare antiques today!'];
   currentIndex: number = 0;
   intervalId: any;
   transitionStyle: string = 'transform 0.5s ease-in-out';
@@ -32,14 +30,12 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   constructor(private cartService: CartService, 
     private router: Router, 
-    private cartStateService: CartStateService,
     private tokenService: TokenService,
     private ngZone: NgZone,
     private productService: ProductService) {
 
       this.ngZone.runOutsideAngular(() => {
         this.intervalId = setInterval(() => {
-          // re-enter Angular zone only when updating view
           this.ngZone.run(() => this.showNextSlide());
         }, 5000);
       });
@@ -130,6 +126,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
       price: product.price,
       quantity: 1
     };
+    this.toggleCart();
     this.cartService.addToCart(item);
   }
 
@@ -161,38 +158,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   closeSearch() {
     this.isSearchVisible = false;
   }
-  // searchProducts = [
-  //   { id: 1, name: 'Old Uniform', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-  //   { id: 2, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-  //   { id: 3, name: 'Vintage Boots', price: 79.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-  //   { id: 4, name: 'Leather Gloves', price: 49.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-  //   { id: 5, name: 'Cylinder Hat', price: 99.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 },
-  //   { id: 6, name: 'Vintage Boots', price: 79.00, image: 'https://old-souqs.sirv.com/Essential/logo.png', quantity: 1 }
-  // ];
-  // for search bar
 
-  // totalSearch = this.searchProducts.length
-
-  // isSearchResultVisible = false;
-  // textValue: string = '';
-
-  // searchChange(event: any) {
-  //   this.textValue = event.target.value;
-  //   if (this.textValue)
-  //     this.isSearchResultVisible = true;
-  //   else
-  //     this.isSearchResultVisible = false;
-  // }
-
-  // goToSearch() {
-  //   if (this.textValue != '')
-  //     this.router.navigate(['/search'], { state: { SearchText: this.textValue } });
-  // }
-
-
-
-
-  // @ViewChild('searchInput') searchInputRef!: ElementRef;
   allProducts: any[] = [];
   filteredResults: any[] = [];
   query = '';
@@ -220,10 +186,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
       this.closeSearch();
     }
   }
+
   goToProduct(id: string) {
     this.router.navigate(['/product'], { state: { productId: id } });
   }
-  
-
 
 }

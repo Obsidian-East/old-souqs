@@ -3,40 +3,59 @@
 <section id="content">
     <article class="hero">
         <div class="hero-container">
-            <p class="hero-title">{{ 'EDITPROFILE.HERO' | translate }}</p>    
+            <p class="hero-title">{{ 'EDITPROFILE.HERO' | translate }}</p>
         </div>
     </article>
 
     <article id="edit-profile">
         <div class="edit-profile-page">
             <p class="title">{{ 'EDITPROFILE.TITLE' | translate }}</p>
-            
-            
+
+
 
             <div class="button-container">
                 <button (click)="goToProfile()" class="to-profile">{{ 'EDITPROFILE.RETURN' | translate }}</button>
             </div>
-
-            <div class="grid-container">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="grid-container">
                 <div class="grid-item">
                     <label for="firstname">{{ 'EDITPROFILE.FIRSTNAME' | translate }}</label>
-                    <input id="firstname" type="text" placeholder="{{userData.firstname}}" />
+                    <input id="firstname" formControlName="firstName" />
+                    <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched"
+                        class="error">
+                        {{ 'EDITPROFILE.REQUIRED' | translate }}
+                    </div>
 
                     <label for="location">{{ 'EDITPROFILE.LOCATION' | translate }}</label>
-                    <input id="location" type="text" placeholder="{{userData.location}}" />
+                    <input id="location" formControlName="location" />
+                    <div *ngIf="profileForm.get('location')?.invalid && profileForm.get('location')?.touched"
+                        class="error">
+                        {{ 'EDITPROFILE.REQUIRED' | translate }}
+                    </div>
                 </div>
+
                 <div class="grid-item">
                     <label for="lastname">{{ 'EDITPROFILE.LASTNAME' | translate }}</label>
-                    <input id="lastname" type="text" placeholder="{{userData.lastname}}" />
+                    <input id="lastname" formControlName="lastName" />
+                    <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched"
+                        class="error">
+                        {{ 'EDITPROFILE.REQUIRED' | translate }}
+                    </div>
 
                     <label for="phonenumber">{{ 'EDITPROFILE.PHONENB' | translate }}</label>
-                    <input id="phonenumber" type="text" placeholder="{{userData.phonenumber}}" />
+                    <input id="phonenumber" formControlName="phoneNumber" />
+                    <div *ngIf="profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched"
+                        class="error">
+                        {{ 'EDITPROFILE.INVALID_PHONE' | translate }}
+                    </div>
                 </div>
-            </div>
 
-            <div class="update-container">
-                <button  class="button-beige">{{ 'EDITPROFILE.UPDATE' | translate }}</button>
-            </div>
+                <div class="form-actions">
+                    <button type="submit" [disabled]="profileForm.invalid">
+                        {{ 'EDITPROFILE.UPDATE' | translate }}
+                    </button>
+                </div>
+            </form>
+
         </div>
     </article>
 

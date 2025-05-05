@@ -67,15 +67,12 @@ export class ProfileComponent implements OnInit {
   fetchUser(id: string): void {
     this.userService.getUserById(id).subscribe({
       next: (user) => {
-        console.log("user:", user)
         this.userData.id = user.id,
           this.userData.firstName = user.first_name,
           this.userData.lastName = user.last_name,
           this.userData.phoneNumber = user.phone_number,
           this.userData.location = user.location,
           this.userData.email = user.email
-        console.log("userData:", this.userData)
-        console.log("user:", user)
       },
       error: (err) => console.error('Error fetching user:', err)
     });

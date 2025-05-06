@@ -493,6 +493,7 @@
       "CATEGORY": "Category",
       "DESC-EN": "Description (English)",
       "DESC-AR": "Description (Arabic)",
+      "SKU": "sku",
       "UPDATE": "Update",
       "ADD-PRODUCT": "Add Product",
       "ADD-NEW-COLLECTION": "Add New Collection",

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ProductService } from '../../services/product.service';
+import { OrderService } from '../../services/order.service';
 
 
 interface Product {
@@ -14,6 +16,7 @@ interface Product {
   quantity: number | null;
   descriptionEn: string;
   descriptionAr: string;
+  sku: string;
   [key: string]: any;  // This allows any other property to be indexed
 }
 // new dicount
@@ -28,9 +31,82 @@ type DiscountField = 'type' | 'targetId' | 'value';
 })
 
 export class AdminComponent implements OnInit {
-   constructor(private router: Router) {
+   constructor(private router: Router, private productService: ProductService, private orderService: OrderService) {
     this.loadAnnouncements();
    }
+   ngOnInit() {
+    this.fetchCollections();
+		this.fetchProducts();
+    this.fetchOrders();
+    
+    this.computeDiscountNames();
+  }
+  allproducts: { id: string; image: string; nameEn: string; nameAr: string; tags: string[]; price: number; quantity: number; descriptionEn: string; descriptionAr: string, sku:string, instock:boolean }[] = [];
+	collections:  { id: string; nameEn: string ; nameAr: string }[]= [];
+  orders: {orderId: string; orderDate: string; urserId: string; productsIds: {id:string; quantity:string;}[]; location: string, total: number}[]=[];
+  
+  // --- Fetching Functions ---
+	fetchCollections() {
+		this.productService.getCollections().subscribe({
+			next: (data) => {
+				this.collections = data.map((collection: any) => ({
+					id: collection.ID,
+					nameEn: collection.CollectionName,
+          nameAr: collection.collectionNameAr
+				}));
+			},
+			error: (error) => {
+				console.error('Error fetching collections:', error);
+			}
+		});
+	}
+  
+	fetchProducts() {
+    this.productService.getProducts().subscribe({
+      next: (data) => {
+        console.log('Raw data from DB:', data);
+
+        this.allproducts = data.map((product: any) => ({
+          id: product.id,
+          image: product.image,
+          nameEn: product.title,
+          nameAr: product.titleAr,
+          tags: product.tag,
+          descriptionEn: product.description,
+          descriptionAr: product.descriptionAr,
+          price: product.price,
+          quantity: product.stock,
+          sku: product.sku,
+          instock: product.stock > 0,
+        }));
+      },
+      error: (error) => {
+        console.error('Error fetching products:', error);
+      }
+    });
+	}
+  
+  fetchOrders() {
+		this.orderService.getAllOrders().subscribe({
+			next: (data) => {
+				this.orders = data.map((order: any) => ({
+					orderId: order.orderId,
+          orderDate: new Date(order.creationDate).toISOString().split('T')[0], // "YYYY-MM-DD"
+          urserId: order.userId,
+          productsIds: order.items?.map((item: any) => ({
+            id: item.productId,
+            quantity: item.quantity
+          })) || [],          
+          location: order.userLocation,
+          total: order.total
+				}));
+			},
+			error: (error) => {
+				console.error('Error fetching orders:', error);
+			}
+		});
+	}
+
 
   categories: { id: string; nameEn: string ; nameAr: string }[] = [
     { id: '1', nameEn: 'Clocks', nameAr: 'ساعات' },
@@ -140,12 +216,15 @@ export class AdminComponent implements OnInit {
   }
 
   // Handle input changes
-  updateField(field: string, event: Event) {
-    const input = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
-    if (this.selectedProduct) {
+  updateField(field: string, eventOrValue: Event | any): void {
+    if (eventOrValue instanceof Event) {
+      const input = eventOrValue.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
       this.selectedProduct[field] = input.value;
+    } else {
+      this.selectedProduct[field] = eventOrValue;
     }
   }
+  
   
 
   // Handle image upload
@@ -188,7 +267,8 @@ export class AdminComponent implements OnInit {
     price: null,
     quantity: null,
     descriptionEn: '',
-    descriptionAr: ''
+    descriptionAr: '',
+    sku: ''
   };
 
   openAddPopup() {
@@ -199,9 +279,15 @@ export class AdminComponent implements OnInit {
     this.showAddPopup = false;
   }
 
-  updateFieldNewProduct(field: string, event: any) {
-    const value = event.target.value;
-    this.newProduct[field] = value;
+
+  updateFieldNewProduct(field: string,eventOrValue: Event | any): void {
+    if (eventOrValue instanceof Event) {
+      const input = eventOrValue.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+      this.newProduct[field] = input.value;
+    } else {
+      this.newProduct[field] = eventOrValue;
+    }
+
   }
 
   handleNewImageUpload(event: any) {
@@ -219,7 +305,7 @@ export class AdminComponent implements OnInit {
   }
 
   addNewProduct() {
-    if (this.newProduct.nameEn && this.newProduct.nameAr && this.newProduct.price != null && this.newProduct.quantity != null) {
+    if (this.newProduct.nameEn && this.newProduct.nameAr && this.newProduct.price != null && this.newProduct.quantity != null && this.newProduct.sku) {
       // Add the product to your array of products
       console.log('New product added:', this.newProduct);
       alert("new prod added");
@@ -233,7 +319,8 @@ export class AdminComponent implements OnInit {
         price: null,
         quantity: null,
         descriptionEn: '',
-        descriptionAr: ''
+        descriptionAr: '',
+        sku:''
       };
     } else {
       alert('Please fill in all fields.');
@@ -262,8 +349,8 @@ export class AdminComponent implements OnInit {
  
 
   // Return products related to a collection
-  getProductsByCategory(categoryId: string) {
-    return this.products.filter(product => product.categoryId === categoryId);
+  getProductsByCategory(categoryName: string) {
+    return this.allproducts.filter(product => product.tags.includes(categoryName));
   }
 
   // Start editing
@@ -345,38 +432,6 @@ export class AdminComponent implements OnInit {
     // orders section
     expandedOrderId: string | null = null;
 
-    orders = [
-      {
-        orderId: 'ORD001',
-        orderDate: '2025-04-03',
-        userId: '1',
-        productsIds: [
-          { id: '1', quantity: 1 },
-          { id: '2', quantity: 2 }
-        ],
-        location: 'zahle, lebanon'
-      },
-      {
-        orderId: 'ORD002',
-        orderDate: '2025-04-03',
-        userId: '2',
-        productsIds: [
-          { id: '3', quantity: 1 }
-        ],
-        location: 'zahle, lebanon'
-
-      },
-      {
-        orderId: 'ORD003',
-        orderDate: '2025-03-31',
-        userId: '3',
-        productsIds: [
-          { id: '2', quantity: 3 },
-          { id: '4', quantity: 1 }
-        ],
-        location: 'zahle, lebanon'
-      }
-    ];
     users = [
       { id: '1', name: 'Ali Ahmed' },
       { id: '2', name: 'Sarah Khalil' },
@@ -402,7 +457,7 @@ export class AdminComponent implements OnInit {
       return Object.entries(groups);
     }
     getProductById(id: string) {
-      return this.products.find(p => p.id === id);
+      return this.allproducts.find(p => p.id === id);
     }
     getUserNameById(id: string): string {
       const user = this.users.find(u => u.id === id);
@@ -510,9 +565,9 @@ export class AdminComponent implements OnInit {
   
     isValidValue: boolean = true; // To track if the value is valid
 
-    ngOnInit() {
-      this.computeDiscountNames();
-    }
+    // ngOnInit() {
+    //   this.computeDiscountNames();
+    // }
   
     // Precompute the names of products or categories
     computeDiscountNames() {

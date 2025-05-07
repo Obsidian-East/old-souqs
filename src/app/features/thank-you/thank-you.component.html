@@ -1,0 +1,45 @@
+<div class="thank-you-container">
+    <header>
+      <img routerLink="/home" src="https://old-souqs.sirv.com/Essential/logo%20old%20souq%203%20colors-1.png" alt="Logo" class="logo" />
+      <!-- <h1>Old Souq</h1> -->
+    </header>
+  
+    <main *ngIf="orders">
+      <h2 class="marcellus-font">Thank You, {{ order.user.firstName }}!</h2>
+      <p class="order-id">Order ID: #{{ orders.orderId }}</p>
+      <p class="order-date">Date: {{ orders.orderDate | date:'mediumDate' }}</p>
+      <p class="delivery-date">
+        Estimated Delivery: {{ estimatedDeliveryDate | date:'mediumDate' }}
+      </p>      
+  
+      <section class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="user-details">
+          <p><strong>Name:</strong> {{ order.user.firstName }} {{ order.user.lastName }}</p>
+          <p><strong>Email:</strong> {{ order.user.email }}</p>
+          <p><strong>Phone:</strong> {{ order.user.phone }}</p>
+          <p><strong>Address:</strong> {{ orders.location}}</p>
+          <p><strong>Payment:</strong> {{ order.payment }}</p>
+        </div>
+  
+        <div class="items-ordered">
+          <h4>Items Ordered:</h4>
+          <ul>
+            <li *ngFor="let item of orderedProducts">
+                <img src="{{item.image}}"/>
+                <span> <b class="item-name"  (click)="goToProduct(item.id)">{{ item.nameEn }}</b> (x{{ item.quantity }}) - {{ item.price * item.quantity | currency }}</span>
+            </li>
+          </ul>
+        </div>
+  
+        <div class="totals">
+          <p><strong>Subtotal:</strong> {{ orders.subtotal | currency }}</p>
+          <p><strong>Discounted:</strong> {{ orders.discounted ? 'Yes' : 'No' }}</p>
+          <p><strong>Total:</strong> {{ orders.total | currency }}</p>
+        </div>
+      </section>
+  
+      <button (click)="continueShopping()" class="continue-btn">Continue Shopping</button>
+    </main>
+  </div>
+  

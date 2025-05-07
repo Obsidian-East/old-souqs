@@ -134,5 +134,7 @@ export class CheckoutComponent {
       }
     });
   }
-  
+  goToProduct(id: string) {
+		this.router.navigate(['/product'], { state: { productId: id } });
+	}
 }

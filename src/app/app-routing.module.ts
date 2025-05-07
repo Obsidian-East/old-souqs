@@ -17,7 +17,10 @@ import { PasswordComponent } from './features/password/password.component';
 import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy.component';
 import { TermsConditionsComponent } from './features/terms-conditions/terms-conditions.component';
 import { AdminComponent } from './features/admin/admin.component';
+import { LoginAdminComponent } from './features/login-admin/login-admin.component';
+import { ThankYouComponent } from './features/thank-you/thank-you.component';
 import { AuthGuard } from './services/auth.guard';
+import { adminAuthGuard } from './services/admin-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -41,7 +44,11 @@ const routes: Routes = [
   { path: 'password', component: PasswordComponent},
   { path: 'privacy-policy', component: PrivacyPolicyComponent},
   { path: 'terms-conditions', component: TermsConditionsComponent},
-  { path: 'admin', component: AdminComponent}
+  { path: 'admin', 
+    component: AdminComponent,
+    canActivate: [adminAuthGuard]},
+  { path: 'login-admin',component: LoginAdminComponent},
+  { path: 'thank-you', component: ThankYouComponent}
 ];
 
 @NgModule({

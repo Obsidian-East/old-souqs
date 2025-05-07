@@ -4,7 +4,7 @@
     <article class="product-info-article" id="product-info-container">
         <div *ngIf="isLoading" class="spinner-container">
             <div class="spinner"></div>
-            <p>Loading product...</p>
+            <p>{{'PRODUCT.LOADING-PRODUCT' | translate }}</p>
           </div>
           
         <div *ngIf="!isLoading && product" class="product-info-container">
@@ -201,7 +201,7 @@
         </div>
 
         <div *ngIf="!isLoading && !product">
-            <p>Product not found.</p>
+            <p>{{'PRODUCT.NO-PRODUCT' | translate }}.</p>
           </div>
     </article>
 </section>

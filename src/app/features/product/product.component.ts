@@ -19,15 +19,7 @@ export class ProductComponent implements OnInit {
 
   isLoading: boolean = true;
   productId: string | null = null;
-  // relatedProducts = [
-  //   { id: 1, name: "Cityscape Painting", price: "$44.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
-  //   { id: 2, name: "Golden Globe", price: "$225.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
-  //   { id: 3, name: "Cylinder Hat", price: "$99.00", image: "https://old-souqs.sirv.com/Essential/logo.png" },
-  //   { id: 4, name: "Wall Sconce", price: "$155.00", image: "https://old-souqs.sirv.com/Essential/logo.png" }
-  // ];
-  // relatedProducts: { id: string; name: string; price: number; image: string; stock: number }| null = null;
-
-
+  
   ngOnInit() {
     if (typeof window !== 'undefined') {
       this.productId = window.history.state.productId;

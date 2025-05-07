@@ -63,8 +63,28 @@
   .active{
     background-color: #ff4040;
   }
-  
   .sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .logout-btn{
+    background-color: #ff4040;
+    color: white;
+    border: none;
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    padding: 5px 15px;
+    font-weight: 400;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .logout-btn:hover{
+    background-color: black;
+    border: 1px solid #ff4040;
+  }
+  .sidebar-footer p{
     font-family: var(--font-custom-stack-paragraph);
     text-align: center;
     font-size: 12px;
@@ -188,6 +208,7 @@
     padding: 4px 8px;
     border-radius: 12px;
     margin-bottom: 6px;
+    margin-right: 5px;
   }
     
 
@@ -205,6 +226,9 @@
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
   width: 58vw;
   z-index: 1000;
+  height:fit-content;
+  max-height: 85vh;
+    overflow-y: scroll;
 }
 .headline{
     font-family: var(--font-custom-stack-paragraph);
@@ -254,6 +278,33 @@
     height: 4rem;
     resize: none;
 }
+.in-stock-container{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 1rem;
+}
+.in-stock-container label{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checkbox-group{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.checkbox-group label{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
 .popup-content {
   display: flex;
   flex-direction: column;
@@ -305,6 +356,9 @@
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     width: 58vw;
     z-index: 1000;
+    height:fit-content;
+  max-height: 85vh;
+    overflow-y: scroll;
   }
   
   .add-popup .headline {
@@ -890,6 +944,10 @@ option{
       .sidebar-footer {
         font-size: 0.75rem;
       }
+      .logout-btn{
+        font-size: 0.925rem;
+        padding: 5px 15px;
+      }
     
      /* product section */
      .menu-container svg{
@@ -1194,6 +1252,10 @@ option{
       .sidebar-footer {
         font-size: 0.7rem;
       }
+      .logout-btn{
+        font-size: 0.85rem;
+        padding: 5px 15px;
+      }
       .menu-container svg{
         width: 1.5rem;
         height: 1.5rem;
@@ -1269,6 +1331,11 @@ option{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+     width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 .grid-three{
     width: 100%;
@@ -1282,7 +1349,7 @@ option{
 .label-input-container input,
 .label-input-container textarea,
 .label-input-container select{
-    width: 88%;
+    width: 96%;
     font-size: 0.8rem;
 }
 .label-input-container textarea{
@@ -1337,8 +1404,8 @@ option{
   }
   
   .add-popup .grid-three {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     gap: 1rem;
   }
   

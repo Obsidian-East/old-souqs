@@ -325,12 +325,16 @@ input[type=radio]{
 }
 
 .item-name {
+    cursor: pointer;
     color: var(--font-color-secondary);
     font-size: 1rem;
     font-weight: 400;
     font-family: var(--font-custom-stack-paragraph);
     font-style: normal;
     margin: 0;
+}
+.item-name:hover {
+    color: var(--font-color-primary);
 }
 
 .item-price {

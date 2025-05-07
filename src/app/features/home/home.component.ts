@@ -4,6 +4,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
 	selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent {
 	constructor(private router: Router,
 		private el: ElementRef,
 		private productService: ProductService,
-		private cartService: CartService) { }
+		private cartService: CartService,
+		private wishlistService: WishlistService) { }
 
 	ngOnInit(): void {
 		this.fetchProductsByCollection();
@@ -315,6 +317,36 @@ export class HomeComponent {
 			}
 		});
 	}
+	
+	private getUserId(): string | null {
+		const token = localStorage.getItem('token');
+		if (token) {
+		  try {
+			const payload = JSON.parse(atob(token.split('.')[1]));
+			return payload.sub || null;
+		  } catch (e) {
+			console.error('Invalid token:', e);
+		  }
+		}
+		return null;
+	  }
 	  
+	  addToWishlist(productId: string) {
+		const userId = this.getUserId();
+		if (!userId) {
+		  console.error('You must be logged in to add to wishlist.');
+		  return;
+		}
+	  
+		this.wishlistService.addToWishlist(userId, productId).subscribe({
+		  next: () => {
+			console.log('Added to wishlist!');
+		  },
+		  error: (err) => {
+			console.error(err);
+			console.error('Failed to add to wishlist.');
+		  }
+		});
+	  }
 }
 

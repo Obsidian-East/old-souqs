@@ -7,11 +7,14 @@
     </article>
     
     <article id="cart">
-        <div *ngIf="!availableProducts" class="no-prod-container">
+        <div *ngIf="loading" class="loader-container">
+            <p class="loader-text">Loading your wishlist...</p>
+        </div>
+        <div *ngIf="!loading && !availableProducts" class="no-prod-container">
             <p class="headline">{{ 'WISHLIST.EMPTY-CART' | translate }}</p>
             <p class="text">{{ 'WISHLIST.CONTINUE-SHOPPING' | translate }} <a routerLink="/explore">{{ 'WISHLIST.HERE' | translate }} </a></p>
         </div>
-        <div *ngIf="availableProducts" class="cart-container">
+        <div *ngIf="!loading && availableProducts" class="cart-container">
             <div  class="line"></div>
             <div class="title-container">
                 <p class="title">{{ 'WISHLIST.MY-WISHLIST' | translate }}</p>

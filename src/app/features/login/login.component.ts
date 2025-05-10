@@ -18,24 +18,21 @@ export class LoginComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(10)]),
   });
-  
+
   showPassword = false;
   Lreason = "";
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
   handleLogin() {
-    console.log('Logging in with:', this.loginForm.value);
-  
     this.authService.login(this.loginForm.value).subscribe(
       (response) => {
         localStorage.setItem('token', response.token);
         console.log(localStorage.getItem('userId'));
-        alert('Login successful!');
         this.router.navigate(['/profile']);
       },
       (error) => {
@@ -50,5 +47,5 @@ export class LoginComponent {
       }
     );
   }
-  
+
 }

@@ -32,23 +32,19 @@ export class SignupComponent {
   showPassword = false;
   Freason = "";
 
-  constructor(private authService: AuthService, private router: Router) { }  // Inject Router
+  constructor(private authService: AuthService, private router: Router) { }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
-  handleSubmit() {
-    console.log('Submitting:', this.signupForm.value); // Debugging log
-  
+  handleSubmit() {  
     this.authService.signup(this.signupForm.value).subscribe(
       (response) => {
-        alert('Signup successful!');
-        this.router.navigate(['/profile']); // Redirect to profile component
+        this.router.navigate(['/profile']);
       },
       (error) => {
         if (error.error) {
-          // Set detailed error message from the backend
           this.Freason = typeof error.error === 'string' ? error.error : 'Signup failed. Please try again.';
         } else {
           this.Freason = 'An unexpected error occurred.';

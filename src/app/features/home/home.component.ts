@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, PLATFORM_ID, ElementRef, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, PLATFORM_ID, ElementRef, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { WishlistService } from '../../services/wishlist.service';
 	styleUrl: './home.component.css'
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 	trendingCollectionId = '67ea6d0cc4338e7d55573ac4';
 	newArrivedCollectionId = '67eb079f48a62338c7e3185c';
 	dealsCollectionId = '67eb0a7048a62338c7e31860';
@@ -27,7 +27,8 @@ export class HomeComponent {
 		private el: ElementRef,
 		private productService: ProductService,
 		private cartService: CartService,
-		private wishlistService: WishlistService) { }
+		public wishlistService: WishlistService,
+		private cd: ChangeDetectorRef) { }
 
 	ngOnInit(): void {
 		this.fetchProductsByCollection();
@@ -222,48 +223,48 @@ export class HomeComponent {
 	// --- Cart Actions aligned with CartService ---
 	addToCart(product: any): void {
 		const item: CartItem = {
-		  id: product.id,
-		  title: product.name,
-		  image: product.image,
-		  price: product.price,
-		  quantity: 1
+			id: product.id,
+			title: product.name,
+			image: product.image,
+			price: product.price,
+			quantity: 1
 		};
 		this.cartService.addToCart(item);
-	  }
+	}
 
 
 	//   customized items section
 
 	customized = [
 		{
-		  "name": "Engraved Copper Plate1",
-		  "price": 120,
-		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
-		  "description": "A hand-engraved copper plate featuring traditional patterns and ornate detailing."
+			"name": "Engraved Copper Plate1",
+			"price": 120,
+			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+			"description": "A hand-engraved copper plate featuring traditional patterns and ornate detailing."
 		},
 		{
-		  "name": "Antique Brass Teapot2",
-		  "price": 185,
-		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
-		  "description": "This vintage teapot, crafted in the early 1900s, boasts elegant curves and aged charm."
+			"name": "Antique Brass Teapot2",
+			"price": 185,
+			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+			"description": "This vintage teapot, crafted in the early 1900s, boasts elegant curves and aged charm."
 		},
 		{
-		  "name": "Custom Calligraphy Wall Art3",
-		  "price": 250,
-		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
-		  "description": "Personalized Arabic calligraphy hand-etched onto a copper panel for a timeless wall display."
+			"name": "Custom Calligraphy Wall Art3",
+			"price": 250,
+			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+			"description": "Personalized Arabic calligraphy hand-etched onto a copper panel for a timeless wall display."
 		},
 		{
-		  "name": "Decorative Copper Lantern4",
-		  "price": 95,
-		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
-		  "description": "A traditionally styled lantern with intricate carvings, perfect for ambient lighting or decor."
+			"name": "Decorative Copper Lantern4",
+			"price": 95,
+			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+			"description": "A traditionally styled lantern with intricate carvings, perfect for ambient lighting or decor."
 		},
 		{
-		  "name": "Custom Nameplate in Copper5",
-		  "price": 70,
-		  "image": "https://old-souqs.sirv.com/Products/1f1.jpg",
-		  "description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
+			"name": "Custom Nameplate in Copper5",
+			"price": 70,
+			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
+			"description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
 		},
 		{
 			"name": "Custom Nameplate in Copper6",
@@ -276,18 +277,18 @@ export class HomeComponent {
 			"price": 70,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
-		  }
-	  ];
-	  private currentCustomizedIndex: number = 0;
-	  maxDots=this.customized.length-3;
-	  maxDotsTablet = this.customized.length;
+		}
+	];
+	private currentCustomizedIndex: number = 0;
+	maxDots = this.customized.length - 3;
+	maxDotsTablet = this.customized.length;
 
 	// using width only 4 is showing on click on a dot we got an index to translate so another item is showing
 	moveCustomizedToSlide(index: number): void {
 		let carousel = document.getElementById("customized-carousel");
 		let carouselTablet = document.getElementById("customized-carousel-tablet");
-		if (!carousel || !carouselTablet ) { return };
-		this.currentCustomizedIndex= index;
+		if (!carousel || !carouselTablet) { return };
+		this.currentCustomizedIndex = index;
 		carousel.style.transform = `translateX(-${this.currentCustomizedIndex * 25}%)`; /* use 33.33 to show 3 items*/
 		carouselTablet.style.transform = `translateX(-${this.currentCustomizedIndex * 50}%)`; /* use 33.33 to show 3 items*/
 		this.updateCustomizedDots();// to update the color of the clicked dot
@@ -317,36 +318,11 @@ export class HomeComponent {
 			}
 		});
 	}
-	
-	private getUserId(): string | null {
-		const token = localStorage.getItem('token');
-		if (token) {
-		  try {
-			const payload = JSON.parse(atob(token.split('.')[1]));
-			return payload.sub || null;
-		  } catch (e) {
-			console.error('Invalid token:', e);
-		  }
-		}
-		return null;
-	  }
-	  
-	  addToWishlist(productId: string) {
-		const userId = this.getUserId();
-		if (!userId) {
-		  console.error('You must be logged in to add to wishlist.');
-		  return;
-		}
-	  
-		this.wishlistService.addToWishlist(userId, productId).subscribe({
-		  next: () => {
-			console.log('Added to wishlist!');
-		  },
-		  error: (err) => {
-			console.error(err);
-			console.error('Failed to add to wishlist.');
-		  }
-		});
-	  }
-}
 
+	toggleWishlist(productId: string) {
+		this.wishlistService.toggleWishlist(productId).subscribe(() => {
+			this.cd.detectChanges(); // force UI refresh if needed
+		});
+	}
+
+}

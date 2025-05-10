@@ -14,7 +14,7 @@
             <div class="account-info-grid">
                 <div class="info-item">
                     <p class="subtitle">{{ 'PROFILE.MY-ACCOUNT' | translate }}</p>
-                    <button (click)="goToWishlist()">{{ 'PROFILE.WISHLIST' | translate }}(4)</button>
+                    <button (click)="goToWishlist()">{{ 'PROFILE.WISHLIST' | translate }}({{ wishlistCount }})</button>
                     <button (click)="goToEditProfile()">{{ 'PROFILE.EDIT-PROFILE' | translate }}</button>
                     <button (click)="Logout()">{{ 'PROFILE.LOGOUT' | translate }}</button>
                 </div>

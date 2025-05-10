@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { OrderService, Order } from '../../services/order.service';
 import { isPlatformBrowser } from '@angular/common';
 import { ProductService } from '../../services/product.service';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,12 +27,15 @@ export class ProfileComponent implements OnInit {
 
   orders: Order[] = [];
   productList: any[] = []; // Make sure this is populated from your product service
+  wishlistCount: number = 0;
+  wishlistProductIds: Set<string> = new Set();
 
   constructor(
     private router: Router,
     private userService: UserService,
     private orderService: OrderService,
     private productService: ProductService,
+    private wishlistService: WishlistService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
@@ -42,6 +46,7 @@ export class ProfileComponent implements OnInit {
         this.fetchUser(userId);
         this.fetchOrders(userId);
         this.fetchProducts();
+        this.fetchWishlist();
       }
     }
   }
@@ -133,4 +138,24 @@ export class ProfileComponent implements OnInit {
       error: (err) => console.error('Error fetching products:', err)
     });
   }
+
+  fetchWishlist(): void {
+  const cachedCount = localStorage.getItem("wishlistCount");
+  const cachedIds = localStorage.getItem("wishlistProductIds");
+
+  if (cachedCount && cachedIds) {
+    this.wishlistCount = Number(cachedCount);
+    this.wishlistProductIds = new Set(JSON.parse(cachedIds));
+  } else {
+    this.wishlistService.getWishlist().subscribe({
+      next: (wishlistIds) => {
+        this.wishlistCount = wishlistIds.length;
+        this.wishlistProductIds = new Set(wishlistIds);
+        localStorage.setItem("wishlistCount", String(this.wishlistCount));
+        localStorage.setItem("wishlistProductIds", JSON.stringify([...wishlistIds]));
+      },
+      error: (err) => console.error('Error fetching wishlist:', err)
+    });
+  }
+}
 }

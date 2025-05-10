@@ -1,8 +1,9 @@
-import { Component, OnInit,NgZone,OnDestroy,ElementRef, ViewChild  } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.service';
 import { TokenService } from '../../services/token.service';
 import { ProductService } from '../../services/product.service';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +11,13 @@ import { ProductService } from '../../services/product.service';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit, OnDestroy{
+export class HeaderComponent implements OnInit, OnDestroy {
   currentIndex: number = 0;
   intervalId: any;
   transitionStyle: string = 'transform 0.5s ease-in-out';
   announcements: string[] = [];
+  wishlistCount: number = 0;
+  wishlistedProductIds: Set<string> = new Set();
 
   private readonly announcementKey = 'sliderMessages';
 
@@ -25,23 +28,24 @@ export class HeaderComponent implements OnInit, OnDestroy{
   private getAnnouncements(): string[] {
     if (!this.isBrowser()) return ['Welcome to Old Souq!'];
     const stored = localStorage.getItem(this.announcementKey);
-    return stored ? JSON.parse(stored) : ['Welcome to Old Souq!', 'Discover rare antiques today!','helloo'];
+    return stored ? JSON.parse(stored) : ['Welcome to Old Souq!', 'Discover rare antiques today!', 'helloo'];
   }
 
-  constructor(private cartService: CartService, 
-    private router: Router, 
+  constructor(private cartService: CartService,
+    private router: Router,
     private tokenService: TokenService,
     private ngZone: NgZone,
-    private productService: ProductService) {
+    private productService: ProductService,
+    private wishlistService: WishlistService) {
 
-      this.ngZone.runOutsideAngular(() => {
-        this.intervalId = setInterval(() => {
-          this.ngZone.run(() => this.showNextSlide());
-        }, 5000);
-      });
-    }
+    this.ngZone.runOutsideAngular(() => {
+      this.intervalId = setInterval(() => {
+        this.ngZone.run(() => this.showNextSlide());
+      }, 5000);
+    });
+  }
 
-  
+
   showNextSlide() {
     this.currentIndex = (this.currentIndex + 1) % this.announcements.length;
   }
@@ -143,7 +147,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   removeProductFromCart(id: string) {
     this.cartService.removeFromCart(id);
   }
-  
+
 
   getTotalPrice(product: any) {
     return product.price * product.quantity;
@@ -189,6 +193,21 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   goToProduct(id: string) {
     this.router.navigate(['/product'], { state: { productId: id } });
+  }
+
+  loadWishlistCount(): void {
+    const token = this.tokenService.getToken();
+    if (!token) return;
+
+    this.wishlistService.getWishlist().subscribe({
+      next: (wishlistIds) => {
+        this.wishlistCount = wishlistIds.length;
+        this.wishlistedProductIds = new Set(wishlistIds);
+        localStorage.setItem("wishlistCount", String(this.wishlistCount));
+        localStorage.setItem("wishlistProductIds", JSON.stringify([...this.wishlistedProductIds]));
+      },
+      error: (err) => console.error('Error fetching wishlist:', err)
+    });
   }
 
 }

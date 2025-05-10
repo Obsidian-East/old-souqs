@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-footer',
@@ -7,6 +8,8 @@ import { Component, HostListener } from '@angular/core';
 })
 export class FooterComponent {
   showButton: boolean = false;
+
+  constructor(private translate: TranslateService) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -20,19 +23,18 @@ export class FooterComponent {
   isCompanyInfoVisible: boolean = false;
   isQuickActionsVisible: boolean = false;
 
-  toggleQuickActions(){
-    this.isQuickActionsVisible = ! this.isQuickActionsVisible;
+  toggleQuickActions() {
+    this.isQuickActionsVisible = !this.isQuickActionsVisible;
   }
 
-  toggleCompanyInfo(){
-    this.isCompanyInfoVisible = ! this.isCompanyInfoVisible;
+  toggleCompanyInfo() {
+    this.isCompanyInfoVisible = !this.isCompanyInfoVisible;
   }
   currentLanguage: 'en' | 'ar' = 'en';
-  
+
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'en' ? 'ar' : 'en';
-    alert(`Language switched to: ${this.currentLanguage.toUpperCase()}`);
+    this.translate.use(this.currentLanguage); 
   }
 
-  
 }

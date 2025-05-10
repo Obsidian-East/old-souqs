@@ -15,9 +15,9 @@ import { HttpClientModule } from '@angular/common/http';
 })
 
 export class AppComponent {
-  title = 'Old Souqs';
+  title = 'Old Souq';
   constructor(private translate: TranslateService) {
-    this.translate.addLangs(['de', 'en']);
+    this.translate.addLangs(['ar', 'en']);
     this.translate.setDefaultLang('en');
     this.translate.use('en');
   }

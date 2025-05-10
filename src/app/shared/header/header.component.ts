@@ -209,5 +209,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       error: (err) => console.error('Error fetching wishlist:', err)
     });
   }
+  checkout(): void {
+    // Navigate to checkout page
+    this.router.navigate(['/checkout'], { state: { productFrom: 'cart' } });
 
+  }
 }

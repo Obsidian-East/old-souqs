@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { OrderService } from '../../services/order.service';
 import { TokenService } from '../../services/token.service';
+import { ProductService } from '../../services/product.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -31,7 +32,8 @@ export class CheckoutComponent {
     private el: ElementRef, 
     private cartService: CartService,
     private orderService: OrderService,
-    private tokenService: TokenService) { }
+    private tokenService: TokenService,
+    private productService: ProductService) { }
 
   goToCart() {
     this.router.navigate(['/cart']);
@@ -64,6 +66,8 @@ export class CheckoutComponent {
       }
     }
   }
+  productId: string | null = null;
+  productFrom: string | null = null;
 
   ngOnInit() {
     this.checkoutForm = this.fb.group({
@@ -74,11 +78,48 @@ export class CheckoutComponent {
       city: ['', Validators.required],
       postalCode: ['']
     });
-    // Subscribe to the cart observable
-    this.cartService.cart$.subscribe(items => {
-      this.products = items;
-      this.subtotalAmount = this.cartService.getTotalAmount();
-      this.totalAmount = this.subtotalAmount + this.shippingPrice;
+
+    if (typeof window !== 'undefined') {
+      this.productFrom = window.history.state.productFrom;
+      if (this.productFrom ==='wishlist') {
+        // single product order
+          this.productId = window.history.state.productIdToBuy;
+          this.fetchProductById();
+
+      } else if(this.productFrom ==='cart'){
+                // checkout from cart
+            // Subscribe to the cart observable
+            this.cartService.cart$.subscribe(items => {
+              this.products = items;
+              this.subtotalAmount = this.cartService.getTotalAmount();
+              this.totalAmount = this.subtotalAmount + this.shippingPrice;
+            });
+      }
+      else{
+        console.error('No state received');
+      }
+    }
+  }
+  // product: { id: string; name: string; description:string; price: number; image: string; stock: number;tag:string }| null = null;
+  fetchProductById() {
+    this.productService.getProductById(this.productId!).subscribe({
+      next: (product: any) => {
+        this.products[0] = {
+          id: product.id,
+          title: product.title,
+          price: product.price,
+          image: product.image,
+          stock: product.stock,
+          quantity: 1
+        };
+        console.log(this.products)
+
+        this.subtotalAmount = this.products[0].price;
+        this.totalAmount = this.subtotalAmount + this.shippingPrice;
+      },
+      error: (err) => {
+        console.error('Error fetching product:', err);
+      }
     });
   }
 
@@ -124,7 +165,10 @@ export class CheckoutComponent {
   
     this.orderService.createOrder(userId, orderData).subscribe({
       next: () => {
-        this.cartService.clearCart();
+        if(this.productFrom === 'cart')
+        // from cart
+            this.cartService.clearCart();
+              
         alert('Order submitted! Your items will be delivered ASAP.');
         this.router.navigate(['/order-success']);
       },

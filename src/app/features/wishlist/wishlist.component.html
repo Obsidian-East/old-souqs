@@ -17,26 +17,33 @@
         <div *ngIf="!loading && availableProducts" class="cart-container">
             <div  class="line"></div>
             <div class="title-container">
-                <p class="title">{{ 'WISHLIST.MY-WISHLIST' | translate }}</p>
-                <p class="number">{{totalCount}} {{ 'WISHLIST.ITEM' | translate }}</p>
+                <p class="title">{{ 'WISHLIST.MY-WISHLIST' | translate }} ({{totalCount}})</p>
+                    <!-- <span *ngIf="totalCount>1"> items </span><span *ngIf="totalCount===1"> item </span> -->
+                <button routerLink="/explore" class="button-beige">{{ 'WISHLIST.CONTINUE-SHOPPING' | translate }}
+                    <svg class="arrow" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                </button>
+                
+                <!-- <p class="number">{{totalCount}} {{ 'WISHLIST.ITEM' | translate }}</p> -->
             </div>
             <div class="line"></div>
 
-            <div class="products-container" *ngFor="let product of products">
+            <div class="products-container" *ngFor="let product of products; let i = index">
                 <div class="product-item">
                     <div class="img-name-container">
                         <img src="{{product.Image}}"/>
-                        <p class="name" (click)="goToProduct(product.id.toString())"><a>{{product.name}}</a></p>
+                        <p class="name" (click)="goToProduct(product.ID)"><a>{{product.Title}}</a></p>
                     </div>
 
                     <div class="product-actions-container">
-                        <button class="action-button">{{ 'WISHLIST.ADD-TO-CART' | translate }}</button>
-                        <button class="action-button">{{ 'WISHLIST.BUY-NOW' | translate }}</button>
+                        <button (click)="addToCart(product)" class="button-black">{{ 'WISHLIST.ADD-TO-CART' | translate }}</button>
+                        <button (click)="checkout(product.ID)" class="button-black">{{ 'WISHLIST.BUY-NOW' | translate }}</button>
                     </div>
 
                     <div class="price-container">
-                        <p class="price">${{product.price}}.00</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <p class="price">${{product.Price}}.00</p>
+                        <svg (click)="removeProduct(i, product.ID)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8l0-3.3c0-70.4 50-130.8 
                             119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 
                             7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5l0 3.3c0 
@@ -51,8 +58,9 @@
             </div>
 
             <div class="action-buttons-container">
-                <button routerLink="/explore" class="button-beige">{{ 'WISHLIST.CONTINUE-SHOPPING' | translate }}</button>
-                <button class="button-beige">{{ 'WISHLIST.CLEAR' | translate }}</button>
+                <span></span>
+                <!-- <button routerLink="/explore" class="button-beige">{{ 'WISHLIST.CONTINUE-SHOPPING' | translate }}</button> -->
+                <button class="button-beige" style="margin: 2rem 0;">{{ 'WISHLIST.CLEAR' | translate }}</button>
             </div>
         </div>
     </article>

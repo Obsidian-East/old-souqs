@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
 	selector: 'app-explore',
@@ -16,7 +17,9 @@ export class ExploreComponent {
 	constructor(
 		private router: Router,
 		private productService: ProductService,
-  		private cartService: CartService
+  		private cartService: CartService,
+		public wishlistService: WishlistService,
+		private cd: ChangeDetectorRef
 	) { }
 
 	ngOnInit(): void {
@@ -341,5 +344,10 @@ export class ExploreComponent {
 		this.cartService.addToCart(item);
 	  }
 
+	  toggleWishlist(productId: string) {
+		this.wishlistService.toggleWishlist(productId).subscribe(() => {
+			this.cd.detectChanges(); // force UI refresh if needed
+		});
+	}
 }
 

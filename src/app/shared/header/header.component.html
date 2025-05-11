@@ -152,7 +152,7 @@
             </div>
             <div class="line"></div>
             <button class="button-beige" routerLink="/cart">{{ 'HEADER.VIEW-CART' | translate }}</button>
-            <button class="button-beige" routerLink="/checkout">{{ 'HEADER.CHECKOUT' | translate }}</button>
+            <button class="button-beige" (click)="checkout()">{{ 'HEADER.CHECKOUT' | translate }}</button>
         </span>
     </div>
 </div>

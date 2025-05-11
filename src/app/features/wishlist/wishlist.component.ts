@@ -4,6 +4,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { WishlistService } from '../../services/wishlist.service';
 import { ProductService } from '../../services/product.service';
+import { CartService, CartItem } from '../../services/cart.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -17,7 +18,8 @@ export class WishlistComponent implements OnInit {
   constructor(
     private router: Router,
     private wishlistService: WishlistService,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
   ) { }
 
   availableProducts = true;
@@ -30,6 +32,9 @@ export class WishlistComponent implements OnInit {
       const token = localStorage.getItem('token');
       if (token) {
         this.fetchWishlist();
+      }
+      else{
+        this.router.navigate(['/login']);
       }
     }
   }
@@ -78,10 +83,11 @@ export class WishlistComponent implements OnInit {
     });
   }
 
-  removeProduct(index: number) {
+  removeProduct(index: number, productId: string) {
     this.products.splice(index, 1);
     this.totalCount = this.products.length;
     this.availableProducts = this.products.length > 0;
+    this.wishlistService.removeFromWishlist(productId);
   }
 
   getTotalPrice(product: any) {
@@ -91,5 +97,19 @@ export class WishlistComponent implements OnInit {
   goToProduct(id: string) {
     this.router.navigate(['/product'], { state: { productId: id } });
   }
-
+  addToCart(product: any): void {
+      const item: CartItem = {
+        id: product.ID,
+        title: product.Title,
+        image: product.Image,
+        price: product.Price,
+        quantity: 1
+      };
+      this.cartService.addToCart(item);
+    }
+    checkout(productID: string): void {
+      // Navigate to checkout page
+      this.router.navigate(['/checkout'], { state: { productFrom: 'wishlist' ,productIdToBuy: productID} });
+  
+    }
 }

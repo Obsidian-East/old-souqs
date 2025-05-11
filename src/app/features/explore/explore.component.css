@@ -492,6 +492,9 @@ input[type="checkbox"] {
     height: 1rem;
 }
 
+.quick-wishlist.filled svg {
+    fill: red; /* wishlisted */
+  }  
 .quick-wishlist:hover{
     background: var(--font-color-primary);
 }

@@ -47,15 +47,21 @@ article {
 
 /* most buttons style */
 .button-beige {
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
     background-color: var(--font-color-primary);
     border: 0px;
-    padding: 0.75rem 1.25rem;
+    padding: 0.5rem 1rem;
     color: var(--extra-color-body);
     font-family: var(--font-custom-stack-paragraph);
     font-size: 1rem;
     font-style: normal;
     font-weight: 700;
-    margin: 2rem 0;
+    margin: 0.25rem 0;
     border: 2px solid transparent;
     cursor: pointer;
 }
@@ -65,6 +71,42 @@ article {
     color: var(--font-color-primary);
     border: 2px solid var(--font-color-primary);
 }
+.button-black {
+    background-color: var(--font-color-secondary);
+    border: 0px;
+    width: 7rem;
+    padding: 0.3rem 0.5rem;
+    color: var(--extra-color-body);
+    font-family: var(--font-custom-stack-paragraph);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    margin: 0rem 0;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.button-black:hover {
+    background-color: transparent;
+    color: var(--font-color-secondary);
+    border: 2px solid var(--font-color-secondary);
+}
+  .arrow {
+    animation: moveArrow 1.2s ease-in-out infinite;
+  }
+  
+  @keyframes moveArrow {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(6px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
 
 .no-prod-container {
     display: flex;
@@ -119,6 +161,7 @@ article {
 .title-container {
     width: 100%;
     display: flex;
+    flex-wrap:wrap;
     align-items: center;
     justify-content: space-between;
 }
@@ -129,7 +172,7 @@ article {
     font-size: 1.1rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 1.7rem;
+    line-height: 1.5rem;
 }
 
 .number {
@@ -152,9 +195,11 @@ article {
 
 .product-item {
     width: 100%;
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     margin: 1rem 0;
 
 }
@@ -260,9 +305,15 @@ article {
 
     /* most buttons style */
     .button-beige {
+        gap: 7px;
         font-size: 0.925rem;
-        margin: 1rem 0;
         padding: 0.5rem 1rem;
+    }
+    .arrow{
+        width: 1.25rem;
+    }
+    .button-black {
+        font-size: 0.925rem;
     }
 
     .headline {
@@ -358,11 +409,18 @@ article {
 
     /* most buttons style */
     .button-beige {
-        width: 100%;
+        gap: 5px;
+        padding:0.25rem 0.5rem ;
         text-align: center;
-        padding: 0.5rem 1rem;
         font-size: 0.85rem;
-        margin: 0.75rem 0 0 0;
+    }
+    .arrow{
+        width: 1.1rem;
+    }
+    .button-black {
+        width: 6rem;
+        text-align: center;
+        font-size: 0.85rem;
     }
 
     .headline {
@@ -419,7 +477,8 @@ article {
     }
 
     .product-actions-container {
-        width: 104%;
+        margin-top: 0.5rem;
+        width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -454,7 +513,7 @@ article {
     .action-buttons-container {
         width: 100%;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-end;
         justify-content: center;
     }
 

@@ -3,23 +3,23 @@
 <section id="content">
     <article class="hero">
         <div class="hero-container">
-            <p class="hero-title">{{ 'PROFILE.HERO' | translate }}</p>    
+            <p class="hero-title fade-in-start" appFadeInOnScroll>{{ 'PROFILE.HERO' | translate }}</p>    
         </div>
     </article>
     <article id="account">
         <div class="account-page">
-            <p class="welcome-title">{{ 'PROFILE.WELCOME' | translate }}</p>
-            <p class="user-name" *ngIf="userData.firstName">{{userData.firstName}}  {{userData.lastName}}</p>
+            <p class="welcome-title fade-in-start" appFadeInOnScroll>{{ 'PROFILE.WELCOME' | translate }}</p>
+            <p class="user-name fade-in-start" appFadeInOnScroll *ngIf="userData.firstName">{{userData.firstName}}  {{userData.lastName}}</p>
 
             <div class="account-info-grid">
-                <div class="info-item">
+                <div class="info-item fade-in-start" appFadeInOnScroll>
                     <p class="subtitle">{{ 'PROFILE.MY-ACCOUNT' | translate }}</p>
                     <button (click)="goToWishlist()">{{ 'PROFILE.WISHLIST' | translate }}({{ wishlistCount }})</button>
                     <button (click)="goToEditProfile()">{{ 'PROFILE.EDIT-PROFILE' | translate }}</button>
                     <button (click)="Logout()">{{ 'PROFILE.LOGOUT' | translate }}</button>
                 </div>
                 <div class="line"></div>
-                <div class="info-item">
+                <div class="info-item fade-in-start" appFadeInOnScroll>
                     <span class="subtitle">{{ 'PROFILE.ACCOUNT-DETAILS' | translate }}</span>
                     <span class="text" *ngIf="userData.firstName">{{userData.firstName}}  {{userData.lastName}}</span>
                     <span class="text" *ngIf="userData.email"> {{userData.email}}</span>
@@ -28,12 +28,12 @@
             </div>
 
             <div class="order-history-container">
-                <p class="subtitle">{{ 'PROFILE.ORDER-HISTORY' | translate }}</p>
+                <p class="subtitle fade-in-start" appFadeInOnScroll>{{ 'PROFILE.ORDER-HISTORY' | translate }}</p>
 
                 <div class="orders-container">
-                    <p class="no-orders-text" *ngIf="getSortedOrders().length === 0">{{ 'PROFILE.NO-ORDERS' | translate }}</p>
+                    <p class="no-orders-text fade-in-start" appFadeInOnScroll *ngIf="getSortedOrders().length === 0">{{ 'PROFILE.NO-ORDERS' | translate }}</p>
 
-                    <div *ngFor="let order of getSortedOrders()" class="order-card">
+                    <div *ngFor="let order of getSortedOrders()" class="order-card fade-in-start" appFadeInOnScroll>
                         <div class="order-header">
                             <span>
                                 <p><strong>{{ 'PROFILE.ORDER-ID' | translate }}: {{ order.orderId }}</strong></p>
@@ -52,7 +52,7 @@
                             <ng-container *ngIf="getProductDetails(item.productId) as product">
                               <img [src]="product.image" alt="{{ product.nameEn }}" class="product-img" />
                               <div class="product-info">
-                                <p><strong>{{ product.nameEn }} - {{ product.nameAr }}</strong></p>
+                                <p><strong>{{ product.title }} - {{ product.nameAr }}</strong></p>
                                 <p>{{ 'PROFILE.PRICE' | translate }}: ${{ product.price.toFixed(2) }}</p>
                                 <p>{{ 'PROFILE.QUANTITY' | translate }}: {{ item.quantity }}</p>
                                 <p>{{ 'PROFILE.SUBTOTAL' | translate }}: ${{ (product.price * item.quantity).toFixed(2) }}</p>

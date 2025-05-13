@@ -2,16 +2,16 @@
 
 <section class="hero">
     <div class="hero-container">
-        <p class="hero-title">{{ 'SIGNUP.HERO' | translate }}</p>
+        <p class="hero-title fade-in-start" appFadeInOnScroll>{{ 'SIGNUP.HERO' | translate }}</p>
     </div>
 </section>
 
-<section id="signup" class="signup">
+<section id="signup" class="signup fade-in-start" appFadeInOnScroll>
     <form [formGroup]="signupForm" (ngSubmit)="handleSubmit()">
 
         <div class="signup-container">
 
-            <p class="signup-title">{{ 'SIGNUP.CREATE-ACCOUNT' | translate }}</p>
+            <p class="signup-title fade-in-start" appFadeInOnScroll>{{ 'SIGNUP.CREATE-ACCOUNT' | translate }}</p>
 
             <!-- <div class="form-content"> -->
             <label for="firstname">{{ 'SIGNUP.FIRST-NAME' | translate }}</label>

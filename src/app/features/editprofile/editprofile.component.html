@@ -3,13 +3,13 @@
 <section id="content">
     <article class="hero">
         <div class="hero-container">
-            <p class="hero-title">{{ 'EDITPROFILE.HERO' | translate }}</p>
+            <p class="hero-title fade-in-start" appFadeInOnScroll>{{ 'EDITPROFILE.HERO' | translate }}</p>
         </div>
     </article>
 
     <article id="edit-profile">
-        <div class="edit-profile-page">
-            <p class="title">{{ 'EDITPROFILE.TITLE' | translate }}</p>
+        <div class="edit-profile-page fade-in-start" appFadeInOnScroll>
+            <p class="title fade-in-start" appFadeInOnScroll>{{ 'EDITPROFILE.TITLE' | translate }}</p>
 
 
 
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" [disabled]="profileForm.invalid">
+                    <button class="button-beige animate-btn" type="submit" [disabled]="profileForm.invalid">
                         {{ 'EDITPROFILE.UPDATE' | translate }}
                     </button>
                 </div>

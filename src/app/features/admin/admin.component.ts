@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
+import { UserService } from '../../services/user.service';
 
 
 interface Product {
@@ -31,7 +32,9 @@ type DiscountField = 'type' | 'targetId' | 'value';
 })
 
 export class AdminComponent implements OnInit {
-   constructor(private router: Router, private productService: ProductService, private orderService: OrderService) {
+   constructor(private router: Router, private productService: ProductService, private orderService: OrderService,
+      private userService: UserService
+   ) {
     this.loadAnnouncements();
    }
    ngOnInit() {
@@ -87,24 +90,49 @@ export class AdminComponent implements OnInit {
 	}
   
   fetchOrders() {
-		this.orderService.getAllOrders().subscribe({
-			next: (data) => {
-				this.orders = data.map((order: any) => ({
-					orderId: order.orderId,
-          orderDate: new Date(order.creationDate).toISOString().split('T')[0], // "YYYY-MM-DD"
-          urserId: order.userId,
-          productsIds: order.items?.map((item: any) => ({
-            id: item.productId,
-            quantity: item.quantity
-          })) || [],          
-          location: order.userLocation,
-          total: order.total
-				}));
-			},
-			error: (error) => {
-				console.error('Error fetching orders:', error);
-			}
-		});
+    this.userService.getAllUsers().subscribe(users => {
+      const userMap = new Map<string, { id: string; first_name: string; last_name: string; phone_number: string }>(
+        users.map((user: { id: string; first_name: string; last_name: string; phone_number: string }) => [user.id, user])
+      );
+      this.orderService.getAllOrders().subscribe(orders => {
+        this.orders = orders.map(order => {
+          const user = userMap.get(order.userId);
+          return {
+            orderId: order.orderId,
+            orderDate: new Date(order.creationDate).toISOString().split('T')[0], // "YYYY-MM-DD"
+            urserId: order.userId,
+            productsIds: order.items?.map((item: any) => ({
+              id: item.productId,
+              quantity: item.quantity
+            })) || [],      
+            location: order.userLocation,
+            total: order.total,
+            userFullName: user ? `${user.first_name} ${user.last_name}` : 'Unknown',
+            userPhone: user ? user.phone_number : 'N/A'
+          };
+        });
+      });
+    });
+    
+		// this.orderService.getAllOrders().subscribe({
+		// 	next: (data) => {
+		// 		this.orders = data.map((order: any) => ({
+		// 			orderId: order.orderId,
+    //       orderDate: new Date(order.creationDate).toISOString().split('T')[0], // "YYYY-MM-DD"
+    //       urserId: order.userId,
+    //       productsIds: order.items?.map((item: any) => ({
+    //         id: item.productId,
+    //         quantity: item.quantity
+    //       })) || [],      
+    //       userName: this.allUsers.find(u => u.id === order.userId)?.name || 'Unknown User',    
+    //       location: order.userLocation,
+    //       total: order.total
+		// 		}));
+		// 	},
+			// error: (error) => {
+			// 	console.error('Error fetching orders:', error);
+			// }
+		// });
 	}
 
 

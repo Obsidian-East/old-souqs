@@ -277,6 +277,7 @@ a:hover::after {
     border: 0.25px solid var(--font-color-paragraph);
 }
 .img-container img{
+    cursor: pointer;
     width: 4rem;
     height: 4rem;
 }
@@ -539,6 +540,7 @@ a:hover::after {
     justify-content: left;
 }
 .product-data img{
+    cursor: pointer;
     width: 5rem;
     height: 5rem;
 }

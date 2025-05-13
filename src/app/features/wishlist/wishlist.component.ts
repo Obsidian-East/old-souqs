@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { WishlistService } from '../../services/wishlist.service';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
+import { EventBusService } from '../../shared/event-bus.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -19,7 +20,8 @@ export class WishlistComponent implements OnInit {
     private router: Router,
     private wishlistService: WishlistService,
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private eventBus: EventBusService
   ) { }
 
   availableProducts = true;
@@ -106,6 +108,7 @@ export class WishlistComponent implements OnInit {
         quantity: 1
       };
       this.cartService.addToCart(item);
+      this.eventBus.triggerOpenCart();
     }
     checkout(productID: string): void {
       // Navigate to checkout page

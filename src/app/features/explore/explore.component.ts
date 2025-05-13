@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
+import { EventBusService } from '../../shared/event-bus.service';
 
 @Component({
 	selector: 'app-explore',
@@ -19,7 +20,8 @@ export class ExploreComponent {
 		private productService: ProductService,
   		private cartService: CartService,
 		public wishlistService: WishlistService,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private eventBus: EventBusService
 	) { }
 
 	ngOnInit(): void {
@@ -342,6 +344,7 @@ export class ExploreComponent {
 		  quantity: 1
 		};
 		this.cartService.addToCart(item);
+		this.eventBus.triggerOpenCart();
 	  }
 
 	  toggleWishlist(productId: string) {

@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { CartService, CartItem } from '../../services/cart.service';
+import { EventBusService } from '../../shared/event-bus.service';
+
 
 @Component({
   selector: 'app-product',
@@ -15,6 +18,8 @@ import { ProductService } from '../../services/product.service';
 export class ProductComponent implements OnInit {
   constructor(private router: Router,
     private productService: ProductService,
+    private cartService: CartService,
+        private eventBus: EventBusService
   ) { }
 
   isLoading: boolean = true;
@@ -38,8 +43,9 @@ export class ProductComponent implements OnInit {
   fetchProductById() {
     this.productService.getProductById(this.productId!).subscribe({
       next: (product: any) => {
+        console.log(product)
         this.product = {
-          id: product.ID,
+          id: product.id,
           name: product.title,
           description: product.description,
           price: product.price,
@@ -90,7 +96,7 @@ export class ProductComponent implements OnInit {
             this.relatedProducts = allProducts
               // .filter((product: any) => relatedProductIds.includes(product.id))
               .map((product: any) => ({
-                id: product.Id,
+                id: product.ID,
                 name: product.Title,
                 price: +product.Price,
                 image: product.Image
@@ -172,6 +178,17 @@ export class ProductComponent implements OnInit {
   goToProduct(id: string) {
     this.router.navigate(['/product'], { state: { productId: id } });
   }
+  addToCart(product: any): void {
+    const item: CartItem = {
+      id: product.id,
+      title: product.name,
+      image: product.image,
+      price: product.price,
+      quantity: 1
+    };
+    this.cartService.addToCart(item);
+    this.eventBus.triggerOpenCart();
+    }
 
 
 }

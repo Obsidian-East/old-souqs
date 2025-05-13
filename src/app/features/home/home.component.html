@@ -1,20 +1,20 @@
 <app-header></app-header>
 <section class="hero">
     <div class="hero-container">
-        <span>{{'HOMEPAGE.HERO'| translate }}</span>
-        <p class="hero-title">{{'HOMEPAGE.HERO-TEXT1'| translate }}</p>
-        <p class="hero-title marcellus-font">{{'HOMEPAGE.HERO-TEXT2'| translate }}</p>
-        <button routerLink="/explore" class="button-beige">{{'HOMEPAGE.SHOP-NOW'| translate }}</button>
+        <span class="fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.HERO'| translate }}</span>
+        <p class="hero-title fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.HERO-TEXT1'| translate }}</p>
+        <p class="hero-title marcellus-font fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.HERO-TEXT2'| translate }}</p>
+        <button routerLink="/explore" class="button-beige fade-in-start animate-btn" appFadeInOnScroll>{{'HOMEPAGE.SHOP-NOW'| translate }}</button>
     </div>
 </section>
 
 <section class="content">
     <article id="about-us">
         <div class="about-container">
-            <div class="about-img">
+            <div class="about-img fade-in-start" appFadeInOnScroll>
                 <img src="https://old-souqs.sirv.com/Banners/ban2.png" alt="old-souqs-logo">
             </div>
-            <div class="about-info">
+            <div class="about-info fade-in-start" appFadeInOnScroll>
                 <h5 class="title">{{'HOMEPAGE.ABOUT-US' | translate }}</h5>
                 <!-- aligned in mobile -->
                 <span class="name-aligned-mobile">
@@ -26,17 +26,17 @@
                     <br /> {{'HOMEPAGE.DESCRIPTION-TEXT3' | translate }}
                     <br /> {{'HOMEPAGE.DESCRIPTION-TEXT4' | translate }}
                 </p>
-                <button routerLink="/explore" class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
+                <button routerLink="/explore" class="button-beige animate-btn">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
 
             </div>
             <div class="about-years">
-                <div class="year-container">
+                <div class="year-container fade-in-start" appFadeInOnScroll>
                     <h5 class="title">{{'HOMEPAGE.SINCE-DATE' | translate }}</h5>
                     <p class="text">{{'HOMEPAGE.SINCE-TEXT' | translate }}</p>
                     <button routerLink="/aboutus" class="button-underlined">{{'HOMEPAGE.SEE-MORE' | translate
                         }}</button>
                 </div>
-                <div class="year-container">
+                <div class="year-container fade-in-start" appFadeInOnScroll>
                     <h5 class="title">{{'HOMEPAGE.IN-DATE' | translate }}</h5>
                     <p class="text">{{'HOMEPAGE.IN-TEXT' | translate }}</p>
                     <button routerLink="/aboutus" class="button-underlined">{{'HOMEPAGE.SEE-MORE' | translate
@@ -48,7 +48,7 @@
     <!-- collection -->
     <article id="our-collection" class="collection-article "> <!-- class for bg color -->
         <div class="collection"><!-- for content  -->
-            <div class="collection-header">
+            <div class="collection-header fade-in-start" appFadeInOnScroll>
                 <p>
                     <span class="headline">{{'HOMEPAGE.OUR' | translate }} </span>
                     <span class="headline marcellus-font">{{'HOMEPAGE.COLLECTION' | translate }}</span>
@@ -61,7 +61,7 @@
 
                 </div>
             </div>
-            <span class="hide-in-tablet">
+            <span class="hide-in-tablet fade-in-start" appFadeInOnScroll>
                 <div class="collection-items" id="trending">
                     <div class="item" *ngFor="let product of products" (mouseenter)="showProductActions(product)"
                         (mouseleave)="hideProductActions()">
@@ -115,13 +115,13 @@
                 </div>
             </span>
 
-            <span class="show-in-tablet">
+            <span class="show-in-tablet fade-in-start" appFadeInOnScroll>
                 <div class="collection-items-container">
                     <div class="collection-items" id="collection">
                         <div class="item" *ngFor="let product of products">
 
                             <!-- Show image only when not hovering -->
-                            <img class="product-image" [src]="product.image" alt="{{ product.name }}">
+                            <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image" alt="{{ product.name }}">
 
                             <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
                             <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
@@ -172,7 +172,7 @@
                     </div>
                 </div>
             </span>
-            <div class="dots show-in-tablet">
+            <div class="dots show-in-tablet" >
                 <span *ngFor="let num of products; let i = index; let first=first; let last=last">
                     <div *ngIf="first && !last" class="dot-collection active-dot" (click)="moveCollection(i)"></div>
                     <div *ngIf="!first && !last" class="dot-collection" (click)="moveCollection(i)"></div>
@@ -185,9 +185,9 @@
         <!-- hero -->
         <div class="explore-hero">
             <div class="back">
-                <span>{{'HOMEPAGE.EXPLORE-MINI-TITLE' | translate }}</span>
-                <p class="explore-title">{{'HOMEPAGE.EXPLORE-TITLE' | translate }}</p>
-                <button routerLink="/explore" class="button-beige">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
+                <span class="fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.EXPLORE-MINI-TITLE' | translate }}</span>
+                <p class="explore-title fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.EXPLORE-TITLE' | translate }}</p>
+                <button routerLink="/explore" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
             </div>
         </div>
         <!-- content -->
@@ -223,20 +223,20 @@
         </div> -->
         <span class="hide-in-tablet">
             <div class="custom-container">
-                <p><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
+                <p class="fade-in-start" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
                         class="headline marcellus-font"> {{'HOMEPAGE.MASTERPIECES' | translate }}</span></p>
-                <p class="engaging-sentence">{{'HOMEPAGE.ENGAGING-SENTENCE' | translate }}</p>
+                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE' | translate }}</p>
 
-                <div class="items-container">
+                <div class="items-container fade-in-start" appFadeInOnScroll>
 
                     <div class="customized-carousel-container">
                         <div class="customized-carousel" id="customized-carousel">
                             <div class="customized-item" *ngFor="let item of customized">
                                 <div class="customized-item-img">
-                                    <img [src]="item.image" [alt]="item.name">
+                                    <img (click)="goToProduct(item.id)" [src]="item.image" [alt]="item.name">
                                 </div>
                                 <div class="customized-item-info">
-                                    <p class="item-name">{{ item.name }}</p>
+                                    <p (click)="goToProduct(item.id)" class="item-name">{{ item.name }}</p>
                                     <!-- <p class="item-price">$ {{ item.price }}</p> -->
                                     <!-- <p class="item-description"> {{ item.description }}</p> -->
                                 </div>
@@ -255,27 +255,27 @@
                 </div>
 
 
-                <p class="engaging-sentence">{{'HOMEPAGE.CONTACT-SENTENCE1' | translate }} <a
+                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.CONTACT-SENTENCE1' | translate }} <a
                         routerLink="/contact">{{'HOMEPAGE.CONTACT-SENTENCE2' | translate }}</a>
                     {{'HOMEPAGE.CONTACT-SENTENCE3' | translate }}</p>
             </div>
         </span>
         <span class="show-in-tablet">
             <div class="custom-container">
-                <p><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
+                <p class="fade-in-start" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
                         class="headline marcellus-font"> {{'HOMEPAGE.MASTERPIECES' | translate }}</span></p>
-                <p class="engaging-sentence">{{'HOMEPAGE.ENGAGING-SENTENCE' | translate }}</p>
+                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE' | translate }}</p>
 
-                <div class="items-container">
+                <div class="items-container fade-in-start" appFadeInOnScroll>
 
                     <div class="customized-carousel-container">
                         <div class="customized-carousel" id="customized-carousel-tablet">
                             <div class="customized-item" *ngFor="let item of customized">
                                 <div class="customized-item-img">
-                                    <img [src]="item.image" [alt]="item.name">
+                                    <img (click)="goToProduct(item.id)" [src]="item.image" [alt]="item.name">
                                 </div>
                                 <div class="customized-item-info">
-                                    <p class="item-name">{{ item.name }}</p>
+                                    <p (click)="goToProduct(item.id)" class="item-name">{{ item.name }}</p>
                                     <!-- <p class="item-price">$ {{ item.price }}</p> -->
                                     <!-- <p class="item-description"> {{ item.description }}</p> -->
                                 </div>
@@ -284,7 +284,7 @@
 
                     </div>
                 </div>
-                <div class="customized-dots">
+                <div class="customized-dots" >
                     <span *ngFor="let num of customized; let i = index; let first=first; let last=last">
                         <div *ngIf="first && !last" class="customized-dot-tablet customized-active-dot"
                             (click)="moveCustomizedToSlide(i)"></div>
@@ -293,7 +293,7 @@
                     </span>
                 </div>
 
-                <p class="engaging-sentence">{{'HOMEPAGE.CONTACT-SENTENCE1' | translate }} <a
+                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.CONTACT-SENTENCE1' | translate }} <a
                         routerLink="/contact">{{'HOMEPAGE.CONTACT-SENTENCE2' | translate }}</a>
                     {{'HOMEPAGE.CONTACT-SENTENCE3' | translate }}</p>
             </div>
@@ -302,10 +302,10 @@
     </article>
 
     <article id="deals-of-the-day" class="deals-of-the-day-container">
-        <p><span class="headline">{{'HOMEPAGE.DEALS-OF' | translate }} </span><span
+        <p class="fade-in-start" appFadeInOnScroll><span class="headline">{{'HOMEPAGE.DEALS-OF' | translate }} </span><span
                 class="headline marcellus-font">{{'HOMEPAGE.THE-DAY' | translate }}</span></p>
 
-        <span class="hide-in-tablet">
+        <span class="hide-in-tablet fade-in-start" appFadeInOnScroll>
             <div class="deals-carousel-container">
                 <div class="deals-carousel" id="carousel">
                     <div class="deals-item" *ngFor="let item of deals" (mouseenter)="showProductActionsInDeals(item)"
@@ -358,13 +358,13 @@
             </div>
         </span>
 
-        <span class="show-in-tablet">
+        <span class="show-in-tablet fade-in-start" appFadeInOnScroll>
             <div class="collection-items-container">
                 <div class="collection-items" id="carousel-tablet">
                     <div class="item" *ngFor="let product of deals">
 
                         <!-- Show image only when not hovering -->
-                        <img class="product-image" [src]="product.image" alt="{{ product.name }}">
+                        <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image" alt="{{ product.name }}">
 
 
                         <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
@@ -463,17 +463,17 @@
     </article>
 -->
     <!-- Subscribe to our Newsletter -->
-    <div class="subscribe-overlay" *ngIf="!subscribed && showSubscribe">
+    <div class="subscribe-overlay fade-in-start" *ngIf="!subscribed && showSubscribe" appFadeInOnScroll>
         <div class="subscribe-box">
             <button class="close-btn" (click)="closeSubscribe()">&times;</button>
             <div class="subscribe-content">
-                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="fade-in-start" appFadeInOnScroll width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 6L12 13L22 6V18H2V6Z" stroke="#C09B66" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
-                <h2 class="subscribe-title">{{'HOMEPAGE.SUBSCRIBE-TEXT' | translate }}</h2>
-                <input type="email" placeholder="{{'HOMEPAGE.ENTER-YOUR-EMAIL' | translate }}" class="email-input" />
-                <button (click)="subscribe()" class="button-beige subscribe-btn">{{'HOMEPAGE.SUBSCRIBE' | translate
+                <h2 class="subscribe-title fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.SUBSCRIBE-TEXT' | translate }}</h2>
+                <input type="email" placeholder="{{'HOMEPAGE.ENTER-YOUR-EMAIL' | translate }}" class="email-input fade-in-start" appFadeInOnScroll />
+                <button (click)="subscribe()" class="button-beige subscribe-btn fade-in-start animate-btn" appFadeInOnScroll>{{'HOMEPAGE.SUBSCRIBE' | translate
                     }}</button>
             </div>
         </div>

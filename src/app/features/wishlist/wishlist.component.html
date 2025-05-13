@@ -2,24 +2,24 @@
 <section id="content">
     <article class="hero">
         <div class="hero-container">
-            <p class="hero-title">{{ 'WISHLIST.HERO' | translate }}</p>    
+            <p class="hero-title fade-in-start" appFadeInOnScroll>{{ 'WISHLIST.HERO' | translate }}</p>    
         </div>
     </article>
     
     <article id="cart">
-        <div *ngIf="loading" class="loader-container">
+        <div *ngIf="loading" class="loader-container fade-in-start" appFadeInOnScroll>
             <p class="loader-text">Loading your wishlist...</p>
         </div>
-        <div *ngIf="!loading && !availableProducts" class="no-prod-container">
+        <div *ngIf="!loading && !availableProducts" class="no-prod-container fade-in-start" appFadeInOnScroll>
             <p class="headline">{{ 'WISHLIST.EMPTY-CART' | translate }}</p>
             <p class="text">{{ 'WISHLIST.CONTINUE-SHOPPING' | translate }} <a routerLink="/explore">{{ 'WISHLIST.HERE' | translate }} </a></p>
         </div>
         <div *ngIf="!loading && availableProducts" class="cart-container">
             <div  class="line"></div>
-            <div class="title-container">
+            <div class="title-container fade-in-start" appFadeInOnScroll>
                 <p class="title">{{ 'WISHLIST.MY-WISHLIST' | translate }} ({{totalCount}})</p>
                     <!-- <span *ngIf="totalCount>1"> items </span><span *ngIf="totalCount===1"> item </span> -->
-                <button routerLink="/explore" class="button-beige">{{ 'WISHLIST.CONTINUE-SHOPPING' | translate }}
+                <button routerLink="/explore" class="button-beige animate-btn">{{ 'WISHLIST.CONTINUE-SHOPPING' | translate }}
                     <svg class="arrow" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
@@ -29,10 +29,10 @@
             </div>
             <div class="line"></div>
 
-            <div class="products-container" *ngFor="let product of products; let i = index">
+            <div class="products-container fade-in-start" appFadeInOnScroll *ngFor="let product of products; let i = index">
                 <div class="product-item">
                     <div class="img-name-container">
-                        <img src="{{product.Image}}"/>
+                        <img (click)="goToProduct(product.ID)" src="{{product.Image}}"/>
                         <p class="name" (click)="goToProduct(product.ID)"><a>{{product.Title}}</a></p>
                     </div>
 
@@ -57,7 +57,7 @@
                 <div class="line"></div>
             </div>
 
-            <div class="action-buttons-container">
+            <div class="action-buttons-container fade-in-start" appFadeInOnScroll>
                 <span></span>
                 <!-- <button routerLink="/explore" class="button-beige">{{ 'WISHLIST.CONTINUE-SHOPPING' | translate }}</button> -->
                 <button class="button-beige" style="margin: 2rem 0;">{{ 'WISHLIST.CLEAR' | translate }}</button>

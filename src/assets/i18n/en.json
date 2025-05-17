@@ -475,6 +475,25 @@
       "CONTACT-LI3-2": " +961 06 401 013",
       "LAST-UPDATED": "Last updated: 2 April 2025"
     },
+    "THANKYOU":{
+      "THANK-YOU":"Thank You",
+      "ORDER-ID":"Order ID",
+      "DATE":"Date",
+      "ESTIMATED-DELIVERY":"Estimated Delivery",
+      "ORDER-SUMMARY":"Order Summary",
+      "NAME":"Name",
+      "EMAIL":"Email",
+      "PHONE-NUMBER":"Phone Number",
+      "ADDRESS":"Address",
+      "PAYMENT":"Payment",
+      "ITEMS-ORDERED":"Items Ordered",
+      "SUBTOTAL":"Subtotal",
+      "DISCOUNTED":"Discounted",
+      "TOTAL":"Total",
+      "CONTINUE-SHOPPING":"Continue Shopping",
+      "YES":"Yes",
+      "NO":"No"
+    },
     "ADMIN": {
       "OLD-SOUQ-ADMIN": "Old Souq Admin",
       "PRODUCTS": " Products",

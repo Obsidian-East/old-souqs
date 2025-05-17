@@ -122,7 +122,7 @@
             <div *ngFor="let product of products; let last = last; let i = index" class="product-container">
                 <div class="product-item">
                     <div class="img-container">
-                        <img src={{product.image}} />
+                        <img (click)="goToProduct(product.id)" src={{product.image}} />
                     </div>
                     <div class="product-info">
                         <p class="cart-product-name" (click)="goToProduct(product.id)">{{product.title}}</p>
@@ -189,7 +189,7 @@
                 <div class="search-products">
                     <div class="one-product" *ngFor="let product of filteredResults; let last = last">
                         <div class="product-data">
-                            <img src="{{product.image}}" />
+                            <img (click)="goToProduct(product.id)" src="{{product.image}}" />
                             <p class="product-name" (click)="goToProduct(product.id)">{{product.title}}</p>
                         </div>
                         <div *ngIf="!last" class="search-line"></div>

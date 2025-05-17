@@ -212,6 +212,7 @@ article {
 }
 
 .img-name-container img {
+    cursor: pointer;
     width: 9rem;
     height: 9rem;
 }

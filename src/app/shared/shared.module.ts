@@ -7,9 +7,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FadeInOnScrollDirective } from './directives/fade-in-on-scroll.directive';
 
 @NgModule({
-  declarations:[HeaderComponent, FooterComponent],
+  declarations:[HeaderComponent, FooterComponent, FadeInOnScrollDirective],
   imports: [
     CommonModule,
     RouterModule,
@@ -23,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
-  exports: [HeaderComponent, TranslateModule, FooterComponent]
+  exports: [HeaderComponent, TranslateModule, FooterComponent, FadeInOnScrollDirective]
 })
 export class SharedModule { }
 

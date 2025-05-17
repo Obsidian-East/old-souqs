@@ -1,45 +1,45 @@
 <div class="thank-you-container">
     <header>
-      <img routerLink="/home" src="https://old-souqs.sirv.com/Essential/logo%20old%20souq%203%20colors-1.png" alt="Logo" class="logo" />
+      <img routerLink="/home" src="https://old-souqs.sirv.com/Essential/logo%20old%20souq%203%20colors-1.png" alt="Logo" class="logo fade-in-start" appFadeInOnScroll />
       <!-- <h1>Old Souq</h1> -->
     </header>
   
     <main *ngIf="orders">
-      <h2 class="marcellus-font">Thank You, {{ order.user.firstName }}!</h2>
-      <p class="order-id">Order ID: #{{ orders.orderId }}</p>
-      <p class="order-date">Date: {{ orders.orderDate | date:'mediumDate' }}</p>
-      <p class="delivery-date">
-        Estimated Delivery: {{ estimatedDeliveryDate | date:'mediumDate' }}
+      <h2 class="marcellus-font fade-in-start" appFadeInOnScroll>{{ 'THANKYOU.THANK-YOU' | translate }}, {{ userData.firstName }}!</h2>
+      <p class="order-id fade-in-start" appFadeInOnScroll>{{ 'THANKYOU.ORDER-ID' | translate }}: #{{ orders.orderId }}</p>
+      <p class="order-date fade-in-start" appFadeInOnScroll>{{ 'THANKYOU.DATE' | translate }}: {{ orders.orderDate | date:'mediumDate' }}</p>
+      <p class="delivery-date fade-in-start" appFadeInOnScroll>
+        {{ 'THANKYOU.ESTIMATED-DELIVERY' | translate }}: {{ estimatedDeliveryDate | date:'mediumDate' }}
       </p>      
   
-      <section class="order-summary">
-        <h3>Order Summary</h3>
-        <div class="user-details">
-          <p><strong>Name:</strong> {{ order.user.firstName }} {{ order.user.lastName }}</p>
-          <p><strong>Email:</strong> {{ order.user.email }}</p>
-          <p><strong>Phone:</strong> {{ order.user.phone }}</p>
-          <p><strong>Address:</strong> {{ orders.location}}</p>
-          <p><strong>Payment:</strong> {{ order.payment }}</p>
+      <section class="order-summary fade-in-start" appFadeInOnScroll>
+        <h3>{{ 'THANKYOU.ORDER-SUMMARY' | translate }}</h3>
+        <div class="user-details" >
+          <p><strong>{{ 'THANKYOU.NAME' | translate }}:</strong> {{ userData.firstName }} {{ userData.lastName }}</p>
+          <p><strong>{{ 'THANKYOU.EMAIL' | translate }}:</strong> {{ userData.email }}</p>
+          <p><strong>{{ 'THANKYOU.PHONE-NUMBER' | translate }}:</strong> {{ userData.phoneNumber }}</p>
+          <p><strong>{{ 'THANKYOU.ADDRESS' | translate }}:</strong> {{ orders.location}}</p>
+          <p><strong>{{ 'THANKYOU.PAYMENT' | translate }}:</strong> {{ payment }}</p>
         </div>
   
-        <div class="items-ordered">
-          <h4>Items Ordered:</h4>
+        <div class="items-ordered" >
+          <h4>{{ 'THANKYOU.ITEMS-ORDERED' | translate }}:</h4>
           <ul>
             <li *ngFor="let item of orderedProducts">
-                <img src="{{item.image}}"/>
+                <img (click)="goToProduct(item.id)" src="{{item.image}}"/>
                 <span> <b class="item-name"  (click)="goToProduct(item.id)">{{ item.nameEn }}</b> (x{{ item.quantity }}) - {{ item.price * item.quantity | currency }}</span>
             </li>
           </ul>
         </div>
   
-        <div class="totals">
-          <p><strong>Subtotal:</strong> {{ orders.subtotal | currency }}</p>
-          <p><strong>Discounted:</strong> {{ orders.discounted ? 'Yes' : 'No' }}</p>
-          <p><strong>Total:</strong> {{ orders.total | currency }}</p>
+        <div class="totals" >
+          <p><strong>{{ 'THANKYOU.SUBTOTAL' | translate }}:</strong> {{ orders.subtotal | currency }}</p>
+          <p><strong>{{ 'THANKYOU.DISCOUNTED' | translate }}:</strong> {{ orders.discounted ? ('THANKYOU.YES' | translate) : ('THANKYOU.NO' | translate) }}</p>
+          <p><strong>{{ 'THANKYOU.TOTAL' | translate }}:</strong> {{ orders.total | currency }}</p>
         </div>
       </section>
   
-      <button (click)="continueShopping()" class="continue-btn">Continue Shopping</button>
+      <button (click)="continueShopping()" class="continue-btn animate-btn fade-in-start" appFadeInOnScroll>{{ 'THANKYOU.CONTINUE-SHOPPING' | translate }}</button>
     </main>
   </div>
   

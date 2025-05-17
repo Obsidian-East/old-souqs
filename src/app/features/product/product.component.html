@@ -5,13 +5,13 @@
         <div *ngIf="isLoading" class="spinner-container">
             <div class="spinner"></div>
             <p>{{'PRODUCT.LOADING-PRODUCT' | translate }}</p>
-          </div>
+        </div>
           
         <div *ngIf="!isLoading && product" class="product-info-container">
 
 
             <div class="image-slider-container">
-                <img [src]="product.image" class="single-image" />
+                <img [src]="product.image" class="single-image fade-in-start" appFadeInOnScroll />
                 <!-- <div class="image-container">
                   <div 
                     class="slider" 
@@ -42,8 +42,8 @@
                 </div>
             </div> -->
              <div class="info-product-container">
-                <p class="title">{{product.name}}</p>
-                <div class="more-info">
+                <p class="title fade-in-start" appFadeInOnScroll>{{product.name}}</p>
+                <div class="more-info fade-in-start" appFadeInOnScroll>
                     <p class="product-price">$ {{(+product.price).toFixed(2)}}</p>
                     <div>
                         <p class="text"><span style="font-weight: 700;">{{'PRODUCT.BRAND' | translate }} </span> {{product.name}}</p>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="line"></div>
-                <div class="controllers-container">
+                <div class="controllers-container fade-in-start" appFadeInOnScroll>
                     <div class="counter">
                         <!-- <button (click)="decrement()" [disabled]="number <= 1">-</button>
                         <input type="number" [value]="number" (input)="onInputChange($event)" disabled/>
@@ -67,21 +67,21 @@
                         <span>{{ Counter }}</span>
                         <button (click)="increaseQuantity()">+</button>
                     </div>
-                    <button class="button-beige">{{'PRODUCT.ADD-TO-CART' | translate }}</button>
+                    <button (click)="addToCart(product)" class="button-beige">{{'PRODUCT.ADD-TO-CART' | translate }}</button>
                 </div>
-                <button class="button-black">{{'PRODUCT.BUY-NOW' | translate }}</button>
+                <button class="button-black fade-in-start animate-btn" appFadeInOnScroll>{{'PRODUCT.BUY-NOW' | translate }}</button>
                 <div class="line"></div>
              </div>
              
         </div>
     </article>
     <article id="description">
-        <div class="grid-container">
-            <div class="grid-item">
+        <div class="grid-container" >
+            <div class="grid-item fade-in-start" appFadeInOnScroll>
                 <p class="subtitle">{{'PRODUCT.DESCRIPTION' | translate }}</p>
                 <p class="text" style="color: var(--font-color-paragraph);">{{product?.description}}</p>
             </div>
-            <div class="grid-item">
+            <div class="grid-item fade-in-start" appFadeInOnScroll>
                 <p class="subtitle">{{'PRODUCT.ADDITIONAL-INFO' | translate }}</p>
                 <p class="text"><span style="font-weight: 700;">{{'PRODUCT.VENDOR' | translate }} </span> {{'PRODUCT.VENDOR-NAME' | translate }}</p>
             </div>
@@ -90,9 +90,9 @@
 
     <article *ngIf="relatedProducts.length > 0"  class="related-product-article" id="related-product">
         <div class="related-product-container">
-            <p class="title">{{'PRODUCT.RELATED-PRODUCT' | translate }}</p>
+            <p class="title fade-in-start" appFadeInOnScroll>{{'PRODUCT.RELATED-PRODUCT' | translate }}</p>
 
-            <span class="hide">
+            <span class="hide fade-in-start" appFadeInOnScroll>
                 <div class="collection-items" id="trending">
                     <!-- hide in tablet and mobile screen -->
                     <div class="item" 
@@ -132,7 +132,7 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="add-to-cart-button">
+                                <div (click)="addToCart(product)" class="add-to-cart-button">
                                     <p>{{'HOMEPAGE.ADD-TO-CART' | translate }}</p>
                                 </div>
                             </div>
@@ -147,13 +147,13 @@
 
 
             <!-- for tablet and mobile  -->
-            <span class="show">
+            <span class="show fade-in-start" appFadeInOnScroll>
                 <div  class="collection-items " id="trending">
                     <div class="item" 
                     *ngFor="let product of relatedProducts" >
         
                     <!-- Show image only when not hovering -->
-                    <img class="product-image" [src]="product?.image" alt="{{ product.name }}" >
+                    <img (click)="goToProduct(product.id)" class="product-image" [src]="product?.image" alt="{{ product.name }}" >
                 
             
                     <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
@@ -176,7 +176,7 @@
     
                                 </div>
 
-                                <div class="add-to-cart-button">
+                                <div (click)="addToCart(product)" class="add-to-cart-button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32.402" height="32" viewBox="0 0 32.402 32" id="cart">
                                     <path d="M30 8H6c-.156 0-.292.054-.438.088l-.776-3.316A1 1 0 0 0 3.812 4H.942a1 1 0 0 0 0 2H3.02l1.242 5.312L6 20c0 .072.034.134.042.204l-1.018 4.58A.997.997 0 0 0 6 26h22.688a1 1 0 0 0 0-2H7.248l.458-2.06c.1.016.19.06.294.06h18.23c1.104 0 1.77-.218 2.302-1.5l3.248-9.964C32.344 8.75 31.106 8 30 8zM6 30a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0zm18 0a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0z"></path>
                                   </svg>
@@ -201,7 +201,7 @@
         </div>
 
         <div *ngIf="!isLoading && !product">
-            <p>{{'PRODUCT.NO-PRODUCT' | translate }}.</p>
+            <p class="fade-in-start" appFadeInOnScroll>{{'PRODUCT.NO-PRODUCT' | translate }}.</p>
           </div>
     </article>
 </section>

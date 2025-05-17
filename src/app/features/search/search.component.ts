@@ -4,6 +4,10 @@ import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
+import { CartService, CartItem } from '../../services/cart.service';
+import { EventBusService } from '../../shared/event-bus.service';
+
+
 @Component({
   selector: 'app-search',
   standalone: true,
@@ -12,7 +16,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
-    constructor(private router: Router,private route: ActivatedRoute, private productService: ProductService) {}
+    constructor(private router: Router,
+        private route: ActivatedRoute, 
+        private productService: ProductService,
+        private cartService: CartService,
+        private eventBus: EventBusService) {}
       // searchText: string | null = null;
       ngOnInit() {
         if (typeof window !== 'undefined') { //  Ensure we are in the browser
@@ -80,4 +88,16 @@ export class SearchComponent {
       this.router.navigate(['/product'], { state: { productId: id } });
     }
 
+    addToCart(product: any): void {
+      const item: CartItem = {
+        id: product.id,
+        title: product.name,
+        image: product.image,
+        price: product.price,
+        quantity: 1
+      };
+      this.cartService.addToCart(item);
+      this.eventBus.triggerOpenCart();
+      }
+  
 }

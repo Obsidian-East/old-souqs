@@ -2,21 +2,21 @@
 <section id="content">
   <article class="hero">
     <div class="hero-container">
-      <p class="hero-title">{{ 'CART.HERO' | translate }}</p>
+      <p class="hero-title fade-in-start" appFadeInOnScroll>{{ 'CART.HERO' | translate }}</p>
     </div>
   </article>
 
   <article id="cart">
     <div *ngIf="products.length === 0" class="no-prod-container">
-      <p class="headline">{{ 'CART.EMPTY-CART' | translate }}</p>
-      <p class="text">
+      <p class="headline fade-in-start" appFadeInOnScroll>{{ 'CART.EMPTY-CART' | translate }}</p>
+      <p class="text fade-in-start" appFadeInOnScroll>
         {{ 'CART.CONTINUE-SHOPPING' | translate }}
         <a routerLink="/explore">{{ 'CART.HERE' | translate }}</a>
       </p>
     </div>
 
     <div *ngIf="products.length > 0" class="cart-container">
-      <table>
+      <table class="fade-in-start" appFadeInOnScroll>
         <thead>
           <tr>
             <th>{{ 'CART.PRODUCT-ITEM' | translate }}</th>
@@ -29,7 +29,7 @@
           <tr *ngFor="let item of products">
             <td class="product-info">
               <!-- display title since CartItem has title -->
-               <img src="{{item.image}}"/>
+               <img (click)="goToProduct(item.id)" src="{{item.image}}"/>
               <span (click)="goToProduct(item.id)" style="font-weight: 600;">{{ item.title }}</span>
             </td>
             <td>${{ item.price.toFixed(2) }}</td>
@@ -56,12 +56,13 @@
       </table>
 
       <div class="grid-container">
-        <div class="grid-item">
+        <div class="grid-item fade-in-start" appFadeInOnScroll>
           <p class="title">{{ 'CART.SPECIAL-INSTRUCTIONS' | translate }}</p>
           <input class="instructions" type="text" />
         </div>
 
-        <div class="grid-item">
+        <div class="grid-item fade-in-start"
+        appFadeInOnScroll>
           <p class="title">{{ 'CART.SHIPPING-INFO' | translate }}</p>
           <label class="subtitle">{{ 'CART.COUNTRY' | translate }}</label>
           <select id="dropdown" (change)="onSelect($event)">
@@ -76,7 +77,8 @@
           <a class="calculate-shipping">{{ 'CART.CALCULATE-SHIPPING' | translate }}</a>
         </div>
 
-        <div class="grid-item">
+        <div class="grid-item fade-in-start"
+        appFadeInOnScroll>
           <p class="title">{{ 'CART.TOTAL-AMOUNT' | translate }}</p>
           <div class="line"></div>
           <div class="amount-details">
@@ -88,7 +90,7 @@
           <p class="text" style="color: var(--font-color-paragraph);">
             {{ 'CART.ABOUT-TAXES' | translate }}
           </p>
-          <button class="button-beige" (click)="checkout()">
+          <button class="button-beige animate-btn" (click)="checkout()">
             {{ 'CART.CHECKOUT' | translate }}
           </button>
         </div>

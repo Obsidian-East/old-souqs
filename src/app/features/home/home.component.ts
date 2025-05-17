@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
+import { EventBusService } from '../../shared/event-bus.service';
 
 @Component({
 	selector: 'app-home',
@@ -28,7 +29,8 @@ export class HomeComponent implements OnInit {
 		private productService: ProductService,
 		private cartService: CartService,
 		public wishlistService: WishlistService,
-		private cd: ChangeDetectorRef) { }
+		private cd: ChangeDetectorRef,
+		private eventBus: EventBusService) { }
 
 	ngOnInit(): void {
 		this.fetchProductsByCollection();
@@ -230,49 +232,50 @@ export class HomeComponent implements OnInit {
 			quantity: 1
 		};
 		this.cartService.addToCart(item);
+		this.eventBus.triggerOpenCart();
 	}
 
 
 	//   customized items section
 
 	customized = [
-		{
+		{	"id":"1",
 			"name": "Engraved Copper Plate1",
 			"price": 120,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "A hand-engraved copper plate featuring traditional patterns and ornate detailing."
 		},
-		{
+		{	"id":"1",
 			"name": "Antique Brass Teapot2",
 			"price": 185,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "This vintage teapot, crafted in the early 1900s, boasts elegant curves and aged charm."
 		},
-		{
+		{	"id":"1",
 			"name": "Custom Calligraphy Wall Art3",
 			"price": 250,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "Personalized Arabic calligraphy hand-etched onto a copper panel for a timeless wall display."
 		},
-		{
+		{	"id":"1",
 			"name": "Decorative Copper Lantern4",
 			"price": 95,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "A traditionally styled lantern with intricate carvings, perfect for ambient lighting or decor."
 		},
-		{
+		{	"id":"1",
 			"name": "Custom Nameplate in Copper5",
 			"price": 70,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
 		},
-		{
+		{	"id":"1",
 			"name": "Custom Nameplate in Copper6",
 			"price": 70,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
 		},
-		{
+		{	"id":"1",
 			"name": "Custom Nameplate in Copper7",
 			"price": 70,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",

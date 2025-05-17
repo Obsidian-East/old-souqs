@@ -3,12 +3,12 @@
 <section id="content">
 <article class="hero">
     <div class="hero-container">
-        <p class="hero-title">{{ 'ABOUTUS.HERO' | translate }}</p>    
+        <p class="hero-title" appFadeInOnScroll>{{ 'ABOUTUS.HERO' | translate }}</p>    
     </div>
 </article>
 <article id="introduction" class="about-intro">
     <div class="grid-container">
-        <div class="grid-item">
+        <div class="grid-item fade-in-start" appFadeInOnScroll>
             <p class="title-mobile">
                 <span class="headline">{{'ABOUTUS.TITLE1-1' | translate }} </span><br />
                 <span class="headline marcellus-font">{{'ABOUTUS.TITLE1-2' | translate }}</span>
@@ -17,10 +17,10 @@
             <p class="text long-intro">{{'ABOUTUS.INTRO-TEXT2' | translate }} </p>
         </div>
         <span class="grid-tablet-screen">
-            <div class="grid-item">
+            <div class="grid-item fade-in-start" appFadeInOnScroll>
                 <div class="intro-img"></div>
             </div>
-            <div class="grid-item">
+            <div class="grid-item fade-in-start" appFadeInOnScroll>
                 <div class="intro-features">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
                         <path d="M0 336c0 79.5 64.5 144 144 144l368 0c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z"  fill="cuttentColor"/>
@@ -59,7 +59,7 @@
 
 <!-- features -->
 <article id="features" class="features-section">
-    <div class="features-container">
+    <div class="features-container fade-in-start" appFadeInOnScroll>
     <div class="feature">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
             <path d="M112 0C85.5 0 64 21.5 64 48l0 48L16 96c-8.8 0-16 7.2-16 16s7.2 16 16 16l48 0 208 0c8.8 0 16 7.2 16 16s-7.2 16-16 16L64 160l-16 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l16 0 176 0c8.8 0 16 7.2 16 16s-7.2 16-16 16L64 224l-48 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l48 0 144 0c8.8 0 16 7.2 16 16s-7.2 16-16 16L64 288l0 128c0 53 43 96 96 96s96-43 96-96l128 0c0 53 43 96 96 96s96-43 96-96l32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l0-64 0-32 0-18.7c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7L416 96l0-48c0-26.5-21.5-48-48-48L112 0zM544 237.3l0 18.7-128 0 0-96 50.7 0L544 237.3zM160 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96zm272 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0z" fill="cuttentColor"/>
@@ -100,14 +100,14 @@
 </article>
 <article id="Informations" class="info-article">
     <div class="infos-container">
-        <div class="info">
+        <div class="info fade-in-start" appFadeInOnScroll>
             <p class="feature-title">01. </p>
             <div>
                 <p class="feature-title"> {{'ABOUTUS.INFO1' | translate }}</p>
                 <p class="text">{{'ABOUTUS.INFO1-TEXT' | translate }}</p>
             </div>
         </div>
-        <div class="info">
+        <div class="info fade-in-start" appFadeInOnScroll>
             <p class="feature-title">02. </p>
             <div>
                 <p class="feature-title"> {{'ABOUTUS.INFO2' | translate }}</p>
@@ -115,7 +115,7 @@
                 <p class="text">{{'ABOUTUS.INFO2-TEXT2' | translate }}</p>
             </div>
         </div>
-        <div class="info">
+        <div class="info fade-in-start" appFadeInOnScroll>
             <p class="feature-title">03. </p>
             <div>
                 <p class="feature-title">{{'ABOUTUS.INFO3' | translate }}</p>
@@ -129,18 +129,18 @@
 <article id="Explore">
     <div class="explore-container">
         <div class="explore-content">
-            <p class="headline"> {{'ABOUTUS.EXPLORE-TITLE1' | translate }}</p>
-            <p class="headline marcellus-font">  {{'ABOUTUS.EXPLORE-TITLE2' | translate }}</p>
-            <p class="text"> {{'ABOUTUS.EXPLORE-TEXT' | translate }}</p>
-            <button routerLink="/explore" class="button-beige"> {{'ABOUTUS.EXPLORE-NOW' | translate }}</button>
+            <p class="headline fade-in-start" appFadeInOnScroll> {{'ABOUTUS.EXPLORE-TITLE1' | translate }}</p>
+            <p class="headline marcellus-font fade-in-start" appFadeInOnScroll>  {{'ABOUTUS.EXPLORE-TITLE2' | translate }}</p>
+            <p class="text fade-in-start" appFadeInOnScroll> {{'ABOUTUS.EXPLORE-TEXT' | translate }}</p>
+            <button routerLink="/explore" class="button-beige fade-in-start animate-btn" appFadeInOnScroll> {{'ABOUTUS.EXPLORE-NOW' | translate }}</button>
         </div>
     </div>
 </article>
 
 <article id="location" class="location">
     <div class="location-section">
-        <h2> {{'ABOUTUS.LOCATION' | translate }}</h2>
-        <div class="location-info">
+        <h2 class="fade-in-start" appFadeInOnScroll> {{'ABOUTUS.LOCATION' | translate }}</h2>
+        <div class="location-info fade-in-start" appFadeInOnScroll>
             <div class="location-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                 <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" fill="cuttentColor"/>
@@ -162,7 +162,7 @@
             </p>
             </div> 
         </div>
-        <iframe
+        <iframe appFadeInOnScroll class="fade-in-start"
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13310.430341179054!2d35.768024083129945!3d34.62664383630835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151f6352b2e2647f%3A0xd2eb1c9b9790a62d!2sQalamoun%2C%20North%20Governorate%2C%20Lebanon!5e0!3m2!1sen!2sus!4v1651001002013!5m2!1sen!2sus" 
         allowfullscreen=""
             loading="lazy">

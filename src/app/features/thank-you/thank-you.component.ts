@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
+import { UserService } from '../../services/user.service';
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Component({
   selector: 'app-thank-you',
@@ -16,28 +19,13 @@ export class ThankYouComponent implements OnInit {
   constructor(
     private router: Router,
     private productService: ProductService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private userService: UserService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
-  order = {
-    id: '12345',
-    date: new Date(),
-    user: {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john@example.com',
-      phone: '+123456789',
-      address: '123 Main Street, City, Country'
-    },
-    payment: 'Cash on Delivery',
-    items: [
-      { name: 'Vintage Clock', quantity: 1, price: 50 },
-      { name: 'Antique Vase', quantity: 2, price: 30 }
-    ],
-    subtotal: 110,
-    discounted: true,
-    total: 100
-  };
 
+
+  payment = " Cash on Delivery";
   orderId = '680951e996b101a2fa456fe7';
   estimatedDeliveryDate: Date = new Date();
 
@@ -63,9 +51,60 @@ export class ThankYouComponent implements OnInit {
     descriptionEn: string;
     descriptionAr: string;
   }[] = [];
+  userData: { id: string; firstName: string; lastName: string; location: string; phoneNumber: string; email: string } = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    location: '',
+    email: ''
+  };
 
   ngOnInit(): void {
-    this.fetchOrderAndProducts();
+    if (this.isBrowser()) {
+      const userId = this.getUserId();
+      if (userId) {
+        this.fetchUser(userId);
+        this.fetchOrderAndProducts();
+      }
+    }
+    
+  }
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && !!window.localStorage;
+  }
+
+  private getUserId(): string | null {
+    if(this.isBrowser()){
+      const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        console.log(payload.sub)
+        return payload.sub || null;
+      } catch (e) {
+        console.error('Invalid token:', e);
+      }
+    }
+    return null;
+    }
+    return null;
+    
+  }
+
+  fetchUser(id: string): void {
+    this.userService.getUserById(id).subscribe({
+      next: (user) => {
+        console.log(user)
+        this.userData.id = user.id,
+          this.userData.firstName = user.first_name,
+          this.userData.lastName = user.last_name,
+          this.userData.phoneNumber = user.phone_number,
+          this.userData.location = user.location,
+          this.userData.email = user.email
+      },
+      error: (err) => console.error('Error fetching user:', err)
+    });
   }
 
   fetchOrderAndProducts() {

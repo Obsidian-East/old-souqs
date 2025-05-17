@@ -129,6 +129,7 @@ article {
   }
   
   .product-info {
+    height: 7.5rem;
     display: flex;
     align-items: center;
   }
@@ -142,6 +143,11 @@ article {
     height: 7rem;
     object-fit: cover;
     margin-right: 15px;
+    cursor: pointer;
+  }
+  .product-info img:hover {
+    width: 7.25rem;
+    height: 7.25rem;
   }
   
   .quantity-delete-container{

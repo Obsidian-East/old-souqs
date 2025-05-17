@@ -2,16 +2,16 @@
 
 <section class="hero">
     <div class="hero-container">
-        <p class="hero-title">{{ 'LOGIN.HERO' | translate }}</p>  
+        <p class="hero-title fade-in-start" appFadeInOnScroll>{{ 'LOGIN.HERO' | translate }}</p>  
     </div>
 </section>
 
-<section id="login" class="login">
-    <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
+<section id="login" class="login" >
+    <form class="fade-in-start" [formGroup]="loginForm" (ngSubmit)="handleLogin()" appFadeInOnScroll>
 
         <div class="login-container">
         
-            <p class="login-title">{{ 'LOGIN.LOGIN' | translate }}</p>
+            <p class="login-title fade-in-start" appFadeInOnScroll>{{ 'LOGIN.LOGIN' | translate }}</p>
 
             <label for="emailaddress">{{ 'LOGIN.EMAIL' | translate }}</label>
             <input id="emailaddress" type="email" placeholder="{{ 'LOGIN.EMAIL' | translate }}"

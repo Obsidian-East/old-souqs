@@ -362,7 +362,7 @@
                 <span>
                     <p><strong>{{ 'ADMIN.ORDER-ID' | translate }} :</strong> {{ order.orderId }}</p>
                     <!-- <p><strong>User:</strong> {{ order.userName }}</p> -->
-                    <p><strong>{{ 'ADMIN.USER' | translate }} :</strong> {{ getUserNameById(order.userId) }}</p>
+                    <p><strong>{{ 'ADMIN.USER' | translate }} :</strong> {{ order.userFullName }} - {{ order.userPhone }}</p>
                     <p><strong>{{ 'ADMIN.LOCATION' | translate }} :</strong> {{ order.location }}</p>
                     <p><strong> {{ 'ADMIN.TOTAL-PRICE' | translate }} :</strong> {{ order.total }} $</p>
                 </span>

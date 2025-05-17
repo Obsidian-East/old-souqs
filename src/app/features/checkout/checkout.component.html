@@ -1,7 +1,7 @@
 <section>
-    {{productFrom}}
+    <!-- {{productFrom}} -->
     <article id="header" class="header-article">
-        <div class="header-container">
+        <div class="header-container fade-in-start" appFadeInOnScroll>
             <img (click)="goToHome()" src="https://old-souqs.sirv.com/Essential/logo.png" />
             <p (click)="goToCart()" id="editOrder"><- Edit Order</p>
         </div>
@@ -11,7 +11,8 @@
 
     <article id="checkout">
         <div class="grid-container">
-            <div class="delivery-info-container">
+            <div class="delivery-info-container fade-in-start"
+            appFadeInOnScroll>
 
                 <div class="delivery-info-item">
                     <p class="title">{{ 'CHECKOUT.ACCOUNT' | translate }}</p>
@@ -165,7 +166,7 @@
                             <div class="cart-item">
                                 <div class="image-container">
                                     <span class="quantity">{{product.quantity}}</span>
-                                    <img src="{{product.image}}" alt="Wall sconce">
+                                    <img (click)="goToProduct(product.id)" src="{{product.image}}" alt="Wall sconce">
                                 </div>
                                 <div class="item-details">
                                     <p (click)="goToProduct(product.id)" class="item-name">{{product.title}}</p>

@@ -4,6 +4,8 @@ import { CartService, CartItem } from '../../services/cart.service';
 import { TokenService } from '../../services/token.service';
 import { ProductService } from '../../services/product.service';
 import { WishlistService } from '../../services/wishlist.service';
+import { EventBusService } from '../event-bus.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +14,8 @@ import { WishlistService } from '../../services/wishlist.service';
 })
 
 export class HeaderComponent implements OnInit, OnDestroy {
+  private subscription!: Subscription;
+
   currentIndex: number = 0;
   intervalId: any;
   transitionStyle: string = 'transform 0.5s ease-in-out';
@@ -36,7 +40,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private tokenService: TokenService,
     private ngZone: NgZone,
     private productService: ProductService,
-    private wishlistService: WishlistService) {
+    private wishlistService: WishlistService,
+    private eventBus: EventBusService) {
 
     this.ngZone.runOutsideAngular(() => {
       this.intervalId = setInterval(() => {
@@ -60,6 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.intervalId) clearInterval(this.intervalId);
+    this.subscription.unsubscribe();
   }
 
   isLoggedIn = false;
@@ -67,6 +73,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   totalAmount: number = 0;
 
   ngOnInit() {
+    this.subscription = this.eventBus.openCart$.subscribe(() => {
+      this.openCart();
+    });
     this.cartService.cart$.subscribe(items => {
       this.products = items;
       this.totalAmount = this.cartService.getTotalAmount();
@@ -120,6 +129,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   closeCart() {
     this.isCartVisible = false;
+  }
+  openCart(){
+    this.isCartVisible = true;
   }
 
   addToCart(product: any) {

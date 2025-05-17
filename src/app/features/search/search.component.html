@@ -3,13 +3,13 @@
 <section id="content">
     <article class="hero">
         <div class="hero-container">
-            <p class="hero-title">{{ 'SEARCH.HERO1' | translate }} {{filteredProducts.length}} {{ 'SEARCH.HERO2' | translate }}</p>    
+            <p class="hero-title fade-in-start" appFadeInOnScroll>{{ 'SEARCH.HERO1' | translate }} {{filteredProducts.length}} {{ 'SEARCH.HERO2' | translate }}</p>    
         </div>
     </article>
 
     <article id="search" class="search-page">
-        <p class="headline"> {{ 'SEARCH.HEADLINE1' | translate }} "{{finalSearchText}}" {{ 'SEARCH.HEADLINE2' | translate }} </p>
-        <div class="search-container">
+        <p class="headline fade-in-start" appFadeInOnScroll> {{ 'SEARCH.HEADLINE1' | translate }} "{{finalSearchText}}" {{ 'SEARCH.HEADLINE2' | translate }} </p>
+        <div class="search-container fade-in-start" appFadeInOnScroll>
             <input type="text" class="search-input"  #searchInput value="{{finalSearchText}}" placeholder="Search for a product" (input)="searchText = searchInput.value" />
             <button (click)="runSearch()" class="button-beige">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search">
@@ -23,7 +23,7 @@
         </div>
 
         <span class="hide-in-tablet">
-        <div *ngIf="availableProducts; else noResults" class="grid-product-list" id="grid-product-list">
+        <div *ngIf="availableProducts; else noResults" class="grid-product-list fade-in-start" appFadeInOnScroll id="grid-product-list">
             <div class="item" 
              *ngFor="let product of filteredProducts" 
              (mouseenter)="showProductActions(product)" 
@@ -61,7 +61,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="add-to-cart-button">
+                    <div (click)="addToCart(product)" class="add-to-cart-button">
                         <p>{{'SEARCH.ADD-TO-CART' | translate }}</p>
                     </div>
                 </div>
@@ -74,13 +74,13 @@
     </span>
 
     <!-- product design for tablet and mobile -->
-     <span class="show-in-tablet">
+     <span class="show-in-tablet fade-in-start" appFadeInOnScroll>
         <div *ngIf="availableProducts; else noResults" class="grid-product-list">
             <div class="item" 
                 *ngFor="let product of filteredProducts" >
         
                     <!-- Show image only when not hovering -->
-                <img class="product-image" [src]="product.image" alt="{{ product.title }}" >
+                <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image" alt="{{ product.title }}" >
                 
                 <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.title }}</a></p>
                 <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
@@ -101,7 +101,7 @@
     
                             </div>
 
-                            <div class="add-to-cart-button">
+                            <div (click)="addToCart(product)" class="add-to-cart-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32.402" height="32" viewBox="0 0 32.402 32" id="cart">
                                 <path d="M30 8H6c-.156 0-.292.054-.438.088l-.776-3.316A1 1 0 0 0 3.812 4H.942a1 1 0 0 0 0 2H3.02l1.242 5.312L6 20c0 .072.034.134.042.204l-1.018 4.58A.997.997 0 0 0 6 26h22.688a1 1 0 0 0 0-2H7.248l.458-2.06c.1.016.19.06.294.06h18.23c1.104 0 1.77-.218 2.302-1.5l3.248-9.964C32.344 8.75 31.106 8 30 8zM6 30a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0zm18 0a2 2 1080 1 0 4 0 2 2 1080 1 0-4 0z"></path>
                               </svg>
@@ -124,7 +124,7 @@
         </div>
      </span>
      <ng-template #noResults>
-        <p class="text">{{ 'SEARCH.NO-PRODUCTS' | translate }}</p>
+        <p class="text fade-in-start" appFadeInOnScroll>{{ 'SEARCH.NO-PRODUCTS' | translate }}</p>
     </ng-template>
     </article>
 </section>

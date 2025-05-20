@@ -68,6 +68,13 @@
 .announcement-contact {
     text-align: right;
 }
+.announcement-contact svg{
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: var(--extra-color-body);
+    margin-bottom: -2px;
+
+}
 .announcement-contact a{
     color: var(--extra-color-body);
     position: relative;

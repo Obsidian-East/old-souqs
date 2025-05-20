@@ -9,9 +9,31 @@
           
         <div *ngIf="!isLoading && product" class="product-info-container">
 
+            <div
+                class="image-slider-container"
+                (mouseenter)="onMouseEnter()"
+                (mouseleave)="onMouseLeave()"
+                (mousemove)="onMouseMove($event)"
+                #container
+                >
+                <img #source [src]="product.image" class="single-image" />
 
-            <div class="image-slider-container">
-                <img [src]="product.image" class="single-image fade-in-start" appFadeInOnScroll />
+                <img
+                    *ngIf="zoomActive"
+                    #zoomImage
+                    [src]="product.image"
+                    class="zoomed-image"
+                    [ngStyle]="{
+                    top: zoomOffset.top + 'px',
+                    left: zoomOffset.left + 'px',
+                    opacity: zoomActive ? 1 : 0
+                    }"
+                />
+                </div>
+
+
+            <!-- <div class="image-slider-container">
+                <img [src]="product.image" class="single-image fade-in-start" appFadeInOnScroll /> -->
                 <!-- <div class="image-container">
                   <div 
                     class="slider" 
@@ -27,7 +49,7 @@
                        [class.active]="i === selectedIndex" 
                        class="thumbnail" />
                 </div> -->
-              </div>
+              <!-- </div> -->
             <!-- <div class="image-product-container">
                 <div class="image-container">
                   <img [src]="selectedImage" [class.transition]="isTransitioning" class="main-image" />

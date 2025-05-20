@@ -23,6 +23,26 @@ article{
   flex-direction: column;
   align-items: center;
 }
+.image-slider-container {
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.single-image {
+  width: 100%;
+  display: block;
+}
+
+.zoomed-image {
+  position: absolute;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 10;
+  width: 200%; /* adjust based on zoom level */
+  height: auto;
+}
+
 
 .image-container {
   width: 33rem;
@@ -565,18 +585,18 @@ article{
     .image-container {
       /* width: 68.75vw;
       height: 68.75vw; */
-      width: 79.2vw;
-      height: 79.2vw;
+      width: 80.2vw;
+      height: 80.2vw;
     }
     .main-image {
         /* width: 68.75vw;
         height: 68.75vw; */
-        width: 79.2vw;
-        height: 79.2vw;
+        width: 80.2vw;
+        height: 80.2vw;
     }
     .single-image{
-        width: 79.2vw;
-        height: 79.2vw;
+        width: 80.2vw;
+        height: 80.2vw;
     }
     
     .thumbnails {

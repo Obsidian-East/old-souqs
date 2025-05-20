@@ -221,13 +221,13 @@
                 </div>
             </div>
         </div> -->
-        <span class="hide-in-tablet">
             <div class="custom-container">
-                <p class="fade-in-start" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
+                <p class="fade-in-start name-aligned-mobile" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
                         class="headline marcellus-font"> {{'HOMEPAGE.MASTERPIECES' | translate }}</span></p>
-                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE' | translate }}</p>
+                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE1' | translate }}</p>
+                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE2' | translate }}</p>
 
-                <div class="items-container fade-in-start" appFadeInOnScroll>
+                <!-- <div class="items-container fade-in-start" appFadeInOnScroll>
 
                     <div class="customized-carousel-container">
                         <div class="customized-carousel" id="customized-carousel">
@@ -237,30 +237,25 @@
                                 </div>
                                 <div class="customized-item-info">
                                     <p (click)="goToProduct(item.id)" class="item-name">{{ item.name }}</p>
-                                    <!-- <p class="item-price">$ {{ item.price }}</p> -->
-                                    <!-- <p class="item-description"> {{ item.description }}</p> -->
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                </div>
-                <div class="customized-dots">
+                </div> -->
+                <!-- <div class="customized-dots">
                     <span *ngFor="let num of customized; let i = index; let first=first; let last=last">
                         <div *ngIf="i < maxDots && first && !last" class="customized-dot customized-active-dot"
                             (click)="moveCustomizedToSlide(i)"></div>
                         <div *ngIf=" i < maxDots && !first && !last" class="customized-dot"
                             (click)="moveCustomizedToSlide(i)"></div>
                     </span>
-                </div>
+                </div> -->
 
 
-                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.CONTACT-SENTENCE1' | translate }} <a
-                        routerLink="/contact">{{'HOMEPAGE.CONTACT-SENTENCE2' | translate }}</a>
-                    {{'HOMEPAGE.CONTACT-SENTENCE3' | translate }}</p>
+                <p routerLink="/contact" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.CONTACT-button' | translate }}</p>
             </div>
-        </span>
-        <span class="show-in-tablet">
+        <!-- <span class="show-in-tablet">
             <div class="custom-container">
                 <p class="fade-in-start" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
                         class="headline marcellus-font"> {{'HOMEPAGE.MASTERPIECES' | translate }}</span></p>
@@ -276,8 +271,6 @@
                                 </div>
                                 <div class="customized-item-info">
                                     <p (click)="goToProduct(item.id)" class="item-name">{{ item.name }}</p>
-                                    <!-- <p class="item-price">$ {{ item.price }}</p> -->
-                                    <!-- <p class="item-description"> {{ item.description }}</p> -->
                                 </div>
                             </div>
                         </div>
@@ -297,7 +290,7 @@
                         routerLink="/contact">{{'HOMEPAGE.CONTACT-SENTENCE2' | translate }}</a>
                     {{'HOMEPAGE.CONTACT-SENTENCE3' | translate }}</p>
             </div>
-        </span>
+        </span> -->
 
     </article>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
@@ -21,6 +21,41 @@ export class ProductComponent implements OnInit {
     private cartService: CartService,
         private eventBus: EventBusService
   ) { }
+
+  // to zoom the img
+   zoomActive = false;
+  zoomOffset = { left: 0, top: 0 };
+
+  @ViewChild('source', { static: false }) sourceRef!: ElementRef;
+  @ViewChild('zoomImage', { static: false }) zoomImageRef!: ElementRef;
+  @ViewChild('container', { static: false }) containerRef!: ElementRef;
+
+  onMouseEnter() {
+    this.zoomActive = true;
+  }
+
+  onMouseLeave() {
+    this.zoomActive = false;
+  }
+
+  onMouseMove(event: MouseEvent) {
+    if (!this.sourceRef || !this.zoomImageRef || !this.containerRef) return;
+
+    const sourceRect = this.sourceRef.nativeElement.getBoundingClientRect();
+    const zoomRect = this.zoomImageRef.nativeElement.getBoundingClientRect();
+    const containerRect = this.containerRef.nativeElement.getBoundingClientRect();
+
+    const xRatio = (zoomRect.width - containerRect.width) / sourceRect.width;
+    const yRatio = (zoomRect.height - containerRect.height) / sourceRect.height;
+
+    const left = Math.max(Math.min(event.pageX - sourceRect.left, sourceRect.width), 0);
+    const top = Math.max(Math.min(event.pageY - sourceRect.top, sourceRect.height), 0);
+
+    this.zoomOffset = {
+      left: -left * xRatio,
+      top: -top * yRatio
+    };
+  }
 
   isLoading: boolean = true;
   productId: string | null = null;

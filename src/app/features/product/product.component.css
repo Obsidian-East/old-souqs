@@ -23,7 +23,7 @@ article{
   flex-direction: column;
   align-items: center;
 }
-.image-slider-container {
+/* .image-slider-container {
   position: relative;
   overflow: hidden;
   display: block;
@@ -39,9 +39,56 @@ article{
   pointer-events: none;
   transition: opacity 0.3s;
   z-index: 10;
-  width: 200%; /* adjust based on zoom level */
+  width: 200%;
   height: auto;
+} */
+.image-slider-container img {
+  width: 100%;
+  cursor: zoom-in;
 }
+
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 32px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1010;
+}
+
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.zoom-img {
+  max-width: 100%;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  transition: transform 0.3s ease;
+  will-change: transform;
+  user-select: none;
+  pointer-events: none;
+  display: block;
+  margin: auto;
+}
+
 
 
 .image-container {
@@ -365,9 +412,15 @@ article{
 .spinner-container{
     font-family: var(--font-custom-stack-paragraph);
 }
+.hide-in-tablet{
+    display: flex;
+}
+.show-in-tablet{
+    display: none;
+}
 
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 801px) and (max-width: 1024px) {
    
    
       .image-container {
@@ -396,7 +449,55 @@ article{
     }
 }
 
-@media (min-width: 451px) and (max-width: 768px) {
+@media (min-width: 451px) and (max-width: 800px) {
+.zoom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.zoom-image {
+  max-width: 100%;
+  max-height: 100%;
+  touch-action: none;
+  will-change: transform;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  padding: 4px 10px;
+  background: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+    .hide-in-tablet{
+    display: none;
+}
+.show-in-tablet{
+    display: flex;
+}
 
     .product-info-article{
         padding: 4rem 0;
@@ -406,6 +507,11 @@ article{
         align-items: center;
         gap: 2rem;
     }
+    .close-button {
+  top: 16px;
+  right: 25px;
+  font-size: 22px;
+}
     
     .image-container {
       /* width: 68.75vw;
@@ -572,6 +678,54 @@ article{
 }
 
 @media (min-width: 0px) and (max-width: 450px) {
+.zoom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.zoom-image {
+  max-width: 100%;
+  max-height: 100%;
+  touch-action: none;
+  will-change: transform;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  padding: 4px 10px;
+  background: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+    .hide-in-tablet{
+    display: none;
+}
+.show-in-tablet{
+    display: flex;
+}
 
     .product-info-article{
         padding: 3rem 0;
@@ -581,6 +735,11 @@ article{
         align-items: center;
         gap: 2rem;
     }
+     .close-button {
+  top: 16px;
+  right: 20px;
+  font-size: 18px;
+}
     
     .image-container {
       /* width: 68.75vw;

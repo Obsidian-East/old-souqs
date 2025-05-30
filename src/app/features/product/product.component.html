@@ -9,7 +9,7 @@
           
         <div *ngIf="!isLoading && product" class="product-info-container">
 
-            <div
+            <!-- <div
                 class="image-slider-container"
                 (mouseenter)="onMouseEnter()"
                 (mouseleave)="onMouseLeave()"
@@ -29,7 +29,108 @@
                     opacity: zoomActive ? 1 : 0
                     }"
                 />
-                </div>
+            </div> -->
+            <!-- Original thumbnail -->
+<div class="image-slider-container" (click)="openModal()">
+  <img [src]="product.image" class="single-image" />
+</div>
+
+<!-- Fullscreen modal -->
+<!-- <div
+  class="image-modal"
+  *ngIf="isModalOpen"
+  (click)="closeModal()"
+>
+  <div
+    class="close-button"
+    (click)="closeModal(); $event.stopPropagation()"
+  >&#10005;</div>
+
+  <div
+    class="image-wrapper"
+    #zoomWrapper
+    (mousemove)="onMouseMove($event)"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()"
+    (pinch)="onPinch($event)"
+    (pinchend)="onPinchEnd()"
+    (pan)="onPan($event)"
+  >
+    <img
+      #zoomImage
+      [src]="product.image"
+      class="zoom-img"
+      [ngStyle]="zoomStyles"
+    />
+  </div>
+</div> -->
+
+<!-- <div *ngIf="isModalOpen" class="zoom-modal">
+  <button class="close-button" (click)="closeModal()">X</button>
+  <div #pinchImageContainer
+       class="zoom-wrapper"
+       (mouseenter)="onMouseEnter()"
+       (mouseleave)="onMouseLeave()"
+       (mousemove)="onMouseMove($event)"
+       #zoomWrapper>
+    <img #zoomImage
+         [src]="product.image"
+         [ngStyle]="zoomStyles"
+         class="zoom-image" />
+  </div>
+</div> -->
+
+<!-- <div   *ngIf="isModalOpen"
+ class="zoom-modal">
+  <img
+    #pinchImage
+    [src]="product.image"
+    class="zoom-image"
+    (touchstart)="onTouchStart($event)"
+    (touchmove)="onTouchMove($event)"
+    (touchend)="onTouchEnd($event)"
+  />
+  <button class="close-btn" (click)="resetZoom()">X</button>
+</div> -->
+<div
+  class="image-modal"
+  *ngIf="isModalOpen"
+  (click)="closeModal()"
+>
+  <div
+    class="close-button"
+    (click)="closeModal(); $event.stopPropagation()"
+  >&#10005;</div>
+
+  <div
+    class="image-wrapper hide-in-tablet"
+    #zoomWrapper
+    (mousemove)="onMouseMove($event)"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()"
+  >
+    <img
+      #zoomImage
+      [src]="product.image"
+      class="zoom-img"
+      [ngStyle]="zoomStyles"
+    />
+  </div>
+
+  <div class="image-wrapper show-in-tablet" #imageWrapper>
+    <img
+      #pinchImage
+      [src]="product.image"
+      class="zoom-image"
+      (touchstart)="onTouchStart($event)"
+      (touchmove)="onTouchMove($event)"
+      (touchend)="onTouchEnd($event)"
+    />
+  </div>
+       
+</div>
+
+
 
 
             <!-- <div class="image-slider-container">

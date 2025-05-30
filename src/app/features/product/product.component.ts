@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild,  Renderer2, HostListener, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
@@ -22,40 +22,126 @@ export class ProductComponent implements OnInit {
         private eventBus: EventBusService
   ) { }
 
-  // to zoom the img
-   zoomActive = false;
-  zoomOffset = { left: 0, top: 0 };
+    // to zoom the img
+  @ViewChild('pinchImage') pinchImageRef!: ElementRef;
 
-  @ViewChild('source', { static: false }) sourceRef!: ElementRef;
-  @ViewChild('zoomImage', { static: false }) zoomImageRef!: ElementRef;
-  @ViewChild('container', { static: false }) containerRef!: ElementRef;
+  scale = 1;
+  lastScale = 1;
+  startDistance = 0;
+  startX = 0;
+  startY = 0;
+  translateX = 0;
+  translateY = 0;
+  lastTranslateX = 0;
+  lastTranslateY = 0;
+  isModalOpen = false;
+  isHovering = false;
+  isDragging = false;
 
+  @ViewChild('zoomImage') zoomImageRef!: ElementRef;
+  @ViewChild('zoomWrapper') zoomWrapperRef!: ElementRef;
+
+  zoomStyles = {
+    transform: 'scale(1) translate(0px, 0px)'
+  };
+// to open img popup
+  openModal() {
+    this.isModalOpen = true;
+    this.resetZoom();
+  }
+// to close img popup
+  closeModal() {
+    this.isModalOpen = false;
+    this.resetZoom();
+  }
+// for laptop
   onMouseEnter() {
-    this.zoomActive = true;
+    if (this.isTouchDevice()) return;
+    this.isHovering = true;
   }
 
   onMouseLeave() {
-    this.zoomActive = false;
+    this.isHovering = false;
+    this.resetZoom();
   }
 
   onMouseMove(event: MouseEvent) {
-    if (!this.sourceRef || !this.zoomImageRef || !this.containerRef) return;
+    if (!this.isHovering) return;
 
-    const sourceRect = this.sourceRef.nativeElement.getBoundingClientRect();
-    const zoomRect = this.zoomImageRef.nativeElement.getBoundingClientRect();
-    const containerRect = this.containerRef.nativeElement.getBoundingClientRect();
+    const rect = this.zoomWrapperRef.nativeElement.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
 
-    const xRatio = (zoomRect.width - containerRect.width) / sourceRect.width;
-    const yRatio = (zoomRect.height - containerRect.height) / sourceRect.height;
+    this.translateX = (0.5 - x) * rect.width * 0.5;
+    this.translateY = (0.5 - y) * rect.height * 0.5;
+    this.scale = 2;
 
-    const left = Math.max(Math.min(event.pageX - sourceRect.left, sourceRect.width), 0);
-    const top = Math.max(Math.min(event.pageY - sourceRect.top, sourceRect.height), 0);
+    this.updateTransform();
+  }
 
-    this.zoomOffset = {
-      left: -left * xRatio,
-      top: -top * yRatio
+  updateTransform() {
+    this.zoomStyles = {
+      transform: `scale(${this.scale}) translate(${this.translateX}px, ${this.translateY}px)`
     };
   }
+
+  isTouchDevice(): boolean {
+    return window.matchMedia('(pointer: coarse)').matches;
+  }
+// for mobile and tablet
+  onTouchStart(event: TouchEvent) {
+    if (event.touches.length === 2) {
+      this.startDistance = this.getDistance(event.touches[0], event.touches[1]);
+    } else if (event.touches.length === 1 && this.scale > 1) {
+      this.startX = event.touches[0].clientX - this.lastTranslateX;
+      this.startY = event.touches[0].clientY - this.lastTranslateY;
+      this.isDragging = true;
+    }
+  }
+
+  onTouchMove(event: TouchEvent) {
+    if (event.touches.length === 2) {
+      const newDistance = this.getDistance(event.touches[0], event.touches[1]);
+      this.scale = Math.max(1, Math.min(this.lastScale * (newDistance / this.startDistance), 4)); // limit zoom
+      this.applyTransform();
+    } else if (event.touches.length === 1 && this.scale > 1 && this.isDragging) {
+      this.translateX = event.touches[0].clientX - this.startX;
+      this.translateY = event.touches[0].clientY - this.startY;
+      this.applyTransform();
+    }
+    event.preventDefault(); // Prevent scrolling
+  }
+
+  onTouchEnd(event: TouchEvent) {
+    this.lastScale = this.scale;
+    this.lastTranslateX = this.translateX;
+    this.lastTranslateY = this.translateY;
+    this.isDragging = false;
+  }
+
+  getDistance(touch1: Touch, touch2: Touch): number {
+    const dx = touch2.clientX - touch1.clientX;
+    const dy = touch2.clientY - touch1.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  applyTransform() {
+    const el = this.pinchImageRef.nativeElement;
+    el.style.transform = `scale(${this.scale}) translate(${this.translateX / this.scale}px, ${this.translateY / this.scale}px)`;
+    el.style.transition = 'none';
+  }
+
+  resetZoom() {
+    this.scale = 1;
+    this.lastScale = 1;
+    this.translateX = 0;
+    this.translateY = 0;
+    this.lastTranslateX = 0;
+    this.lastTranslateY = 0;
+    this.applyTransform();
+    this.updateTransform();
+  }
+
 
   isLoading: boolean = true;
   productId: string | null = null;

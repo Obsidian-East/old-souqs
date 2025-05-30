@@ -310,6 +310,11 @@ export class ProductComponent implements OnInit {
     this.cartService.addToCart(item);
     this.eventBus.triggerOpenCart();
     }
+     checkout(productID: string): void {
+      // Navigate to checkout page
+      this.router.navigate(['/checkout'], { state: { productFrom: 'wishlist' ,productIdToBuy: productID} });
+  
+    }
 
 
 }

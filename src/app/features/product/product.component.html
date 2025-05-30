@@ -192,7 +192,7 @@
                     </div>
                     <button (click)="addToCart(product)" class="button-beige">{{'PRODUCT.ADD-TO-CART' | translate }}</button>
                 </div>
-                <button class="button-black fade-in-start animate-btn" appFadeInOnScroll>{{'PRODUCT.BUY-NOW' | translate }}</button>
+                <button (click)="checkout(product.id)" class="button-black fade-in-start animate-btn" appFadeInOnScroll>{{'PRODUCT.BUY-NOW' | translate }}</button>
                 <div class="line"></div>
              </div>
              

@@ -249,7 +249,7 @@
     "CHECKOUT":{
       "ACCOUNT": "Account",
       "PHONE" : "Phone number",
-      "EMAIL-NEWS": "Email me with news and offers",
+      "EMAIL-NEWS": "Contact me with news and offers",
       "DELIVERY": "Delivery",
       "COUNTRY":"Country",
       "FIRST-NAME": "First name",

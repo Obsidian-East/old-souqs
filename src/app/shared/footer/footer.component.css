@@ -172,6 +172,18 @@ h3 {
   .switch input:checked + .slider:before {
     transform: translateX(1.2em);
   }
+  .social-media-container{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 0.5rem;
+  }
+  .social-media-container svg, .social-media-container path{
+    cursor: pointer;
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: var(--font-color-secondary);
+  }
 
 @media (min-width: 451px) and (max-width: 768px) {
     .footer {
@@ -239,6 +251,11 @@ h3 {
       .switch input:checked + .slider:before {
         transform: translateX(1.2em);
       }
+       .social-media-container svg, .social-media-container path{
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
 }
 
 @media (min-width: 0px) and (max-width: 450px) {
@@ -332,5 +349,10 @@ h3 {
       .switch input:checked + .slider:before {
         transform: translateX(1em);
       }
+       .social-media-container svg, .social-media-container path{
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
 
 }

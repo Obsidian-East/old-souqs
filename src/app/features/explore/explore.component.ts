@@ -341,7 +341,8 @@ export class ExploreComponent {
 		  title: product.name,
 		  image: product.image,
 		  price: product.price,
-		  quantity: 1
+		  quantity: 1,
+		  stock: product.stock
 		};
 		this.cartService.addToCart(item);
 		this.eventBus.triggerOpenCart();

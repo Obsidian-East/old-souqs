@@ -7,6 +7,7 @@ export interface CartItem {
   image: string;
   price: number;
   quantity: number;
+  stock: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -43,13 +44,18 @@ export class CartService {
   }
 
   addToCart(item: CartItem): void {
+    console.log(item.stock)
     const cart = this.loadCart();
     const idx = cart.findIndex(i => i.id === item.id);
 
     if (idx > -1) {
-      cart[idx].quantity += item.quantity;
+      // check stock
+      console.log( cart[idx].stock)
+      if(cart[idx].quantity < cart[idx].stock)
+        cart[idx].quantity += item.quantity;
     } else {
-      cart.push({ ...item });
+          if(item.stock)
+            cart.push({ ...item });
     }
 
     this.saveCart(cart);

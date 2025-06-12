@@ -206,8 +206,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   goToProduct(id: string) {
-    this.router.navigate(['/product'], { state: { productId: id } });
-  }
+  this.router.navigate(['/product', id]);
+}
+
 
   loadWishlistCount(): void {
     const token = this.tokenService.getToken();

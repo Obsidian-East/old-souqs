@@ -222,8 +222,9 @@ export class HomeComponent implements OnInit {
 
 	// constructor(private router: Router) {}
 	goToProduct(id: string) {
-		this.router.navigate(['/product'], { state: { productId: id } });
-	}
+  this.router.navigate(['/product', id]);
+}
+
 
 	// --- Cart Actions aligned with CartService ---
 	addToCart(product: any): void {

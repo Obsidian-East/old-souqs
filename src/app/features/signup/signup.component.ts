@@ -26,7 +26,7 @@ export class SignupComponent {
       Validators.required,
       Validators.minLength(10),
     ]),
-    
+
   });
 
   showPassword = false;
@@ -38,7 +38,7 @@ export class SignupComponent {
     this.showPassword = !this.showPassword;
   }
 
-  handleSubmit() {  
+  handleSubmit() {
     this.authService.signup(this.signupForm.value).subscribe(
       (response) => {
         this.router.navigate(['/profile']);
@@ -52,5 +52,5 @@ export class SignupComponent {
       }
     );
   }
-  
+
 }

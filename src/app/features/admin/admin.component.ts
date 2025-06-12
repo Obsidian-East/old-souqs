@@ -6,20 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { UserService } from '../../services/user.service';
+import { Product } from '../../models/product.model';
 
-
-interface Product {
-  image: string;
-  nameEn: string;
-  nameAr: string;
-  categoryId: string;
-  price: number | null;
-  quantity: number | null;
-  descriptionEn: string;
-  descriptionAr: string;
-  sku: string;
-  [key: string]: any;  // This allows any other property to be indexed
-}
 // new dicount
 type DiscountField = 'type' | 'targetId' | 'value';
 
@@ -804,23 +792,12 @@ export class AdminComponent implements OnInit {
     }
   }
   
-
-  // logout
   Logout() {
     localStorage.removeItem('admin-token');
     this.router.navigate(['/login-admin']);
   }  
 
- 
- 
+  addProduct(product: Product){
 
- 
-
- 
-  
-
-
-
-
- 
+  }
 }

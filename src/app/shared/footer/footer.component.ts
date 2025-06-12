@@ -8,8 +8,15 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class FooterComponent {
   showButton: boolean = false;
+  currentLanguage: string = "";
 
-  constructor(private translate: TranslateService) {}
+  constructor(private translate: TranslateService) {
+    if (this.isBrowser()) {
+      const savedLang = localStorage.getItem('lang') || 'en';
+      this.translate.use(savedLang);
+      this.currentLanguage = savedLang;
+    }
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -18,6 +25,10 @@ export class FooterComponent {
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && !!window.localStorage;
   }
 
   isCompanyInfoVisible: boolean = false;
@@ -30,11 +41,13 @@ export class FooterComponent {
   toggleCompanyInfo() {
     this.isCompanyInfoVisible = !this.isCompanyInfoVisible;
   }
-  currentLanguage: 'en' | 'ar' = 'en';
 
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'en' ? 'ar' : 'en';
-    this.translate.use(this.currentLanguage); 
+    this.translate.use(this.currentLanguage);
+    if (this.isBrowser()) {
+      localStorage.setItem('lang', this.currentLanguage);
+    }
   }
 
 }

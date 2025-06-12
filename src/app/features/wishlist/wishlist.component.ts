@@ -96,9 +96,10 @@ export class WishlistComponent implements OnInit {
     return product.price * product.quantity;
   }
 
-  goToProduct(id: string) {
-    this.router.navigate(['/product'], { state: { productId: id } });
-  }
+ goToProduct(id: string) {
+  this.router.navigate(['/product', id]);
+}
+
   addToCart(product: any): void {
       const item: CartItem = {
         id: product.ID,

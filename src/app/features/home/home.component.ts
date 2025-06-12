@@ -48,7 +48,8 @@ export class HomeComponent implements OnInit {
 					id: String(product.ID),
 					name: product.Title,
 					price: product.Price,
-					image: product.Image
+					image: product.Image,
+					stock: product.Stock
 				}));
 				// Initialize the products array with trending products
 				this.products = this.productsTrending;
@@ -63,7 +64,8 @@ export class HomeComponent implements OnInit {
 					id: String(product.ID),
 					name: product.Title,
 					price: product.Price,
-					image: product.Image
+					image: product.Image,
+					stock: product.Stock
 				}));
 			},
 			error: (error) => {
@@ -76,7 +78,8 @@ export class HomeComponent implements OnInit {
 					id: String(product.ID),
 					name: product.Title,
 					price: product.Price,
-					image: product.Image
+					image: product.Image,
+					stock: product.Stock
 				}));
 			},
 			error: (error) => {
@@ -229,7 +232,8 @@ export class HomeComponent implements OnInit {
 			title: product.name,
 			image: product.image,
 			price: product.price,
-			quantity: 1
+			quantity: 1,
+			stock: product.stock
 		};
 		this.cartService.addToCart(item);
 		this.eventBus.triggerOpenCart();

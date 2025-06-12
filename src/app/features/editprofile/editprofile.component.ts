@@ -46,10 +46,11 @@ export class EditprofileComponent implements OnInit {
   fetchUser(id: string): void {
     this.userService.getUserById(id).subscribe({
       next: (user) => {
+        console.log(user)
         this.userData.id = user.id,
         this.userData.firstName = user.first_name,
         this.userData.lastName = user.last_name,
-        this.userData.phoneNumber = user.phone_number,
+        this.userData.phoneNumber = user.phonenumber,
         this.userData.location = user.location,
         this.userData.email = user.email
         this.profileForm.patchValue({
@@ -100,7 +101,7 @@ export class EditprofileComponent implements OnInit {
           error: (err) => console.error('Update failed', err)
         });
       }
-    }
+    } 
   }
 
 }

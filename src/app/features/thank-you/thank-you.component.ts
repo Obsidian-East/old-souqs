@@ -173,7 +173,8 @@ export class ThankYouComponent implements OnInit {
     this.router.navigate(['/product']);
   }
   
-  goToProduct(id: string) {
-    this.router.navigate(['/product'], { state: { productId: id } });
-  }
+ goToProduct(id: string) {
+  this.router.navigate(['/product', id]);
+}
+
 }

@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
 import { EventBusService } from '../../shared/event-bus.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { EventBusService } from '../../shared/event-bus.service';
 
 export class ProductComponent implements OnInit {
   constructor(private router: Router,
+    private route: ActivatedRoute,
     private productService: ProductService,
     private cartService: CartService,
         private eventBus: EventBusService
@@ -147,15 +149,19 @@ export class ProductComponent implements OnInit {
   productId: string | null = null;
   
   ngOnInit() {
-    if (typeof window !== 'undefined') {
-      this.productId = window.history.state.productId;
-      if (this.productId) {
-        this.fetchProductById();
-      } else {
-        console.error('No Product ID received');
-      }
+  this.route.paramMap.subscribe(params => {
+    const id = params.get('id');
+    if (id) {
+      this.productId = id;
+      this.fetchProductById();
+      if (typeof window !== 'undefined') 
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      console.error('No Product ID received');
     }
-  }
+  });
+}
+
 
   // currentProduct: any;
   relatedProducts: any[] = [];
@@ -164,7 +170,7 @@ export class ProductComponent implements OnInit {
   fetchProductById() {
     this.productService.getProductById(this.productId!).subscribe({
       next: (product: any) => {
-        console.log(product)
+        // console.log(product)
         this.product = {
           id: product.id,
           name: product.title,
@@ -188,11 +194,11 @@ export class ProductComponent implements OnInit {
   fetchRelatedProducts(collectionName: string) {
     this.productService.getCollections().subscribe({
       next: (collectionsData) => {
-        console.log('All collections:', collectionsData);
+        // console.log('All collections:', collectionsData);
   
         // Find the collection by name
         const collection = collectionsData.find((col: any) => col.CollectionName === collectionName);
-        console.log(collection)
+        // console.log(collection)
   
         if (!collection) {
           console.error('Collection not found');
@@ -228,7 +234,7 @@ export class ProductComponent implements OnInit {
               this.relatedProducts = this.relatedProducts.slice(0, 4);
             }
   
-            console.log('Related products:', this.relatedProducts);
+            // console.log('Related products:', this.relatedProducts);
           },
           error: (err) => {
             console.error('Error fetching products:', err);
@@ -297,8 +303,9 @@ export class ProductComponent implements OnInit {
 
 
   goToProduct(id: string) {
-    this.router.navigate(['/product'], { state: { productId: id } });
-  }
+  this.router.navigate(['/product', id]);
+}
+
   addToCart(product: any): void {
     const item: CartItem = {
       id: product.id,

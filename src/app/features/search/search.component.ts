@@ -84,9 +84,10 @@ export class SearchComponent {
   }
     
   // to send the product id to the product page when clicking on a product name
-    goToProduct(id: string) {
-      this.router.navigate(['/product'], { state: { productId: id } });
-    }
+  goToProduct(id: string) {
+  this.router.navigate(['/product', id]);
+}
+
 
     addToCart(product: any): void {
       const item: CartItem = {

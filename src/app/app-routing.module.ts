@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent},
   { path: 'explore', component: ExploreComponent},
   { path: 'cart', component: CartComponent},
-  { path: 'product', component: ProductComponent },
+{ path: 'product/:id', component: ProductComponent },
   {
     path: 'profile',
     component: ProfileComponent,

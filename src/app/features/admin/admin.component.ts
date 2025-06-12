@@ -276,15 +276,17 @@ export class AdminComponent implements OnInit {
   // add new product
   showAddPopup: boolean = false;
   newProduct: Product = {
-    image: '',
-    nameEn: '',
-    nameAr: '',
-    categoryId: '',
-    price: null,
-    quantity: null,
-    descriptionEn: '',
+      title: '',
+    titleAr: '',
+    description: '',
     descriptionAr: '',
-    sku: ''
+    stock: 0,
+    price: 0,
+    sku: '',
+    tag:[],
+    image: '',
+    createdAt:  new Date(),
+    updatedAt:  new Date(), 
   };
 
   openAddPopup() {
@@ -295,48 +297,79 @@ export class AdminComponent implements OnInit {
     this.showAddPopup = false;
   }
 
+updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
+  const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null;
 
-  updateFieldNewProduct(field: string,eventOrValue: Event | any): void {
-    if (eventOrValue instanceof Event) {
-      const input = eventOrValue.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
-      this.newProduct[field] = input.value;
+  if (!target) return;
+
+  let value: any = target.value;
+
+  // Special handling for checkboxes updating an array (e.g., 'tags')
+  if (field === 'tag') {
+    const checked = (target as HTMLInputElement).checked;
+    const tag = value;
+
+    const currentTags = this.newProduct.tag ?? [];
+
+    if (checked) {
+      if (!currentTags.includes(tag)) {
+        this.newProduct.tag = [...currentTags, tag];
+      }
     } else {
-      this.newProduct[field] = eventOrValue;
+      this.newProduct.tag = currentTags.filter(t => t !== tag);
     }
 
+    return;
   }
+
+  // Convert to number if field is numeric
+  if (field === 'price' || field === 'stock') {
+    value = parseFloat(value);
+  }
+
+  this.newProduct[field] = value;
+}
+
+
 
   handleNewImageUpload(event: any) {
-    const file = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.newProduct.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    } else {
-      alert('Please select a valid image file.');
-      event.target.value = '';
-    }
+  const file = event.target.files[0];
+  if (file && file.type.startsWith('image/')) {
+    const fileName = encodeURIComponent(file.name); // safely encode filename
+
+    //  Construct the image URL 
+    const imageBaseUrl = 'https://old-souqs.sirv.com/Products/';
+    const imageUrl = `${imageBaseUrl}${fileName}`;
+
+    //  Save the image URL to newProduct
+    this.newProduct.image = imageUrl;
+
+  } else {
+    alert('Please select a valid image file.');
+    event.target.value = '';
   }
+}
+
 
   addNewProduct() {
-    if (this.newProduct.nameEn && this.newProduct.nameAr && this.newProduct.price != null && this.newProduct.quantity != null && this.newProduct.sku) {
+    if (this.newProduct.descriptionAr && this.newProduct.description && this.newProduct.tag.length != 0 && this.newProduct.title && this.newProduct.titleAr && this.newProduct.price && this.newProduct.stock  && this.newProduct.sku && this.newProduct.image) {
       // Add the product to your array of products
-      console.log('New product added:', this.newProduct);
-      alert("new prod added");
+      console.log('New product added: ', this.newProduct);
+      this.productService.createProduct(this.newProduct);
       this.closeAddPopup();
       // Reset the newProduct object for the next entry
       this.newProduct = {
-        image: '',
-        nameEn: '',
-        nameAr: '',
-        categoryId: '',
-        price: null,
-        quantity: null,
-        descriptionEn: '',
+         title: '',
+        titleAr: '',
+        description: '',
         descriptionAr: '',
-        sku:''
+        stock: 0,
+        price: 0,
+        sku: '',
+        tag:[],
+        image: '',
+        createdAt:  new Date(),
+        updatedAt:  new Date(), 
       };
     } else {
       alert('Please fill in all fields.');

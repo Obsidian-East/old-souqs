@@ -157,82 +157,80 @@
       <button class="close-btn" (click)="closeAddPopup()">✖</button>
       <h2 class="headline">{{ 'ADMIN.ADD-NEW-PRODUCT' | translate }} </h2>
   
-      <img [src]="newProduct.image" class="popup-image-preview" *ngIf="newProduct.image" />
+      <img [src]="" class="popup-image-preview" *ngIf="newProduct.image" />
   
       <input type="file" (change)="handleNewImageUpload($event)" accept="image/*" />
   
       <div class="grid-two">
         <span class="label-input-container">
           <label>{{ 'ADMIN.NAME-EN' | translate }} </label>
-          <input type="text" [value]="newProduct.nameEn" (input)="updateFieldNewProduct('nameEn', $event)" />
+          <input type="text"  (input)="updateFieldNewProduct('title', $event)" />
         </span>
   
         <span class="label-input-container">
           <label>{{ 'ADMIN.NAME-AR' | translate }} </label>
-          <input type="text" [value]="newProduct.nameAr" (input)="updateFieldNewProduct('nameAr', $event)" />
+          <input type="text" (input)="updateFieldNewProduct('titleAr', $event)" />
         </span>
       </div>
       <div class="grid-two">
         <div class="grid-two">
           <span class="label-input-container">
           <label>{{ 'ADMIN.PRICE' | translate }} </label>
-          <input type="number" [value]="newProduct.price" (input)="updateFieldNewProduct('price', $event)" />
+          <input type="number"  (input)="updateFieldNewProduct('price', $event)" />
         </span>
         <span class="label-input-container">
           <label>{{ 'ADMIN.QUANTITY' | translate }} </label>
-          <input type="number" [value]="newProduct.quantity" (input)="updateFieldNewProduct('quantity', $event)" />
+          <input type="number" (input)="updateFieldNewProduct('stock', $event)" />
         </span>
         </div>
         
-        <div class="grid-two">
           <span class="label-input-container">
           <label>{{ 'ADMIN.SKU' | translate }} </label>
-          <input type="string" [value]="newProduct.sku" (input)="updateFieldNewProduct('quantity', $event)" />
+          <input type="string" (input)="updateFieldNewProduct('sku', $event)" />
         </span>
-        <span class="label-input-container">
-          <!-- <label>{{ 'ADMIN.IN_STOCK' | translate }}</label> -->
+        <!-- <span class="label-input-container">
           <label>In stock</label>
           <span class="in-stock-container">
             <label>
               <input type="radio" name="inStock" 
-                (change)="updateFieldNewProduct('instock', true)" />
-              <!-- {{ 'ADMIN.YES' | translate }} -->
-                yes
+                 />
+              {{ 'ADMIN.YES' | translate }}
             </label>
             <label>
               <input type="radio" name="inStock" 
-                (change)="updateFieldNewProduct('instock', false)" />
-              <!-- {{ 'ADMIN.NO' | translate }} -->
-                no
+                />
+              {{ 'ADMIN.NO' | translate }}
             </label>
           </span>
           
-        </span>
-        </div>
+        </span> -->
         
       </div>
       <span class="label-input-container">
         <label>{{ 'ADMIN.CATEGORY' | translate }}</label>
         <div class="checkbox-group">
-          <label *ngFor="let category of collections">
-            <input 
-              type="checkbox" 
-              [value]="category.id"
-            />
-            {{ category.nameEn }} - {{ category.nameAr }}
-          </label>
-        </div>
+  <label *ngFor="let category of collections">
+    <input 
+      type="checkbox"
+      [value]="category.nameEn"
+      (change)="updateFieldNewProduct('tag', $event)"
+      [checked]="newProduct.tag.includes(category.nameEn)"
+    />
+    {{ category.nameEn }} - {{ category.nameAr }}
+  </label>
+</div>
+
       </span>
       
   
       <span class="label-input-container">
         <label>{{ 'ADMIN.DESC-EN' | translate }} </label>
-        <textarea [value]="newProduct.descriptionEn" (input)="updateFieldNewProduct('descriptionEn', $event)"></textarea>
+        <textarea  (input)="updateFieldNewProduct('description', $event)"></textarea>
       </span>
   
       <span class="label-input-container">
         <label>{{ 'ADMIN.DESC-AR' | translate }} </label>
-        <textarea [value]="newProduct.descriptionAr" (input)="updateFieldNewProduct('descriptionAr', $event)"></textarea>
+        <textarea  (input)="updateFieldNewProduct('descriptionAr', $event)"></textarea>
       </span>
   
       <button class="add-btn" (click)="addNewProduct()">{{ 'ADMIN.ADD-PRODUCT' | translate }} </button>

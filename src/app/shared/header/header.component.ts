@@ -140,14 +140,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       title: product.name,
       image: product.image,
       price: product.price,
-      quantity: 1
+      quantity: 1,
+      stock: product.Stock
     };
     this.toggleCart();
     this.cartService.addToCart(item);
   }
 
   increaseQuantity(item: CartItem) {
-    this.cartService.updateQuantity(item.id, item.quantity + 1);
+    if(item.quantity<item.stock)
+      this.cartService.updateQuantity(item.id, item.quantity + 1);
   }
 
   decreaseQuantity(item: CartItem) {

@@ -29,6 +29,7 @@ export class CartComponent implements OnInit {
   }
 
   increaseQuantity(item: CartItem): void {
+    if(item.quantity < item.stock)
     this.cartService.updateQuantity(item.id, item.quantity + 1);
   }
 

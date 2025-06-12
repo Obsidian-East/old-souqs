@@ -105,7 +105,8 @@ export class WishlistComponent implements OnInit {
         title: product.Title,
         image: product.Image,
         price: product.Price,
-        quantity: 1
+        quantity: 1,
+        stock: product.stock
       };
       this.cartService.addToCart(item);
       this.eventBus.triggerOpenCart();

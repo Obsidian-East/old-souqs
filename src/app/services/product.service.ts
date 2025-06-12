@@ -71,4 +71,15 @@ export class ProductService {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<Product>(this.apiProductUrl, product, { headers });
     }
+
+    updateProduct(id: string, product: Product): Observable<Product> {
+        const url = `${this.apiProductUrl}?id=${id}`;
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.put<Product>(url, product, { headers });
+    }
+
+    deleteProduct(id: string): Observable<void> {
+        const url = `${this.apiProductUrl}?id=${id}`;
+        return this.http.delete<void>(url);
+    }
 }

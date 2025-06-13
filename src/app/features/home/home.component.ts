@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, PLATFORM_ID, ElementRef, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectorRef, AfterViewInit, QueryList, ViewChildren, ElementRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
@@ -332,5 +332,31 @@ export class HomeComponent implements OnInit {
 			this.cd.detectChanges(); // force UI refresh if needed
 		});
 	}
+
+	 @ViewChildren('nameRef') nameRefs!: QueryList<ElementRef>;
+
+	@HostListener('window:resize')
+	onResize() {
+	this.adjustFontSizes();
+	}
+
+	ngAfterViewInit() {
+	this.adjustFontSizes();
+	}
+
+	adjustFontSizes() {
+    this.nameRefs.forEach((elRef: ElementRef) => {
+      const el = elRef.nativeElement as HTMLElement;
+      let fontSize = 1.1; // rem
+      const maxHeight = el.clientHeight;
+
+      el.style.fontSize = `${fontSize}rem`;
+
+      while (el.scrollHeight > maxHeight && fontSize > 0.6) {
+        fontSize -= 0.05;
+        el.style.fontSize = `${fontSize}rem`;
+      }
+    });
+  }
 
 }

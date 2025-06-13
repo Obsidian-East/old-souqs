@@ -7,6 +7,7 @@ import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { UserService } from '../../services/user.service';
 import { Product } from '../../models/product.model';
+import { SirvService } from '../../services/sirv.service';
 
 // new dicount
 type DiscountField = 'type' | 'targetId' | 'value';
@@ -20,39 +21,41 @@ type DiscountField = 'type' | 'targetId' | 'value';
 })
 
 export class AdminComponent implements OnInit {
-   constructor(private router: Router, private productService: ProductService, private orderService: OrderService,
-      private userService: UserService
-   ) {
+  selectedImageFile: File | null = null;
+
+  constructor(private router: Router, private productService: ProductService, private orderService: OrderService,
+    private userService: UserService, private sirvService: SirvService
+  ) {
     this.loadAnnouncements();
-   }
-   ngOnInit() {
+  }
+  ngOnInit() {
     this.fetchCollections();
-		this.fetchProducts();
+    this.fetchProducts();
     this.fetchOrders();
-    
+
     this.computeDiscountNames();
   }
-  allproducts: { id: string; image: string; nameEn: string; nameAr: string; tags: string[]; price: number; quantity: number; descriptionEn: string; descriptionAr: string, sku:string, instock:boolean }[] = [];
-	collections:  { id: string; nameEn: string ; nameAr: string }[]= [];
-  orders: {orderId: string; orderDate: string; urserId: string; productsIds: {id:string; quantity:string;}[]; location: string, total: number}[]=[];
-  
+  allproducts: { id: string; image: string; nameEn: string; nameAr: string; tags: string[]; price: number; quantity: number; descriptionEn: string; descriptionAr: string, sku: string, instock: boolean }[] = [];
+  collections: { id: string; nameEn: string; nameAr: string }[] = [];
+  orders: { orderId: string; orderDate: string; urserId: string; productsIds: { id: string; quantity: string; }[]; location: string, total: number }[] = [];
+
   // --- Fetching Functions ---
-	fetchCollections() {
-		this.productService.getCollections().subscribe({
-			next: (data) => {
-				this.collections = data.map((collection: any) => ({
-					id: collection.ID,
-					nameEn: collection.CollectionName,
+  fetchCollections() {
+    this.productService.getCollections().subscribe({
+      next: (data) => {
+        this.collections = data.map((collection: any) => ({
+          id: collection.ID,
+          nameEn: collection.CollectionName,
           nameAr: collection.collectionNameAr
-				}));
-			},
-			error: (error) => {
-				console.error('Error fetching collections:', error);
-			}
-		});
-	}
-  
-	fetchProducts() {
+        }));
+      },
+      error: (error) => {
+        console.error('Error fetching collections:', error);
+      }
+    });
+  }
+
+  fetchProducts() {
     this.productService.getProducts().subscribe({
       next: (data) => {
         console.log('Raw data from DB:', data);
@@ -75,8 +78,8 @@ export class AdminComponent implements OnInit {
         console.error('Error fetching products:', error);
       }
     });
-	}
-  
+  }
+
   fetchOrders() {
     this.userService.getAllUsers().subscribe(users => {
       const userMap = new Map<string, { id: string; first_name: string; last_name: string; phone_number: string }>(
@@ -92,7 +95,7 @@ export class AdminComponent implements OnInit {
             productsIds: order.items?.map((item: any) => ({
               id: item.productId,
               quantity: item.quantity
-            })) || [],      
+            })) || [],
             location: order.userLocation,
             total: order.total,
             userFullName: user ? `${user.first_name} ${user.last_name}` : 'Unknown',
@@ -101,11 +104,11 @@ export class AdminComponent implements OnInit {
         });
       });
     });
-    
-		// this.orderService.getAllOrders().subscribe({
-		// 	next: (data) => {
-		// 		this.orders = data.map((order: any) => ({
-		// 			orderId: order.orderId,
+
+    // this.orderService.getAllOrders().subscribe({
+    // 	next: (data) => {
+    // 		this.orders = data.map((order: any) => ({
+    // 			orderId: order.orderId,
     //       orderDate: new Date(order.creationDate).toISOString().split('T')[0], // "YYYY-MM-DD"
     //       urserId: order.userId,
     //       productsIds: order.items?.map((item: any) => ({
@@ -115,16 +118,16 @@ export class AdminComponent implements OnInit {
     //       userName: this.allUsers.find(u => u.id === order.userId)?.name || 'Unknown User',    
     //       location: order.userLocation,
     //       total: order.total
-		// 		}));
-		// 	},
-			// error: (error) => {
-			// 	console.error('Error fetching orders:', error);
-			// }
-		// });
-	}
+    // 		}));
+    // 	},
+    // error: (error) => {
+    // 	console.error('Error fetching orders:', error);
+    // }
+    // });
+  }
 
 
-  categories: { id: string; nameEn: string ; nameAr: string }[] = [
+  categories: { id: string; nameEn: string; nameAr: string }[] = [
     { id: '1', nameEn: 'Clocks', nameAr: 'ساعات' },
     { id: '2', nameEn: 'Maps', nameAr: 'خرائط' },
     { id: '3', nameEn: 'Jewelry', nameAr: 'مجوهرات' },
@@ -189,12 +192,12 @@ export class AdminComponent implements OnInit {
       descriptionEn: 'A luxurious Persian handwoven rug featuring traditional motifs and vibrant colors. Made using natural wool and plant-based dyes, this exquisite rug is a timeless piece of art that enhances the aesthetic of any living space.',
       descriptionAr: 'سجادة فارسية فاخرة مصنوعة يدويًا بزخارف تقليدية وألوان زاهية. مصنوعة من الصوف الطبيعي والأصباغ النباتية، مما يجعلها قطعة فنية خالدة تضفي جمالًا وأناقة على أي مكان.'
     }
-   
-  ];
-   // Set active section and toggle sidebar styles
-   activeSection = 'products'; // default section
 
-   selectSection(section: string) {
+  ];
+  // Set active section and toggle sidebar styles
+  activeSection = 'products'; // default section
+
+  selectSection(section: string) {
     this.activeSection = section;
     const allButtons = document.querySelectorAll('.menu-item');
     allButtons.forEach(btn => btn.classList.remove('active'));
@@ -205,14 +208,14 @@ export class AdminComponent implements OnInit {
   // get category name for each product in the product section
   getCategoryName(categoryId: string): string {
     const category = this.categories.find(cat => cat.id === categoryId);
-    return category ? category.nameEn + ' - '+category.nameAr : 'Unknown';
+    return category ? category.nameEn + ' - ' + category.nameAr : 'Unknown';
   }
 
 
-  deleteProduct(productId:string){
-      if (confirm('Are you sure you want to delete this product?')) {  
-        
-      }
+  deleteProduct(productId: string) {
+    if (confirm('Are you sure you want to delete this product?')) {
+
+    }
   }
 
 
@@ -240,13 +243,13 @@ export class AdminComponent implements OnInit {
       this.selectedProduct[field] = eventOrValue;
     }
   }
-  
-  
+
+
 
   // Handle image upload
   handleImageUpload(event: any) {
     const file = event.target.files[0];
-    
+
     // Check if a file is selected and if it's an image
     if (file) {
       if (file.type.startsWith('image/')) {
@@ -262,7 +265,7 @@ export class AdminComponent implements OnInit {
       }
     }
   }
-  
+
   // Update the product in the array
   updateProduct() {
     const index = this.products.findIndex(p => p.id === this.selectedProduct.id);
@@ -276,17 +279,17 @@ export class AdminComponent implements OnInit {
   // add new product
   showAddPopup: boolean = false;
   newProduct: Product = {
-      title: '',
+    title: '',
     titleAr: '',
     description: '',
     descriptionAr: '',
     stock: 0,
     price: 0,
     sku: '',
-    tag:[],
+    tag: [],
     image: '',
-    createdAt:  new Date(),
-    updatedAt:  new Date(), 
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
 
   openAddPopup() {
@@ -297,86 +300,110 @@ export class AdminComponent implements OnInit {
     this.showAddPopup = false;
   }
 
-updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
-  const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null;
+  updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
+    const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null;
+    if (!target) return;
 
-  if (!target) return;
+    let value: any = target.value;
 
-  let value: any = target.value;
+    if (field === 'tag') {
+      const checked = (target as HTMLInputElement).checked;
+      const tag = value;
+      const currentTags = this.newProduct.tag ?? [];
 
-  // Special handling for checkboxes updating an array (e.g., 'tags')
-  if (field === 'tag') {
-    const checked = (target as HTMLInputElement).checked;
-    const tag = value;
-
-    const currentTags = this.newProduct.tag ?? [];
-
-    if (checked) {
-      if (!currentTags.includes(tag)) {
-        this.newProduct.tag = [...currentTags, tag];
-      }
-    } else {
-      this.newProduct.tag = currentTags.filter(t => t !== tag);
+      this.newProduct.tag = checked
+        ? [...new Set([...currentTags, tag])]
+        : currentTags.filter(t => t !== tag);
+      return;
     }
 
-    return;
-  }
+    if (field === 'price' || field === 'stock') {
+      value = parseFloat(value);
+    }
 
-  // Convert to number if field is numeric
-  if (field === 'price' || field === 'stock') {
-    value = parseFloat(value);
+    this.newProduct[field] = value;
   }
-
-  this.newProduct[field] = value;
-}
 
 
 
   handleNewImageUpload(event: any) {
-  const file = event.target.files[0];
-  if (file && file.type.startsWith('image/')) {
-    const fileName = encodeURIComponent(file.name); // safely encode filename
+    const file: File = event.target.files[0];
 
-    //  Construct the image URL 
-    const imageBaseUrl = 'https://old-souqs.sirv.com/Products/';
-    const imageUrl = `${imageBaseUrl}${fileName}`;
+    if (!file || !file.type.startsWith('image/')) {
+      alert('Please select a valid image file.');
+      event.target.value = '';
+      return;
+    }
 
-    //  Save the image URL to newProduct
-    this.newProduct.image = imageUrl;
-
-  } else {
-    alert('Please select a valid image file.');
-    event.target.value = '';
+    this.selectedImageFile = file;
+    console.log('✅ Image selected:', file.name);
   }
-}
 
 
-  addNewProduct() {
-    if (this.newProduct.descriptionAr && this.newProduct.description && this.newProduct.tag.length != 0 && this.newProduct.title && this.newProduct.titleAr && this.newProduct.price && this.newProduct.stock  && this.newProduct.sku && this.newProduct.image) {
-      // Add the product to your array of products
-      console.log('New product added: ', this.newProduct);
-      this.productService.createProduct(this.newProduct);
-      this.closeAddPopup();
-      // Reset the newProduct object for the next entry
-      this.newProduct = {
-         title: '',
-        titleAr: '',
-        description: '',
-        descriptionAr: '',
-        stock: 0,
-        price: 0,
-        sku: '',
-        tag:[],
-        image: '',
-        createdAt:  new Date(),
-        updatedAt:  new Date(), 
-      };
-    } else {
-      alert('Please fill in all fields.');
+  async addNewProduct() {
+    const {
+      title, titleAr, description, descriptionAr,
+      stock, price, sku, tag
+    } = this.newProduct;
+
+    if (!title || !titleAr || !description || !descriptionAr || !stock || !price || !sku || tag.length === 0 || !this.selectedImageFile) {
+      alert('Please fill in all fields and select an image.');
+      return;
+    }
+
+    try {
+      console.log('📤 Uploading image to Sirv...');
+
+      const fileName = encodeURIComponent(this.selectedImageFile.name);
+      const sirvPath = `Products/${fileName}`;
+      const imageUrl = `https://old-souqs.sirv.com/${sirvPath}`;
+      console.log(this.selectedImageFile)
+      const token = await this.sirvService.getAccessToken();  
+      await this.sirvService.uploadImage(token, this.selectedImageFile, sirvPath).toPromise();
+
+      console.log('✅ Image uploaded:', imageUrl);
+      this.newProduct.image = imageUrl;
+
+      console.log('📦 Creating product:', this.newProduct);
+
+      this.productService.createProduct(this.newProduct).subscribe({
+        next: (response) => {
+          console.log('✅ Product created:', response);
+          this.closeAddPopup();
+          this.resetNewProduct();
+        },
+        error: (err) => {
+          console.error('❌ Error creating product:', err);
+          alert('There was an error adding the product.');
+        }
+      });
+    } catch (err: any) {
+      console.error('❌ Error in upload/save flow:', err);
+      alert(err?.error?.message || 'Failed to upload image or create product.');
     }
   }
 
-// collection section
+
+  resetNewProduct() {
+    this.newProduct = {
+      title: '',
+      titleAr: '',
+      description: '',
+      descriptionAr: '',
+      stock: 0,
+      price: 0,
+      sku: '',
+      tag: [],
+      image: '',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.selectedImageFile = null;
+  }
+
+
+
+  // collection section
   editingStates: { [key: string]: boolean } = {}; // for edit mode
   inputValuesEn: { [key: string]: string } = {};     // temp input value for editing
   inputValuesAr: { [key: string]: string } = {};     // temp input value for editing
@@ -395,7 +422,7 @@ updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
   isCategoryDetailsShown(CategoryId: string): boolean {
     return this.expandedCategoriesIds.has(CategoryId);
   }
- 
+
 
   // Return products related to a collection
   getProductsByCategory(categoryName: string) {
@@ -435,223 +462,223 @@ updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
     const input = event.target as HTMLInputElement;
     this.inputValuesAr[collectionId] = input.value;
   }
-  
-    // add new category
-    showAddCollectionPopup = false;
-    
-    newCollectionNameEn = '';
-    newCollectionNameAr = '';
 
-    openAddCollectionPopup() {
-      this.showAddCollectionPopup = true;
-      this.newCollectionNameEn = '';
-      this.newCollectionNameAr = '';
-    }
+  // add new category
+  showAddCollectionPopup = false;
 
-    closeAddCollectionPopup() {
-      this.showAddCollectionPopup = false;
-    }
+  newCollectionNameEn = '';
+  newCollectionNameAr = '';
 
-    handleCollectionNameInputEn(event: Event) {
-      const input = event.target as HTMLInputElement;
-      this.newCollectionNameEn = input.value;
-    }
-    handleCollectionNameInputAr(event: Event) {
-      const input = event.target as HTMLInputElement;
-      this.newCollectionNameAr = input.value;
-    }
+  openAddCollectionPopup() {
+    this.showAddCollectionPopup = true;
+    this.newCollectionNameEn = '';
+    this.newCollectionNameAr = '';
+  }
 
-    addNewCollection() {
-      const nameEn = this.newCollectionNameEn.trim();
-      const nameAr = this.newCollectionNameAr.trim();
-      if (nameEn && nameAr) {
-        alert(`New collection name: ${nameEn} - ${nameAr}`);
-        this.closeAddCollectionPopup();
-      } else {
-        alert('Please enter a collection name.');
+  closeAddCollectionPopup() {
+    this.showAddCollectionPopup = false;
+  }
+
+  handleCollectionNameInputEn(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.newCollectionNameEn = input.value;
+  }
+  handleCollectionNameInputAr(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.newCollectionNameAr = input.value;
+  }
+
+  addNewCollection() {
+    const nameEn = this.newCollectionNameEn.trim();
+    const nameAr = this.newCollectionNameAr.trim();
+    if (nameEn && nameAr) {
+      alert(`New collection name: ${nameEn} - ${nameAr}`);
+      this.closeAddCollectionPopup();
+    } else {
+      alert('Please enter a collection name.');
+    }
+  }
+  deleteCollection(collectinId: string) {
+    if (confirm('Are you sure you want to delete this collection?')) {
+
+    }
+  }
+
+
+  // orders section
+  expandedOrderId: string | null = null;
+
+  users = [
+    { id: '1', name: 'Ali Ahmed' },
+    { id: '2', name: 'Sarah Khalil' },
+    { id: '3', name: 'Mohammed Said' },
+  ];
+
+
+  selectedSort = 'latest';
+
+  get groupedOrders() {
+    const sorted = [...this.orders].sort((a, b) => {
+      const d1 = new Date(a.orderDate).getTime();
+      const d2 = new Date(b.orderDate).getTime();
+      return this.selectedSort === 'latest' ? d2 - d1 : d1 - d2;
+    });
+
+    const groups: { [key: string]: any[] } = {};
+    sorted.forEach(order => {
+      if (!groups[order.orderDate]) groups[order.orderDate] = [];
+      groups[order.orderDate].push(order);
+    });
+
+    return Object.entries(groups);
+  }
+  getProductById(id: string) {
+    return this.allproducts.find(p => p.id === id);
+  }
+  getUserNameById(id: string): string {
+    const user = this.users.find(u => u.id === id);
+    return user ? user.name : 'Unknown User';
+  }
+
+  // to hide and show order details
+  expandedOrderIds: Set<string> = new Set();
+
+  toggleOrderDetails(orderId: string) {
+    if (this.expandedOrderIds.has(orderId)) {
+      this.expandedOrderIds.delete(orderId);
+    } else {
+      this.expandedOrderIds.add(orderId);
+    }
+  }
+
+  isOrderDetailsShown(orderId: string): boolean {
+    return this.expandedOrderIds.has(orderId);
+  }
+
+  // calculate total price
+  calculateTotalPrice(productsInOrder: { id: string; quantity: number }[]): number {
+    let total = 0;
+
+    for (const item of productsInOrder) {
+      const product = this.products.find(p => p.id === item.id);
+      if (product) {
+        total += product.price * item.quantity;
       }
     }
-    deleteCollection(collectinId:string){
-      if (confirm('Are you sure you want to delete this collection?')) {  
-        
-      }
-    }
 
+    return total;
+  }
 
-    // orders section
-    expandedOrderId: string | null = null;
-
-    users = [
-      { id: '1', name: 'Ali Ahmed' },
-      { id: '2', name: 'Sarah Khalil' },
-      { id: '3', name: 'Mohammed Said' },
-    ];
-    
-
-    selectedSort = 'latest';
-
-    get groupedOrders() {
-      const sorted = [...this.orders].sort((a, b) => {
-        const d1 = new Date(a.orderDate).getTime();
-        const d2 = new Date(b.orderDate).getTime();
-        return this.selectedSort === 'latest' ? d2 - d1 : d1 - d2;
-      });
-
-      const groups: { [key: string]: any[] } = {};
-      sorted.forEach(order => {
-        if (!groups[order.orderDate]) groups[order.orderDate] = [];
-        groups[order.orderDate].push(order);
-      });
-
-      return Object.entries(groups);
-    }
-    getProductById(id: string) {
-      return this.allproducts.find(p => p.id === id);
-    }
-    getUserNameById(id: string): string {
-      const user = this.users.find(u => u.id === id);
-      return user ? user.name : 'Unknown User';
-    }
-
-    // to hide and show order details
-    expandedOrderIds: Set<string> = new Set();
-
-    toggleOrderDetails(orderId: string) {
-      if (this.expandedOrderIds.has(orderId)) {
-        this.expandedOrderIds.delete(orderId);
-      } else {
-        this.expandedOrderIds.add(orderId);
-      }
-    }
-
-    isOrderDetailsShown(orderId: string): boolean {
-      return this.expandedOrderIds.has(orderId);
-    }
-
-    // calculate total price
-    calculateTotalPrice(productsInOrder: { id: string; quantity: number }[]): number {
-      let total = 0;
-    
-      for (const item of productsInOrder) {
-        const product = this.products.find(p => p.id === item.id);
-        if (product) {
-          total += product.price * item.quantity;
-        }
-      }
-    
-      return total;
-    }
-    
   //  discount section
-    newDiscount: Record<DiscountField, string> = {
+  newDiscount: Record<DiscountField, string> = {
+    type: 'product',
+    targetId: '',
+    value: ''
+  };
+
+  showAddDiscountPopup = false;
+
+  discounts = [
+    {
+      id: 'd1',
       type: 'product',
-      targetId: '',
-      value: ''
-    };
+      targetId: '1',
+      value: '10',
+      createdAt: new Date('2024-12-01')
+    },
+    {
+      id: 'd2',
+      type: 'category',
+      targetId: '2',
+      value: '15',
+      createdAt: new Date('2024-12-03')
+    },
+    {
+      id: 'd3',
+      type: 'product',
+      targetId: '2',
+      value: '10',
+      createdAt: new Date('2024-12-01')
+    },
+    {
+      id: 'd4',
+      type: 'product',
+      targetId: '3',
+      value: '10',
+      createdAt: new Date('2024-11-11')
+    },
+    {
+      id: 'd5',
+      type: 'category',
+      targetId: '1',
+      value: '10',
+      createdAt: new Date('2024-12-12')
+    },
+    {
+      id: 'd6',
+      type: 'category',
+      targetId: '3',
+      value: '10',
+      createdAt: new Date('2025-1-01')
+    }
+  ];
 
-    showAddDiscountPopup = false;
+  handleDiscountField(field: DiscountField, event: Event) {
+    const input = event.target as HTMLInputElement | HTMLSelectElement;
+    this.newDiscount[field] = input.value;
+  }
 
-    discounts = [
-      {
-        id: 'd1',
-        type: 'product',
-        targetId: '1',
-        value: '10',
-        createdAt: new Date('2024-12-01')
-      },
-      {
-        id: 'd2',
-        type: 'category',
-        targetId: '2',
-        value: '15',
-        createdAt: new Date('2024-12-03')
-      },
-      {
-        id: 'd3',
-        type: 'product',
-        targetId: '2',
-        value: '10',
-        createdAt: new Date('2024-12-01')
-      },
-      {
-        id: 'd4',
-        type: 'product',
-        targetId: '3',
-        value: '10',
-        createdAt: new Date('2024-11-11')
-      },
-      {
-        id: 'd5',
-        type: 'category',
-        targetId: '1',
-        value: '10',
-        createdAt: new Date('2024-12-12')
-      },
-      {
-        id: 'd6',
-        type: 'category',
-        targetId: '3',
-        value: '10',
-        createdAt: new Date('2025-1-01')
+
+
+  editingId: string | null = null;
+  editingIndex: number | null = null; // To track the index of the editing discount
+  editingValue: string = ''; // Initialize as an empty string instead of null
+  newDiscountValue: string = ''; // New discount value for adding a discount
+  newDiscountTargetId: string = ''; // Target ID for new discount
+  newDiscountType: 'product' | 'category' = 'product'; // Default type for new discount
+
+  discountNames: { [key: string]: string } = {}; // Store computed names
+
+  isValidValue: boolean = true; // To track if the value is valid
+
+  // ngOnInit() {
+  //   this.computeDiscountNames();
+  // }
+
+  // Precompute the names of products or categories
+  computeDiscountNames() {
+    this.discounts.forEach(d => {
+      if (d.type === 'product') {
+        const product = this.products.find(p => p.id === d.targetId);
+        this.discountNames[d.id] = product ? product.nameEn + ' - ' + product.nameAr : 'Unknown Product';
+      } else if (d.type === 'category') {
+        const category = this.categories.find(c => c.id === d.targetId);
+        this.discountNames[d.id] = category ? category.nameEn + ' - ' + category.nameAr : 'Unknown Category';
       }
-    ];
-
-    handleDiscountField(field: DiscountField, event: Event){
-      const input = event.target as HTMLInputElement | HTMLSelectElement;
-      this.newDiscount[field] = input.value;
+    });
+  }
+  addDiscount() {
+    if (!this.newDiscount.targetId || !this.newDiscount.value) {
+      alert('Please fill all fields');
+      return;
     }
 
+    this.discounts.push({
+      id: Date.now().toString(),
+      type: this.newDiscount.type as 'product' | 'category',
+      targetId: this.newDiscount.targetId,
+      value: this.newDiscount.value,
+      createdAt: new Date()
+    });
+
+    alert(`Discount added for ${this.newDiscount.type} ${this.newDiscount.targetId}`);
+    this.showAddDiscountPopup = false;
+    this.newDiscount = { type: 'product', targetId: '', value: '' };
+    this.computeDiscountNames();
+  }
 
 
-    editingId: string | null = null;
-    editingIndex: number | null = null; // To track the index of the editing discount
-    editingValue: string = ''; // Initialize as an empty string instead of null
-    newDiscountValue: string = ''; // New discount value for adding a discount
-    newDiscountTargetId: string = ''; // Target ID for new discount
-    newDiscountType: 'product' | 'category' = 'product'; // Default type for new discount
-  
-    discountNames: { [key: string]: string } = {}; // Store computed names
-  
-    isValidValue: boolean = true; // To track if the value is valid
-
-    // ngOnInit() {
-    //   this.computeDiscountNames();
-    // }
-  
-    // Precompute the names of products or categories
-    computeDiscountNames() {
-      this.discounts.forEach(d => {
-        if (d.type === 'product') {
-          const product = this.products.find(p => p.id === d.targetId);
-          this.discountNames[d.id] = product ? product.nameEn +' - '+ product.nameAr : 'Unknown Product';
-        } else if (d.type === 'category') {
-          const category = this.categories.find(c => c.id === d.targetId);
-          this.discountNames[d.id] = category ? category.nameEn +' - '+ category.nameAr  : 'Unknown Category';
-        }
-      });
-    }
-    addDiscount() {
-      if (!this.newDiscount.targetId || !this.newDiscount.value) {
-        alert('Please fill all fields');
-        return;
-      }
-
-      this.discounts.push({
-        id: Date.now().toString(),
-        type: this.newDiscount.type as 'product' | 'category',
-        targetId: this.newDiscount.targetId,
-        value: this.newDiscount.value,
-        createdAt: new Date()
-      });
-
-      alert(`Discount added for ${this.newDiscount.type} ${this.newDiscount.targetId}`);
-      this.showAddDiscountPopup = false;
-      this.newDiscount = { type: 'product', targetId: '', value: '' };
-      this.computeDiscountNames();
-    }
-
-    
-    // Method to start editing a discount
+  // Method to start editing a discount
   editDiscount(id: string) {
     this.editingId = id;
     const discount = this.discounts.find(d => d.id === id);
@@ -684,8 +711,8 @@ updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
 
   // Method to delete a discount
   deleteDiscount(id: string) {
-    if (confirm('Are you sure you want to delete this discount?')) {  
-         this.discounts = this.discounts.filter(d => d.id !== id);
+    if (confirm('Are you sure you want to delete this discount?')) {
+      this.discounts = this.discounts.filter(d => d.id !== id);
     }
   }
 
@@ -715,19 +742,19 @@ updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()); // Sort by date descending
   }
 
-   // show and hide the filter div in tablet and mobile
-   showSidebar() {
+  // show and hide the filter div in tablet and mobile
+  showSidebar() {
     let sidebar = document.getElementById('sidebar')
-   
+
     if (sidebar) {
-          sidebar.style.display='flex'
-      }  
+      sidebar.style.display = 'flex'
+    }
   }
 
-  closeSidebar(){
+  closeSidebar() {
     let sidebar = document.getElementById('sidebar')
-    if(sidebar)
-      sidebar.style.display='none'
+    if (sidebar)
+      sidebar.style.display = 'none'
   }
 
   // code to change announcement
@@ -736,50 +763,50 @@ updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
   editingAnnouncementStates: { [key: number]: boolean } = {};
   AnnouncementinputValuesEn: { [key: number]: string } = {};
   // AnnouncementinputValuesAr: { [key: number]: string } = {};
-  
+
   newAnnouncementEn = '';
   // newAnnouncementAr = '';
   showAddAnnouncementPopup = false;
-  
+
   private readonly announcementKey = 'sliderMessages';
-  
-  
+
+
   private isBrowser(): boolean {
     return typeof window !== 'undefined' && !!window.localStorage;
   }
-  
+
   private loadAnnouncements(): void {
     if (this.isBrowser()) {
       const stored = localStorage.getItem(this.announcementKey);
       this.announcementsEn = stored ? JSON.parse(stored) : [];
     }
   }
-  
+
   //  Save to localStorage
   private saveAnnouncements(): void {
     if (this.isBrowser()) {
       localStorage.setItem(this.announcementKey, JSON.stringify(this.announcementsEn));
     }
   }
-  
+
   openAddAnnouncementPopup() {
     this.showAddAnnouncementPopup = true;
     this.newAnnouncementEn = '';
     // this.newAnnouncementAr = '';
   }
-  
+
   closeAddAnnouncementPopup() {
     this.showAddAnnouncementPopup = false;
   }
-  
+
   handleAnnouncementInputEn(event: Event) {
     this.newAnnouncementEn = (event.target as HTMLInputElement).value;
   }
-  
+
   // handleAnnouncementInputAr(event: Event) {
   //   this.newAnnouncementAr = (event.target as HTMLInputElement).value;
   // }
-  
+
   addNewAnnouncement() {
     const en = this.newAnnouncementEn.trim();
     // const ar = this.newAnnouncementAr.trim();
@@ -791,46 +818,43 @@ updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
       alert('Please enter both EN and AR announcements.');
     }
   }
-  
+
   editAnnouncementName(index: number, en: string) {
     this.editingAnnouncementStates[index] = true;
     this.AnnouncementinputValuesEn[index] = en;
     // this.AnnouncementinputValuesAr[index] = ar;
   }
-  
+
   saveAnnouncementName(index: number) {
     this.announcementsEn[index] = this.AnnouncementinputValuesEn[index];
     this.saveAnnouncements();
     this.editingAnnouncementStates[index] = false;
   }
-  
+
   cancelAnnouncementEditing(index: number) {
     this.editingAnnouncementStates[index] = false;
     delete this.AnnouncementinputValuesEn[index];
     // delete this.AnnouncementinputValuesAr[index];
   }
-  
+
   AnnouncementChangeEn(index: number, event: Event) {
     this.AnnouncementinputValuesEn[index] = (event.target as HTMLInputElement).value;
   }
-  
+
   AnnouncementChangeAr(index: number, event: Event) {
     // this.AnnouncementinputValuesAr[index] = (event.target as HTMLInputElement).value;
   }
-  
+
   confirmDeleteAnnouncement(index: number) {
     if (confirm('Are you sure you want to delete this announcement?')) {
       this.announcementsEn.splice(index, 1);
       this.saveAnnouncements();
     }
   }
-  
+
   Logout() {
     localStorage.removeItem('admin-token');
     this.router.navigate(['/login-admin']);
-  }  
-
-  addProduct(product: Product){
-
   }
+
 }

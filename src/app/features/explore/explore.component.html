@@ -328,7 +328,7 @@
                         </div>
                     </div>
             
-                    <p class="item-name" (click)="goToProduct(product.id)"><a>{{ product.name }}</a></p>
+                    <p class="item-name" #itemNameRef (click)="goToProduct(product.id)"><a>{{ product.name }}</a></p>
                     <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
                 </div>
             </div>
@@ -343,7 +343,7 @@
                     <!-- Show image only when not hovering -->
                 <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image" alt="{{ product.name }}" >
                 
-                <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
+                <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
                 <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
     
                 <div id="product-actions-container">
@@ -396,7 +396,7 @@
                             <img (click)="goToProduct(product.id)" *ngIf="hoveredItem !== product" [src]="product.image" alt="{{ product.name }}" class="product-image">
                         </div>
                         <div class="product-content">
-                            <p class="item-name" (click)="goToProduct(product.id)">{{ product.name }}</p>
+                            <p class="item-name" #itemNameRef (click)="goToProduct(product.id)">{{ product.name }}</p>
                             <span class="price-ul">$ {{ product.price.toFixed(2) }}</span>
                             <p class="description">{{product.description}}</p>
 

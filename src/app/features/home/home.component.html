@@ -221,11 +221,59 @@
                 </div>
             </div>
         </div> -->
-            <div class="custom-container">
-                <p class="fade-in-start name-aligned-mobile" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
+        <div class="custom-container">
+        <!-- Fixed Content -->
+        <div class="fixed-text-content">
+            <p class="fade-in-start" appFadeInOnScroll>
+            <span class="headline" style="color: var(--font-color-primary);"> {{ 'HOMEPAGE.CUSTOM-MADE' | translate }}</span>
+            <span class="headline marcellus-font" style="color: var(--font-color-primary);"> {{ 'HOMEPAGE.MASTERPIECES' | translate }}</span>
+            </p>
+            <p class="engaging-sentence fade-in-start" appFadeInOnScroll>
+            {{ 'HOMEPAGE.ENGAGING-SENTENCE1' | translate }}
+            </p>
+            <p class="engaging-sentence fade-in-start" appFadeInOnScroll>
+            {{ 'HOMEPAGE.ENGAGING-SENTENCE2' | translate }}
+            </p>
+            <span class="customized-buttons">
+                <button routerLink="/contact" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>
+                {{ 'HOMEPAGE.CONTACT-button' | translate }}
+                </button>
+                <button routerLink="/customized" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>
+                {{ 'HOMEPAGE.VIEW' | translate }}                    
+                </button>
+            </span>
+            
+        </div>
+
+        <!-- Sliding Background -->
+        <div class="slider-track" [style.transform]="getTransform()" [style.transition]="transitionStyle">
+            <div
+            class="slider-background"
+            *ngFor="let img of images"
+            [style.background-image]="'url(' + img + ')'">
+            </div>
+        </div>
+
+
+
+
+
+                <!-- <div class="slider-track" [style.transform]="getTransform()" [style.transition]="transitionStyle">
+                    <div class="slider-background" *ngFor="let img of images" [style.background-image]="'url(' + img + ')'">
+                    
+                        <p class="fade-in-start name-aligned-mobile" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
+                        class="headline marcellus-font"> {{'HOMEPAGE.MASTERPIECES' | translate }}</span></p>
+                        <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE1' | translate }}</p>
+                        <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE2' | translate }}</p> 
+
+                        <p routerLink="/contact" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.CONTACT-button' | translate }}</p> 
+
+                    </div>
+              </div> -->
+                <!-- <p class="fade-in-start name-aligned-mobile" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
                         class="headline marcellus-font"> {{'HOMEPAGE.MASTERPIECES' | translate }}</span></p>
                 <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE1' | translate }}</p>
-                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE2' | translate }}</p>
+                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE2' | translate }}</p> -->
 
                 <!-- <div class="items-container fade-in-start" appFadeInOnScroll>
 
@@ -253,7 +301,7 @@
                 </div> -->
 
 
-                <p routerLink="/contact" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.CONTACT-button' | translate }}</p>
+                <!-- <p routerLink="/contact" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.CONTACT-button' | translate }}</p> -->
             </div>
         <!-- <span class="show-in-tablet">
             <div class="custom-container">

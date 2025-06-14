@@ -21,6 +21,7 @@ import { LoginAdminComponent } from './features/login-admin/login-admin.componen
 import { ThankYouComponent } from './features/thank-you/thank-you.component';
 import { AuthGuard } from './services/auth.guard';
 import { adminAuthGuard } from './services/admin-auth.guard';
+import { CustomizedComponent } from './features/customized/customized.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -48,7 +49,8 @@ const routes: Routes = [
     component: AdminComponent,
     canActivate: [adminAuthGuard]},
   { path: 'login-admin',component: LoginAdminComponent},
-  { path: 'thank-you', component: ThankYouComponent}
+  { path: 'thank-you', component: ThankYouComponent},
+  {path: 'customized', component: CustomizedComponent}
 ];
 
 @NgModule({

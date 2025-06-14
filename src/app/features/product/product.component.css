@@ -338,13 +338,22 @@ article{
     height:19rem;
 }
 .item-name{
-    color: var(--font-color-secondary);
-    margin:1rem 0;
-    font-family: var(--font-custom-stack-paragraph);
-    font-size: 1.1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.8rem;
+    width: 100%;
+  height: 3rem; /* Fixed height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  color: var(--font-color-secondary);
+  font-family: var(--font-custom-stack-paragraph);
+  font-weight: 500;
+  padding: 0 0.5rem; /* Avoid overflow cut */
+
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.2rem;
 }
 .item-name:hover{
     color: var(--font-color-primary);
@@ -625,6 +634,7 @@ article{
         height:auto;
     }
     .item-name{
+        width: 95%;
         margin:0rem 0;
         font-size: 0.9rem;
     }
@@ -855,6 +865,8 @@ article{
         object-fit: cover;
     }
     .item-name{
+        width: 95%;
+        height: 3.5rem;
         margin:0rem 0;
         font-size: 0.85rem;
     }

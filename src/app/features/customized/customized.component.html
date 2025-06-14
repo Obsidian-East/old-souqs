@@ -1,0 +1,80 @@
+<app-header></app-header>
+
+<section id="content">
+    <article id="hero" class="hero ">
+        <div class="hero-container">
+            <p class="hero-title fade-in-start" appFadeInOnScroll>Our Custom Copper Collection</p>    
+        </div>
+    </article>
+
+    <article>
+        <h2 class="headline">Welcome to our world of customized copper designs</h2>
+        <p class="text"><a routerLink="/contactus">Contact us</a> today to create your own custom copper piece.</p>
+
+
+        <div class="gallery-container">
+            <div class="masonry-grid">
+                <div class="masonry-item" *ngFor="let img of images" (click)="openModal(img)">
+                <img [src]="img" alt="Customized copper" loading="lazy" />
+                </div>
+            </div>
+        </div>
+        <div class="image-modal" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="close-button" (click)="closeModal(); $event.stopPropagation()">&#10005;</div>
+
+  <!-- Desktop zoom -->
+   <span class="hide-in-tablet">
+        <div class="image-wrapper "
+        #zoomWrapper
+        (mousemove)="onMouseMove($event)"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()">
+        <img #zoomImage [src]="selectedImage" class="zoom-img" [ngStyle]="zoomStyles" />
+    </div>
+   </span>
+  
+
+  <!-- Mobile/tablet zoom wrapper -->
+<div class="image-wrapper show-in-tablet" #imageWrapper>
+  <img
+    #pinchImage
+    [src]="selectedImage"
+    class="zoom-image"
+    (touchstart)="onTouchStart($event)"
+    (touchmove)="onTouchMove($event)"
+    (touchend)="onTouchEnd($event)"
+  />
+</div>
+
+</div>
+
+
+        <!-- Fullscreen Preview Modal -->
+        <!-- <div class="image-preview-overlay hide-in-tablet" *ngIf="selectedImage"
+         (click)="closePreview()"
+         #zoomWrapper
+        (mousemove)="onMouseMove($event)"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()">
+            <img [src]="selectedImage"
+             alt="Preview" 
+              #zoomImage
+            [ngStyle]="zoomStyles"/>
+            <button class="close-btn" (click)="closePreview($event)">✕</button>
+        </div> -->
+        <!-- <div class="image-wrapper show-in-tablet" #imageWrapper>
+            <img
+            #pinchImage
+            [src]="selectedImage"
+            class="zoom-image"
+            (touchstart)="onTouchStart($event)"
+            (touchmove)="onTouchMove($event)"
+            (touchend)="onTouchEnd($event)"
+            />
+        </div> -->
+
+
+    </article>
+</section>
+
+<app-footer></app-footer>

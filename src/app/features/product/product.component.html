@@ -261,7 +261,7 @@
                             </div>
                         </div>
                 
-                        <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
+                        <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
                         <span class="item-price">$ {{ (+product.price).toFixed(2) }}</span>
                     </div>
                 </div>
@@ -279,7 +279,7 @@
                     <img (click)="goToProduct(product.id)" class="product-image" [src]="product?.image" alt="{{ product.name }}" >
                 
             
-                    <p class="item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
+                    <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
                     <span class="item-price">$ {{ (+product.price).toFixed(2) }}</span>
     
                     <div id="product-actions-container">

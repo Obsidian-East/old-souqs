@@ -60,7 +60,8 @@
       "CONTACT-SENTENCE1": "Have a design in mind?",
       "CONTACT-SENTENCE2": "Request a Custom Design",
       "CONTACT-button": "Request a Custom Design",
-      "CONTACT-SENTENCE3": "to create a one-of-a-kind piece made just for you."
+      "CONTACT-SENTENCE3": "to create a one-of-a-kind piece made just for you.",
+      "VIEW":"View Custom Copper"
     },
     "SIGNUP":{
       "HERO": "Join the Collector's Circle",

@@ -75,11 +75,17 @@ h3 {
 .hide-in-mobile{
     display: flex;
 }
-
-.back-to-top {
-    position: fixed;
+.back-to-top-whatsapp{
+position: fixed;
     bottom: 20px;
     right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.back-to-top {
     background: var(--font-color-primary);
     color: white;
     border: none;
@@ -99,9 +105,28 @@ h3 {
   .back-to-top:active {
     transform: scale(0.95);
   }
-  
-
-
+  .whatsapp-icon{
+    width: 2rem;
+    height: 2rem;
+    animation: pulse 1s infinite ease-in-out;
+    transition: transform 0.3s;  
+  }
+  .whatsapp-icon svg{
+    width: 2rem;
+    height: 2rem;
+    fill: var(--font-color-primary);
+  }
+ @keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 
 /* The switch - the box around the slider */

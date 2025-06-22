@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild,  Renderer2, HostListener, NgZone } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild,  Renderer2, HostListener, NgZone, ViewChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
@@ -324,5 +324,32 @@ export class ProductComponent implements OnInit {
   
     }
 
+
+    // to adjust font size of item name if its too long
+       @ViewChildren('nameRef') nameRefs!: QueryList<ElementRef>;
+    
+      @HostListener('window:resize')
+      onResize() {
+      this.adjustFontSizes();
+      }
+    
+      ngAfterViewInit() {
+      this.adjustFontSizes();
+      }
+    
+      adjustFontSizes() {
+        this.nameRefs.forEach((elRef: ElementRef) => {
+          const el = elRef.nativeElement as HTMLElement;
+          let fontSize = 1.1; // rem
+          const maxHeight = el.clientHeight;
+    
+          el.style.fontSize = `${fontSize}rem`;
+    
+          while (el.scrollHeight > maxHeight && fontSize > 0.6) {
+            fontSize -= 0.05;
+            el.style.fontSize = `${fontSize}rem`;
+          }
+        });
+      }
 
 }

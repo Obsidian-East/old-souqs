@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ChangeDetectorRef, AfterViewInit, QueryList, ViewChildren, ElementRef } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectorRef, AfterViewInit, QueryList, ViewChildren, ElementRef, NgZone } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
@@ -24,14 +24,49 @@ export class HomeComponent implements OnInit {
 	productsArrived: { id: string; name: string; price: number; image: string }[] = [];
 	deals: { id: string; name: string; price: number; image: string }[] = [];
 
+	//   customized img
+  images: string[] = [
+	'https://old-souqs.sirv.com/customized/image00018.jpeg',
+	'https://old-souqs.sirv.com/customized/image00026.jpeg',
+	'https://old-souqs.sirv.com/customized/image00021.jpeg',
+    'https://old-souqs.sirv.com/customized/image00007.jpeg',
+    'https://old-souqs.sirv.com/customized/image00015.jpeg',
+	'https://old-souqs.sirv.com/customized/image00019.jpeg',
+	'https://old-souqs.sirv.com/customized/image00020.jpeg'
+  ];
+   customizedIndex: number = 0;
+  	intervalId: any;
+	transitionStyle: string = 'transform 0.5s ease-in-out';
+ 
 	constructor(private router: Router,
 		private el: ElementRef,
 		private productService: ProductService,
 		private cartService: CartService,
 		public wishlistService: WishlistService,
 		private cd: ChangeDetectorRef,
-		private eventBus: EventBusService) { }
+			private ngZone: NgZone,
+		private eventBus: EventBusService) { 
 
+			 this.ngZone.runOutsideAngular(() => {
+      this.intervalId = setInterval(() => {
+        this.ngZone.run(() => this.showNextSlide());
+      }, 5000);
+    });
+		}
+  
+
+
+  showNextSlide() {
+    this.customizedIndex = (this.customizedIndex + 1) % this.images.length;
+  }
+
+  getTransform(): string {
+    return `translateX(-${this.customizedIndex * 100}%)`;
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) clearInterval(this.intervalId);
+  }	
 	ngOnInit(): void {
 		this.fetchProductsByCollection();
 		setTimeout(() => {

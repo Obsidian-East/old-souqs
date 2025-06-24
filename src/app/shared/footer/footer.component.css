@@ -108,13 +108,12 @@ position: fixed;
   .whatsapp-icon{
     width: 2rem;
     height: 2rem;
-    animation: pulse 1s infinite ease-in-out;
+    /* animation: pulse 1s infinite ease-in-out; */
     transition: transform 0.3s;  
   }
-  .whatsapp-icon svg{
+  .whatsapp-icon img{
     width: 2rem;
     height: 2rem;
-    fill: var(--font-color-primary);
   }
  @keyframes pulse {
   0% {

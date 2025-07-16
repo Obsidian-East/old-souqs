@@ -223,10 +223,10 @@ export class ProductComponent implements OnInit {
             this.relatedProducts = (allProducts || [])
               // .filter((product: any) => relatedProductIds.includes(product.id))
               .map((product: any) => ({
-                id: product.ID,
-                name: product.Title,
-                price: +product.Price,
-                image: product.Image
+                id: product.id,
+                name: product.title,
+                price: +product.price,
+                image: product.image
               }));
   
             // Limit to max 4 related products

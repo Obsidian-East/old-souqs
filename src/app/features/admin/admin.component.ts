@@ -55,7 +55,7 @@ export class AdminComponent implements OnInit {
   }
 
   fetchProducts() {
-    this.productService.getProducts().subscribe({
+    this.productService.adminGetProducts().subscribe({
       next: (data) => {
         console.log('Raw data from DB:', data);
 
@@ -194,9 +194,20 @@ export class AdminComponent implements OnInit {
 
   deleteProduct(productId: string) {
     if (confirm('Are you sure you want to delete this product?')) {
-
+      this.productService.deleteProduct(productId).subscribe({
+        next: () => {
+          console.log('Product deleted successfully');
+          // Refresh product list
+          this.fetchProducts();
+        },
+        error: (err) => {
+          console.error('Failed to delete product:', err);
+          alert('Failed to delete product: ' + (err.error?.message || err.message));
+        }
+      });
     }
   }
+
 
 
   // update product
@@ -205,21 +216,29 @@ export class AdminComponent implements OnInit {
 
   // Open the popup with selected product
   openEditPopup(product: any) {
-  this.selectedProduct = {
-    id: product._id || product.id,
-    title: product.title || product.nameEn || '',
-    titleAr: product.titleAr || product.nameAr || '',
-    description: product.description || product.descriptionEn || '',
-    descriptionAr: product.descriptionAr || '',
-    sku: product.sku,
-    image: product.image,
-    stock: product.stock || product.quantity || 0,
-    instock: product.instock,
-    tag: product.tag || product.tags || [],
-  };
-  this.showPopup = true;
-}
-
+    this.productService.getProductById(product.id).subscribe({
+      next: (freshProduct) => {
+        this.selectedProduct = {
+          id: freshProduct.id || freshProduct._id,
+          title: freshProduct.title,
+          titleAr: freshProduct.titleAr,
+          description: freshProduct.description,
+          descriptionAr: freshProduct.descriptionAr,
+          sku: freshProduct.sku,
+          image: freshProduct.image,
+          price: freshProduct.price,
+          stock: freshProduct.stock,
+          instock: freshProduct.instock ?? freshProduct.stock > 0,
+          tag: Array.isArray(freshProduct.tag) ? [...freshProduct.tag] : [],
+        };
+        this.showPopup = true;
+      },
+      error: (err) => {
+        console.error('Failed to load product for editing:', err);
+        alert('Error loading product for editing');
+      }
+    });
+  }
 
   // Close the popup
   closePopup() {

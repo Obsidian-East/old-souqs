@@ -17,7 +17,7 @@ import { EventBusService } from '../../shared/event-bus.service';
 
 export class HomeComponent implements OnInit {
 	trendingCollectionId = '67ea6d0cc4338e7d55573ac4';
-	newArrivedCollectionId = '67eb079f48a62338c7e3185c';
+	newArrivedCollectionId = '6877b1ba607a5079c14c6649';
 	dealsCollectionId = '67eb0a7048a62338c7e31860';
 
 	productsTrending: { id: string; name: string; price: number; image: string }[] = [];
@@ -79,12 +79,13 @@ export class HomeComponent implements OnInit {
 	fetchProductsByCollection(): void {
 		this.productService.getProductsByCollection(this.trendingCollectionId).subscribe({
 			next: (data) => {
+				console.log('Fetched trending products:', data);
 				this.productsTrending = (data || []).map((product: any) => ({
-					id: String(product.ID),
-					name: product.Title,
-					price: product.Price,
-					image: product.Image,
-					stock: product.Stock
+					id: String(product.id),
+					name: product.title,
+					price: product.price,
+					image: product.image,
+					stock: product.stock
 				}));
 				// Initialize the products array with trending products
 				this.products = this.productsTrending;
@@ -97,10 +98,10 @@ export class HomeComponent implements OnInit {
 			next: (data) => {
 				this.productsArrived = (data || []).map((product: any) => ({
 					id: String(product.ID),
-					name: product.Title,
-					price: product.Price,
-					image: product.Image,
-					stock: product.Stock
+					name: product.title,
+					price: product.price,
+					image: product.image,
+					stock: product.stock
 				}));
 			},
 			error: (error) => {
@@ -111,10 +112,10 @@ export class HomeComponent implements OnInit {
 			next: (data) => {
 				this.deals = (data || []).map((product: any) => ({
 					id: String(product.ID),
-					name: product.Title,
-					price: product.Price,
-					image: product.Image,
-					stock: product.Stock
+					name: product.title,
+					price: product.price,
+					image: product.image,
+					stock: product.stock
 				}));
 			},
 			error: (error) => {

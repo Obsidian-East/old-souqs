@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 @Injectable({
     providedIn: 'root'
@@ -68,6 +71,14 @@ export class ProductService {
         }
     }
 
+    adminGetProducts(): Observable<Product[]> {
+        return this.http.get<Product[]>(`${this.apiProductUrl}?isAdmin=true`);
+    }
+
+    adminGetProductById(id: string): Observable<Product> {
+        return this.http.get<Product>(`${this.apiProductUrl}/${id}?isAdmin=true`);
+    }
+
     createProduct(product: Product): Observable<Product> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<any>(this.apiProductUrl, product, { headers });
@@ -81,7 +92,7 @@ export class ProductService {
     }
 
     deleteProduct(id: string): Observable<void> {
-        const url = `${this.apiProductUrl}?id=${id}`;
+        const url = `${this.apiProductUrl}/${id}`;
         return this.http.delete<void>(url);
     }
 

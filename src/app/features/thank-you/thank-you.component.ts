@@ -32,7 +32,7 @@ export class ThankYouComponent implements OnInit {
   orders: {
     orderId: string;
     orderDate: string;
-    urserId: string;
+    userId: string;
     productsIds: { id: string; quantity: string }[];
     location: string;
     subtotal: number;
@@ -113,7 +113,7 @@ export class ThankYouComponent implements OnInit {
         this.orders = {
           orderId: order.orderId,
           orderDate: new Date(order.creationDate).toISOString().split('T')[0],
-          urserId: order.userId,
+          userId: order.userId,
           productsIds:
             order.items?.map((item: any) => ({
               id: item.productId,

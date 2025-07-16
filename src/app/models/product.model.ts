@@ -7,8 +7,9 @@ export interface Product {
   stock: number;
   price: number;
   sku: string;
-  tag: string[]; // This should match your Go backend field
+  tag: string[];
   image?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  [key: string]: any;
 }

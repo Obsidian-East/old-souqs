@@ -7,7 +7,6 @@ import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { UserService } from '../../services/user.service';
 import { Product } from '../../models/product.model';
-import { SirvService } from '../../services/sirv.service';
 
 // new dicount
 type DiscountField = 'type' | 'targetId' | 'value';
@@ -24,7 +23,7 @@ export class AdminComponent implements OnInit {
   selectedImageFile: File | null = null;
 
   constructor(private router: Router, private productService: ProductService, private orderService: OrderService,
-    private userService: UserService, private sirvService: SirvService
+    private userService: UserService
   ) {
     this.loadAnnouncements();
   }
@@ -105,25 +104,6 @@ export class AdminComponent implements OnInit {
       });
     });
 
-    // this.orderService.getAllOrders().subscribe({
-    // 	next: (data) => {
-    // 		this.orders = data.map((order: any) => ({
-    // 			orderId: order.orderId,
-    //       orderDate: new Date(order.creationDate).toISOString().split('T')[0], // "YYYY-MM-DD"
-    //       urserId: order.userId,
-    //       productsIds: order.items?.map((item: any) => ({
-    //         id: item.productId,
-    //         quantity: item.quantity
-    //       })) || [],      
-    //       userName: this.allUsers.find(u => u.id === order.userId)?.name || 'Unknown User',    
-    //       location: order.userLocation,
-    //       total: order.total
-    // 		}));
-    // 	},
-    // error: (error) => {
-    // 	console.error('Error fetching orders:', error);
-    // }
-    // });
   }
 
 
@@ -225,9 +205,21 @@ export class AdminComponent implements OnInit {
 
   // Open the popup with selected product
   openEditPopup(product: any) {
-    this.selectedProduct = { ...product }; // Clone the object to avoid modifying original directly
-    this.showPopup = true;
-  }
+  this.selectedProduct = {
+    id: product._id || product.id,
+    title: product.title || product.nameEn || '',
+    titleAr: product.titleAr || product.nameAr || '',
+    description: product.description || product.descriptionEn || '',
+    descriptionAr: product.descriptionAr || '',
+    sku: product.sku,
+    image: product.image,
+    stock: product.stock || product.quantity || 0,
+    instock: product.instock,
+    tag: product.tag || product.tags || [],
+  };
+  this.showPopup = true;
+}
+
 
   // Close the popup
   closePopup() {
@@ -244,36 +236,52 @@ export class AdminComponent implements OnInit {
     }
   }
 
-
-
-  // Handle image upload
-  handleImageUpload(event: any) {
-    const file = event.target.files[0];
-
-    // Check if a file is selected and if it's an image
-    if (file) {
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.selectedProduct.image = e.target.result; // Store the image
-        };
-        reader.readAsDataURL(file); // Convert to base64 string
-      } else {
-        // Show error message if file is not an image
-        alert("Please select a valid image file.");
-        event.target.value = ''; // Clear the file input
-      }
-    }
-  }
-
   // Update the product in the array
   updateProduct() {
-    const index = this.products.findIndex(p => p.id === this.selectedProduct.id);
-    if (index !== -1) {
-      this.products[index] = { ...this.selectedProduct }; // Save the updated product
+    // Ensure selectedProduct has an _id for the update
+    if (!this.selectedProduct.id) {
+      alert('Error: Product ID is missing for update.');
+      return;
     }
-    this.closePopup(); // Close popup after updating
+    console.log('Submitting updated product:', this.selectedProduct);
+    this.productService.updateProduct(this.selectedProduct.id, this.selectedProduct).subscribe({
+      next: (updatedProduct) => {
+        console.log('Product updated successfully:', updatedProduct);
+        // Update the product in the local array with the response from the backend
+        const index = this.products.findIndex(p => p.id === updatedProduct['id']);
+        if (index !== -1) {
+          this.newProduct[index] = updatedProduct;
+        }
+        this.closePopup(); // Close popup after successful update
+        this.productService.getProducts().subscribe((products) => {
+          this.products = products;
+          this.closePopup();
+        });
+
+      },
+      error: (err) => {
+        console.error('Failed to update product:', err);
+        alert('Failed to update product: ' + (err.error?.message || err.message)); // Show more specific error
+      }
+    });
   }
+
+  toggleTag(tag: string, event: Event) {
+    if (!this.selectedProduct.tags) {
+      this.selectedProduct.tags = [];
+    }
+
+    const input = event.target as HTMLInputElement;
+
+    if (input.checked) {
+      if (!this.selectedProduct.tags.includes(tag)) {
+        this.selectedProduct.tags.push(tag);
+      }
+    } else {
+      this.selectedProduct.tags = this.selectedProduct.tags.filter((t: string) => t !== tag);
+    }
+  }
+
 
 
   // add new product
@@ -300,90 +308,6 @@ export class AdminComponent implements OnInit {
     this.showAddPopup = false;
   }
 
-  updateFieldNewProduct<K extends keyof Product>(field: K, event: Event): void {
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null;
-    if (!target) return;
-
-    let value: any = target.value;
-
-    if (field === 'tag') {
-      const checked = (target as HTMLInputElement).checked;
-      const tag = value;
-      const currentTags = this.newProduct.tag ?? [];
-
-      this.newProduct.tag = checked
-        ? [...new Set([...currentTags, tag])]
-        : currentTags.filter(t => t !== tag);
-      return;
-    }
-
-    if (field === 'price' || field === 'stock') {
-      value = parseFloat(value);
-    }
-
-    this.newProduct[field] = value;
-  }
-
-
-
-  handleNewImageUpload(event: any) {
-    const file: File = event.target.files[0];
-
-    if (!file || !file.type.startsWith('image/')) {
-      alert('Please select a valid image file.');
-      event.target.value = '';
-      return;
-    }
-
-    this.selectedImageFile = file;
-    console.log('✅ Image selected:', file.name);
-  }
-
-
-  async addNewProduct() {
-    const {
-      title, titleAr, description, descriptionAr,
-      stock, price, sku, tag
-    } = this.newProduct;
-
-    if (!title || !titleAr || !description || !descriptionAr || !stock || !price || !sku || tag.length === 0 || !this.selectedImageFile) {
-      alert('Please fill in all fields and select an image.');
-      return;
-    }
-
-    try {
-      console.log('📤 Uploading image to Sirv...');
-
-      const fileName = encodeURIComponent(this.selectedImageFile.name);
-      const sirvPath = `Products/${fileName}`;
-      const imageUrl = `https://old-souqs.sirv.com/${sirvPath}`;
-      console.log(this.selectedImageFile)
-      const token = await this.sirvService.getAccessToken();  
-      await this.sirvService.uploadImage(token, this.selectedImageFile, sirvPath).toPromise();
-
-      console.log('✅ Image uploaded:', imageUrl);
-      this.newProduct.image = imageUrl;
-
-      console.log('📦 Creating product:', this.newProduct);
-
-      this.productService.createProduct(this.newProduct).subscribe({
-        next: (response) => {
-          console.log('✅ Product created:', response);
-          this.closeAddPopup();
-          this.resetNewProduct();
-        },
-        error: (err) => {
-          console.error('❌ Error creating product:', err);
-          alert('There was an error adding the product.');
-        }
-      });
-    } catch (err: any) {
-      console.error('❌ Error in upload/save flow:', err);
-      alert(err?.error?.message || 'Failed to upload image or create product.');
-    }
-  }
-
-
   resetNewProduct() {
     this.newProduct = {
       title: '',
@@ -401,6 +325,68 @@ export class AdminComponent implements OnInit {
     this.selectedImageFile = null;
   }
 
+  updateFieldNewProduct(field: string, event: any) {
+    let value: any = event.target.value; // Initialize as any, will be converted if needed
+
+    if (field === 'tag') {
+      const checked = event.target.checked;
+      const tagValue = event.target.value;
+
+      if (checked && !this.newProduct.tag.includes(tagValue)) {
+        this.newProduct.tag.push(tagValue);
+      } else if (!checked) {
+        this.newProduct.tag = this.newProduct.tag.filter((t: string) => t !== tagValue);
+      }
+    } else {
+      // Explicitly convert 'stock' and 'price' values to numbers
+      if (field === 'stock' || field === 'price') {
+        // Use parseFloat to handle both integers and decimals
+        const parsedValue = parseFloat(value);
+        if (!isNaN(parsedValue)) {
+          value = parsedValue; // Assign the parsed number
+        } else {
+          // Handle invalid numeric input (e.g., user typed text into a number field)
+          console.warn(`Invalid numeric input for ${field}: "${event.target.value}". Setting to 0.`);
+          value = 0; // Default to 0 or handle as an error
+        }
+      }
+      this.newProduct[field] = value;
+    }
+  }
+
+  // Handle image upload for new product
+  handleNewImageUpload(event: any) {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    this.productService.uploadImage(file).subscribe({
+      next: (res) => {
+        this.newProduct.image = res.url;
+      },
+      error: (err) => {
+        console.error('Image upload failed:', err);
+        alert('Image upload failed.');
+      }
+    });
+  }
+
+  addNewProduct() {
+    if (!this.newProduct.image) {
+      alert('Please upload an image first.');
+      return;
+    }
+
+    this.productService.addProduct(this.newProduct).subscribe({
+      next: (res) => {
+        console.log('Product added:', res);
+        this.showAddPopup = false;
+      },
+      error: (err) => {
+        console.error('Failed to add product:', err);
+        alert('Failed to add product.');
+      }
+    });
+  }
 
 
   // collection section

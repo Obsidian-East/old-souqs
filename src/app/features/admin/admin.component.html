@@ -55,187 +55,163 @@
       </div>
     </div>
   
-  
 <!-- Edit Product Popup -->
 <div class="edit-popup" *ngIf="showPopup">
-    <div class="popup-content">
-      <button class="close-btn" (click)="closePopup()">✖</button>
-      <h2 class="headline">{{ 'ADMIN.EDIT-PRODUCT' | translate }} </h2>
-  
-      <!-- <label>Product Image</label> -->
-      <img [src]="selectedProduct.image" class="popup-image-preview" />
+  <div class="popup-content">
+    <button class="close-btn" (click)="closePopup()">✖</button>
+    <h2 class="headline">{{ 'ADMIN.EDIT-PRODUCT' | translate }}</h2>
 
-      <input type="file" (change)="handleImageUpload($event)" />
-  
-      <div class="grid-two">
-        <span class="label-input-container">
-            <label>{{ 'ADMIN.NAME-EN' | translate }} </label>
-            <input type="text" [value]="selectedProduct.nameEn" (input)="updateField('nameEn', $event)" />
-        </span>
-        
-        <span class="label-input-container">
-            <label>{{ 'ADMIN.NAME-AR' | translate }} </label>
-            <input type="text" [value]="selectedProduct.nameAr" (input)="updateField('nameAr', $event)" />
-        </span>
-        
-      </div>
-      <div class="grid-two">
-        <div class="grid-two">
-          
-          <span class="label-input-container">
-              <label>{{ 'ADMIN.PRICE' | translate }} </label>
-              <input type="number" [value]="selectedProduct.price" (input)="updateField('price', $event)" />
-          </span>
-        
-          <span class="label-input-container">
-            <label>{{ 'ADMIN.QUANTITY' | translate }} </label>
-            <input type="number" [value]="selectedProduct.quantity" (input)="updateField('quantity', $event)" />    
-        </span>
-        </div>
-        <div class="grid-two">
-          <span class="label-input-container">
-          <label>{{ 'ADMIN.SKU' | translate }} </label>
-          <input type="text" [value]="selectedProduct.sku" (input)="updateField('quantity', $event)" />    
-          </span>
+    <img [src]="selectedProduct.image" class="popup-image-preview" />
 
-          <span class="label-input-container">
-            <!-- <label>{{ 'ADMIN.IN_STOCK' | translate }}</label> -->
-            <label>In stock</label>
-            <span class="in-stock-container">
-              <label>
-                <input type="radio" name="inStock" 
-                  [checked]="selectedProduct.instock === true" 
-                  (change)="updateField('instock', true)" />
-                <!-- {{ 'ADMIN.YES' | translate }} -->
-                  yes
-              </label>
-              <label>
-                <input type="radio" name="inStock" 
-                  [checked]="selectedProduct.instock === false" 
-                  (change)="updateField('instock', false)" />
-                <!-- {{ 'ADMIN.NO' | translate }} -->
-                  no
-              </label>
-            </span>
-            
-          </span>
-          
-        </div>
-      </div>
-      
-    <!-- </div> -->
+    <input type="file" (change)="handleNewImageUpload($event)" />
+
+    <div class="grid-two">
+      <span class="label-input-container">
+        <label>{{ 'ADMIN.NAME-EN' | translate }}</label>
+        <input type="text" [(ngModel)]="selectedProduct.title" name="title" />
+      </span>
+
+      <span class="label-input-container">
+        <label>{{ 'ADMIN.NAME-AR' | translate }}</label>
+        <input type="text" [(ngModel)]="selectedProduct.titleAr" name="titleAr" />
+      </span>
+    </div>
+
+    <div class="grid-two">
+      <span class="label-input-container">
+        <label>{{ 'ADMIN.PRICE' | translate }}</label>
+        <input type="number" [(ngModel)]="selectedProduct.price" name="price" />
+      </span>
+
+      <span class="label-input-container">
+        <label>{{ 'ADMIN.QUANTITY' | translate }}</label>
+        <input type="number" [(ngModel)]="selectedProduct.stock" name="stock" />
+      </span>
+    </div>
+
+    <div class="grid-two">
+      <span class="label-input-container">
+        <label>{{ 'ADMIN.SKU' | translate }}</label>
+        <input type="text" [(ngModel)]="selectedProduct.sku" name="sku" />
+      </span>
+
+      <span class="label-input-container">
+        <label>In stock</label>
+        <span class="in-stock-container">
+          <label>
+            <input type="radio" name="inStock" [(ngModel)]="selectedProduct.instock" [value]="true" />
+            yes
+          </label>
+          <label>
+            <input type="radio" name="inStock" [(ngModel)]="selectedProduct.instock" [value]="false" />
+            no
+          </label>
+        </span>
+      </span>
+    </div>
+
     <span class="label-input-container">
       <label>{{ 'ADMIN.CATEGORY' | translate }}</label>
       <div class="checkbox-group">
         <label *ngFor="let category of collections">
           <input 
-            type="checkbox" 
-            [value]="category.id"
-            [checked]="selectedProduct.tags?.includes(category.nameEn)" 
-          />
+            type="checkbox"
+            [value]="category.nameEn"
+            [checked]="selectedProduct.tags?.includes(category.nameEn)"
+            (change)="toggleTag(category.nameEn, $event)" />
           {{ category.nameEn }} - {{ category.nameAr }}
         </label>
       </div>
     </span>
-    
+
     <span class="label-input-container">
-      <label>{{ 'ADMIN.DESC-EN' | translate }} </label>
-      <textarea (input)="updateField('descriptionEn', $event)">{{ selectedProduct.descriptionEn }}</textarea>
+      <label>{{ 'ADMIN.DESC-EN' | translate }}</label>
+      <textarea [(ngModel)]="selectedProduct.description" name="description"></textarea>
     </span>
-    <span class="label-input-container"> 
-      <label>{{ 'ADMIN.DESC-AR' | translate }} </label>
-      <textarea (input)="updateField('descriptionAr', $event)">{{ selectedProduct.descriptionAr }}</textarea>
-    </span> 
-      
-      <button class="update-btn" (click)="updateProduct()">{{ 'ADMIN.UPDATE' | translate }} </button>
-    </div>
+
+    <span class="label-input-container">
+      <label>{{ 'ADMIN.DESC-AR' | translate }}</label>
+      <textarea [(ngModel)]="selectedProduct.descriptionAr" name="descriptionAr"></textarea>
+    </span>
+
+    <button class="update-btn" (click)="updateProduct()">{{ 'ADMIN.UPDATE' | translate }}</button>
   </div>
+</div>
 
 
-  <div class="add-popup" *ngIf="showAddPopup">
-    <div class="popup-content">
-      <button class="close-btn" (click)="closeAddPopup()">✖</button>
-      <h2 class="headline">{{ 'ADMIN.ADD-NEW-PRODUCT' | translate }} </h2>
-  
-      <img [src]="" class="popup-image-preview" *ngIf="newProduct.image" />
-  
-      <input type="file" (change)="handleNewImageUpload($event)" accept="image/*" />
-  
+
+ <div class="add-popup" *ngIf="showAddPopup">
+  <div class="popup-content">
+    <button class="close-btn" (click)="closeAddPopup()">✖</button>
+    <h2 class="headline">{{ 'ADMIN.ADD-NEW-PRODUCT' | translate }} </h2>
+
+    <!-- Image Preview -->
+    <img [src]="newProduct.image" class="popup-image-preview" *ngIf="newProduct.image" />
+
+    <!-- Image Upload -->
+    <input type="file" (change)="handleNewImageUpload($event)" accept="image/*" />
+
+    <div class="grid-two">
+      <span class="label-input-container">
+        <label>{{ 'ADMIN.NAME-EN' | translate }} </label>
+        <input type="text" (input)="updateFieldNewProduct('title', $event)" />
+      </span>
+
+      <span class="label-input-container">
+        <label>{{ 'ADMIN.NAME-AR' | translate }} </label>
+        <input type="text" (input)="updateFieldNewProduct('titleAr', $event)" />
+      </span>
+    </div>
+
+    <div class="grid-two">
       <div class="grid-two">
         <span class="label-input-container">
-          <label>{{ 'ADMIN.NAME-EN' | translate }} </label>
-          <input type="text"  (input)="updateFieldNewProduct('title', $event)" />
-        </span>
-  
-        <span class="label-input-container">
-          <label>{{ 'ADMIN.NAME-AR' | translate }} </label>
-          <input type="text" (input)="updateFieldNewProduct('titleAr', $event)" />
-        </span>
-      </div>
-      <div class="grid-two">
-        <div class="grid-two">
-          <span class="label-input-container">
           <label>{{ 'ADMIN.PRICE' | translate }} </label>
-          <input type="number"  (input)="updateFieldNewProduct('price', $event)" />
+          <input type="number" (input)="updateFieldNewProduct('price', $event)" />
         </span>
         <span class="label-input-container">
           <label>{{ 'ADMIN.QUANTITY' | translate }} </label>
           <input type="number" (input)="updateFieldNewProduct('stock', $event)" />
         </span>
-        </div>
-        
-          <span class="label-input-container">
-          <label>{{ 'ADMIN.SKU' | translate }} </label>
-          <input type="string" (input)="updateFieldNewProduct('sku', $event)" />
-        </span>
-        <!-- <span class="label-input-container">
-          <label>In stock</label>
-          <span class="in-stock-container">
-            <label>
-              <input type="radio" name="inStock" 
-                 />
-              {{ 'ADMIN.YES' | translate }}
-            </label>
-            <label>
-              <input type="radio" name="inStock" 
-                />
-              {{ 'ADMIN.NO' | translate }}
-            </label>
-          </span>
-          
-        </span> -->
-        
       </div>
+
       <span class="label-input-container">
-        <label>{{ 'ADMIN.CATEGORY' | translate }}</label>
-        <div class="checkbox-group">
-  <label *ngFor="let category of collections">
-    <input 
-      type="checkbox"
-      [value]="category.nameEn"
-      (change)="updateFieldNewProduct('tag', $event)"
-      [checked]="newProduct.tag.includes(category.nameEn)"
-    />
-    {{ category.nameEn }} - {{ category.nameAr }}
-  </label>
+        <label>{{ 'ADMIN.SKU' | translate }} </label>
+        <input type="text" (input)="updateFieldNewProduct('sku', $event)" />
+      </span>
+    </div>
+
+    <span class="label-input-container">
+      <label>{{ 'ADMIN.CATEGORY' | translate }}</label>
+      <div class="checkbox-group">
+        <label *ngFor="let category of collections">
+          <input 
+            type="checkbox"
+            [value]="category.nameEn"
+            (change)="updateFieldNewProduct('tag', $event)"
+            [checked]="newProduct.tag.includes(category.nameEn)"
+          />
+          {{ category.nameEn }} - {{ category.nameAr }}
+        </label>
+      </div>
+    </span>
+
+    <span class="label-input-container">
+      <label>{{ 'ADMIN.DESC-EN' | translate }} </label>
+      <textarea (input)="updateFieldNewProduct('description', $event)"></textarea>
+    </span>
+
+    <span class="label-input-container">
+      <label>{{ 'ADMIN.DESC-AR' | translate }} </label>
+      <textarea (input)="updateFieldNewProduct('descriptionAr', $event)"></textarea>
+    </span>
+
+    <button class="add-btn" (click)="addNewProduct()">
+      {{ 'ADMIN.ADD-PRODUCT' | translate }}
+    </button>
+  </div>
 </div>
 
-      </span>
-      
-  
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.DESC-EN' | translate }} </label>
-        <textarea  (input)="updateFieldNewProduct('description', $event)"></textarea>
-      </span>
-  
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.DESC-AR' | translate }} </label>
-        <textarea  (input)="updateFieldNewProduct('descriptionAr', $event)"></textarea>
-      </span>
-  
-      <button class="add-btn" (click)="addNewProduct()">{{ 'ADMIN.ADD-PRODUCT' | translate }} </button>
-    </div>
-  </div>
   
 </div>
 

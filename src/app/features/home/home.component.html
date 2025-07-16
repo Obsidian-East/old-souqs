@@ -110,7 +110,7 @@
                         </div>
 
                         <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                        <span class="item-price">${{ product.price.toFixed(2) }}</span>
+                        <span *ngIf="product.price !== undefined && product.price !== null" class="item-price">${{ product.price.toFixed(2) }}</span>
                     </div>
                 </div>
             </span>
@@ -124,7 +124,7 @@
                             <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image" alt="{{ product.name }}">
 
                             <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                            <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
+                            <span *ngIf="product.price !== undefined && product.price !== null" class="item-price">$ {{ product.price.toFixed(2) }}</span>
 
                             <div id="product-actions-container">
                                 <div class="product-actions">
@@ -409,7 +409,7 @@
 
 
                         <p class="deals-item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                        <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
+                        <span *ngIf="product.price !== undefined && product.price !== null" class="item-price">$ {{ product.price.toFixed(2) }}</span>
 
                         <div id="product-actions-container">
                             <div class="product-actions">

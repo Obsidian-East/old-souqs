@@ -220,7 +220,7 @@ export class ProductComponent implements OnInit {
           next: (allProducts) => {
             console.log("all prod", allProducts)
             // Filter products by the related product IDs and map them into a simplified format
-            this.relatedProducts = allProducts
+            this.relatedProducts = (allProducts || [])
               // .filter((product: any) => relatedProductIds.includes(product.id))
               .map((product: any) => ({
                 id: product.ID,

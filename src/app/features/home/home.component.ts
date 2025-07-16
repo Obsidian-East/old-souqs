@@ -25,48 +25,48 @@ export class HomeComponent implements OnInit {
 	deals: { id: string; name: string; price: number; image: string }[] = [];
 
 	//   customized img
-  images: string[] = [
-	'https://old-souqs.sirv.com/customized/image00018.jpeg',
-	'https://old-souqs.sirv.com/customized/image00026.jpeg',
-	'https://old-souqs.sirv.com/customized/image00021.jpeg',
-    'https://old-souqs.sirv.com/customized/image00007.jpeg',
-    'https://old-souqs.sirv.com/customized/image00015.jpeg',
-	'https://old-souqs.sirv.com/customized/image00019.jpeg',
-	'https://old-souqs.sirv.com/customized/image00020.jpeg'
-  ];
-   customizedIndex: number = 0;
-  	intervalId: any;
+	images: string[] = [
+		'https://old-souqs.sirv.com/customized/image00018.jpeg',
+		'https://old-souqs.sirv.com/customized/image00026.jpeg',
+		'https://old-souqs.sirv.com/customized/image00021.jpeg',
+		'https://old-souqs.sirv.com/customized/image00007.jpeg',
+		'https://old-souqs.sirv.com/customized/image00015.jpeg',
+		'https://old-souqs.sirv.com/customized/image00019.jpeg',
+		'https://old-souqs.sirv.com/customized/image00020.jpeg'
+	];
+	customizedIndex: number = 0;
+	intervalId: any;
 	transitionStyle: string = 'transform 0.5s ease-in-out';
- 
+
 	constructor(private router: Router,
 		private el: ElementRef,
 		private productService: ProductService,
 		private cartService: CartService,
 		public wishlistService: WishlistService,
 		private cd: ChangeDetectorRef,
-			private ngZone: NgZone,
-		private eventBus: EventBusService) { 
+		private ngZone: NgZone,
+		private eventBus: EventBusService) {
 
-			 this.ngZone.runOutsideAngular(() => {
-      this.intervalId = setInterval(() => {
-        this.ngZone.run(() => this.showNextSlide());
-      }, 5000);
-    });
-		}
-  
+		this.ngZone.runOutsideAngular(() => {
+			this.intervalId = setInterval(() => {
+				this.ngZone.run(() => this.showNextSlide());
+			}, 5000);
+		});
+	}
 
 
-  showNextSlide() {
-    this.customizedIndex = (this.customizedIndex + 1) % this.images.length;
-  }
 
-  getTransform(): string {
-    return `translateX(-${this.customizedIndex * 100}%)`;
-  }
+	showNextSlide() {
+		this.customizedIndex = (this.customizedIndex + 1) % this.images.length;
+	}
 
-  ngOnDestroy() {
-    if (this.intervalId) clearInterval(this.intervalId);
-  }	
+	getTransform(): string {
+		return `translateX(-${this.customizedIndex * 100}%)`;
+	}
+
+	ngOnDestroy() {
+		if (this.intervalId) clearInterval(this.intervalId);
+	}
 	ngOnInit(): void {
 		this.fetchProductsByCollection();
 		setTimeout(() => {
@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
 	fetchProductsByCollection(): void {
 		this.productService.getProductsByCollection(this.trendingCollectionId).subscribe({
 			next: (data) => {
-				this.productsTrending = data.map((product: any) => ({
+				this.productsTrending = (data || []).map((product: any) => ({
 					id: String(product.ID),
 					name: product.Title,
 					price: product.Price,
@@ -95,7 +95,7 @@ export class HomeComponent implements OnInit {
 		});
 		this.productService.getProductsByCollection(this.newArrivedCollectionId).subscribe({
 			next: (data) => {
-				this.productsArrived = data.map((product: any) => ({
+				this.productsArrived = (data || []).map((product: any) => ({
 					id: String(product.ID),
 					name: product.Title,
 					price: product.Price,
@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit {
 		});
 		this.productService.getProductsByCollection(this.dealsCollectionId).subscribe({
 			next: (data) => {
-				this.deals = data.map((product: any) => ({
+				this.deals = (data || []).map((product: any) => ({
 					id: String(product.ID),
 					name: product.Title,
 					price: product.Price,
@@ -257,8 +257,8 @@ export class HomeComponent implements OnInit {
 
 	// constructor(private router: Router) {}
 	goToProduct(id: string) {
-  this.router.navigate(['/product', id]);
-}
+		this.router.navigate(['/product', id]);
+	}
 
 
 	// --- Cart Actions aligned with CartService ---
@@ -279,43 +279,50 @@ export class HomeComponent implements OnInit {
 	//   customized items section
 
 	customized = [
-		{	"id":"1",
+		{
+			"id": "1",
 			"name": "Engraved Copper Plate1",
 			"price": 120,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "A hand-engraved copper plate featuring traditional patterns and ornate detailing."
 		},
-		{	"id":"1",
+		{
+			"id": "1",
 			"name": "Antique Brass Teapot2",
 			"price": 185,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "This vintage teapot, crafted in the early 1900s, boasts elegant curves and aged charm."
 		},
-		{	"id":"1",
+		{
+			"id": "1",
 			"name": "Custom Calligraphy Wall Art3",
 			"price": 250,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "Personalized Arabic calligraphy hand-etched onto a copper panel for a timeless wall display."
 		},
-		{	"id":"1",
+		{
+			"id": "1",
 			"name": "Decorative Copper Lantern4",
 			"price": 95,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "A traditionally styled lantern with intricate carvings, perfect for ambient lighting or decor."
 		},
-		{	"id":"1",
+		{
+			"id": "1",
 			"name": "Custom Nameplate in Copper5",
 			"price": 70,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
 		},
-		{	"id":"1",
+		{
+			"id": "1",
 			"name": "Custom Nameplate in Copper6",
 			"price": 70,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
 			"description": "A bespoke copper nameplate etched with your name or message — perfect for homes or gifts."
 		},
-		{	"id":"1",
+		{
+			"id": "1",
 			"name": "Custom Nameplate in Copper7",
 			"price": 70,
 			"image": "https://old-souqs.sirv.com/Products/1f1.jpg",
@@ -368,30 +375,30 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	 @ViewChildren('nameRef') nameRefs!: QueryList<ElementRef>;
+	@ViewChildren('nameRef') nameRefs!: QueryList<ElementRef>;
 
 	@HostListener('window:resize')
 	onResize() {
-	this.adjustFontSizes();
+		this.adjustFontSizes();
 	}
 
 	ngAfterViewInit() {
-	this.adjustFontSizes();
+		this.adjustFontSizes();
 	}
 
 	adjustFontSizes() {
-    this.nameRefs.forEach((elRef: ElementRef) => {
-      const el = elRef.nativeElement as HTMLElement;
-      let fontSize = 1.1; // rem
-      const maxHeight = el.clientHeight;
+		this.nameRefs.forEach((elRef: ElementRef) => {
+			const el = elRef.nativeElement as HTMLElement;
+			let fontSize = 1.1; // rem
+			const maxHeight = el.clientHeight;
 
-      el.style.fontSize = `${fontSize}rem`;
+			el.style.fontSize = `${fontSize}rem`;
 
-      while (el.scrollHeight > maxHeight && fontSize > 0.6) {
-        fontSize -= 0.05;
-        el.style.fontSize = `${fontSize}rem`;
-      }
-    });
-  }
+			while (el.scrollHeight > maxHeight && fontSize > 0.6) {
+				fontSize -= 0.05;
+				el.style.fontSize = `${fontSize}rem`;
+			}
+		});
+	}
 
 }

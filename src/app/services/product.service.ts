@@ -12,6 +12,7 @@ export class ProductService {
     private apiCollectionUrlAr = 'https://oldsouqs-backend-production.up.railway.app/ar/collections';
     private apiProductUrl = 'https://oldsouqs-backend-production.up.railway.app/products';
     private apiProductUrlAr = 'https://oldsouqs-backend-production.up.railway.app/ar/products';
+    private baseUrl = 'https://oldsouqs-backend-production.up.railway.app';
     private language: string = "en";
 
     constructor(private http: HttpClient) { }
@@ -73,7 +74,8 @@ export class ProductService {
     }
 
     updateProduct(id: string, product: Product): Observable<Product> {
-        const url = `${this.apiProductUrl}?id=${id}`;
+        // CORRECTED: ID is now a PATH parameter
+        const url = `${this.apiProductUrl}/${id}`; // <--- This is the correct way
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.put<Product>(url, product, { headers });
     }
@@ -81,5 +83,15 @@ export class ProductService {
     deleteProduct(id: string): Observable<void> {
         const url = `${this.apiProductUrl}?id=${id}`;
         return this.http.delete<void>(url);
+    }
+
+    uploadImage(file: File) {
+        const formData = new FormData();
+        formData.append('file', file);
+        return this.http.post<{ url: string }>(`${this.baseUrl}/api/upload`, formData);
+    }
+
+    addProduct(product: any) {
+        return this.http.post(`${this.baseUrl}/products`, product);
     }
 }

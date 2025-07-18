@@ -44,7 +44,7 @@ export class AdminComponent implements OnInit {
       next: (data) => {
         this.collections = data.map((collection: any) => ({
           id: collection.ID,
-          nameEn: collection.CollectionName,
+          nameEn: collection.collectionName,
           nameAr: collection.collectionNameAr
         }));
       },

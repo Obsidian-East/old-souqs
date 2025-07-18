@@ -37,6 +37,11 @@ export class ProductService {
         return this.http.get<any[]>(`${this.apiCollectionUrl}`);
     }
 
+    updateCollection(collectionId: string, updatedData: any): Observable<any> {
+        const url = `${this.baseUrl}/collections/${collectionId}`;
+        return this.http.put(url, updatedData);
+    }
+
     // Fetch multiple products by IDs
     getProductsByIds(productIds: string[]): Observable<any[]> {
         this.language = this.getLanguage()

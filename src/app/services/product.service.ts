@@ -31,17 +31,6 @@ export class ProductService {
         return "en";
     }
 
-
-    // Fetch all collections
-    getCollections(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiCollectionUrl}`);
-    }
-
-    updateCollection(collectionId: string, updatedData: any): Observable<any> {
-        const url = `${this.baseUrl}/collections/${collectionId}`;
-        return this.http.put(url, updatedData);
-    }
-
     // Fetch multiple products by IDs
     getProductsByIds(productIds: string[]): Observable<any[]> {
         this.language = this.getLanguage()
@@ -110,4 +99,23 @@ export class ProductService {
     addProduct(product: any) {
         return this.http.post(`${this.baseUrl}/products`, product);
     }
+
+    // Collections related methods
+    getCollections(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiCollectionUrl}`);
+    }
+
+    updateCollection(collectionId: string, updatedData: any): Observable<any> {
+        const url = `${this.baseUrl}/collections/${collectionId}`;
+        return this.http.put(url, updatedData);
+    }
+
+    addCollection(newData: any): Observable<any> {
+        return this.http.post(`${this.baseUrl}/collections`, newData);
+    }
+
+    deleteCollection(id: any): Observable<any> {
+        return this.http.delete(`${this.baseUrl}/collections/${id}`);
+    }
+
 }

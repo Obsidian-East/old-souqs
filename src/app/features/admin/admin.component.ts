@@ -43,7 +43,7 @@ export class AdminComponent implements OnInit {
     this.productService.getCollections().subscribe({
       next: (data) => {
         this.collections = data.map((collection: any) => ({
-          id: collection.ID,
+          id: collection.id,
           nameEn: collection.collectionName,
           nameAr: collection.collectionNameAr
         }));
@@ -443,13 +443,27 @@ export class AdminComponent implements OnInit {
 
   // Save updated name
   saveCollectionName(collectionId: string) {
-    const collection = this.categories.find(c => c.id === collectionId);
-    if (collection) {
-      collection.nameEn = this.inputValuesEn[collectionId];
-      collection.nameAr = this.inputValuesAr[collectionId];
-    }
-    this.editingStates[collectionId] = false;
+    const updatedData = {
+      collectionName: this.inputValuesEn[collectionId],
+      collectionNameAr: this.inputValuesAr[collectionId]
+    };
+
+    this.productService.updateCollection(collectionId, updatedData).subscribe({
+      next: (res) => {
+        const collection = this.categories.find(c => c.id === collectionId);
+        if (collection) {
+          collection.nameEn = updatedData.collectionName;
+          collection.nameAr = updatedData.collectionNameAr;
+        }
+        this.editingStates[collectionId] = false;
+      },
+      error: (err) => {
+        console.error('Failed to update collection:', err);
+        alert('Error updating collection');
+      }
+    });
   }
+
 
   // Cancel editing
   cancelEditing(collectionId: string) {
@@ -496,18 +510,48 @@ export class AdminComponent implements OnInit {
   addNewCollection() {
     const nameEn = this.newCollectionNameEn.trim();
     const nameAr = this.newCollectionNameAr.trim();
+
     if (nameEn && nameAr) {
-      alert(`New collection name: ${nameEn} - ${nameAr}`);
-      this.closeAddCollectionPopup();
+      const newCollection = {
+        collectionName: nameEn,
+        collectionNameAr: nameAr,
+        description: nameEn, // Add these if needed
+        descriptionAr: nameAr,
+        productIds: [],
+        showCollection: true
+      };
+
+      this.productService.addCollection(newCollection).subscribe({
+        next: (res) => {
+          alert('Collection added!');
+          this.fetchCollections(); // If you're listing them
+          this.closeAddCollectionPopup();
+        },
+        error: (err) => {
+          alert('Failed to add collection');
+          console.error(err);
+        }
+      });
     } else {
       alert('Please enter a collection name.');
     }
   }
-  deleteCollection(collectinId: string) {
-    if (confirm('Are you sure you want to delete this collection?')) {
 
+  deleteCollection(collectionId: string) {
+    if (confirm('Are you sure you want to delete this collection?')) {
+      this.productService.deleteCollection(collectionId).subscribe(
+        () => {
+          // Remove it from the local list
+          this.collections = this.collections.filter(c => c.id !== collectionId);
+        },
+        (error) => {
+          console.error('Error deleting collection:', error);
+        }
+      );
     }
   }
+
+
 
 
   // orders section

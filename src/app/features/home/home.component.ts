@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ChangeDetectorRef, AfterViewInit, QueryList, ViewChildren, ElementRef, NgZone } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectorRef, AfterViewInit, QueryList, ViewChildren, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
@@ -16,6 +16,29 @@ import { EventBusService } from '../../shared/event-bus.service';
 })
 
 export class HomeComponent implements OnInit {
+	@ViewChild('scrollContainer') scrollContainer!: ElementRef;
+	isAtStart = true;
+	isAtEnd = false;
+
+	scrollLeft() {
+		this.scrollContainer.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
+	}
+
+	scrollRight() {
+		this.scrollContainer.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
+	}
+
+	checkScrollPosition() {
+		const el = this.scrollContainer.nativeElement;
+		this.isAtStart = el.scrollLeft <= 0;
+		this.isAtEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+	}
+
+	AfterViewInit() {
+		this.checkScrollPosition();
+	}
+
+
 	trendingCollectionId = '67ea6d0cc4338e7d55573ac4';
 	newArrivedCollectionId = '6877b1ba607a5079c14c6649';
 	dealsCollectionId = '67eb0a7048a62338c7e31860';
@@ -96,6 +119,7 @@ export class HomeComponent implements OnInit {
 		});
 		this.productService.getProductsByCollection(this.newArrivedCollectionId).subscribe({
 			next: (data) => {
+				console.log('Fetched new arrived products:', data);
 				this.productsArrived = (data || []).map((product: any) => ({
 					id: String(product.ID),
 					name: product.title,

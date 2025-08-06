@@ -166,7 +166,7 @@ export class ProductComponent implements OnInit {
   // currentProduct: any;
   relatedProducts: any[] = [];
 
-  product: { id: string; name: string; description:string; price: number; image: string; stock: number;tag:string }| null = null;
+  product: { id: string; name: string; description:string; price: number; image: string; stock: number; tag:string; originalPrice: number }| null = null;
   fetchProductById() {
     this.productService.getProductById(this.productId!).subscribe({
       next: (product: any) => {
@@ -179,6 +179,7 @@ export class ProductComponent implements OnInit {
           image: product.image,
           stock: product.stock,
           tag: product.tag || [],
+          originalPrice: product.originalPrice
         };
         this.fetchRelatedProducts(this.product.tag[0]); // take the first collection for now
 
@@ -226,7 +227,8 @@ export class ProductComponent implements OnInit {
                 id: product.id,
                 name: product.title,
                 price: +product.price,
-                image: product.image
+                image: product.image,
+                originalPrice: product.originalPrice
               }));
   
             // Limit to max 4 related products

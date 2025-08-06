@@ -94,7 +94,9 @@ export class ExploreComponent {
 						image: product.image,
 						stock: product.stock,
 						instock: product.stock > 0,
+						originalPrice: product.originalPrice,
 					}));
+					console.log("Original Products:", this.originalProducts)
 
 					this.allproducts = [...this.originalProducts];
 					this.setPriceLimits();
@@ -150,9 +152,10 @@ export class ExploreComponent {
 					image: product.Image,
 					stock: product.Stock,
 					instock: product.Stock > 0,
+					originalPrice: product.originalPrice,
 				}));
 				console.log(data);
-				console.log(this.originalProducts)
+				console.log("Collection Products:", this.originalProducts)
 
 				this.allproducts = [...this.originalProducts];
 				this.totalCount = this.allproducts.length

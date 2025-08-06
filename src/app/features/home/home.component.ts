@@ -43,9 +43,9 @@ export class HomeComponent implements OnInit {
 	newArrivedCollectionId = '6877b1ba607a5079c14c6649';
 	dealsCollectionId = '67eb0a7048a62338c7e31860';
 
-	productsTrending: { id: string; name: string; price: number; image: string }[] = [];
-	productsArrived: { id: string; name: string; price: number; image: string }[] = [];
-	deals: { id: string; name: string; price: number; image: string }[] = [];
+	productsTrending: { id: string; name: string; price: number; image: string, originalPrice: number }[] = [];
+	productsArrived: { id: string; name: string; price: number; image: string, originalPrice: number }[] = [];
+	deals: { id: string; name: string; price: number; image: string, originalPrice: number }[] = [];
 
 	//   customized img
 	images: string[] = [
@@ -108,7 +108,8 @@ export class HomeComponent implements OnInit {
 					name: product.title,
 					price: product.price,
 					image: product.image,
-					stock: product.stock
+					stock: product.stock,
+					originalPrice: product.originalPrice
 				}));
 				// Initialize the products array with trending products
 				this.products = this.productsTrending;
@@ -125,7 +126,8 @@ export class HomeComponent implements OnInit {
 					name: product.title,
 					price: product.price,
 					image: product.image,
-					stock: product.stock
+					stock: product.stock,
+					originalPrice: product.originalPrice
 				}));
 			},
 			error: (error) => {
@@ -139,7 +141,8 @@ export class HomeComponent implements OnInit {
 					name: product.title,
 					price: product.price,
 					image: product.image,
-					stock: product.stock
+					stock: product.stock,
+					originalPrice: product.originalPrice
 				}));
 			},
 			error: (error) => {

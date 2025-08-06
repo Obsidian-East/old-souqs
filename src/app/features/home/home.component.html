@@ -113,8 +113,16 @@
 
                         <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name }}</a>
                         </p>
-                        <span *ngIf="product.price !== undefined && product.price !== null" class="item-price">${{
-                            product.price.toFixed(2) }}</span>
+                        <span class="item-price">
+                            <ng-container *ngIf="product.originalPrice; else noDiscount">
+                                <s class="original-price">$ {{ product.originalPrice.toFixed(2) }}</s>
+                                <span class="discounted-price">$ {{ product.price.toFixed(2) }}</span>
+                                <span class="discount-badge">Sale</span> <!-- Optional badge -->
+                            </ng-container>
+                            <ng-template #noDiscount>
+                                $ {{ product.price.toFixed(2) }}
+                            </ng-template>
+                        </span>
                     </div>
                 </div>
             </span>
@@ -130,8 +138,16 @@
 
                             <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name
                                     }}</a></p>
-                            <span *ngIf="product.price !== undefined && product.price !== null" class="item-price">$ {{
-                                product.price.toFixed(2) }}</span>
+                            <span class="item-price">
+                                <ng-container *ngIf="product.originalPrice; else noDiscount">
+                                    <s class="original-price">$ {{ product.originalPrice.toFixed(2) }}</s>
+                                    <span class="discounted-price">$ {{ product.price.toFixed(2) }}</span>
+                                    <span class="discount-badge">Sale</span> <!-- Optional badge -->
+                                </ng-container>
+                                <ng-template #noDiscount>
+                                    $ {{ product.price.toFixed(2) }}
+                                </ng-template>
+                            </span>
 
                             <div id="product-actions-container">
                                 <div class="product-actions">
@@ -401,7 +417,16 @@
                         </div>
                         <div class="deals-item-info">
                             <p class="deals-item-name" (click)="goToProduct(item.id)">{{ item.name }}</p>
-                            <p class="item-price">$ {{ item.price }}</p>
+                            <span class="item-price">
+                                <ng-container *ngIf="item.originalPrice; else noDiscount">
+                                    <s class="original-price">$ {{ item.originalPrice.toFixed(2) }}</s>
+                                    <span class="discounted-price">$ {{ item.price.toFixed(2) }}</span>
+                                    <span class="discount-badge">Sale</span> <!-- Optional badge -->
+                                </ng-container>
+                                <ng-template #noDiscount>
+                                    $ {{ item.price.toFixed(2) }}
+                                </ng-template>
+                            </span>
                             <button id="add-to-cart" class="button-beige"
                                 (click)="addToCart(item)">{{'HOMEPAGE.ADD-TO-CART' | translate }}</button>
                         </div>
@@ -422,8 +447,16 @@
 
 
                         <p class="deals-item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                        <span *ngIf="product.price !== undefined && product.price !== null" class="item-price">$ {{
-                            product.price.toFixed(2) }}</span>
+                        <span class="item-price">
+                            <ng-container *ngIf="product.originalPrice; else noDiscount">
+                                <s class="original-price">$ {{ product.originalPrice.toFixed(2) }}</s>
+                                <span class="discounted-price">$ {{ product.price.toFixed(2) }}</span>
+                                <span class="discount-badge">Sale</span> <!-- Optional badge -->
+                            </ng-container>
+                            <ng-template #noDiscount>
+                                $ {{ product.price.toFixed(2) }}
+                            </ng-template>
+                        </span>
 
                         <div id="product-actions-container">
                             <div class="product-actions">

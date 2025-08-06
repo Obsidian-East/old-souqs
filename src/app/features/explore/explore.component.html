@@ -80,29 +80,7 @@
                         <button class="reset-button" (click)="clearMoneyFilters()">{{ 'EXPLORE.RESET' | translate }}</button>
                     </div>
 
-                    <!-- try price -->
-                    <div class="slider-container">
-                        <!-- <div class="range-slider">
-                          
-                          <input 
-                            id="minrange"
-                            type="range" 
-                            [min]="minLimit" 
-                            [max]="maxLimit" 
-                            [value]="minValue"
-                            (input)="updateValues('min', $event)"
-                            />
-                            <input 
-                            id="maxrange"
-                            type="range" 
-                            [min]="minLimit" 
-                            [max]="maxLimit" 
-                            [value]="maxValue"
-                            (input)="updateValues('max', $event)"
-                            />
-                        </div> -->
-                    </div>    
-                      
+                    <!-- try price -->                      
                     <div class="inputs-container">
                         <div class="price-item">
                             <p class="subtitle">{{ 'EXPLORE.FROM' | translate }}</p>
@@ -254,16 +232,6 @@
                                 </svg>
                                 Filter <span class="vertical-line"></span>
                             </span>
-                            
-                            <!-- <span class="list-icon-svg-container">
-                            <svg class="grid-list active" (click)="TabAction(1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                <path d="M128 136c0-22.1-17.9-40-40-40L40 96C17.9 96 0 113.9 0 136l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm0 192c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm32-192l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zM288 328c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm32-192l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zM448 328c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48z" fill="cuttentColor"/>
-                            </svg>
-
-                            <svg class="ul-list" (click)="TabAction(2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                <path d="M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" fill="cuttentColor"/>
-                            </svg>
-                            </span> -->
                     </div>
 
                     <div class="sort-container">
@@ -402,11 +370,6 @@
                             <p class="item-name" #itemNameRef (click)="goToProduct(product.id)">{{ product.name }}</p>
                             <span class="price-ul">$ {{ product.price.toFixed(2) }}</span>
                             <p class="description">{{product.description}}</p>
-
-
-
-
-
 
                             <!-- Show product actions when hovering -->
                         <div id="product-actions-container" >

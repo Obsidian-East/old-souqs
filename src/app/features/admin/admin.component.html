@@ -1,40 +1,45 @@
 <section class="page">
 
-    <div id="sidebar" class="sidebar-box">
-        <div class="sidebar">
-            <button (click)="closeSidebar()" class="close-btn show-in-tablet">✖</button>
-            <div class="sidebar-header">
-              <span class="site-name">{{ 'ADMIN.OLD-SOUQ-ADMIN' | translate }} </span>
-            </div>
-          
-            <nav class="sidebar-menu">
-              <a id="products-btn" (click)="selectSection('products')" class="menu-item active"> {{ 'ADMIN.PRODUCTS' | translate }} </a>
-              <a id="collections-btn" (click)="selectSection('collections')" class="menu-item"> {{ 'ADMIN.COLLECTIONS' | translate }} </a>
-              <a id="discounts-btn" (click)="selectSection('discounts')" class="menu-item"> {{ 'ADMIN.DISCOUNTS' | translate }} </a>
-              <a id="orders-btn" (click)="selectSection('orders')" class="menu-item"> {{ 'ADMIN.ORDERS' | translate }} </a>
-              <a id="announcements-btn" (click)="selectSection('announcements')" class="menu-item"> {{ 'ADMIN.ANNOUNCEMENT' | translate }} </a>
-            </nav>
-          
-            <div class="sidebar-footer">
-              <button (click)="Logout()" class="logout-btn">logout</button>
-             <p> &copy; {{ 'ADMIN.OLD-SOUQ' | translate }} </p>
-            </div>
-        </div>
+  <div id="sidebar" class="sidebar-box">
+    <div class="sidebar">
+      <button (click)="closeSidebar()" class="close-btn show-in-tablet">✖</button>
+      <div class="sidebar-header">
+        <span class="site-name">{{ 'ADMIN.OLD-SOUQ-ADMIN' | translate }} </span>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a id="products-btn" (click)="selectSection('products')" class="menu-item active"> {{ 'ADMIN.PRODUCTS' |
+          translate }} </a>
+        <a id="collections-btn" (click)="selectSection('collections')" class="menu-item"> {{ 'ADMIN.COLLECTIONS' |
+          translate }} </a>
+        <a id="discounts-btn" (click)="selectSection('discounts')" class="menu-item"> {{ 'ADMIN.DISCOUNTS' | translate
+          }} </a>
+        <a id="orders-btn" (click)="selectSection('orders')" class="menu-item"> {{ 'ADMIN.ORDERS' | translate }} </a>
+        <a id="announcements-btn" (click)="selectSection('announcements')" class="menu-item"> {{ 'ADMIN.ANNOUNCEMENT' |
+          translate }} </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button (click)="Logout()" class="logout-btn">logout</button>
+        <p> &copy; {{ 'ADMIN.OLD-SOUQ' | translate }} </p>
+      </div>
     </div>
-<!-- Main content wrapper -->
-<div id="product-section" *ngIf="activeSection === 'products'" class="main-content">
+  </div>
+  <!-- Main content wrapper -->
+  <div id="product-section" *ngIf="activeSection === 'products'" class="main-content">
     <div class="menu-container show-in-tablet">
-        <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
-        </svg>
+      <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path
+          d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+      </svg>
     </div>
     <button (click)="openAddPopup()" class="add-product-btn">+ {{ 'ADMIN.ADD-NEW-PRODUCT' | translate }} </button>
-  
+
     <!-- Products list -->
     <div class="products-list">
       <div class="product-card" *ngFor="let product of allproducts">
         <img [src]="product.image" alt="Product Image" class="product-image" />
-  
+
         <div class="product-info">
           <h2 class="product-name">{{ product.nameEn }} - {{ product.nameAr }}</h2>
           <!-- <span class="product-category-tag">{{ getCategoryName(product.categoryId) }}</span> -->
@@ -47,228 +52,218 @@
             {{ product.descriptionAr }}
           </p>
         </div>
-  
+
         <div class="product-actions">
           <button class="edit-btn" (click)="openEditPopup(product)">{{ 'ADMIN.EDIT-PRODUCT' | translate }} </button>
-          <button class="delete-btn" (click)="deleteProduct(product.id)">{{ 'ADMIN.DELETE-PRODUCT' | translate }} </button>
+          <button class="delete-btn" (click)="deleteProduct(product.id)">{{ 'ADMIN.DELETE-PRODUCT' | translate }}
+          </button>
         </div>
       </div>
     </div>
-  
-<!-- Edit Product Popup -->
-<div class="edit-popup" *ngIf="showPopup">
-  <div class="popup-content">
-    <button class="close-btn" (click)="closePopup()">✖</button>
-    <h2 class="headline">{{ 'ADMIN.EDIT-PRODUCT' | translate }}</h2>
 
-    <img [src]="selectedProduct.image" class="popup-image-preview" />
+    <!-- Edit Product Popup -->
+    <div class="edit-popup" *ngIf="showPopup">
+      <div class="popup-content">
+        <button class="close-btn" (click)="closePopup()">✖</button>
+        <h2 class="headline">{{ 'ADMIN.EDIT-PRODUCT' | translate }}</h2>
 
-    <input type="file" (change)="handleNewImageUpload($event)" />
+        <img [src]="selectedProduct.image" class="popup-image-preview" />
 
-    <div class="grid-two">
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.NAME-EN' | translate }}</label>
-        <input type="text" [(ngModel)]="selectedProduct.title" name="title" />
-      </span>
+        <input type="file" (change)="handleNewImageUpload($event)" />
 
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.NAME-AR' | translate }}</label>
-        <input type="text" [(ngModel)]="selectedProduct.titleAr" name="titleAr" />
-      </span>
-    </div>
+        <div class="grid-two">
+          <span class="label-input-container">
+            <label>{{ 'ADMIN.NAME-EN' | translate }}</label>
+            <input type="text" [(ngModel)]="selectedProduct.title" name="title" />
+          </span>
 
-    <div class="grid-two">
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.PRICE' | translate }}</label>
-        <input type="number" [(ngModel)]="selectedProduct.price" name="price" />
-      </span>
+          <span class="label-input-container">
+            <label>{{ 'ADMIN.NAME-AR' | translate }}</label>
+            <input type="text" [(ngModel)]="selectedProduct.titleAr" name="titleAr" />
+          </span>
+        </div>
 
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.QUANTITY' | translate }}</label>
-        <input type="number" [(ngModel)]="selectedProduct.stock" name="stock" />
-      </span>
-    </div>
+        <div class="grid-two">
+          <span class="label-input-container">
+            <label>{{ 'ADMIN.PRICE' | translate }}</label>
+            <input type="number" [(ngModel)]="selectedProduct.price" name="price" />
+          </span>
 
-    <div class="grid-two">
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.SKU' | translate }}</label>
-        <input type="text" [(ngModel)]="selectedProduct.sku" name="sku" />
-      </span>
+          <span class="label-input-container">
+            <label>{{ 'ADMIN.QUANTITY' | translate }}</label>
+            <input type="number" [(ngModel)]="selectedProduct.stock" name="stock" />
+          </span>
+        </div>
 
-      <span class="label-input-container">
-        <label>In stock</label>
-        <span class="in-stock-container">
-          <label>
-            <input type="radio" name="inStock" [(ngModel)]="selectedProduct.instock" [value]="true" />
-            yes
-          </label>
-          <label>
-            <input type="radio" name="inStock" [(ngModel)]="selectedProduct.instock" [value]="false" />
-            no
-          </label>
-        </span>
-      </span>
-    </div>
+        <div class="grid-two">
+          <span class="label-input-container">
+            <label>{{ 'ADMIN.SKU' | translate }}</label>
+            <input type="text" [(ngModel)]="selectedProduct.sku" name="sku" />
+          </span>
 
-    <span class="label-input-container">
-      <label>{{ 'ADMIN.CATEGORY' | translate }}</label>
-      <div class="checkbox-group">
-        <label *ngFor="let category of collections">
-          <input 
-            type="checkbox"
-            [value]="category.nameEn"
-            [checked]="selectedProduct.tags?.includes(category.nameEn)"
-            (change)="toggleTag(category.nameEn, $event)" />
-          {{ category.nameEn }} - {{ category.nameAr }}
-        </label>
-      </div>
-    </span>
+          <span class="label-input-container">
+            <label>In stock</label>
+            <span class="in-stock-container">
+              <label>
+                <input type="radio" name="inStock" [(ngModel)]="selectedProduct.instock" [value]="true" />
+                yes
+              </label>
+              <label>
+                <input type="radio" name="inStock" [(ngModel)]="selectedProduct.instock" [value]="false" />
+                no
+              </label>
+            </span>
+          </span>
+        </div>
 
-    <span class="label-input-container">
-      <label>{{ 'ADMIN.DESC-EN' | translate }}</label>
-      <textarea [(ngModel)]="selectedProduct.description" name="description"></textarea>
-    </span>
-
-    <span class="label-input-container">
-      <label>{{ 'ADMIN.DESC-AR' | translate }}</label>
-      <textarea [(ngModel)]="selectedProduct.descriptionAr" name="descriptionAr"></textarea>
-    </span>
-
-    <button class="update-btn" (click)="updateProduct()">{{ 'ADMIN.UPDATE' | translate }}</button>
-  </div>
-</div>
-
-
-
- <div class="add-popup" *ngIf="showAddPopup">
-  <div class="popup-content">
-    <button class="close-btn" (click)="closeAddPopup()">✖</button>
-    <h2 class="headline">{{ 'ADMIN.ADD-NEW-PRODUCT' | translate }} </h2>
-
-    <!-- Image Preview -->
-    <img [src]="newProduct.image" class="popup-image-preview" *ngIf="newProduct.image" />
-
-    <!-- Image Upload -->
-    <input type="file" (change)="handleNewImageUpload($event)" accept="image/*" />
-
-    <div class="grid-two">
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.NAME-EN' | translate }} </label>
-        <input type="text" (input)="updateFieldNewProduct('title', $event)" />
-      </span>
-
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.NAME-AR' | translate }} </label>
-        <input type="text" (input)="updateFieldNewProduct('titleAr', $event)" />
-      </span>
-    </div>
-
-    <div class="grid-two">
-      <div class="grid-two">
         <span class="label-input-container">
-          <label>{{ 'ADMIN.PRICE' | translate }} </label>
-          <input type="number" (input)="updateFieldNewProduct('price', $event)" />
+          <label>{{ 'ADMIN.CATEGORY' | translate }}</label>
+          <div class="checkbox-group">
+            <label *ngFor="let category of collections">
+              <input type="checkbox" [value]="category.nameEn"
+                [checked]="selectedProduct.tags?.includes(category.nameEn)"
+                (change)="toggleTag(category.nameEn, $event)" />
+              {{ category.nameEn }} - {{ category.nameAr }}
+            </label>
+          </div>
         </span>
-        <span class="label-input-container">
-          <label>{{ 'ADMIN.QUANTITY' | translate }} </label>
-          <input type="number" (input)="updateFieldNewProduct('stock', $event)" />
-        </span>
-      </div>
 
-      <span class="label-input-container">
-        <label>{{ 'ADMIN.SKU' | translate }} </label>
-        <input type="text" (input)="updateFieldNewProduct('sku', $event)" />
-      </span>
+        <span class="label-input-container">
+          <label>{{ 'ADMIN.DESC-EN' | translate }}</label>
+          <textarea [(ngModel)]="selectedProduct.description" name="description"></textarea>
+        </span>
+
+        <span class="label-input-container">
+          <label>{{ 'ADMIN.DESC-AR' | translate }}</label>
+          <textarea [(ngModel)]="selectedProduct.descriptionAr" name="descriptionAr"></textarea>
+        </span>
+
+        <button class="update-btn" (click)="updateProduct()">{{ 'ADMIN.UPDATE' | translate }}</button>
+      </div>
     </div>
 
-    <span class="label-input-container">
-      <label>{{ 'ADMIN.CATEGORY' | translate }}</label>
-      <div class="checkbox-group">
-        <label *ngFor="let category of collections">
-          <input 
-            type="checkbox"
-            [value]="category.nameEn"
-            (change)="updateFieldNewProduct('tag', $event)"
-            [checked]="newProduct.tag.includes(category.nameEn)"
-          />
-          {{ category.nameEn }} - {{ category.nameAr }}
-        </label>
+
+
+    <div class="add-popup" *ngIf="showAddPopup">
+      <div class="popup-content">
+        <button class="close-btn" (click)="closeAddPopup()">✖</button>
+        <h2 class="headline">{{ 'ADMIN.ADD-NEW-PRODUCT' | translate }} </h2>
+
+        <!-- Image Preview -->
+        <img [src]="newProduct.image" class="popup-image-preview" *ngIf="newProduct.image" />
+
+        <!-- Image Upload -->
+        <input type="file" (change)="handleNewImageUpload($event)" accept="image/*" />
+
+        <div class="grid-two">
+          <span class="label-input-container">
+            <label>{{ 'ADMIN.NAME-EN' | translate }} </label>
+            <input type="text" (input)="updateFieldNewProduct('title', $event)" />
+          </span>
+
+          <span class="label-input-container">
+            <label>{{ 'ADMIN.NAME-AR' | translate }} </label>
+            <input type="text" (input)="updateFieldNewProduct('titleAr', $event)" />
+          </span>
+        </div>
+
+        <div class="grid-two">
+          <div class="grid-two">
+            <span class="label-input-container">
+              <label>{{ 'ADMIN.PRICE' | translate }} </label>
+              <input type="number" (input)="updateFieldNewProduct('price', $event)" />
+            </span>
+            <span class="label-input-container">
+              <label>{{ 'ADMIN.QUANTITY' | translate }} </label>
+              <input type="number" (input)="updateFieldNewProduct('stock', $event)" />
+            </span>
+          </div>
+
+          <span class="label-input-container">
+            <label>{{ 'ADMIN.SKU' | translate }} </label>
+            <input type="text" (input)="updateFieldNewProduct('sku', $event)" />
+          </span>
+        </div>
+
+        <span class="label-input-container">
+          <label>{{ 'ADMIN.CATEGORY' | translate }}</label>
+          <div class="checkbox-group">
+            <label *ngFor="let category of collections">
+              <input type="checkbox" [value]="category.nameEn" (change)="updateFieldNewProduct('tag', $event)"
+                [checked]="newProduct.tag.includes(category.nameEn)" />
+              {{ category.nameEn }} - {{ category.nameAr }}
+            </label>
+          </div>
+        </span>
+
+        <span class="label-input-container">
+          <label>{{ 'ADMIN.DESC-EN' | translate }} </label>
+          <textarea (input)="updateFieldNewProduct('description', $event)"></textarea>
+        </span>
+
+        <span class="label-input-container">
+          <label>{{ 'ADMIN.DESC-AR' | translate }} </label>
+          <textarea (input)="updateFieldNewProduct('descriptionAr', $event)"></textarea>
+        </span>
+
+        <button class="add-btn" (click)="addNewProduct()">
+          {{ 'ADMIN.ADD-PRODUCT' | translate }}
+        </button>
       </div>
-    </span>
+    </div>
 
-    <span class="label-input-container">
-      <label>{{ 'ADMIN.DESC-EN' | translate }} </label>
-      <textarea (input)="updateFieldNewProduct('description', $event)"></textarea>
-    </span>
 
-    <span class="label-input-container">
-      <label>{{ 'ADMIN.DESC-AR' | translate }} </label>
-      <textarea (input)="updateFieldNewProduct('descriptionAr', $event)"></textarea>
-    </span>
-
-    <button class="add-btn" (click)="addNewProduct()">
-      {{ 'ADMIN.ADD-PRODUCT' | translate }}
-    </button>
   </div>
-</div>
-
-  
-</div>
 
 
-<!-- collection section -->
- <!-- Collections Section -->
-<div id="collection-section" *ngIf="activeSection === 'collections'" class="main-content">
+  <!-- collection section -->
+  <!-- Collections Section -->
+  <div id="collection-section" *ngIf="activeSection === 'collections'" class="main-content">
     <div class="menu-container show-in-tablet">
-        <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
-        </svg>
+      <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path
+          d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+      </svg>
     </div>
-    <button (click)="openAddCollectionPopup()" class="add-collection-btn">+ {{ 'ADMIN.ADD-NEW-COLLECTION' | translate }} </button>
-  
+    <button (click)="openAddCollectionPopup()" class="add-collection-btn">+ {{ 'ADMIN.ADD-NEW-COLLECTION' | translate }}
+    </button>
+
     <div *ngFor="let collection of collections" class="collection-wrapper">
       <div class="collection-header">
         <span class="collection-name-input-container">
-            <input
-            [disabled]="!editingStates[collection.id]"
-            [value]="inputValuesEn[collection.id] || collection.nameEn"
-            (input)="onInputChangeEn(collection.id, $event)"
-            class="collection-name-input"
-            />
-        <input
-            [disabled]="!editingStates[collection.id]"
-            [value]="inputValuesAr[collection.id] || collection.nameAr"
-            (input)="onInputChangeAr(collection.id, $event)"
-            class="collection-name-input"
-            /> 
+          <input [disabled]="!editingStates[collection.id]" [value]="inputValuesEn[collection.id] || collection.nameEn"
+            (input)="onInputChangeEn(collection.id, $event)" class="collection-name-input" />
+          <input [disabled]="!editingStates[collection.id]" [value]="inputValuesAr[collection.id] || collection.nameAr"
+            (input)="onInputChangeAr(collection.id, $event)" class="collection-name-input" />
         </span>
-           
-    
-        <span class="save-cancel-container" *ngIf="!editingStates[collection.id]" >
-            <button class="red-btn" (click)="editCollectionName(collection.id, collection.nameEn, collection.nameAr)">
-              {{ 'ADMIN.EDIT' | translate }} 
-           </button>
-               
-            <button class="black-btn"  (click)="deleteCollection(collection.id)">
-              {{ 'ADMIN.DELETE' | translate }} 
-           </button>
+
+
+        <span class="save-cancel-container" *ngIf="!editingStates[collection.id]">
+          <button class="red-btn" (click)="editCollectionName(collection.id, collection.nameEn, collection.nameAr)">
+            {{ 'ADMIN.EDIT' | translate }}
+          </button>
+
+          <button class="black-btn" (click)="deleteCollection(collection.id)">
+            {{ 'ADMIN.DELETE' | translate }}
+          </button>
         </span>
-        
-        <span class="save-cancel-container" *ngIf="editingStates[collection.id]" >
-            <button class="red-btn" (click)="saveCollectionName(collection.id)">
-              {{ 'ADMIN.SAVE' | translate }} 
-           </button>
-           
-           <button class="black-btn" (click)="cancelEditing(collection.id)">
-            {{ 'ADMIN.CANCEL' | translate }} 
-           </button>
+
+        <span class="save-cancel-container" *ngIf="editingStates[collection.id]">
+          <button class="red-btn" (click)="saveCollectionName(collection.id)">
+            {{ 'ADMIN.SAVE' | translate }}
+          </button>
+
+          <button class="black-btn" (click)="cancelEditing(collection.id)">
+            {{ 'ADMIN.CANCEL' | translate }}
+          </button>
         </span>
 
         <span class="expand-btn" (click)="toggleCategoryDetails(collection.id)">
-          {{ isCategoryDetailsShown(collection.id) ? ('ADMIN.COLLAPSE' | translate) : ('ADMIN.VIEW-PRODUCTS' | translate) }}
+          {{ isCategoryDetailsShown(collection.id) ? ('ADMIN.COLLAPSE' | translate) : ('ADMIN.VIEW-PRODUCTS' |
+          translate) }}
         </span>
       </div>
-  
+
       <div class="products-in-collection" *ngIf="isCategoryDetailsShown(collection.id)">
         <div *ngIf="getProductsByCategory(collection.nameEn).length; else noProducts">
           <div class="collection-product" *ngFor="let product of getProductsByCategory(collection.nameEn)">
@@ -284,250 +279,263 @@
           <p class="no-products-msg">{{ 'ADMIN.NO-PRODUCT' | translate }} </p>
         </ng-template>
       </div>
-  
+
     </div>
 
 
     <!-- add new collection popup -->
     <div class="add-collection-popup" *ngIf="showAddCollectionPopup">
-        <div class="collection-popup-content">
-          <button class="collection-close-btn" (click)="closeAddCollectionPopup()">✖</button>
-          <h2 class="collection-headline">{{ 'ADMIN.ADD-NEW-COLLECTION' | translate }} </h2>
-      
-          <input
-            type="text"
-            placeholder="Collection Name En"
-            (input)="handleCollectionNameInputEn($event)"
-            class="collection-input"
-          />
-          <input
-            type="text"
-            placeholder="Collection Name Ar"
-            (input)="handleCollectionNameInputAr($event)"
-            class="collection-input"
-          />
-      
-          <button class="collection-add-btn" (click)="addNewCollection()">{{ 'ADMIN.ADD' | translate }} </button>
-        </div>
+      <div class="collection-popup-content">
+        <button class="collection-close-btn" (click)="closeAddCollectionPopup()">✖</button>
+        <h2 class="collection-headline">{{ 'ADMIN.ADD-NEW-COLLECTION' | translate }} </h2>
+
+        <input type="text" placeholder="Collection Name En" (input)="handleCollectionNameInputEn($event)"
+          class="collection-input" />
+        <input type="text" placeholder="Collection Name Ar" (input)="handleCollectionNameInputAr($event)"
+          class="collection-input" />
+
+        <button class="collection-add-btn" (click)="addNewCollection()">{{ 'ADMIN.ADD' | translate }} </button>
       </div>
- </div>   
+    </div>
+  </div>
 
   <!-- orders section -->
-   <div class="main-content" id="orders-section" *ngIf="activeSection === 'orders'">
+  <div class="main-content" id="orders-section" *ngIf="activeSection === 'orders'">
     <div class="menu-container show-in-tablet">
-        <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
-        </svg>
+      <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path
+          d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+      </svg>
     </div>
 
-        <div class="order-menu-container">
-          <h2 class="order-title">{{ 'ADMIN.ORDER-LIST' | translate }} </h2>
-          <select class="date-menu" (change)="selectedSort = $any($event.target).value">
-            <option value="latest">{{ 'ADMIN.LATEST' | translate }} </option>
-            <option value="earliest">{{ 'ADMIN.EARLIEST' | translate }} </option>
+    <div class="order-menu-container">
+      <h2 class="order-title">{{ 'ADMIN.ORDER-LIST' | translate }} </h2>
+      <select class="date-menu" (change)="selectedSort = $any($event.target).value">
+        <option value="latest">{{ 'ADMIN.LATEST' | translate }} </option>
+        <option value="earliest">{{ 'ADMIN.EARLIEST' | translate }} </option>
+      </select>
+    </div>
+
+    <div *ngFor="let group of groupedOrders">
+      <h3 class="date-title">{{ group[0] }}</h3>
+
+      <div *ngFor="let order of group[1]" class="order-card">
+        <div class="info-button-container">
+          <span>
+            <p><strong>{{ 'ADMIN.ORDER-ID' | translate }} :</strong> {{ order.orderId }}</p>
+            <!-- <p><strong>User:</strong> {{ order.userName }}</p> -->
+            <p><strong>{{ 'ADMIN.USER' | translate }} :</strong> {{ order.userFullName }} - {{ order.userPhone }}</p>
+            <p><strong>{{ 'ADMIN.LOCATION' | translate }} :</strong> {{ order.location }}</p>
+            <p><strong> {{ 'ADMIN.TOTAL-PRICE' | translate }} :</strong> {{ order.total }} $</p>
+          </span>
+
+          <button class="details-button" (click)="toggleOrderDetails(order.orderId)">
+
+            {{ isOrderDetailsShown(order.orderId) ? ('ADMIN.HIDE' | translate) : ('ADMIN.SHOW' | translate) }} {{
+            'ADMIN.ORDER-DETAILS' | translate }}
+          </button>
+        </div>
+
+
+        <div *ngIf="isOrderDetailsShown(order.orderId)" class="products-list">
+          <div *ngFor="let item of order.productsIds" class="product-item">
+            <ng-container *ngIf="getProductById(item.id) as product">
+              <img [src]="product.image" alt="{{ product.nameEn }}" />
+              <div>
+                <p><strong>{{ product.nameEn }} - {{ product.nameAr }}</strong></p>
+                <p>{{ 'ADMIN.PRICE' | translate }} : ${{ product.price }}</p>
+                <p>{{ 'ADMIN.QUANTITY' | translate }} : {{ item.quantity }}</p>
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- discounts -->
+  <div class="main-content" id="discounts-section" *ngIf="activeSection === 'discounts'">
+  <!-- Top menu button for mobile -->
+  <div class="menu-container show-in-tablet">
+    <svg (click)="showSidebar()" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 448 512">
+      <path
+        d="M0 96C0 78.3 14.3 64 32 64h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z" />
+    </svg>
+  </div>
+
+  <!-- Button to open the add discount popup -->
+  <button class="add-collection-btn" (click)="showAddDiscountPopup = true">
+    + {{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }}
+  </button>
+
+  <!-- Custom Add Discount Modal Popup -->
+  <div *ngIf="showAddDiscountPopup" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close-btn" (click)="showAddDiscountPopup = false">&times;</button>
+      <h3 class="modal-headline">{{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }}</h3>
+
+      <div class="modal-body">
+        <div class="label-select-container">
+          <label>Type:</label>
+          <select [(ngModel)]="newDiscount.type" (change)="onTypeChange()">
+            <option value="product">{{ 'ADMIN.PRODUCT' | translate }}</option>
+            <!-- Changed 'category' to 'collection' to match backend -->
+            <option value="collection">{{ 'ADMIN.CATEGORY' | translate }}</option>
           </select>
         </div>
-      
-        <div *ngFor="let group of groupedOrders">
-          <h3 class="date-title">{{ group[0] }}</h3>
-      
-          <div *ngFor="let order of group[1]" class="order-card">
-            <div class="info-button-container">
-                <span>
-                    <p><strong>{{ 'ADMIN.ORDER-ID' | translate }} :</strong> {{ order.orderId }}</p>
-                    <!-- <p><strong>User:</strong> {{ order.userName }}</p> -->
-                    <p><strong>{{ 'ADMIN.USER' | translate }} :</strong> {{ order.userFullName }} - {{ order.userPhone }}</p>
-                    <p><strong>{{ 'ADMIN.LOCATION' | translate }} :</strong> {{ order.location }}</p>
-                    <p><strong> {{ 'ADMIN.TOTAL-PRICE' | translate }} :</strong> {{ order.total }} $</p>
-                </span>
-            
-                <button class="details-button" (click)="toggleOrderDetails(order.orderId)">
-
-                    {{ isOrderDetailsShown(order.orderId) ? ('ADMIN.HIDE' | translate) : ('ADMIN.SHOW' | translate) }} {{ 'ADMIN.ORDER-DETAILS' | translate }} 
-                </button>
-            </div>
-            
-      
-            <div *ngIf="isOrderDetailsShown(order.orderId)" class="products-list">
-                <div *ngFor="let item of order.productsIds" class="product-item">
-                    <ng-container *ngIf="getProductById(item.id) as product">
-                      <img [src]="product.image" alt="{{ product.nameEn }}" />
-                      <div>
-                        <p><strong>{{ product.nameEn }} - {{ product.nameAr }}</strong></p>
-                        <p>{{ 'ADMIN.PRICE' | translate }} : ${{ product.price }}</p>
-                        <p>{{ 'ADMIN.QUANTITY' | translate }} : {{ item.quantity }}</p>
-                      </div>
-                    </ng-container>
-                  </div>
-                  
-            </div>
-      
-          </div>
-        </div>
-      
-   </div>
-
-
-   <!-- discounts -->
-   <div class="main-content" id="discounts-section" *ngIf="activeSection === 'discounts'">
-    <div class="menu-container show-in-tablet">
-        <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
-        </svg>
-    </div>
-
-                <!-- Button to show popup -->    
-        <button class="add-collection-btn" (click)="showAddDiscountPopup = true">+ {{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }} </button>
-
-        <!-- add new discount Popup -->
-        <div *ngIf="showAddDiscountPopup" class="discount-popup">
-        <button class="discount-close-btn" (click)="showAddDiscountPopup = false">&times;</button>
-        <h3 class="collection-headline">{{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }}</h3>
 
         <div class="label-select-container">
-            <label>Type:</label>
-            <select (change)="handleDiscountField('type', $event)">
-                <option value="product">{{ 'ADMIN.PRODUCT' | translate }} </option>
-                <option value="category">{{ 'ADMIN.CATEGORY' | translate }} </option>
-            </select>            
-        </div>
-        
-        <div class="label-select-container">
-        <label>{{ 'ADMIN.TARGET' | translate }}:</label>
-        <select (change)="handleDiscountField('targetId', $event)">
-            <option disabled selected>{{ 'ADMIN.SELECT' | translate }}</option>
+          <label>{{ 'ADMIN.TARGET' | translate }}:</label>
+          <select [(ngModel)]="newDiscount.targetId">
+            <option disabled [selected]="!newDiscount.targetId">{{ 'ADMIN.SELECT' | translate }}</option>
             <ng-container *ngIf="newDiscount.type === 'product'">
-            <option *ngFor="let p of products" [value]="p.id">{{ p.nameEn }} - {{ p.nameAr}}</option>
+              <!-- Using 'Title' and 'TitleAr' to match the Go Product model -->
+              <option *ngFor="let p of allproducts" [value]="p.id">{{ p.nameEn}} - {{ p.nameAr }}</option>
             </ng-container>
-            <ng-container *ngIf="newDiscount.type === 'category'">
-            <option *ngFor="let c of categories" [value]="c.id">{{ c.nameEn }} - {{ c.nameAr}}</option>
+            <ng-container *ngIf="newDiscount.type === 'collection'">
+              <!-- Using 'CollectionName' and 'CollectionNameAr' to match the Go Collection model -->
+              <option *ngFor="let c of collections" [value]="c.id">{{ c.nameEn }} - {{ c.nameEn }}</option>
             </ng-container>
-        </select>
+          </select>
         </div>
 
         <div class="label-select-container">
-            <label>{{ 'ADMIN.VALUE' | translate }} (%):</label>
-            <input type="number" (input)="handleDiscountField('value', $event)" />
+          <label>{{ 'ADMIN.VALUE' | translate }} (%):</label>
+          <input type="number" [(ngModel)]="newDiscount.value" min="0" max="100" />
         </div>
-        <div class="label-select-container">
-            <button class="add-product-btn" style="width: 100%;" (click)="addDiscount()">{{ 'ADMIN.ADD' | translate }}</button>
-        </div>
-        </div>
+      </div>
 
-        <!-- Discounts List -->
-        <h3 class="existing-title">{{ 'ADMIN.EXISTING-DISCOUNTS' | translate }} </h3>
-        <div>
-            <!-- Display Product Discounts -->
-            <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-PRODUCTS' | translate }}</h3>
-            <div class="discounts-container" *ngFor="let d of productDiscounts">
-              <div class="discount-container">
-                <p>
-                  <strong>{{ 'ADMIN.TARGET' | translate }}: </strong>{{ discountNames[d.id] }} <br />
-                  <strong>{{ 'ADMIN.VALUE' | translate }}: </strong>{{ d.value }}%  <br />
-                  <strong>{{ 'ADMIN.CREATED-AT' | translate }}: </strong> {{ d.createdAt | date: 'mediumDate' }}
-                </p>
+      <div class="modal-footer">
+        <button class="add-product-btn" style="width: 100%;" [disabled]="isAddingDiscount" (click)="addDiscount()">
+          {{ isAddingDiscount ? 'Adding...' : 'ADMIN.ADD' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
 
-                <span class="buttons-container">
-                   <button class="edit-discount" *ngIf="editingId != d.id" (click)="editDiscount(d.id)">{{ 'ADMIN.EDIT-VALUE' | translate }}</button>
-                    <button class="delete-discount" *ngIf="editingId != d.id" (click)="deleteDiscount(d.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate }}</button>
-                </span>
-                
-                <!-- Save and Cancel Buttons for Editing -->
-                <div class="buttons-container" *ngIf="editingId === d.id">
-                  <input 
-                    type="number" 
-                    [value]="editingValue" 
-                    (input)="onEditValue($event)" 
-                    min="0" max="100"
-                    [class.invalid]="!isValidValue"
-                  />
-                  
-                    <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
-                    <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
-                </div>  
+  <!-- Discount Lists -->
+  <h3 class="existing-title">{{ 'ADMIN.EXISTING-DISCOUNTS' | translate }}</h3>
 
-                  
-              </div>
-            </div>
-          
-            <!-- Display Category Discounts -->
-            <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-CATEGORIES' | translate }}</h3>
-            <div class="discounts-container" *ngFor="let d of categoryDiscounts">
-              <div class="discount-container">
-                <p>
-                 <strong>{{ 'ADMIN.TARGET' | translate }}: </strong> {{ discountNames[d.id] }} <br />
-                 <strong>{{ 'ADMIN.VALUE' | translate }}: </strong> {{ d.value }}% <br />
-                 <strong>{{ 'ADMIN.CREATED-AT' | translate }}: </strong> {{ d.createdAt | date: 'mediumDate' }}
-                </p>
-                <span *ngIf="editingId != d.id" class="buttons-container">
-                   <button class="edit-discount" (click)="editDiscount(d.id)">{{ 'ADMIN.EDIT-VALUE' | translate }}</button>
-                    <button class="delete-discount" (click)="deleteDiscount(d.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate }}</button>
-                </span>
-                
-                <!-- Save and Cancel Buttons for Editing -->
-                <div class="buttons-container" *ngIf="editingId === d.id">
-                  <input 
-                    type="number" 
-                    [value]="editingValue" 
-                    (input)="onEditValue($event)" 
-                    min="0" max="100"
-                    [class.invalid]="!isValidValue" 
-                  />
-                    <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
-                    <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
+  <!-- Discounts on Products -->
+  <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-PRODUCTS' | translate }}</h3>
+  <div class="discounts-container">
+    <div class="discount-container" *ngFor="let d of productDiscountItems">
+      <p>
+        <!-- Accessing the product data from the joined object -->
+        <strong>{{ 'ADMIN.TARGET' | translate }}:</strong> {{ d.product?.nameEn }} - {{ d.product?.nameAr }} <br />
+        <!-- Accessing the discount percentage from the joined object -->
+        <strong>{{ 'ADMIN.VALUE' | translate }}:</strong> {{ d.discount?.percentage }}% <br />
+        <strong>{{ 'ADMIN.CREATED-AT' | translate }}:</strong> {{ d.discount?.createdAt | date: 'mediumDate' }}
+      </p>
 
-                </div>
-              </div>
-            </div>
-          </div>
-   </div>
+      <span class="buttons-container" *ngIf="editingId !== d.discount.id">
+        <button class="edit-discount" (click)="editDiscount(d.discount.id)">{{ 'ADMIN.EDIT-VALUE' | translate }}</button>
+        <button class="delete-discount" (click)="deleteDiscount(d.discount.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate }}</button>
+      </span>
 
-   <div id="announcements-section" *ngIf="activeSection === 'announcements'" class="main-content">
+      <!-- Edit Mode -->
+      <div class="buttons-container" *ngIf="editingId === d.discount.id">
+        <input type="number" [(ngModel)]="editingValue" min="0" max="100" [class.invalid]="!isValidValue" />
+        <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
+        <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Discounts on Categories (Collections) -->
+  <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-CATEGORIES' | translate }}</h3>
+  <div class="discounts-container">
+    <div class="discount-container" *ngFor="let d of categoryDiscountItems">
+      <p>
+        <!-- Accessing the collection data from the joined object -->
+        <strong>{{ 'ADMIN.TARGET' | translate }}:</strong> {{ d.collection?.nameEn }} - {{ d.collection?.nameAr }} <br />
+        <!-- Accessing the discount percentage from the joined object -->
+        <strong>{{ 'ADMIN.VALUE' | translate }}:</strong> {{ d.discount?.percentage }}% <br />
+        <strong>{{ 'ADMIN.CREATED-AT' | translate }}:</strong> {{ d.discount?.createdAt | date: 'mediumDate' }}
+      </p>
+      <span class="buttons-container" *ngIf="editingId !== d.discount.id">
+        <button class="edit-discount" (click)="editDiscount(d.discount.id)">{{ 'ADMIN.EDIT-VALUE' | translate }}</button>
+        <button class="delete-discount" (click)="deleteDiscount(d.discount.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate }}</button>
+      </span>
+
+      <!-- Edit Mode -->
+      <div class="buttons-container" *ngIf="editingId === d.discount.id">
+        <input type="number" [(ngModel)]="editingValue" min="0" max="100" [class.invalid]="!isValidValue" />
+        <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
+        <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Confirmation Modal -->
+  <div *ngIf="showModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 class="modal-headline">{{ modalTitle }}</h3>
+      <div class="modal-body">{{ modalMessage }}</div>
+      <div class="modal-footer">
+        <button class="confirm-btn" (click)="modalAction()">{{ 'ADMIN.YES' | translate }}</button>
+        <button class="cancel-btn" (click)="closeModal()">{{ 'ADMIN.NO' | translate }}</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+  <div id="announcements-section" *ngIf="activeSection === 'announcements'" class="main-content">
 
     <div class="menu-container show-in-tablet">
       <svg (click)="showSidebar()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-          <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+        <path
+          d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
       </svg>
-  </div>
-    <button (click)="openAddAnnouncementPopup()" class="add-collection-btn">+ {{'ADMIN.ADD-NEW-ANNOUNCEMENT' | translate}}</button>
+    </div>
+    <button (click)="openAddAnnouncementPopup()" class="add-collection-btn">+ {{'ADMIN.ADD-NEW-ANNOUNCEMENT' |
+      translate}}</button>
 
     <div *ngIf="announcementsEn.length === 0" class="no-announcements">
       {{'ADMIN.NO-ANNOUNCEMENT' | translate}}
     </div>
-  
+
     <!-- Popup -->
-<div *ngIf="showAddAnnouncementPopup" class="add-collection-popup">
-  <div class="collection-popup-content">
-    <span class="announcement-close-btn-container">
-      <button class="announcement-close-btn" (click)="closeAddAnnouncementPopup()">✖</button>
-    </span>
-    <input class="collection-input" placeholder="Announcement EN" [value]="newAnnouncementEn" (input)="handleAnnouncementInputEn($event)" />
-    <!-- <input placeholder="Announcement AR" [value]="newAnnouncementAr" (input)="handleAnnouncementInputAr($event)" /> -->
-    <button class="collection-add-btn" (click)="addNewAnnouncement()">{{'ADMIN.ADD' | translate}}</button>
+    <div *ngIf="showAddAnnouncementPopup" class="add-collection-popup">
+      <div class="collection-popup-content">
+        <span class="announcement-close-btn-container">
+          <button class="announcement-close-btn" (click)="closeAddAnnouncementPopup()">✖</button>
+        </span>
+        <input class="collection-input" placeholder="Announcement EN" [value]="newAnnouncementEn"
+          (input)="handleAnnouncementInputEn($event)" />
+        <!-- <input placeholder="Announcement AR" [value]="newAnnouncementAr" (input)="handleAnnouncementInputAr($event)" /> -->
+        <button class="collection-add-btn" (click)="addNewAnnouncement()">{{'ADMIN.ADD' | translate}}</button>
+      </div>
+    </div>
+
+    <!-- Announcements List -->
+    <div *ngFor="let msg of announcementsEn; let i = index" class="collection-wrapper">
+      <div *ngIf="!editingAnnouncementStates[i]" class="collection-header">
+        <p class="announcement-message">{{ msg }}</p>
+        <!-- <p>{{ msg.ar }}</p> -->
+        <span class="save-cancel-container">
+          <button class="red-btn" (click)="editAnnouncementName(i, msg)">{{'ADMIN.EDIT' | translate}}</button>
+          <button class="black-btn" (click)="confirmDeleteAnnouncement(i)">{{'ADMIN.DELETE' | translate}}</button>
+        </span>
+
+      </div>
+      <div *ngIf="editingAnnouncementStates[i]" class="collection-header">
+        <input [value]="AnnouncementinputValuesEn[i]" class="announcement-input"
+          (input)="AnnouncementChangeEn(i, $event)" />
+        <!-- <input [value]="AnnouncementinputValuesAr[i]" (input)="AnnouncementChangeAr(i, $event)" /> -->
+        <span class="save-cancel-container">
+          <button class="red-btn" (click)="saveAnnouncementName(i)">{{'ADMIN.SAVE' | translate}}</button>
+          <button class="black-btn" (click)="cancelAnnouncementEditing(i)">{{'ADMIN.CANCEL' | translate}}</button>
+        </span>
+      </div>
+    </div>
+
+
   </div>
-</div>
-
-<!-- Announcements List -->
-<div *ngFor="let msg of announcementsEn; let i = index" class="collection-wrapper">
-  <div *ngIf="!editingAnnouncementStates[i]" class="collection-header">
-    <p class="announcement-message">{{ msg }}</p>
-    <!-- <p>{{ msg.ar }}</p> -->
-     <span class="save-cancel-container">
-        <button class="red-btn" (click)="editAnnouncementName(i, msg)">{{'ADMIN.EDIT' | translate}}</button>
-        <button class="black-btn" (click)="confirmDeleteAnnouncement(i)">{{'ADMIN.DELETE' | translate}}</button>
-     </span>
-    
-  </div>
-  <div *ngIf="editingAnnouncementStates[i]" class="collection-header">
-    <input [value]="AnnouncementinputValuesEn[i]" class="announcement-input" (input)="AnnouncementChangeEn(i, $event)" />
-    <!-- <input [value]="AnnouncementinputValuesAr[i]" (input)="AnnouncementChangeAr(i, $event)" /> -->
-     <span class="save-cancel-container">
-        <button class="red-btn" (click)="saveAnnouncementName(i)">{{'ADMIN.SAVE' | translate}}</button>
-        <button class="black-btn" (click)="cancelAnnouncementEditing(i)">{{'ADMIN.CANCEL' | translate}}</button>  
-      </span>
-     </div>
-</div>
-
-
-   </div>
 </section>

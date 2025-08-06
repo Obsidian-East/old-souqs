@@ -101,6 +101,10 @@ export class ProductService {
     }
 
     // Collections related methods
+    getCollectionById(collectionId: string): Observable<any> {
+        return this.http.get<any>(`${this.apiCollectionUrl}/${collectionId}`);
+    }
+    
     getCollections(): Observable<any[]> {
         return this.http.get<any[]>(`${this.apiCollectionUrl}`);
     }
@@ -117,5 +121,23 @@ export class ProductService {
     deleteCollection(id: any): Observable<any> {
         return this.http.delete(`${this.baseUrl}/collections/${id}`);
     }
+
+    //Discounts related methods
+    getDiscounts(): Observable<any> {
+        return this.http.get(`${this.baseUrl}/discounts`);
+    }
+
+    createDiscount(discount: any): Observable<any> {
+        return this.http.post(`${this.baseUrl}/discounts`, discount);
+    }
+
+    updateDiscount(id: string, discount: any): Observable<any> {
+        return this.http.put(`${this.baseUrl}/discounts/${id}`, discount);
+    }
+
+    deleteDiscount(id: string): Observable<any> {
+        return this.http.delete(`${this.baseUrl}/discounts/${id}`);
+    }
+
 
 }

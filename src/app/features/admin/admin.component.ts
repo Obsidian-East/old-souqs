@@ -7,6 +7,7 @@ import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { UserService } from '../../services/user.service';
 import { Product } from '../../models/product.model';
+import { catchError, forkJoin, map, of } from 'rxjs';
 
 // new dicount
 type DiscountField = 'type' | 'targetId' | 'value';
@@ -22,6 +23,38 @@ type DiscountField = 'type' | 'targetId' | 'value';
 export class AdminComponent implements OnInit {
   selectedImageFile: File | null = null;
 
+  // Data from backend
+  products: any[] = [];
+  categories: any[] = [];
+  discounts: any[] = [];
+
+  // Arrays to hold combined data for display
+  productDiscountItems: any[] = [];
+  categoryDiscountItems: any[] = [];
+
+  // Map for quick lookup of names
+  discountNames: { [key: string]: string } = {};
+
+  // Form data for new discount
+  newDiscount = {
+    type: 'product',
+    targetId: '',
+    value: 0
+  };
+
+  // UI state variables
+  showAddDiscountPopup = false;
+  editingId: string | null = null;
+  editingValue: string = '';
+  isValidValue: boolean = true;
+  isAddingDiscount: boolean = false;
+
+  // Custom modal for confirmations
+  showModal = false;
+  modalTitle = '';
+  modalMessage = '';
+  modalAction!: () => void;
+
   constructor(private router: Router, private productService: ProductService, private orderService: OrderService,
     private userService: UserService
   ) {
@@ -29,11 +62,51 @@ export class AdminComponent implements OnInit {
   }
   ngOnInit() {
     this.fetchCollections();
-    this.fetchProducts();
-    this.fetchOrders();
+    this.fetchProducts(() => {
+      this.fetchOrders();
+      this.productService.getDiscounts().subscribe({
+        next: (res) => {
+          this.discounts = res.map((d: any) => ({
+            ...d,
+            type: d.targetType // 🔁 map targetType → type
+          }));
+          this.loadDiscountDetails();
+        },
+        error: (err) => {
+          console.error('Failed to fetch discounts', err);
+        }
+      });
+    })
 
-    this.computeDiscountNames();
   }
+
+  fetchDiscountRelatedItems() {
+    const productDiscounts = this.discounts.filter(d => d.type === 'product');
+    const categoryDiscounts = this.discounts.filter(d => d.type === 'collection');
+
+    const productRequests = productDiscounts.map(discount =>
+      this.productService.getProductById(discount.targetId).pipe(
+        map(product => ({ discount, product })),
+        catchError(() => of(null)) // Handle missing product
+      )
+    );
+
+    const categoryRequests = categoryDiscounts.map(discount =>
+      this.productService.getCollectionById(discount.targetId).pipe(
+        map(collection => ({ discount, collection })),
+        catchError(() => of(null)) // Handle missing collection
+      )
+    );
+
+    forkJoin([
+      forkJoin(productRequests),
+      forkJoin(categoryRequests)
+    ]).subscribe(([products, categories]) => {
+      this.productDiscountItems = products.filter(item => item);
+      this.categoryDiscountItems = categories.filter(item => item);
+    });
+  }
+
   allproducts: { id: string; image: string; nameEn: string; nameAr: string; tags: string[]; price: number; quantity: number; descriptionEn: string; descriptionAr: string, sku: string, instock: boolean }[] = [];
   collections: { id: string; nameEn: string; nameAr: string }[] = [];
   orders: { orderId: string; orderDate: string; urserId: string; productsIds: { id: string; quantity: string; }[]; location: string, total: number }[] = [];
@@ -54,7 +127,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  fetchProducts() {
+  fetchProducts(callback?: () => void) {
     this.productService.adminGetProducts().subscribe({
       next: (data) => {
         console.log('Raw data from DB:', data);
@@ -72,6 +145,8 @@ export class AdminComponent implements OnInit {
           sku: product.sku,
           instock: product.stock > 0,
         }));
+
+        if (callback) callback(); // ✅ Call the callback once done
       },
       error: (error) => {
         console.error('Error fetching products:', error);
@@ -106,74 +181,6 @@ export class AdminComponent implements OnInit {
 
   }
 
-
-  categories: { id: string; nameEn: string; nameAr: string }[] = [
-    { id: '1', nameEn: 'Clocks', nameAr: 'ساعات' },
-    { id: '2', nameEn: 'Maps', nameAr: 'خرائط' },
-    { id: '3', nameEn: 'Jewelry', nameAr: 'مجوهرات' },
-    { id: '4', nameEn: 'Kitchenware', nameAr: 'أدوات المطبخ' },
-    { id: '5', nameEn: 'Rugs', nameAr: 'سجاد' },
-    { id: '6', nameEn: 'Ceramics', nameAr: 'سيراميك' },
-    { id: '7', nameEn: 'Coins', nameAr: 'عملات' }
-  ];
-  products: { id: string; image: string; nameEn: string; nameAr: string; categoryId: string; price: number; quantity: number; descriptionEn: string; descriptionAr: string }[] = [
-    {
-      id: '1',
-      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
-      nameEn: 'Vintage Clock',
-      nameAr: 'ساعة قديمة',
-      categoryId: '1',
-      price: 120,
-      quantity: 5,
-      descriptionEn: 'An exquisite antique brass wall clock from the early 19th century. This vintage clock features intricate engravings, a Roman numeral dial, and a beautiful aged patina that adds character to any space. A perfect addition for collectors and vintage lovers.',
-      descriptionAr: 'ساعة حائط نحاسية عتيقة من أوائل القرن التاسع عشر. تتميز هذه الساعة المحفورة بتفاصيل دقيقة ومينا بأرقام رومانية، مما يضفي عليها طابعًا كلاسيكيًا رائعًا. إضافة مثالية لمحبي التحف والقطع النادرة.'
-    },
-    {
-      id: '2',
-      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
-      nameEn: 'Old Map',
-      nameAr: 'خريطة قديمة',
-      categoryId: '2',
-      price: 85,
-      quantity: 2,
-      descriptionEn: 'A rare historical map of the Middle East from the 18th century. This meticulously detailed map showcases the geography, trade routes, and major cities of the era, printed on aged parchment paper. An excellent decorative piece or gift for history enthusiasts.',
-      descriptionAr: 'خريطة تاريخية نادرة لمنطقة الشرق الأوسط من القرن الثامن عشر. تعرض هذه الخريطة التفصيلية جغرافيا المنطقة ومسارات التجارة والمدن الكبرى في ذلك الوقت، مطبوعة على ورق بردي قديم. قطعة رائعة للزينة أو هدية لهواة التاريخ.'
-    },
-    {
-      id: '3',
-      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
-      nameEn: 'Handcrafted Silver Dagger',
-      nameAr: 'خنجر فضي مصنوع يدويًا',
-      categoryId: '3',
-      price: 250,
-      quantity: 3,
-      descriptionEn: 'A beautifully handcrafted silver dagger featuring detailed filigree work and an intricately designed handle. This traditional Middle Eastern piece is a symbol of heritage and craftsmanship, making it a valuable collector’s item.',
-      descriptionAr: 'خنجر فضي مصنوع يدويًا بتفاصيل رائعة وتصميم معقد على المقبض. هذه القطعة التقليدية من الشرق الأوسط تعتبر رمزًا للتراث والحرفية، مما يجعلها إضافة قيمة لمجموعات التحف.'
-    },
-    {
-      id: '4',
-      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
-      nameEn: 'Antique Brass Teapot',
-      nameAr: 'إبريق شاي نحاسي عتيق',
-      categoryId: '1',
-      price: 180,
-      quantity: 6,
-      descriptionEn: 'An elegant antique brass teapot with intricate carvings and a sturdy handle. This traditional teapot was commonly used in Middle Eastern households for serving tea during gatherings. A stunning addition to any antique kitchenware collection.',
-      descriptionAr: 'إبريق شاي نحاسي عتيق مزخرف بنقوش دقيقة ومقبض قوي. كان هذا الإبريق يُستخدم بشكل شائع في المنازل العربية لتقديم الشاي خلال المناسبات. إضافة رائعة لأي مجموعة أدوات مطبخ عتيقة.'
-    },
-    {
-      id: '5',
-      image: 'https://old-souqs.sirv.com/Products/1f1.jpg',
-      nameEn: 'Persian Handwoven Rug',
-      nameAr: 'سجادة فارسية يدوية الصنع',
-      categoryId: '2',
-      price: 600,
-      quantity: 1,
-      descriptionEn: 'A luxurious Persian handwoven rug featuring traditional motifs and vibrant colors. Made using natural wool and plant-based dyes, this exquisite rug is a timeless piece of art that enhances the aesthetic of any living space.',
-      descriptionAr: 'سجادة فارسية فاخرة مصنوعة يدويًا بزخارف تقليدية وألوان زاهية. مصنوعة من الصوف الطبيعي والأصباغ النباتية، مما يجعلها قطعة فنية خالدة تضفي جمالًا وأناقة على أي مكان.'
-    }
-
-  ];
   // Set active section and toggle sidebar styles
   activeSection = 'products'; // default section
 
@@ -619,76 +626,54 @@ export class AdminComponent implements OnInit {
   }
 
   //  discount section
-  newDiscount: Record<DiscountField, string> = {
-    type: 'product',
-    targetId: '',
-    value: ''
-  };
-
-  showAddDiscountPopup = false;
-
-  discounts = [
-    {
-      id: 'd1',
-      type: 'product',
-      targetId: '1',
-      value: '10',
-      createdAt: new Date('2024-12-01')
-    },
-    {
-      id: 'd2',
-      type: 'category',
-      targetId: '2',
-      value: '15',
-      createdAt: new Date('2024-12-03')
-    },
-    {
-      id: 'd3',
-      type: 'product',
-      targetId: '2',
-      value: '10',
-      createdAt: new Date('2024-12-01')
-    },
-    {
-      id: 'd4',
-      type: 'product',
-      targetId: '3',
-      value: '10',
-      createdAt: new Date('2024-11-11')
-    },
-    {
-      id: 'd5',
-      type: 'category',
-      targetId: '1',
-      value: '10',
-      createdAt: new Date('2024-12-12')
-    },
-    {
-      id: 'd6',
-      type: 'category',
-      targetId: '3',
-      value: '10',
-      createdAt: new Date('2025-1-01')
-    }
-  ];
+  onTypeChange() {
+    this.newDiscount.targetId = ''; // Reset selection on type switch
+  }
 
   handleDiscountField(field: DiscountField, event: Event) {
     const input = event.target as HTMLInputElement | HTMLSelectElement;
-    this.newDiscount[field] = input.value;
+    const value = input.value;
+
+    if (field === 'type') {
+      this.newDiscount.type = value as 'product' | 'collection';
+      this.newDiscount.targetId = ''; // reset target when type changes
+    } else if (field === 'value') {
+      this.newDiscount.value = parseFloat(value);
+    } else if (field === 'targetId') {
+      this.newDiscount.targetId = value;
+    }
   }
 
-
-
-  editingId: string | null = null;
   editingIndex: number | null = null; // To track the index of the editing discount
-  editingValue: string = ''; // Initialize as an empty string instead of null
-  newDiscountValue: string = ''; // New discount value for adding a discount
-  newDiscountTargetId: string = ''; // Target ID for new discount
-  newDiscountType: 'product' | 'category' = 'product'; // Default type for new discount
 
-  discountNames: { [key: string]: string } = {}; // Store computed names
+  loadDiscountDetails() {
+    const productDiscounts = this.discounts.filter(d => d.targetType === 'product');
+    const collectionDiscounts = this.discounts.filter(d => d.targetType === 'collection');
+    console.log('product id type:', typeof this.allproducts[0]?.id);
+    console.log('discount targetId type:', typeof productDiscounts[0]?.targetId);
 
-  isValidValue: boolean = true; // To track if the value is valid
+    // Create a new array for product discounts with data
+    this.productDiscountItems = productDiscounts.map(d => {
+      const product = this.allproducts.find(p => String(p.id) === String(d.targetId));
+      return {
+        discount: d,
+        product: product
+      };
+    });
+
+
+    console.log('Product Discounts:', this.productDiscountItems);
+
+    // Create a new array for collection discounts with data
+    this.categoryDiscountItems = collectionDiscounts.map(d => {
+      const collection = this.collections.find(c => String(c.id) === String(d.targetId));
+      return {
+        discount: d,
+        collection: collection
+      };
+    });
+
+  }
 
   // ngOnInit() {
   //   this.computeDiscountNames();
@@ -698,72 +683,130 @@ export class AdminComponent implements OnInit {
   computeDiscountNames() {
     this.discounts.forEach(d => {
       if (d.type === 'product') {
-        const product = this.products.find(p => p.id === d.targetId);
-        this.discountNames[d.id] = product ? product.nameEn + ' - ' + product.nameAr : 'Unknown Product';
-      } else if (d.type === 'category') {
-        const category = this.categories.find(c => c.id === d.targetId);
-        this.discountNames[d.id] = category ? category.nameEn + ' - ' + category.nameAr : 'Unknown Category';
+        const p = this.products.find(p => p.id === d.targetId);
+        this.discountNames[d.id] = p ? `${p.nameEn} - ${p.nameAr}` : 'Unknown Product';
+      } else {
+        const c = this.categories.find(c => c.id === d.targetId);
+        this.discountNames[d.id] = c ? `${c.nameEn} - ${c.nameAr}` : 'Unknown Category';
       }
     });
   }
+
+  // Creates a new discount
   addDiscount() {
-    if (!this.newDiscount.targetId || !this.newDiscount.value) {
-      alert('Please fill all fields');
-      return;
-    }
+    if (this.isAddingDiscount) return; // Prevent double submission
+    this.isAddingDiscount = true;
+    const payload = {
+      targetType: this.newDiscount.type,         // "product" or "collection"
+      targetId: this.newDiscount.targetId,       // must be valid Mongo ID
+      percentage: this.newDiscount.value         // number between 0–100
+    };
 
-    this.discounts.push({
-      id: Date.now().toString(),
-      type: this.newDiscount.type as 'product' | 'category',
-      targetId: this.newDiscount.targetId,
-      value: this.newDiscount.value,
-      createdAt: new Date()
+    this.productService.createDiscount(payload).subscribe({
+      next: () => {
+        this.showAddDiscountPopup = false;
+        this.fetchDiscountRelatedItems(); // refresh list
+      },
+      error: (err) => {
+        console.error("Error creating discount:", err);
+        alert("Failed to create discount.");
+      },
+      complete: () => {
+        this.isAddingDiscount = false;
+      }
     });
-
-    alert(`Discount added for ${this.newDiscount.type} ${this.newDiscount.targetId}`);
-    this.showAddDiscountPopup = false;
-    this.newDiscount = { type: 'product', targetId: '', value: '' };
-    this.computeDiscountNames();
   }
 
 
-  // Method to start editing a discount
+  // Enables edit mode for a specific discount
   editDiscount(id: string) {
     this.editingId = id;
-    const discount = this.discounts.find(d => d.id === id);
-    if (discount) {
-      this.editingValue = discount.value;
+    const d = this.discounts.find(d => d.id === id);
+    if (d) {
+      this.editingValue = d.percentage.toString();
       this.isValidValue = true;
     }
   }
 
-  // Method to save the edited discount
+  // Saves the edited discount
   saveDiscount() {
-    if (this.isValidValue && this.editingId) {
-      const discount = this.discounts.find(d => d.id === this.editingId);
-      if (discount) {
-        discount.value = this.editingValue;
-        discount.createdAt = new Date(); // Update the date when saving
-        this.editingId = null;
-        this.editingValue = '';
-      }
-    } else {
-      alert('Please enter a valid discount value between 0 and 100.');
+    const newPercentage = Number(this.editingValue);
+    if (isNaN(newPercentage) || newPercentage <= 0 || newPercentage > 100) {
+      this.isValidValue = false;
+      this.showCustomModal('Error', 'Please enter a valid discount value between 1 and 100.', () => { });
+      return;
+    }
+    this.isValidValue = true;
+
+    const d = this.discounts.find(dis => dis.id === this.editingId);
+    if (!d) return;
+
+    const payload = {
+      ...d,
+      percentage: newPercentage
+    };
+
+    if (this.editingId) {
+      this.productService.updateDiscount(this.editingId, payload).subscribe({
+        next: (res) => {
+          // Find and update the local discount object
+          const index = this.discounts.findIndex(dis => dis.id === this.editingId);
+          if (index > -1) {
+            this.discounts[index].percentage = res.percentage;
+          }
+          this.loadDiscountDetails();
+          this.editingId = null;
+          this.editingValue = '';
+          this.showCustomModal('Success', 'Discount updated successfully!', () => { });
+        },
+        error: () => this.showCustomModal('Error', 'Error updating discount.', () => { })
+      });
     }
   }
 
-  // Method to cancel the editing
+  // Cancels edit mode
   cancelEdit() {
     this.editingId = null;
     this.editingValue = '';
   }
 
-  // Method to delete a discount
+  // Prepares the modal for discount deletion
   deleteDiscount(id: string) {
-    if (confirm('Are you sure you want to delete this discount?')) {
-      this.discounts = this.discounts.filter(d => d.id !== id);
-    }
+    this.modalTitle = 'Confirm Delete';
+    this.modalMessage = 'Are you sure you want to delete this discount?';
+    this.modalAction = () => this.confirmDeleteDiscount(id);
+    this.showModal = true;
   }
+
+  // Confirms and deletes the discount
+  confirmDeleteDiscount(id: string) {
+    this.productService.deleteDiscount(id).subscribe({
+      next: () => {
+        this.discounts = this.discounts.filter(d => d.id !== id);
+        this.loadDiscountDetails();
+        this.showModal = false;
+        this.showCustomModal('Success', 'Discount deleted successfully!', () => { });
+      },
+      error: () => {
+        this.showModal = false;
+        this.showCustomModal('Error', 'Failed to delete discount.', () => { });
+      }
+    });
+  }
+
+  // Helper function to show a custom modal
+  showCustomModal(title: string, message: string, action: () => void) {
+    this.modalTitle = title;
+    this.modalMessage = message;
+    this.modalAction = action;
+    this.showModal = true;
+  }
+
+  // Closes the custom modal
+  closeModal() {
+    this.showModal = false;
+  }
+
 
   // Method to handle the input change when editing the discount value
   onEditValue(event: Event) {
@@ -787,7 +830,7 @@ export class AdminComponent implements OnInit {
 
   get categoryDiscounts() {
     return this.discounts
-      .filter(d => d.type === 'category')
+      .filter(d => d.type === 'collection')
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()); // Sort by date descending
   }
 

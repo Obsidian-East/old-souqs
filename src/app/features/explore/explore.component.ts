@@ -64,9 +64,10 @@ export class ExploreComponent {
 	fetchCollections() {
 		this.productService.getCollections().subscribe({
 			next: (data) => {
+				console.log(data);
 				this.categories = data.map((collection: any) => ({
 					id: collection.ID,
-					name: collection.CollectionName,
+					name: collection.collectionName,
 					count: Array.isArray(collection.ProductIds) ? collection.ProductIds.length : 0,
 				}));
 				this.selectedCategoryNumber = this.categories.reduce((sum, c) => sum + c.count, 0);
@@ -77,7 +78,7 @@ export class ExploreComponent {
 			}
 		});
 	}
-
+	
 	fetchProducts() {
 		if (this.selectedCategory) {
 			// Fetch by selected category

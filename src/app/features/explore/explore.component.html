@@ -247,7 +247,7 @@
                 <p  class="headline fade-in-start" appFadeInOnScroll>{{ 'EXPLORE.PRODUCTS' | translate }} ({{totalCount}})</p>
 
                 <div class="display-sort-container fade-in-start" appFadeInOnScroll>
-                    <div class="list-icon-container">
+                     <div class="list-icon-container">
                             <span (click)="toggleFilter()" class="filter-svg show-in-tablet">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3 4H21L13 14V19L9 21V14L3 4Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -255,7 +255,7 @@
                                 Filter <span class="vertical-line"></span>
                             </span>
                             
-                            <span class="list-icon-svg-container">
+                            <!-- <span class="list-icon-svg-container">
                             <svg class="grid-list active" (click)="TabAction(1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                 <path d="M128 136c0-22.1-17.9-40-40-40L40 96C17.9 96 0 113.9 0 136l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm0 192c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm32-192l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zM288 328c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48zm32-192l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40zM448 328c0-22.1-17.9-40-40-40l-48 0c-22.1 0-40 17.9-40 40l0 48c0 22.1 17.9 40 40 40l48 0c22.1 0 40-17.9 40-40l0-48z" fill="cuttentColor"/>
                             </svg>
@@ -263,7 +263,7 @@
                             <svg class="ul-list" (click)="TabAction(2)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path d="M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" fill="cuttentColor"/>
                             </svg>
-                            </span>
+                            </span> -->
                     </div>
 
                     <div class="sort-container">
@@ -282,8 +282,9 @@
                 <div class="line"></div>
 
                 <!-- grid display -->
+                 <div *ngIf="allproducts.length > 0">
                  <span id="track-screen" class="hide-in-tablet fade-in-start" appFadeInOnScroll>
-                <div *ngIf="showGridProduct" class="grid-product-list" id="grid-product-list">
+                <div  class="grid-product-list" id="grid-product-list">
                     <div class="item" 
                      *ngFor="let product of allproducts" 
                      (mouseenter)="showProductActions(product)" 
@@ -333,12 +334,14 @@
                 </div>
             </div>
             </span>
+            </div>
 
              <!-- product design for tablet and mobile -->
+              <div *ngIf="allproducts.length > 0">
      <span class="show-in-tablet fade-in-start" appFadeInOnScroll>
         <div *ngIf="showGridProduct"  class="grid-product-list">
             <div class="item" 
-                *ngFor="let product of allproducts" >
+                *ngFor="let product of allproducts">
         
                     <!-- Show image only when not hovering -->
                 <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image" alt="{{ product.name }}" >
@@ -450,6 +453,7 @@
                         </div>
                         </div>
                     </div>
+                </div>
                 </div>
     
              </div>

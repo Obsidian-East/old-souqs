@@ -8,9 +8,10 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FadeInOnScrollDirective } from './directives/fade-in-on-scroll.directive';
+import { HlsVideoPlayerComponent } from '../features/hls-video-player/hls-video-player.component';
 
 @NgModule({
-  declarations:[HeaderComponent, FooterComponent, FadeInOnScrollDirective],
+  declarations:[HeaderComponent, FooterComponent, HlsVideoPlayerComponent, FadeInOnScrollDirective],
   imports: [
     CommonModule,
     RouterModule,
@@ -24,7 +25,7 @@ import { FadeInOnScrollDirective } from './directives/fade-in-on-scroll.directiv
     HttpClientModule,
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
-  exports: [HeaderComponent, TranslateModule, FooterComponent, FadeInOnScrollDirective]
+  exports: [HeaderComponent, TranslateModule, FooterComponent, HlsVideoPlayerComponent, FadeInOnScrollDirective]
 })
 export class SharedModule { }
 

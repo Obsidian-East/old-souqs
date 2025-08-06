@@ -71,6 +71,7 @@ export class CheckoutComponent {
 
   ngOnInit() {
     this.checkoutForm = this.fb.group({
+      phoneNumber: ['', [Validators.required]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       address: ['', Validators.required],
@@ -170,11 +171,12 @@ export class CheckoutComponent {
             this.cartService.clearCart();
               
         alert('Order submitted! Your items will be delivered ASAP.');
-        this.router.navigate(['/order-success']);
+        this.router.navigate(['/thank-you']);
       },
       error: (err) => {
         console.error('Order submission failed', err);
-        alert('Something went wrong. Please try again later.');
+        alert('Log In First.');
+        this.router.navigate(['/login']);
       }
     });
   }

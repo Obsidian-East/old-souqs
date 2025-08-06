@@ -4,7 +4,8 @@
         <span class="fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.HERO'| translate }}</span>
         <p class="hero-title fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.HERO-TEXT1'| translate }}</p>
         <p class="hero-title marcellus-font fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.HERO-TEXT2'| translate }}</p>
-        <button routerLink="/explore" class="button-beige fade-in-start animate-btn" appFadeInOnScroll>{{'HOMEPAGE.SHOP-NOW'| translate }}</button>
+        <button routerLink="/explore" class="button-beige fade-in-start animate-btn"
+            appFadeInOnScroll>{{'HOMEPAGE.SHOP-NOW'| translate }}</button>
     </div>
 </section>
 
@@ -26,7 +27,8 @@
                     <br /> {{'HOMEPAGE.DESCRIPTION-TEXT3' | translate }}
                     <br /> {{'HOMEPAGE.DESCRIPTION-TEXT4' | translate }}
                 </p>
-                <button routerLink="/explore" class="button-beige animate-btn">{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
+                <button routerLink="/explore" class="button-beige animate-btn">{{'HOMEPAGE.EXPLORE-NOW' | translate
+                    }}</button>
 
             </div>
             <div class="about-years">
@@ -109,8 +111,18 @@
                             </div>
                         </div>
 
-                        <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                        <span class="item-price">${{ product.price.toFixed(2) }}</span>
+                        <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name }}</a>
+                        </p>
+                        <span class="item-price">
+                            <ng-container *ngIf="product.originalPrice; else noDiscount">
+                                <s class="original-price">$ {{ product.originalPrice.toFixed(2) }}</s>
+                                <span class="discounted-price">$ {{ product.price.toFixed(2) }}</span>
+                                <span class="discount-badge">Sale</span> <!-- Optional badge -->
+                            </ng-container>
+                            <ng-template #noDiscount>
+                                $ {{ product.price.toFixed(2) }}
+                            </ng-template>
+                        </span>
                     </div>
                 </div>
             </span>
@@ -121,10 +133,21 @@
                         <div class="item" *ngFor="let product of products">
 
                             <!-- Show image only when not hovering -->
-                            <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image" alt="{{ product.name }}">
+                            <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image"
+                                alt="{{ product.name }}">
 
-                            <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                            <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
+                            <p class="item-name" #itemNameRef><a (click)="goToProduct(product.id)">{{ product.name
+                                    }}</a></p>
+                            <span class="item-price">
+                                <ng-container *ngIf="product.originalPrice; else noDiscount">
+                                    <s class="original-price">$ {{ product.originalPrice.toFixed(2) }}</s>
+                                    <span class="discounted-price">$ {{ product.price.toFixed(2) }}</span>
+                                    <span class="discount-badge">Sale</span> <!-- Optional badge -->
+                                </ng-container>
+                                <ng-template #noDiscount>
+                                    $ {{ product.price.toFixed(2) }}
+                                </ng-template>
+                            </span>
 
                             <div id="product-actions-container">
                                 <div class="product-actions">
@@ -172,12 +195,17 @@
                     </div>
                 </div>
             </span>
-            <div class="dots show-in-tablet" >
+            <div class="dots show-in-tablet">
                 <span *ngFor="let num of products; let i = index; let first=first; let last=last">
                     <div *ngIf="first && !last" class="dot-collection active-dot" (click)="moveCollection(i)"></div>
                     <div *ngIf="!first && !last" class="dot-collection" (click)="moveCollection(i)"></div>
                 </span>
             </div>
+            <button class="nav-button right" (click)="scrollRight()" [disabled]="isAtEnd">&#10095;</button>
+
+            <!-- Gradient overlays -->
+            <div class="gradient-overlay left" *ngIf="!isAtStart"></div>
+            <div class="gradient-overlay right" *ngIf="!isAtEnd"></div>
         </div>
     </article>
 
@@ -187,7 +215,8 @@
             <div class="back">
                 <span class="fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.EXPLORE-MINI-TITLE' | translate }}</span>
                 <p class="explore-title fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.EXPLORE-TITLE' | translate }}</p>
-                <button routerLink="/explore" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
+                <button routerLink="/explore" class="button-beige animate-btn fade-in-start"
+                    appFadeInOnScroll>{{'HOMEPAGE.EXPLORE-NOW' | translate }}</button>
             </div>
         </div>
         <!-- content -->
@@ -222,43 +251,42 @@
             </div>
         </div> -->
         <div class="custom-container">
-        <!-- Fixed Content -->
-        <div class="fixed-text-content">
-            <p class="fade-in-start" appFadeInOnScroll>
-            <span class="headline" style="color: var(--font-color-primary);"> {{ 'HOMEPAGE.CUSTOM-MADE' | translate }}</span>
-            <span class="headline marcellus-font" style="color: var(--font-color-primary);"> {{ 'HOMEPAGE.MASTERPIECES' | translate }}</span>
-            </p>
-            <p class="engaging-sentence fade-in-start" appFadeInOnScroll>
-            {{ 'HOMEPAGE.ENGAGING-SENTENCE1' | translate }}
-            </p>
-            <p class="engaging-sentence fade-in-start" appFadeInOnScroll>
-            {{ 'HOMEPAGE.ENGAGING-SENTENCE2' | translate }}
-            </p>
-            <span class="customized-buttons">
-                <button routerLink="/contact" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>
-                {{ 'HOMEPAGE.CONTACT-button' | translate }}
-                </button>
-                <button routerLink="/customized" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>
-                {{ 'HOMEPAGE.VIEW' | translate }}                    
-                </button>
-            </span>
-            
-        </div>
+            <!-- Fixed Content -->
+            <div class="fixed-text-content">
+                <p class="fade-in-start" appFadeInOnScroll>
+                    <span class="headline" style="color: var(--font-color-primary);"> {{ 'HOMEPAGE.CUSTOM-MADE' |
+                        translate }}</span>
+                    <span class="headline marcellus-font" style="color: var(--font-color-primary);"> {{
+                        'HOMEPAGE.MASTERPIECES' | translate }}</span>
+                </p>
+                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>
+                    {{ 'HOMEPAGE.ENGAGING-SENTENCE1' | translate }}
+                </p>
+                <p class="engaging-sentence fade-in-start" appFadeInOnScroll>
+                    {{ 'HOMEPAGE.ENGAGING-SENTENCE2' | translate }}
+                </p>
+                <span class="customized-buttons">
+                    <button routerLink="/contact" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>
+                        {{ 'HOMEPAGE.CONTACT-button' | translate }}
+                    </button>
+                    <button routerLink="/customized" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>
+                        {{ 'HOMEPAGE.VIEW' | translate }}
+                    </button>
+                </span>
 
-        <!-- Sliding Background -->
-        <div class="slider-track" [style.transform]="getTransform()" [style.transition]="transitionStyle">
-            <div
-            class="slider-background"
-            *ngFor="let img of images"
-            [style.background-image]="'url(' + img + ')'">
             </div>
-        </div>
+
+            <!-- Sliding Background -->
+            <div class="slider-track" [style.transform]="getTransform()" [style.transition]="transitionStyle">
+                <div class="slider-background" *ngFor="let img of images" [style.background-image]="'url(' + img + ')'">
+                </div>
+            </div>
 
 
 
 
 
-                <!-- <div class="slider-track" [style.transform]="getTransform()" [style.transition]="transitionStyle">
+            <!-- <div class="slider-track" [style.transform]="getTransform()" [style.transition]="transitionStyle">
                     <div class="slider-background" *ngFor="let img of images" [style.background-image]="'url(' + img + ')'">
                     
                         <p class="fade-in-start name-aligned-mobile" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
@@ -270,12 +298,12 @@
 
                     </div>
               </div> -->
-                <!-- <p class="fade-in-start name-aligned-mobile" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
+            <!-- <p class="fade-in-start name-aligned-mobile" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
                         class="headline marcellus-font"> {{'HOMEPAGE.MASTERPIECES' | translate }}</span></p>
                 <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE1' | translate }}</p>
                 <p class="engaging-sentence fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.ENGAGING-SENTENCE2' | translate }}</p> -->
 
-                <!-- <div class="items-container fade-in-start" appFadeInOnScroll>
+            <!-- <div class="items-container fade-in-start" appFadeInOnScroll>
 
                     <div class="customized-carousel-container">
                         <div class="customized-carousel" id="customized-carousel">
@@ -291,7 +319,7 @@
 
                     </div>
                 </div> -->
-                <!-- <div class="customized-dots">
+            <!-- <div class="customized-dots">
                     <span *ngFor="let num of customized; let i = index; let first=first; let last=last">
                         <div *ngIf="i < maxDots && first && !last" class="customized-dot customized-active-dot"
                             (click)="moveCustomizedToSlide(i)"></div>
@@ -301,8 +329,8 @@
                 </div> -->
 
 
-                <!-- <p routerLink="/contact" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.CONTACT-button' | translate }}</p> -->
-            </div>
+            <!-- <p routerLink="/contact" class="button-beige animate-btn fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.CONTACT-button' | translate }}</p> -->
+        </div>
         <!-- <span class="show-in-tablet">
             <div class="custom-container">
                 <p class="fade-in-start" appFadeInOnScroll><span class="headline"> {{'HOMEPAGE.CUSTOM-MADE' | translate }}</span><span
@@ -343,8 +371,8 @@
     </article>
 
     <article id="deals-of-the-day" class="deals-of-the-day-container">
-        <p class="fade-in-start" appFadeInOnScroll><span class="headline">{{'HOMEPAGE.DEALS-OF' | translate }} </span><span
-                class="headline marcellus-font">{{'HOMEPAGE.THE-DAY' | translate }}</span></p>
+        <p class="fade-in-start" appFadeInOnScroll><span class="headline">{{'HOMEPAGE.DEALS-OF' | translate }}
+            </span><span class="headline marcellus-font">{{'HOMEPAGE.THE-DAY' | translate }}</span></p>
 
         <span class="hide-in-tablet fade-in-start" appFadeInOnScroll>
             <div class="deals-carousel-container">
@@ -389,7 +417,16 @@
                         </div>
                         <div class="deals-item-info">
                             <p class="deals-item-name" (click)="goToProduct(item.id)">{{ item.name }}</p>
-                            <p class="item-price">$ {{ item.price }}</p>
+                            <span class="item-price">
+                                <ng-container *ngIf="item.originalPrice; else noDiscount">
+                                    <s class="original-price">$ {{ item.originalPrice.toFixed(2) }}</s>
+                                    <span class="discounted-price">$ {{ item.price.toFixed(2) }}</span>
+                                    <span class="discount-badge">Sale</span> <!-- Optional badge -->
+                                </ng-container>
+                                <ng-template #noDiscount>
+                                    $ {{ item.price.toFixed(2) }}
+                                </ng-template>
+                            </span>
                             <button id="add-to-cart" class="button-beige"
                                 (click)="addToCart(item)">{{'HOMEPAGE.ADD-TO-CART' | translate }}</button>
                         </div>
@@ -405,11 +442,21 @@
                     <div class="item" *ngFor="let product of deals">
 
                         <!-- Show image only when not hovering -->
-                        <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image" alt="{{ product.name }}">
+                        <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image"
+                            alt="{{ product.name }}">
 
 
                         <p class="deals-item-name"><a (click)="goToProduct(product.id)">{{ product.name }}</a></p>
-                        <span class="item-price">$ {{ product.price.toFixed(2) }}</span>
+                        <span class="item-price">
+                            <ng-container *ngIf="product.originalPrice; else noDiscount">
+                                <s class="original-price">$ {{ product.originalPrice.toFixed(2) }}</s>
+                                <span class="discounted-price">$ {{ product.price.toFixed(2) }}</span>
+                                <span class="discount-badge">Sale</span> <!-- Optional badge -->
+                            </ng-container>
+                            <ng-template #noDiscount>
+                                $ {{ product.price.toFixed(2) }}
+                            </ng-template>
+                        </span>
 
                         <div id="product-actions-container">
                             <div class="product-actions">
@@ -508,13 +555,17 @@
         <div class="subscribe-box">
             <button class="close-btn" (click)="closeSubscribe()">&times;</button>
             <div class="subscribe-content">
-                <svg class="fade-in-start" appFadeInOnScroll width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="fade-in-start" appFadeInOnScroll width="50" height="50" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 6L12 13L22 6V18H2V6Z" stroke="#C09B66" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
-                <h2 class="subscribe-title fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.SUBSCRIBE-TEXT' | translate }}</h2>
-                <input type="email" placeholder="{{'HOMEPAGE.ENTER-YOUR-EMAIL' | translate }}" class="email-input fade-in-start" appFadeInOnScroll />
-                <button (click)="subscribe()" class="button-beige subscribe-btn fade-in-start animate-btn" appFadeInOnScroll>{{'HOMEPAGE.SUBSCRIBE' | translate
+                <h2 class="subscribe-title fade-in-start" appFadeInOnScroll>{{'HOMEPAGE.SUBSCRIBE-TEXT' | translate }}
+                </h2>
+                <input type="email" placeholder="{{'HOMEPAGE.ENTER-YOUR-EMAIL' | translate }}"
+                    class="email-input fade-in-start" appFadeInOnScroll />
+                <button (click)="subscribe()" class="button-beige subscribe-btn fade-in-start animate-btn"
+                    appFadeInOnScroll>{{'HOMEPAGE.SUBSCRIBE' | translate
                     }}</button>
             </div>
         </div>

@@ -5,11 +5,12 @@ import { TranslateModule } from "@ngx-translate/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, SharedModule, TranslateModule, AppRoutingModule, HttpClientModule],
+  imports: [CommonModule, SharedModule, TranslateModule, AppRoutingModule, HttpClientModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

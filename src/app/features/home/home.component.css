@@ -1718,3 +1718,62 @@ section {
         width: 70vw;
     }
 }
+
+.collection-strip-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.collection-strip {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+.collection-strip::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 2rem;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.nav-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.nav-button.left {
+  left: 0;
+}
+.nav-button.right {
+  right: 0;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  pointer-events: none;
+  z-index: 1;
+}
+.gradient-overlay.left {
+  left: 0;
+  background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+.gradient-overlay.right {
+  right: 0;
+  background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0));
+}

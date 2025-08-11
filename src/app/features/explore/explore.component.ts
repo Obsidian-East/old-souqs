@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ChangeDetectorRef, HostListener , QueryList, ViewChildren  } from '@angular/core';
+import { Component, ElementRef, OnInit, ChangeDetectorRef, HostListener, QueryList, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Router } from '@angular/router';
@@ -18,7 +18,7 @@ export class ExploreComponent {
 	constructor(
 		private router: Router,
 		private productService: ProductService,
-  		private cartService: CartService,
+		private cartService: CartService,
 		public wishlistService: WishlistService,
 		private cd: ChangeDetectorRef,
 		private eventBus: EventBusService
@@ -66,20 +66,22 @@ export class ExploreComponent {
 			next: (data) => {
 				console.log(data);
 				this.categories = data.map((collection: any) => ({
-					id: collection.ID,
+					id: collection.id,
 					name: collection.collectionName,
-					count: Array.isArray(collection.ProductIds) ? collection.ProductIds.length : 0,
+					count: collection.productIds.length,
 				}));
 				this.selectedCategoryNumber = this.categories.reduce((sum, c) => sum + c.count, 0);
 				this.totalCount = this.selectedCategoryNumber;
+				console.log("Categories:", this.categories);
 			},
 			error: (error) => {
 				console.error('Error fetching collections:', error);
 			}
 		});
 	}
-	
+
 	fetchProducts() {
+		this.totalCount = 0;
 		if (this.selectedCategory) {
 			// Fetch by selected category
 			this.fetchProductsByCollection(this.selectedCategory.id);
@@ -100,9 +102,13 @@ export class ExploreComponent {
 					console.log("Original Products:", this.originalProducts)
 
 					this.allproducts = [...this.originalProducts];
+					this.totalCount = this.allproducts.length;
 					this.setPriceLimits();
 					this.calculateStock();
 					this.applyFilters();
+
+					// 🔧 Force Angular to detect changes and refresh the view
+					this.cd.detectChanges();
 				},
 				error: (error) => {
 					console.error('Error fetching products:', error);
@@ -146,13 +152,13 @@ export class ExploreComponent {
 		this.productService.getProductsByCollection(collectionId).subscribe({
 			next: (data) => {
 				this.originalProducts = data.map((product: any) => ({
-					id: product.ID,
-					name: product.Title,
-					description: product.Description,
-					price: product.Price,
-					image: product.Image,
-					stock: product.Stock,
-					instock: product.Stock > 0,
+					id: product.id,
+					name: product.title,
+					description: product.description,
+					price: product.price,
+					image: product.image,
+					stock: product.stock,
+					instock: product.stock > 0,
 					originalPrice: product.originalPrice,
 				}));
 				console.log(data);
@@ -290,8 +296,8 @@ export class ExploreComponent {
 	// to send the product id to the product page when clicking on a product name
 
 	goToProduct(id: string) {
-  this.router.navigate(['/product', id]);
-}
+		this.router.navigate(['/product', id]);
+	}
 
 
 	// --- Misc ---
@@ -342,18 +348,18 @@ export class ExploreComponent {
 	// --- Cart Actions aligned with CartService ---
 	addToCart(product: any): void {
 		const item: CartItem = {
-		  id: product.id,
-		  title: product.name,
-		  image: product.image,
-		  price: product.price,
-		  quantity: 1,
-		  stock: product.stock
+			id: product.id,
+			title: product.name,
+			image: product.image,
+			price: product.price,
+			quantity: 1,
+			stock: product.stock
 		};
 		this.cartService.addToCart(item);
 		this.eventBus.triggerOpenCart();
-	  }
+	}
 
-	  toggleWishlist(productId: string) {
+	toggleWishlist(productId: string) {
 		this.wishlistService.toggleWishlist(productId).subscribe(() => {
 			this.cd.detectChanges(); // force UI refresh if needed
 		});
@@ -364,27 +370,27 @@ export class ExploreComponent {
 
 	@HostListener('window:resize')
 	onResize() {
-	this.adjustFontSizes();
+		this.adjustFontSizes();
 	}
 
 	ngAfterViewInit() {
-	this.adjustFontSizes();
+		this.adjustFontSizes();
 	}
 
 	adjustFontSizes() {
-    this.nameRefs.forEach((elRef: ElementRef) => {
-      const el = elRef.nativeElement as HTMLElement;
-      let fontSize = 1.1; // rem
-      const maxHeight = el.clientHeight;
+		this.nameRefs.forEach((elRef: ElementRef) => {
+			const el = elRef.nativeElement as HTMLElement;
+			let fontSize = 1.1; // rem
+			const maxHeight = el.clientHeight;
 
-      el.style.fontSize = `${fontSize}rem`;
+			el.style.fontSize = `${fontSize}rem`;
 
-      while (el.scrollHeight > maxHeight && fontSize > 0.6) {
-        fontSize -= 0.05;
-        el.style.fontSize = `${fontSize}rem`;
-      }
-    });
-  }
+			while (el.scrollHeight > maxHeight && fontSize > 0.6) {
+				fontSize -= 0.05;
+				el.style.fontSize = `${fontSize}rem`;
+			}
+		});
+	}
 
 }
 

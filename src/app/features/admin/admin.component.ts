@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { UserService } from '../../services/user.service';
+import { AnnouncementService } from '../../services/announcement.service';
 import { Product } from '../../models/product.model';
 import { catchError, forkJoin, map, of } from 'rxjs';
 
@@ -55,9 +56,11 @@ export class AdminComponent implements OnInit {
   modalMessage = '';
   modalAction!: () => void;
 
-  constructor(private router: Router, private productService: ProductService, private orderService: OrderService,
-    private userService: UserService
-  ) {
+  constructor(private router: Router,
+    private productService: ProductService,
+    private orderService: OrderService,
+    private userService: UserService,
+    private announcementService: AnnouncementService) {
     this.loadAnnouncements();
   }
   ngOnInit() {
@@ -77,7 +80,8 @@ export class AdminComponent implements OnInit {
         }
       });
     })
-
+    this.loadAnnouncements();
+    console.log('ShowAnnouncements:', this.showAddAnnouncementPopup);
   }
 
   fetchDiscountRelatedItems() {
@@ -223,21 +227,23 @@ export class AdminComponent implements OnInit {
 
   // Open the popup with selected product
   openEditPopup(product: any) {
-    this.productService.getProductById(product.id).subscribe({
+    this.productService.adminGetProductById(product.id).subscribe({
       next: (freshProduct) => {
         this.selectedProduct = {
-          id: freshProduct.id || freshProduct._id,
-          title: freshProduct.title,
-          titleAr: freshProduct.titleAr,
-          description: freshProduct.description,
+          id: product.id,
+          nameEn: freshProduct.title, // map correctly
+          nameAr: freshProduct.titleAr,
+          quantity: freshProduct.stock, // match displayed field
+          descriptionEn: freshProduct.description,
           descriptionAr: freshProduct.descriptionAr,
           sku: freshProduct.sku,
           image: freshProduct.image,
           price: freshProduct.price,
-          stock: freshProduct.stock,
-          instock: freshProduct.instock ?? freshProduct.stock > 0,
-          tag: Array.isArray(freshProduct.tag) ? [...freshProduct.tag] : [],
+          instock: freshProduct.stock > 0,
+          tags: Array.isArray(freshProduct.tag) ? [...freshProduct.tag] : [],
         };
+        console.log('Selected product for editing:', this.selectedProduct);
+        console.log('Selected product ID:', this.selectedProduct.id);
         this.showPopup = true;
       },
       error: (err) => {
@@ -262,32 +268,47 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  handleEditImageUpload(event: any) {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    this.productService.uploadImage(file).subscribe({
+      next: (res) => {
+        this.selectedProduct.image = res.url;
+      },
+      error: (err) => {
+        console.error('Image upload failed:', err);
+        alert('Image upload failed.');
+      }
+    });
+  }
+
+
   // Update the product in the array
   updateProduct() {
-    // Ensure selectedProduct has an _id for the update
     if (!this.selectedProduct.id) {
       alert('Error: Product ID is missing for update.');
       return;
     }
-    console.log('Submitting updated product:', this.selectedProduct);
+
     this.productService.updateProduct(this.selectedProduct.id, this.selectedProduct).subscribe({
       next: (updatedProduct) => {
         console.log('Product updated successfully:', updatedProduct);
-        // Update the product in the local array with the response from the backend
-        const index = this.products.findIndex(p => p.id === updatedProduct['id']);
+
+        const index = this.products.findIndex(p => p.id === updatedProduct._id || p._id === updatedProduct._id);
         if (index !== -1) {
-          this.newProduct[index] = updatedProduct;
+          this.products[index] = updatedProduct;
         }
-        this.closePopup(); // Close popup after successful update
+
+        // Refetch the full product list
         this.productService.getProducts().subscribe((products) => {
           this.products = products;
           this.closePopup();
         });
-
       },
       error: (err) => {
         console.error('Failed to update product:', err);
-        alert('Failed to update product: ' + (err.error?.message || err.message)); // Show more specific error
+        alert('Failed to update product: ' + (err.error?.message || err.message));
       }
     });
   }
@@ -850,7 +871,7 @@ export class AdminComponent implements OnInit {
   }
 
   // code to change announcement
-  announcementsEn: string[] = [];
+  announcementsEn: any[] = [];
 
   editingAnnouncementStates: { [key: number]: boolean } = {};
   AnnouncementinputValuesEn: { [key: number]: string } = {};
@@ -868,10 +889,16 @@ export class AdminComponent implements OnInit {
   }
 
   private loadAnnouncements(): void {
-    if (this.isBrowser()) {
-      const stored = localStorage.getItem(this.announcementKey);
-      this.announcementsEn = stored ? JSON.parse(stored) : [];
-    }
+    this.announcementService.getAllAnnouncements().subscribe({
+      next: (data) => {
+        this.announcementsEn = data;
+        console.log('Announcements loaded:', data);;
+      },
+      error: (err) => {
+        console.error('Failed to get the announcements:', err);
+        alert('Failed to get the announcements.');
+      }
+    });
   }
 
   //  Save to localStorage
@@ -884,6 +911,7 @@ export class AdminComponent implements OnInit {
   openAddAnnouncementPopup() {
     this.showAddAnnouncementPopup = true;
     this.newAnnouncementEn = '';
+    console.log('ShowAnnouncements:', this.showAddAnnouncementPopup);
     // this.newAnnouncementAr = '';
   }
 
@@ -900,22 +928,24 @@ export class AdminComponent implements OnInit {
   // }
 
   addNewAnnouncement() {
-    const en = this.newAnnouncementEn.trim();
-    // const ar = this.newAnnouncementAr.trim();
-    if (en) {
-      this.announcementsEn.push(en)
-      this.saveAnnouncements();
-      this.closeAddAnnouncementPopup();
-    } else {
-      alert('Please enter both EN and AR announcements.');
+    const message = this.newAnnouncementEn.trim();
+    if (!message) {
+      alert('Please enter an announcement.');
+      return;
     }
+
+    this.announcementService.createAnnouncement({ message }).subscribe(newAnnouncement => {
+      this.announcementsEn.push(newAnnouncement);
+      this.closeAddAnnouncementPopup();
+      this.newAnnouncementEn = ''; // Clear input after adding
+    });
   }
 
-  editAnnouncementName(index: number, en: string) {
-    this.editingAnnouncementStates[index] = true;
-    this.AnnouncementinputValuesEn[index] = en;
-    // this.AnnouncementinputValuesAr[index] = ar;
-  }
+  // editAnnouncementName(index: number, en: string) {
+  //   this.editingAnnouncementStates[index] = true;
+  //   this.AnnouncementinputValuesEn[index] = en;
+  //   // this.AnnouncementinputValuesAr[index] = ar;
+  // }
 
   saveAnnouncementName(index: number) {
     this.announcementsEn[index] = this.AnnouncementinputValuesEn[index];
@@ -937,10 +967,15 @@ export class AdminComponent implements OnInit {
     // this.AnnouncementinputValuesAr[index] = (event.target as HTMLInputElement).value;
   }
 
-  confirmDeleteAnnouncement(index: number) {
+  confirmDeleteAnnouncement(index: string) {
+    if (this.announcementsEn.length === 1) {
+      alert('You cannot delete the last announcement.');
+      return;
+    }
     if (confirm('Are you sure you want to delete this announcement?')) {
-      this.announcementsEn.splice(index, 1);
-      this.saveAnnouncements();
+      this.announcementService.deleteAnnouncement(index).subscribe(() => {
+        this.loadAnnouncements();
+      });
     }
   }
 

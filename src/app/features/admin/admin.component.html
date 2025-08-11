@@ -69,17 +69,17 @@
 
         <img [src]="selectedProduct.image" class="popup-image-preview" />
 
-        <input type="file" (change)="handleNewImageUpload($event)" />
+        <input type="file" (change)="handleEditImageUpload($event)" />
 
         <div class="grid-two">
           <span class="label-input-container">
             <label>{{ 'ADMIN.NAME-EN' | translate }}</label>
-            <input type="text" [(ngModel)]="selectedProduct.title" name="title" />
+            <input type="text" [(ngModel)]="selectedProduct.nameEn" name="name" />
           </span>
 
           <span class="label-input-container">
             <label>{{ 'ADMIN.NAME-AR' | translate }}</label>
-            <input type="text" [(ngModel)]="selectedProduct.titleAr" name="titleAr" />
+            <input type="text" [(ngModel)]="selectedProduct.nameAr" name="nameAr" />
           </span>
         </div>
 
@@ -91,14 +91,14 @@
 
           <span class="label-input-container">
             <label>{{ 'ADMIN.QUANTITY' | translate }}</label>
-            <input type="number" [(ngModel)]="selectedProduct.stock" name="stock" />
+            <input type="number" [(ngModel)]="selectedProduct.quantity" name="stock" />
           </span>
         </div>
 
         <div class="grid-two">
           <span class="label-input-container">
             <label>{{ 'ADMIN.SKU' | translate }}</label>
-            <input type="text" [(ngModel)]="selectedProduct.sku" name="sku" />
+            <input type="text" [(ngModel)]="selectedProduct.sku" name="sku" readonly id="skuStylingEdit" />
           </span>
 
           <span class="label-input-container">
@@ -130,7 +130,7 @@
 
         <span class="label-input-container">
           <label>{{ 'ADMIN.DESC-EN' | translate }}</label>
-          <textarea [(ngModel)]="selectedProduct.description" name="description"></textarea>
+          <textarea [(ngModel)]="selectedProduct.descriptionEn" name="description"></textarea>
         </span>
 
         <span class="label-input-container">
@@ -359,131 +359,137 @@
 
   <!-- discounts -->
   <div class="main-content" id="discounts-section" *ngIf="activeSection === 'discounts'">
-  <!-- Top menu button for mobile -->
-  <div class="menu-container show-in-tablet">
-    <svg (click)="showSidebar()" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 448 512">
-      <path
-        d="M0 96C0 78.3 14.3 64 32 64h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z" />
-    </svg>
-  </div>
+    <!-- Top menu button for mobile -->
+    <div class="menu-container show-in-tablet">
+      <svg (click)="showSidebar()" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
+        viewBox="0 0 448 512">
+        <path
+          d="M0 96C0 78.3 14.3 64 32 64h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z" />
+      </svg>
+    </div>
 
-  <!-- Button to open the add discount popup -->
-  <button class="add-collection-btn" (click)="showAddDiscountPopup = true">
-    + {{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }}
-  </button>
+    <!-- Button to open the add discount popup -->
+    <button class="add-collection-btn" (click)="showAddDiscountPopup = true">
+      + {{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }}
+    </button>
 
-  <!-- Custom Add Discount Modal Popup -->
-  <div *ngIf="showAddDiscountPopup" class="modal-overlay">
-    <div class="modal-content">
-      <button class="modal-close-btn" (click)="showAddDiscountPopup = false">&times;</button>
-      <h3 class="modal-headline">{{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }}</h3>
+    <!-- Custom Add Discount Modal Popup -->
+    <div *ngIf="showAddDiscountPopup" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close-btn" (click)="showAddDiscountPopup = false">&times;</button>
+        <h3 class="modal-headline">{{ 'ADMIN.ADD-NEW-DISCOUNT' | translate }}</h3>
 
-      <div class="modal-body">
-        <div class="label-select-container">
-          <label>Type:</label>
-          <select [(ngModel)]="newDiscount.type" (change)="onTypeChange()">
-            <option value="product">{{ 'ADMIN.PRODUCT' | translate }}</option>
-            <!-- Changed 'category' to 'collection' to match backend -->
-            <option value="collection">{{ 'ADMIN.CATEGORY' | translate }}</option>
-          </select>
+        <div class="modal-body">
+          <div class="label-select-container">
+            <label>Type:</label>
+            <select [(ngModel)]="newDiscount.type" (change)="onTypeChange()">
+              <option value="product">{{ 'ADMIN.PRODUCT' | translate }}</option>
+              <!-- Changed 'category' to 'collection' to match backend -->
+              <option value="collection">{{ 'ADMIN.CATEGORY' | translate }}</option>
+            </select>
+          </div>
+
+          <div class="label-select-container">
+            <label>{{ 'ADMIN.TARGET' | translate }}:</label>
+            <select [(ngModel)]="newDiscount.targetId">
+              <option disabled [selected]="!newDiscount.targetId">{{ 'ADMIN.SELECT' | translate }}</option>
+              <ng-container *ngIf="newDiscount.type === 'product'">
+                <!-- Using 'Title' and 'TitleAr' to match the Go Product model -->
+                <option *ngFor="let p of allproducts" [value]="p.id">{{ p.nameEn}} - {{ p.nameAr }}</option>
+              </ng-container>
+              <ng-container *ngIf="newDiscount.type === 'collection'">
+                <!-- Using 'CollectionName' and 'CollectionNameAr' to match the Go Collection model -->
+                <option *ngFor="let c of collections" [value]="c.id">{{ c.nameEn }} - {{ c.nameEn }}</option>
+              </ng-container>
+            </select>
+          </div>
+
+          <div class="label-select-container">
+            <label>{{ 'ADMIN.VALUE' | translate }} (%):</label>
+            <input type="number" [(ngModel)]="newDiscount.value" min="0" max="100" />
+          </div>
         </div>
 
-        <div class="label-select-container">
-          <label>{{ 'ADMIN.TARGET' | translate }}:</label>
-          <select [(ngModel)]="newDiscount.targetId">
-            <option disabled [selected]="!newDiscount.targetId">{{ 'ADMIN.SELECT' | translate }}</option>
-            <ng-container *ngIf="newDiscount.type === 'product'">
-              <!-- Using 'Title' and 'TitleAr' to match the Go Product model -->
-              <option *ngFor="let p of allproducts" [value]="p.id">{{ p.nameEn}} - {{ p.nameAr }}</option>
-            </ng-container>
-            <ng-container *ngIf="newDiscount.type === 'collection'">
-              <!-- Using 'CollectionName' and 'CollectionNameAr' to match the Go Collection model -->
-              <option *ngFor="let c of collections" [value]="c.id">{{ c.nameEn }} - {{ c.nameEn }}</option>
-            </ng-container>
-          </select>
-        </div>
-
-        <div class="label-select-container">
-          <label>{{ 'ADMIN.VALUE' | translate }} (%):</label>
-          <input type="number" [(ngModel)]="newDiscount.value" min="0" max="100" />
+        <div class="modal-footer">
+          <button class="add-product-btn" style="width: 100%;" [disabled]="isAddingDiscount" (click)="addDiscount()">
+            {{ isAddingDiscount ? 'Adding...' : 'ADMIN.ADD' | translate }}
+          </button>
         </div>
       </div>
+    </div>
 
-      <div class="modal-footer">
-        <button class="add-product-btn" style="width: 100%;" [disabled]="isAddingDiscount" (click)="addDiscount()">
-          {{ isAddingDiscount ? 'Adding...' : 'ADMIN.ADD' | translate }}
-        </button>
+    <!-- Discount Lists -->
+    <h3 class="existing-title">{{ 'ADMIN.EXISTING-DISCOUNTS' | translate }}</h3>
+
+    <!-- Discounts on Products -->
+    <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-PRODUCTS' | translate }}</h3>
+    <div class="discounts-container">
+      <div class="discount-container" *ngFor="let d of productDiscountItems">
+        <p>
+          <!-- Accessing the product data from the joined object -->
+          <strong>{{ 'ADMIN.TARGET' | translate }}:</strong> {{ d.product?.nameEn }} - {{ d.product?.nameAr }} <br />
+          <!-- Accessing the discount percentage from the joined object -->
+          <strong>{{ 'ADMIN.VALUE' | translate }}:</strong> {{ d.discount?.percentage }}% <br />
+          <strong>{{ 'ADMIN.CREATED-AT' | translate }}:</strong> {{ d.discount?.createdAt | date: 'mediumDate' }}
+        </p>
+
+        <span class="buttons-container" *ngIf="editingId !== d.discount.id">
+          <button class="edit-discount" (click)="editDiscount(d.discount.id)">{{ 'ADMIN.EDIT-VALUE' | translate
+            }}</button>
+          <button class="delete-discount" (click)="deleteDiscount(d.discount.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate
+            }}</button>
+        </span>
+
+        <!-- Edit Mode -->
+        <div class="buttons-container" *ngIf="editingId === d.discount.id">
+          <input type="number" [(ngModel)]="editingValue" min="0" max="100" [class.invalid]="!isValidValue" />
+          <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
+          <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Discount Lists -->
-  <h3 class="existing-title">{{ 'ADMIN.EXISTING-DISCOUNTS' | translate }}</h3>
+    <!-- Discounts on Categories (Collections) -->
+    <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-CATEGORIES' | translate }}</h3>
+    <div class="discounts-container">
+      <div class="discount-container" *ngFor="let d of categoryDiscountItems">
+        <p>
+          <!-- Accessing the collection data from the joined object -->
+          <strong>{{ 'ADMIN.TARGET' | translate }}:</strong> {{ d.collection?.nameEn }} - {{ d.collection?.nameAr }}
+          <br />
+          <!-- Accessing the discount percentage from the joined object -->
+          <strong>{{ 'ADMIN.VALUE' | translate }}:</strong> {{ d.discount?.percentage }}% <br />
+          <strong>{{ 'ADMIN.CREATED-AT' | translate }}:</strong> {{ d.discount?.createdAt | date: 'mediumDate' }}
+        </p>
+        <span class="buttons-container" *ngIf="editingId !== d.discount.id">
+          <button class="edit-discount" (click)="editDiscount(d.discount.id)">{{ 'ADMIN.EDIT-VALUE' | translate
+            }}</button>
+          <button class="delete-discount" (click)="deleteDiscount(d.discount.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate
+            }}</button>
+        </span>
 
-  <!-- Discounts on Products -->
-  <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-PRODUCTS' | translate }}</h3>
-  <div class="discounts-container">
-    <div class="discount-container" *ngFor="let d of productDiscountItems">
-      <p>
-        <!-- Accessing the product data from the joined object -->
-        <strong>{{ 'ADMIN.TARGET' | translate }}:</strong> {{ d.product?.nameEn }} - {{ d.product?.nameAr }} <br />
-        <!-- Accessing the discount percentage from the joined object -->
-        <strong>{{ 'ADMIN.VALUE' | translate }}:</strong> {{ d.discount?.percentage }}% <br />
-        <strong>{{ 'ADMIN.CREATED-AT' | translate }}:</strong> {{ d.discount?.createdAt | date: 'mediumDate' }}
-      </p>
-
-      <span class="buttons-container" *ngIf="editingId !== d.discount.id">
-        <button class="edit-discount" (click)="editDiscount(d.discount.id)">{{ 'ADMIN.EDIT-VALUE' | translate }}</button>
-        <button class="delete-discount" (click)="deleteDiscount(d.discount.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate }}</button>
-      </span>
-
-      <!-- Edit Mode -->
-      <div class="buttons-container" *ngIf="editingId === d.discount.id">
-        <input type="number" [(ngModel)]="editingValue" min="0" max="100" [class.invalid]="!isValidValue" />
-        <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
-        <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
+        <!-- Edit Mode -->
+        <div class="buttons-container" *ngIf="editingId === d.discount.id">
+          <input type="number" [(ngModel)]="editingValue" min="0" max="100" [class.invalid]="!isValidValue" />
+          <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
+          <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Discounts on Categories (Collections) -->
-  <h3 class="subtitle">{{ 'ADMIN.DISCOUNTS-ON-CATEGORIES' | translate }}</h3>
-  <div class="discounts-container">
-    <div class="discount-container" *ngFor="let d of categoryDiscountItems">
-      <p>
-        <!-- Accessing the collection data from the joined object -->
-        <strong>{{ 'ADMIN.TARGET' | translate }}:</strong> {{ d.collection?.nameEn }} - {{ d.collection?.nameAr }} <br />
-        <!-- Accessing the discount percentage from the joined object -->
-        <strong>{{ 'ADMIN.VALUE' | translate }}:</strong> {{ d.discount?.percentage }}% <br />
-        <strong>{{ 'ADMIN.CREATED-AT' | translate }}:</strong> {{ d.discount?.createdAt | date: 'mediumDate' }}
-      </p>
-      <span class="buttons-container" *ngIf="editingId !== d.discount.id">
-        <button class="edit-discount" (click)="editDiscount(d.discount.id)">{{ 'ADMIN.EDIT-VALUE' | translate }}</button>
-        <button class="delete-discount" (click)="deleteDiscount(d.discount.id)">{{ 'ADMIN.DELETE-DISCOUNT' | translate }}</button>
-      </span>
-
-      <!-- Edit Mode -->
-      <div class="buttons-container" *ngIf="editingId === d.discount.id">
-        <input type="number" [(ngModel)]="editingValue" min="0" max="100" [class.invalid]="!isValidValue" />
-        <button class="edit-discount" (click)="saveDiscount()">{{ 'ADMIN.SAVE' | translate }}</button>
-        <button class="delete-discount" (click)="cancelEdit()">{{ 'ADMIN.CANCEL' | translate }}</button>
+    <!-- Custom Confirmation Modal -->
+    <div *ngIf="showModal" class="modal-overlay">
+      <div class="modal-content">
+        <h3 class="modal-headline">{{ modalTitle }}</h3>
+        <div class="modal-body">{{ modalMessage }}</div>
+        <div class="modal-footer">
+          <button class="confirm-btn" (click)="modalAction()">{{ 'ADMIN.YES' | translate }}</button>
+          <button class="cancel-btn" (click)="closeModal()">{{ 'ADMIN.NO' | translate }}</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Custom Confirmation Modal -->
-  <div *ngIf="showModal" class="modal-overlay">
-    <div class="modal-content">
-      <h3 class="modal-headline">{{ modalTitle }}</h3>
-      <div class="modal-body">{{ modalMessage }}</div>
-      <div class="modal-footer">
-        <button class="confirm-btn" (click)="modalAction()">{{ 'ADMIN.YES' | translate }}</button>
-        <button class="cancel-btn" (click)="closeModal()">{{ 'ADMIN.NO' | translate }}</button>
-      </div>
-    </div>
   </div>
-
-</div>
 
 
   <div id="announcements-section" *ngIf="activeSection === 'announcements'" class="main-content">
@@ -517,13 +523,12 @@
     <!-- Announcements List -->
     <div *ngFor="let msg of announcementsEn; let i = index" class="collection-wrapper">
       <div *ngIf="!editingAnnouncementStates[i]" class="collection-header">
-        <p class="announcement-message">{{ msg }}</p>
+        <p class="announcement-message">{{ msg.message }}</p>
         <!-- <p>{{ msg.ar }}</p> -->
         <span class="save-cancel-container">
-          <button class="red-btn" (click)="editAnnouncementName(i, msg)">{{'ADMIN.EDIT' | translate}}</button>
-          <button class="black-btn" (click)="confirmDeleteAnnouncement(i)">{{'ADMIN.DELETE' | translate}}</button>
+          <!-- <button class="red-btn" (click)="editAnnouncementName(i, msg)">{{'ADMIN.EDIT' | translate}}</button> -->
+          <button class="black-btn" (click)="confirmDeleteAnnouncement(msg.id)">{{'ADMIN.DELETE' | translate}}</button>
         </span>
-
       </div>
       <div *ngIf="editingAnnouncementStates[i]" class="collection-header">
         <input [value]="AnnouncementinputValuesEn[i]" class="announcement-input"

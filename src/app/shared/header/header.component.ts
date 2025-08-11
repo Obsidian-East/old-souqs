@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { EventBusService } from '../event-bus.service';
 import { Subscription } from 'rxjs';
+import { AnnouncementService } from '../../services/announcement.service';
 
 @Component({
   selector: 'app-header',
@@ -19,20 +20,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentIndex: number = 0;
   intervalId: any;
   transitionStyle: string = 'transform 0.5s ease-in-out';
-  announcements: string[] = [];
+  announcements: any[] = [];
   wishlistCount: number = 0;
   wishlistedProductIds: Set<string> = new Set();
 
   private readonly announcementKey = 'sliderMessages';
 
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined' && !!window.localStorage;
-  }
-
-  private getAnnouncements(): string[] {
-    if (!this.isBrowser()) return ['Welcome to Old Souq!'];
-    const stored = localStorage.getItem(this.announcementKey);
-    return stored ? JSON.parse(stored) : ['Welcome to Old Souq!', 'Discover rare antiques today!', 'helloo'];
+  private getAnnouncements(){
+        this.announcementService.getAllAnnouncements().subscribe({
+      next: (data) => {
+        this.announcements = data;
+        console.log('Announcements loaded:', data);;
+      },
+      error: (err) => {
+        console.error('Failed to get the announcements:', err);
+        alert('Failed to get the announcements.');
+      }
+    });
   }
 
   constructor(private cartService: CartService,
@@ -41,7 +45,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private productService: ProductService,
     private wishlistService: WishlistService,
-    private eventBus: EventBusService) {
+    private eventBus: EventBusService,
+    private announcementService: AnnouncementService) {
 
     this.ngZone.runOutsideAngular(() => {
       this.intervalId = setInterval(() => {
@@ -82,7 +87,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.checkLoginStatus();
 
-    this.announcements = this.getAnnouncements();
+    this.getAnnouncements();
 
     // for search 
     this.productService.getProducts().subscribe(

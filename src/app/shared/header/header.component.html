@@ -1,9 +1,5 @@
 <div class="header">
     <div class="announcement">
-        <div class="announcement-offer">
-            <span>{{ 'HEADER.OFFER' | translate }} </span>
-        </div>
-
         <div class="slider-wrapper">
             <button (click)="showPrevSlide()" class="nav-btn left">
               &#10094;
@@ -12,7 +8,7 @@
             <div class="slider-container">
               <div class="slider-track" [style.transform]="getTransform()" [style.transition]="transitionStyle">
                 <div class="slider-message" *ngFor="let message of announcements">
-                  {{ message | translate }}
+                  {{ message.message | translate }}
                 </div>
               </div>
             </div>

@@ -49,7 +49,7 @@ const routes: Routes = [
     component: AdminComponent,
     canActivate: [adminAuthGuard]},
   { path: 'login-admin',component: LoginAdminComponent},
-  { path: 'thank-you', component: ThankYouComponent},
+  { path: 'thank-you/:id', component: ThankYouComponent},
   {path: 'customized', component: CustomizedComponent}
 ];
 

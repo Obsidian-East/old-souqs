@@ -1,12 +1,11 @@
-import { Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { UserService } from '../../services/user.service';
-import { isPlatformBrowser } from '@angular/common';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-thank-you',
@@ -21,11 +20,12 @@ export class ThankYouComponent implements OnInit {
     private productService: ProductService,
     private orderService: OrderService,
     private userService: UserService,
+    private route: ActivatedRoute,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
 
 
-  payment = " Cash on Delivery";
+  payment = "Cash on Delivery";
   orderId = '680951e996b101a2fa456fe7';
   estimatedDeliveryDate: Date = new Date();
 
@@ -61,6 +61,13 @@ export class ThankYouComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.orderId = id;
+      }
+    });
+
     if (this.isBrowser()) {
       const userId = this.getUserId();
       if (userId) {
@@ -68,28 +75,27 @@ export class ThankYouComponent implements OnInit {
         this.fetchOrderAndProducts();
       }
     }
-    
   }
   private isBrowser(): boolean {
     return typeof window !== 'undefined' && !!window.localStorage;
   }
 
   private getUserId(): string | null {
-    if(this.isBrowser()){
+    if (this.isBrowser()) {
       const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        console.log(payload.sub)
-        return payload.sub || null;
-      } catch (e) {
-        console.error('Invalid token:', e);
+      if (token) {
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          console.log(payload.sub)
+          return payload.sub || null;
+        } catch (e) {
+          console.error('Invalid token:', e);
+        }
       }
+      return null;
     }
     return null;
-    }
-    return null;
-    
+
   }
 
   fetchUser(id: string): void {
@@ -149,15 +155,15 @@ export class ThankYouComponent implements OnInit {
         // console.log('Fetched products:', allProducts);
 
         this.orderedProducts = allProducts.map((product: any) => ({
-          id: product.ID,
-          image: product.Image,
-          nameEn: product.Title,
-          nameAr: product.TitleAr,
-          tags: product.Tag,
-          descriptionEn: product.Description,
-          descriptionAr: product.DescriptionAr,
-          price: product.Price,
-          quantity: product.Stock
+          id: product.id,
+          image: product.image,
+          nameEn: product.title,
+          nameAr: product.titleAr,
+          tags: product.tag,
+          descriptionEn: product.description,
+          descriptionAr: product.descriptionAr,
+          price: product.price,
+          quantity: product.stock
         }));
 
         // console.log('Mapped orderedProducts:', this.orderedProducts);
@@ -172,9 +178,9 @@ export class ThankYouComponent implements OnInit {
   continueShopping() {
     this.router.navigate(['/product']);
   }
-  
- goToProduct(id: string) {
-  this.router.navigate(['/product', id]);
-}
+
+  goToProduct(id: string) {
+    this.router.navigate(['/product', id]);
+  }
 
 }

@@ -165,13 +165,13 @@ export class CheckoutComponent {
     };
   
     this.orderService.createOrder(userId, orderData).subscribe({
-      next: () => {
+      next: (data) => {
         if(this.productFrom === 'cart')
         // from cart
             this.cartService.clearCart();
               
         alert('Order submitted! Your items will be delivered ASAP.');
-        this.router.navigate(['/thank-you']);
+        this.router.navigate(['/thank-you/' + data.id]);
       },
       error: (err) => {
         console.error('Order submission failed', err);

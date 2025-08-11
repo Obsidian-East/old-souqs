@@ -43,8 +43,8 @@ export class OrderService {
    * Place a new order for the current user
    * The backend pulls cart by userId and converts to order
    */
-  createOrder(userId: string, orderData: any) {
-    return this.http.post(`${this.baseUrl}/${userId}`, orderData);
+  createOrder(userId: string, orderData: any): Observable<Order>  {
+    return this.http.post<Order>(`${this.baseUrl}/${userId}`, orderData);
   }
 
   /**

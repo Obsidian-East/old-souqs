@@ -26,37 +26,40 @@ import { CustomizedComponent } from './features/customized/customized.component'
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'signup', component: SignupComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'aboutus', component: AboutUsComponent},
-  { path: 'contact', component: ContactComponent},
-  { path: 'explore', component: ExploreComponent},
-  { path: 'cart', component: CartComponent},
-{ path: 'product/:id', component: ProductComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'aboutus', component: AboutUsComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'explore', component: ExploreComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'product/:id', component: ProductComponent },
   {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'search', component: SearchComponent},
-  { path: 'wishlist', component: WishlistComponent},
-  { path: 'editprofile', component: EditprofileComponent},
-  { path: 'checkout', component: CheckoutComponent},
-  { path: 'password', component: PasswordComponent},
-  { path: 'privacy-policy', component: PrivacyPolicyComponent},
-  { path: 'terms-conditions', component: TermsConditionsComponent},
-  { path: 'admin', 
+  { path: 'search', component: SearchComponent },
+  { path: 'wishlist', component: WishlistComponent },
+  { path: 'editprofile', component: EditprofileComponent },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'password', component: PasswordComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'terms-conditions', component: TermsConditionsComponent },
+  {
+    path: 'admin',
     component: AdminComponent,
-    canActivate: [adminAuthGuard]},
-  { path: 'login-admin',component: LoginAdminComponent},
-  { path: 'thank-you/:id', component: ThankYouComponent},
-  {path: 'customized', component: CustomizedComponent}
+    canActivate: [adminAuthGuard]
+  },
+  { path: 'login-admin', component: LoginAdminComponent },
+  { path: 'thank-you/:id', component: ThankYouComponent },
+  { path: 'customized', component: CustomizedComponent }
 ];
 
 @NgModule({
   imports: [],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
 
 export { routes };

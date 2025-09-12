@@ -113,7 +113,6 @@ export class CheckoutComponent {
           stock: product.stock,
           quantity: 1
         };
-        console.log(this.products)
 
         this.subtotalAmount = this.products[0].price;
         this.totalAmount = this.subtotalAmount + this.shippingPrice;

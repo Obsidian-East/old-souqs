@@ -12,7 +12,7 @@ import { EventBusService } from '../../shared/event-bus.service';
 	standalone: true,
 	imports: [CommonModule, SharedModule, RouterModule],
 	templateUrl: './explore.component.html',
-	styleUrl: './explore.component.css'
+	styleUrls: ['./explore.component.css'],
 })
 export class ExploreComponent {
 	constructor(

@@ -16,16 +16,18 @@ import { EventBusService } from '../../shared/event-bus.service';
 })
 
 export class HomeComponent implements OnInit {
-	@ViewChild('scrollContainer') scrollContainer!: ElementRef;
+	@ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
 	isAtStart = true;
 	isAtEnd = false;
 
 	scrollLeft() {
 		this.scrollContainer.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
+		setTimeout(() => this.checkScrollPosition(), 400); // wait for smooth scroll
 	}
 
 	scrollRight() {
 		this.scrollContainer.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
+		setTimeout(() => this.checkScrollPosition(), 400);
 	}
 
 	checkScrollPosition() {
@@ -33,11 +35,6 @@ export class HomeComponent implements OnInit {
 		this.isAtStart = el.scrollLeft <= 0;
 		this.isAtEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
 	}
-
-	AfterViewInit() {
-		this.checkScrollPosition();
-	}
-
 
 	trendingCollectionId = '67ea6d0cc4338e7d55573ac4';
 	newArrivedCollectionId = '6877b1ba607a5079c14c6649';
@@ -408,10 +405,12 @@ export class HomeComponent implements OnInit {
 	@HostListener('window:resize')
 	onResize() {
 		this.adjustFontSizes();
+		this.checkScrollPosition();
 	}
 
 	ngAfterViewInit() {
 		this.adjustFontSizes();
+		this.checkScrollPosition();
 	}
 
 	adjustFontSizes() {

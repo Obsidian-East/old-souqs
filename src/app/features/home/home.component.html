@@ -48,7 +48,7 @@
         </div>
     </article>
     <!-- collection -->
-    <article id="our-collection" class="collection-article "> <!-- class for bg color -->
+    <article id="our-collection" class="collection-article"> <!-- class for bg color -->
         <div class="collection"><!-- for content  -->
             <div class="collection-header fade-in-start" appFadeInOnScroll>
                 <p>
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <span class="hide-in-tablet fade-in-start" appFadeInOnScroll>
-                <div class="collection-items" id="trending">
+                <div #scrollContainer class="scroll-container" class="collection-items" id="trending">
                     <div class="item" *ngFor="let product of products" (mouseenter)="showProductActions(product)"
                         (mouseleave)="hideProductActions()">
 

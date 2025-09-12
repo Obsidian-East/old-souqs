@@ -81,7 +81,6 @@ export class AdminComponent implements OnInit {
       });
     })
     this.loadAnnouncements();
-    console.log('ShowAnnouncements:', this.showAddAnnouncementPopup);
   }
 
   fetchDiscountRelatedItems() {
@@ -134,8 +133,6 @@ export class AdminComponent implements OnInit {
   fetchProducts(callback?: () => void) {
     this.productService.adminGetProducts().subscribe({
       next: (data) => {
-        console.log('Raw data from DB:', data);
-
         this.allproducts = data.map((product: any) => ({
           id: product.id,
           image: product.image,
@@ -207,8 +204,6 @@ export class AdminComponent implements OnInit {
     if (confirm('Are you sure you want to delete this product?')) {
       this.productService.deleteProduct(productId).subscribe({
         next: () => {
-          console.log('Product deleted successfully');
-          // Refresh product list
           this.fetchProducts();
         },
         error: (err) => {
@@ -242,8 +237,6 @@ export class AdminComponent implements OnInit {
           instock: freshProduct.stock > 0,
           tags: Array.isArray(freshProduct.tag) ? [...freshProduct.tag] : [],
         };
-        console.log('Selected product for editing:', this.selectedProduct);
-        console.log('Selected product ID:', this.selectedProduct.id);
         this.showPopup = true;
       },
       error: (err) => {
@@ -285,17 +278,32 @@ export class AdminComponent implements OnInit {
 
 
   // Update the product in the array
+  // Update the product in the array
   updateProduct() {
     if (!this.selectedProduct.id) {
       alert('Error: Product ID is missing for update.');
       return;
     }
 
-    this.productService.updateProduct(this.selectedProduct.id, this.selectedProduct).subscribe({
-      next: (updatedProduct) => {
-        console.log('Product updated successfully:', updatedProduct);
+    // Map the frontend model back to the backend model
+    const payload = {
+      id: this.selectedProduct.id,
+      sku: this.selectedProduct.sku,
+      title: this.selectedProduct.nameEn,
+      titleAr: this.selectedProduct.nameAr,
+      description: this.selectedProduct.descriptionEn,
+      descriptionAr: this.selectedProduct.descriptionAr,
+      price: this.selectedProduct.price,
+      image: this.selectedProduct.image,
+      tag: this.selectedProduct.tags,
+      stock: this.selectedProduct.quantity,
+    };
 
-        const index = this.products.findIndex(p => p.id === updatedProduct._id || p._id === updatedProduct._id);
+    this.productService.updateProduct(this.selectedProduct.id, payload).subscribe({
+      next: (updatedProduct) => {
+        const index = this.products.findIndex(
+          p => p.id === updatedProduct._id || p._id === updatedProduct._id
+        );
         if (index !== -1) {
           this.products[index] = updatedProduct;
         }
@@ -312,6 +320,7 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+
 
   toggleTag(tag: string, event: Event) {
     if (!this.selectedProduct.tags) {
@@ -425,7 +434,6 @@ export class AdminComponent implements OnInit {
 
     this.productService.addProduct(this.newProduct).subscribe({
       next: (res) => {
-        console.log('Product added:', res);
         this.showAddPopup = false;
       },
       error: (err) => {
@@ -670,8 +678,6 @@ export class AdminComponent implements OnInit {
   loadDiscountDetails() {
     const productDiscounts = this.discounts.filter(d => d.targetType === 'product');
     const collectionDiscounts = this.discounts.filter(d => d.targetType === 'collection');
-    console.log('product id type:', typeof this.allproducts[0]?.id);
-    console.log('discount targetId type:', typeof productDiscounts[0]?.targetId);
 
     // Create a new array for product discounts with data
     this.productDiscountItems = productDiscounts.map(d => {
@@ -681,9 +687,6 @@ export class AdminComponent implements OnInit {
         product: product
       };
     });
-
-
-    console.log('Product Discounts:', this.productDiscountItems);
 
     // Create a new array for collection discounts with data
     this.categoryDiscountItems = collectionDiscounts.map(d => {
@@ -892,7 +895,6 @@ export class AdminComponent implements OnInit {
     this.announcementService.getAllAnnouncements().subscribe({
       next: (data) => {
         this.announcementsEn = data;
-        console.log('Announcements loaded:', data);;
       },
       error: (err) => {
         console.error('Failed to get the announcements:', err);
@@ -911,7 +913,6 @@ export class AdminComponent implements OnInit {
   openAddAnnouncementPopup() {
     this.showAddAnnouncementPopup = true;
     this.newAnnouncementEn = '';
-    console.log('ShowAnnouncements:', this.showAddAnnouncementPopup);
     // this.newAnnouncementAr = '';
   }
 

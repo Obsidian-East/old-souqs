@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { OrderService, Order } from '../../services/order.service';
 import { isPlatformBrowser } from '@angular/common';
@@ -11,7 +11,7 @@ import { WishlistService } from '../../services/wishlist.service';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [SharedModule, CommonModule, RouterModule],
+  imports: [SharedModule, CommonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

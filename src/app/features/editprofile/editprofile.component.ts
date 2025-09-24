@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-editprofile',
   standalone: true,
-  imports: [SharedModule, CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [SharedModule, CommonModule, ReactiveFormsModule],
   templateUrl: './editprofile.component.html',
   styleUrl: './editprofile.component.css'
 })

@@ -3,14 +3,14 @@
 <section id="content">
     <article class="hero">
         <div class="hero-container">
-            <p class="hero-title fade-in-start" appFadeInOnScroll>{{ 'EXPLORE.HERO' | translate }}</p>
+            <p class="hero-title">{{ 'EXPLORE.HERO' | translate }}</p>
         </div>
     </article>
 
     <article id="all-products">
         <div class="page-container">
             <!-- left part -->
-            <div class="hide-in-tablet fade-in-start" appFadeInOnScroll>
+            <div class="hide-in-tablet">
 
                 <div class="filters-container-box">
                     <div class="filters-container">
@@ -229,10 +229,10 @@
             <!-- products section -->
             <!-- right part -->
             <div class="products-container">
-                <p class="headline fade-in-start" appFadeInOnScroll>{{ 'EXPLORE.PRODUCTS' | translate }}
+                <p class="headline">{{ 'EXPLORE.PRODUCTS' | translate }}
                     ({{totalCount}})</p>
 
-                <div class="display-sort-container fade-in-start" appFadeInOnScroll>
+                <div class="display-sort-container">
                     <div class="list-icon-container">
                         <span (click)="toggleFilter()" class="filter-svg show-in-tablet">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -274,9 +274,9 @@
                 <div class="line"></div>
 
                 <!-- grid display -->
-                <span id="track-screen" class="hide-in-tablet fade-in-start" appFadeInOnScroll>
-                    <div *ngIf="showGridProduct" class="grid-product-list" id="grid-product-list">
-                        <div class="item" *ngFor="let product of allproducts" (mouseenter)="showProductActions(product)"
+                <span id="track-screen" class="hide-in-tablet">
+                    <div *ngIf="allproducts.length > 0; else loading" class="grid-product-list" id="grid-product-list">
+                        <div class="item" *ngFor="let product of allproducts" [id]="'product-' + product.id" (mouseenter)="showProductActions(product)"
                             (mouseleave)="hideProductActions()">
 
                             <!-- Show image only when not hovering -->
@@ -336,12 +336,15 @@
                             </span>
                         </div>
                     </div>
+                    <ng-template #loading>
+                        <div class="loading-spinner">Loading...</div>
+                    </ng-template>
                 </span>
 
                 <!-- product design for tablet and mobile -->
-                <span class="show-in-tablet fade-in-start" appFadeInOnScroll>
+                <span class="show-in-tablet">
                     <div *ngIf="showGridProduct" class="grid-product-list">
-                        <div class="item" *ngFor="let product of allproducts">
+                        <div class="item" *ngFor="let product of allproducts" [id]="'product-' + product.id">
 
                             <!-- Show image only when not hovering -->
                             <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image"
@@ -398,9 +401,8 @@
                 </span>
 
                 <!-- list display -->
-                <div *ngIf="showListProduct" class="ul-product-list fade-in-start" id="ul-product-list"
-                    appFadeInOnScroll>
-                    <div class="item-list fade-in-start" appFadeInOnScroll *ngFor="let product of allproducts">
+                <div *ngIf="showListProduct" class="ul-product-list" id="ul-product-list">
+                    <div class="item-list" *ngFor="let product of allproducts" [id]="'product-' + product.id">
 
                         <!-- Show image only when not hovering -->
                         <div class="prod-img">

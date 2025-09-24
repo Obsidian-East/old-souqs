@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-thank-you',
   standalone: true,
-  imports: [CommonModule, SharedModule, RouterModule],
+  imports: [CommonModule, SharedModule],
   templateUrl: './thank-you.component.html',
   styleUrl: './thank-you.component.css'
 })

@@ -1,7 +1,7 @@
 import { Component, HostListener , QueryList, ViewChildren, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.service';
@@ -11,7 +11,7 @@ import { EventBusService } from '../../shared/event-bus.service';
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, SharedModule, RouterModule],
+  imports: [CommonModule, SharedModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })

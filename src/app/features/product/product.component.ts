@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild,  Renderer2, HostListener, NgZone, ViewChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
 import { EventBusService } from '../../shared/event-bus.service';
@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, SharedModule, RouterModule],
+  imports: [CommonModule, SharedModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })

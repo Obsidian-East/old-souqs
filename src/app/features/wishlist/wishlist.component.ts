@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { WishlistService } from '../../services/wishlist.service';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
@@ -10,7 +10,7 @@ import { EventBusService } from '../../shared/event-bus.service';
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [CommonModule, SharedModule, RouterModule],
+  imports: [CommonModule, SharedModule],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.css'
 })

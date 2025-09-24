@@ -1,12 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-customized',
   standalone: true,
-  imports: [CommonModule, SharedModule, RouterModule],
+  imports: [CommonModule, SharedModule],
   templateUrl: './customized.component.html',
   styleUrl: './customized.component.css'
 })

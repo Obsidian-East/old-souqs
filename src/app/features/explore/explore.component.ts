@@ -1,16 +1,17 @@
 import { Component, ElementRef, OnInit, ChangeDetectorRef, HostListener, QueryList, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { EventBusService } from '../../shared/event-bus.service';
+import { ProductScrollService } from '../../services/product-scroll.service';
 
 @Component({
 	selector: 'app-explore',
 	standalone: true,
-	imports: [CommonModule, SharedModule, RouterModule],
+	imports: [CommonModule, SharedModule],
 	templateUrl: './explore.component.html',
 	styleUrls: ['./explore.component.css'],
 })
@@ -21,7 +22,8 @@ export class ExploreComponent {
 		private cartService: CartService,
 		public wishlistService: WishlistService,
 		private cd: ChangeDetectorRef,
-		private eventBus: EventBusService
+		private eventBus: EventBusService,
+		private scrollService: ProductScrollService,
 	) { }
 
 	ngOnInit(): void {
@@ -99,14 +101,17 @@ export class ExploreComponent {
 						instock: product.stock > 0,
 						originalPrice: product.originalPrice,
 					}));
-					console.log("Original Products:", this.originalProducts)
+					const productIdToScroll = this.scrollService.lastClickedProductId;
 
 					this.allproducts = [...this.originalProducts];
 					this.totalCount = this.allproducts.length;
 					this.setPriceLimits();
 					this.calculateStock();
-					this.applyFilters();
-
+					if (!productIdToScroll) {
+						this.applyFilters();
+					}
+					
+					this.tryScrollToProduct();
 					// 🔧 Force Angular to detect changes and refresh the view
 					this.cd.detectChanges();
 				},
@@ -296,7 +301,30 @@ export class ExploreComponent {
 	// to send the product id to the product page when clicking on a product name
 
 	goToProduct(id: string) {
+		// Save the ID to the service right before you leave
+		this.scrollService.lastClickedProductId = id;
+
+		// Then, navigate as usual
 		this.router.navigate(['/product', id]);
+	}
+
+	private tryScrollToProduct(): void {
+		const productId = this.scrollService.lastClickedProductId;
+		console.log('Attempting to scroll to product ID:', productId); // Log 1
+
+		if (!productId) return;
+
+		// A slightly longer timeout can help with complex rendering
+		setTimeout(() => {
+			const element = document.getElementById(`product-${productId}`);
+			console.log('Found element for scrolling:', element); // Log 2
+
+			if (element) {
+				element.scrollIntoView({ behavior: 'auto', block: 'center' });
+				console.log('Scroll successful!'); // Log 3
+			}
+			this.scrollService.lastClickedProductId = null;
+		}, 100); // Increased timeout to 100ms
 	}
 
 

@@ -440,7 +440,18 @@ label.checked {
 }
 
 /* display products style as grid */
+/* Add this to your CSS file */
 
+.fade-in-start {
+    opacity: 0;
+    transform: translateY(20px); /* Optional: slight upward move effect */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 .grid-product-list {
     width: 100%;
     display: flex;
@@ -862,7 +873,6 @@ label.checked {
         justify-content: left;
         align-items: flex-start;
         z-index: 1000;
-        overflow-y: scroll;
         height: fit-content;
         max-height: 100vh;
         overflow-y: auto;
@@ -1230,7 +1240,6 @@ label.checked {
         justify-content: left;
         align-items: flex-start;
         z-index: 1000;
-        overflow-y: scroll;
         height: fit-content;
         max-height: 100vh;
         overflow-y: auto;

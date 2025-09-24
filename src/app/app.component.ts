@@ -1,20 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from './shared/shared.module';
-import { TranslateModule } from "@ngx-translate/core";
-import { TranslateService } from "@ngx-translate/core";
-import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { RouterOutlet } from '@angular/router'; // <-- Import RouterOutlet
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, SharedModule, TranslateModule, AppRoutingModule, HttpClientModule, FormsModule],
+  // Cleaned up imports
+  imports: [CommonModule, RouterOutlet, TranslateModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
   title = 'Old Souq';
   constructor(private translate: TranslateService) {

@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit, ChangeDetectorRef, AfterViewInit, QueryList, ViewChildren, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
@@ -10,7 +10,7 @@ import { EventBusService } from '../../shared/event-bus.service';
 @Component({
 	selector: 'app-home',
 	standalone: true,
-	imports: [CommonModule, SharedModule, RouterModule],
+	imports: [CommonModule, SharedModule],
 	templateUrl: './home.component.html',
 	styleUrl: './home.component.css'
 })

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import {  FormBuilder,FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder,FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-admin',
   standalone: true,
-  imports: [CommonModule, SharedModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, SharedModule, ReactiveFormsModule],
   templateUrl: './login-admin.component.html',
   styleUrl: './login-admin.component.css'
 })

@@ -1,7 +1,8 @@
 // src/app/app.config.ts
 
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, RouteReuseStrategy } from '@angular/router';
+import { CustomReuseStrategy } from './routing/custom-reuse-strategy';
 import { HttpClient, provideHttpClient, withFetch } from "@angular/common/http";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -19,7 +20,7 @@ export const appConfig: ApplicationConfig = {
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
     })),
-    
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
     // Provide application-wide services
     provideClientHydration(),
     provideHttpClient(withFetch()),

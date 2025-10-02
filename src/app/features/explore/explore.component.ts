@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ChangeDetectorRef, HostListener, QueryList, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
@@ -18,6 +18,7 @@ import { ProductScrollService } from '../../services/product-scroll.service';
 export class ExploreComponent {
 	constructor(
 		private router: Router,
+		private route: ActivatedRoute,
 		private productService: ProductService,
 		private cartService: CartService,
 		public wishlistService: WishlistService,
@@ -110,9 +111,6 @@ export class ExploreComponent {
 					if (!productIdToScroll) {
 						this.applyFilters();
 					}
-					
-					this.tryScrollToProduct();
-					// 🔧 Force Angular to detect changes and refresh the view
 					this.cd.detectChanges();
 				},
 				error: (error) => {
@@ -307,26 +305,6 @@ export class ExploreComponent {
 		// Then, navigate as usual
 		this.router.navigate(['/product', id]);
 	}
-
-	private tryScrollToProduct(): void {
-		const productId = this.scrollService.lastClickedProductId;
-		console.log('Attempting to scroll to product ID:', productId); // Log 1
-
-		if (!productId) return;
-
-		// A slightly longer timeout can help with complex rendering
-		setTimeout(() => {
-			const element = document.getElementById(`product-${productId}`);
-			console.log('Found element for scrolling:', element); // Log 2
-
-			if (element) {
-				element.scrollIntoView({ behavior: 'auto', block: 'center' });
-				console.log('Scroll successful!'); // Log 3
-			}
-			this.scrollService.lastClickedProductId = null;
-		}, 100); // Increased timeout to 100ms
-	}
-
 
 	// --- Misc ---
 

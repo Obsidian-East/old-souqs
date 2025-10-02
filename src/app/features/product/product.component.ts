@@ -1,11 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild,  Renderer2, HostListener, NgZone, ViewChildren, QueryList } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2, HostListener, NgZone, ViewChildren, QueryList } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
 import { EventBusService } from '../../shared/event-bus.service';
-import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -21,10 +20,11 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private cartService: CartService,
-        private eventBus: EventBusService
+    private eventBus: EventBusService,
+    private location: Location
   ) { }
 
-    // to zoom the img
+  // to zoom the img
   @ViewChild('pinchImage') pinchImageRef!: ElementRef;
 
   scale = 1;
@@ -46,17 +46,22 @@ export class ProductComponent implements OnInit {
   zoomStyles = {
     transform: 'scale(1) translate(0px, 0px)'
   };
-// to open img popup
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  // to open img popup
   openModal() {
     this.isModalOpen = true;
     this.resetZoom();
   }
-// to close img popup
+  // to close img popup
   closeModal() {
     this.isModalOpen = false;
     this.resetZoom();
   }
-// for laptop
+  // for laptop
   onMouseEnter() {
     if (this.isTouchDevice()) return;
     this.isHovering = true;
@@ -90,7 +95,7 @@ export class ProductComponent implements OnInit {
   isTouchDevice(): boolean {
     return window.matchMedia('(pointer: coarse)').matches;
   }
-// for mobile and tablet
+  // for mobile and tablet
   onTouchStart(event: TouchEvent) {
     if (event.touches.length === 2) {
       this.startDistance = this.getDistance(event.touches[0], event.touches[1]);
@@ -147,26 +152,26 @@ export class ProductComponent implements OnInit {
 
   isLoading: boolean = true;
   productId: string | null = null;
-  
+
   ngOnInit() {
-  this.route.paramMap.subscribe(params => {
-    const id = params.get('id');
-    if (id) {
-      this.productId = id;
-      this.fetchProductById();
-      if (typeof window !== 'undefined') 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      console.error('No Product ID received');
-    }
-  });
-}
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.productId = id;
+        this.fetchProductById();
+        if (typeof window !== 'undefined')
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        console.error('No Product ID received');
+      }
+    });
+  }
 
 
   // currentProduct: any;
   relatedProducts: any[] = [];
 
-  product: { id: string; name: string; description:string; price: number; image: string; stock: number; tag:string; originalPrice: number }| null = null;
+  product: { id: string; name: string; description: string; price: number; image: string; stock: number; tag: string; originalPrice: number } | null = null;
   fetchProductById() {
     this.productService.getProductById(this.productId!).subscribe({
       next: (product: any) => {
@@ -185,7 +190,7 @@ export class ProductComponent implements OnInit {
 
         this.isLoading = false; // stop loading after data is ready
       },
-      
+
       error: (err) => {
         console.error('Error fetching product:', err);
         this.isLoading = false; // also stop loading if error
@@ -196,26 +201,26 @@ export class ProductComponent implements OnInit {
     this.productService.getCollections().subscribe({
       next: (collectionsData) => {
         // console.log('All collections:', collectionsData);
-  
+
         // Find the collection by name
         const collection = collectionsData.find((col: any) => col.CollectionName === collectionName);
         // console.log(collection)
-  
+
         if (!collection) {
           console.error('Collection not found');
           return;
         }
-  
+
         // Filter out current product ID from related products
         const relatedProductIds = Array.isArray(collection.ProductIds)
-        ? collection.ProductIds.filter((id: string) => id !== this.productId)  // Filter out the current product's ID
-        : []; 
+          ? collection.ProductIds.filter((id: string) => id !== this.productId)  // Filter out the current product's ID
+          : [];
         if (relatedProductIds.length === 0) {
           console.log('No related products found.');
           this.relatedProducts = [];
           return;
         }
-  
+
         // Fetch all products to match related product IDs
         this.productService.getProductsByIds(relatedProductIds).subscribe({
           next: (allProducts) => {
@@ -230,12 +235,12 @@ export class ProductComponent implements OnInit {
                 image: product.image,
                 originalPrice: product.originalPrice
               }));
-  
+
             // Limit to max 4 related products
             if (this.relatedProducts.length > 4) {
               this.relatedProducts = this.relatedProducts.slice(0, 4);
             }
-  
+
             // console.log('Related products:', this.relatedProducts);
           },
           error: (err) => {
@@ -250,7 +255,7 @@ export class ProductComponent implements OnInit {
       }
     });
   }
-  
+
 
 
   selectedIndex = 0;
@@ -277,13 +282,13 @@ export class ProductComponent implements OnInit {
   Counter: number = 1
   increaseQuantity() {
     if (!this.product) return; // If product not loaded, stop.
-  
+
     const stock = this.product.stock ?? 0;
     if (this.Counter < stock) {
       this.Counter++;
     }
   }
-  
+
 
   decreaseQuantity() {
     if (this.Counter > 1) {
@@ -291,7 +296,7 @@ export class ProductComponent implements OnInit {
 
     }
   }
-  
+
   hoveredItem: any = null; // Tracks the currently hovered product
 
   showProductActions(product: any): void {
@@ -305,8 +310,8 @@ export class ProductComponent implements OnInit {
 
 
   goToProduct(id: string) {
-  this.router.navigate(['/product', id]);
-}
+    this.router.navigate(['/product', id]);
+  }
 
   addToCart(product: any): void {
     const item: CartItem = {
@@ -319,39 +324,39 @@ export class ProductComponent implements OnInit {
     };
     this.cartService.addToCart(item);
     this.eventBus.triggerOpenCart();
-    }
-     checkout(productID: string): void {
-      // Navigate to checkout page
-      this.router.navigate(['/checkout'], { state: { productFrom: 'wishlist' ,productIdToBuy: productID} });
-  
-    }
+  }
+  checkout(productID: string): void {
+    // Navigate to checkout page
+    this.router.navigate(['/checkout'], { state: { productFrom: 'wishlist', productIdToBuy: productID } });
+
+  }
 
 
-    // to adjust font size of item name if its too long
-       @ViewChildren('nameRef') nameRefs!: QueryList<ElementRef>;
-    
-      @HostListener('window:resize')
-      onResize() {
-      this.adjustFontSizes();
+  // to adjust font size of item name if its too long
+  @ViewChildren('nameRef') nameRefs!: QueryList<ElementRef>;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.adjustFontSizes();
+  }
+
+  ngAfterViewInit() {
+    this.adjustFontSizes();
+  }
+
+  adjustFontSizes() {
+    this.nameRefs.forEach((elRef: ElementRef) => {
+      const el = elRef.nativeElement as HTMLElement;
+      let fontSize = 1.1; // rem
+      const maxHeight = el.clientHeight;
+
+      el.style.fontSize = `${fontSize}rem`;
+
+      while (el.scrollHeight > maxHeight && fontSize > 0.6) {
+        fontSize -= 0.05;
+        el.style.fontSize = `${fontSize}rem`;
       }
-    
-      ngAfterViewInit() {
-      this.adjustFontSizes();
-      }
-    
-      adjustFontSizes() {
-        this.nameRefs.forEach((elRef: ElementRef) => {
-          const el = elRef.nativeElement as HTMLElement;
-          let fontSize = 1.1; // rem
-          const maxHeight = el.clientHeight;
-    
-          el.style.fontSize = `${fontSize}rem`;
-    
-          while (el.scrollHeight > maxHeight && fontSize > 0.6) {
-            fontSize -= 0.05;
-            el.style.fontSize = `${fontSize}rem`;
-          }
-        });
-      }
+    });
+  }
 
 }

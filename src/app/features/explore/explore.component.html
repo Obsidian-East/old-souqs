@@ -276,7 +276,7 @@
                 <!-- grid display -->
                 <span id="track-screen" class="hide-in-tablet">
                     <div *ngIf="allproducts.length > 0; else loading" class="grid-product-list" id="grid-product-list">
-                        <div class="item" *ngFor="let product of allproducts" [id]="'product-' + product.id" (mouseenter)="showProductActions(product)"
+                        <div #productItem class="item" *ngFor="let product of allproducts" [id]="'product-' + product.id" (mouseenter)="showProductActions(product)"
                             (mouseleave)="hideProductActions()">
 
                             <!-- Show image only when not hovering -->
@@ -344,7 +344,7 @@
                 <!-- product design for tablet and mobile -->
                 <span class="show-in-tablet">
                     <div *ngIf="showGridProduct" class="grid-product-list">
-                        <div class="item" *ngFor="let product of allproducts" [id]="'product-' + product.id">
+                        <div #productItem class="item" *ngFor="let product of allproducts" [id]="'product-' + product.id">
 
                             <!-- Show image only when not hovering -->
                             <img (click)="goToProduct(product.id)" class="product-image" [src]="product.image"
@@ -402,7 +402,7 @@
 
                 <!-- list display -->
                 <div *ngIf="showListProduct" class="ul-product-list" id="ul-product-list">
-                    <div class="item-list" *ngFor="let product of allproducts" [id]="'product-' + product.id">
+                    <div #productItem class="item-list" *ngFor="let product of allproducts" [id]="'product-' + product.id">
 
                         <!-- Show image only when not hovering -->
                         <div class="prod-img">

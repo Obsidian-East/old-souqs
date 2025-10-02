@@ -44,13 +44,11 @@ export class CartService {
   }
 
   addToCart(item: CartItem): void {
-    console.log(item.stock)
     const cart = this.loadCart();
     const idx = cart.findIndex(i => i.id === item.id);
 
     if (idx > -1) {
       // check stock
-      console.log( cart[idx].stock)
       if(cart[idx].quantity < cart[idx].stock)
         cart[idx].quantity += item.quantity;
     } else {

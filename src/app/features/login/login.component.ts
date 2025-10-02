@@ -32,7 +32,6 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe(
       (response) => {
         localStorage.setItem('token', response.token);
-        console.log(localStorage.getItem('userId'));
         this.router.navigate(['/profile']);
       },
       (error) => {

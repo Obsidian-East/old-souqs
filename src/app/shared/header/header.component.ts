@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.announcementService.getAllAnnouncements().subscribe({
       next: (data) => {
         this.announcements = data;
-        console.log('Announcements loaded:', data);;
       },
       error: (err) => {
         console.error('Failed to get the announcements:', err);
@@ -93,7 +92,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.productService.getProducts().subscribe(
       products => {
         this.allProducts = products;
-        // console.log('Loaded products:', this.allProducts); 
       },
       error => console.error('Error loading products:', error)
     );

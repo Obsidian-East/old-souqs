@@ -99,7 +99,6 @@ export class HomeComponent implements OnInit {
 	fetchProductsByCollection(): void {
 		this.productService.getProductsByCollection(this.trendingCollectionId).subscribe({
 			next: (data) => {
-				console.log('Fetched trending products:', data);
 				this.productsTrending = (data || []).map((product: any) => ({
 					id: String(product.id),
 					name: product.title,
@@ -117,7 +116,6 @@ export class HomeComponent implements OnInit {
 		});
 		this.productService.getProductsByCollection(this.newArrivedCollectionId).subscribe({
 			next: (data) => {
-				console.log('Fetched new arrived products:', data);
 				this.productsArrived = (data || []).map((product: any) => ({
 					id: String(product.ID),
 					name: product.title,

@@ -30,7 +30,6 @@ export class HlsVideoPlayerComponent implements OnInit, OnDestroy, AfterViewInit
   ngAfterViewInit(): void {
     // Crucial check for SSR
     if (!isPlatformBrowser(this.platformId)) {
-      console.log('Not in browser environment, skipping video initialization.');
       return;
     }
 
@@ -42,14 +41,11 @@ export class HlsVideoPlayerComponent implements OnInit, OnDestroy, AfterViewInit
         return; // Prevent double initialization
       }
 
-      console.log('Video element available:', video); // Add this for debugging
-
       if (Hls.isSupported()) {
         this.hlsInstance = new Hls();
         this.hlsInstance.loadSource(this.hlsUrl);
         this.hlsInstance.attachMedia(video);
         this.hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
-          console.log('HLS Manifest parsed. Video ready to play.');
           video.play().catch(e => console.error("Error playing video:", e));
         });
         this.hlsInstance.on(Hls.Events.ERROR, (event, data) => {
@@ -62,7 +58,6 @@ export class HlsVideoPlayerComponent implements OnInit, OnDestroy, AfterViewInit
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = this.hlsUrl;
         video.addEventListener('loadedmetadata', () => {
-          console.log('Native HLS loaded. Video ready to play.');
           video.play().catch(e => console.error("Error playing native video:", e));
         });
         this.videoInitialized = true;

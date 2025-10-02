@@ -94,7 +94,6 @@ export class EditprofileComponent implements OnInit {
           email: this.userData.email
         }).subscribe({
           next: () => {
-            console.log('User updated successfully');
             this.router.navigate(['/profile']);
           },
           error: (err) => console.error('Update failed', err)

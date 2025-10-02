@@ -60,7 +60,6 @@ export class ProfileComponent implements OnInit {
     if (token) {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
-        console.log(payload.sub)
         return payload.sub || null;
       } catch (e) {
         console.error('Invalid token:', e);
@@ -72,7 +71,6 @@ export class ProfileComponent implements OnInit {
   fetchUser(id: string): void {
     this.userService.getUserById(id).subscribe({
       next: (user) => {
-        console.log(user);
         this.userData.id = user.id,
           this.userData.firstName = user.first_name,
           this.userData.lastName = user.last_name,

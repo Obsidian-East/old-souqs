@@ -175,7 +175,6 @@ export class ProductComponent implements OnInit {
   fetchProductById() {
     this.productService.getProductById(this.productId!).subscribe({
       next: (product: any) => {
-        // console.log(product)
         this.product = {
           id: product.id,
           name: product.title,
@@ -200,11 +199,7 @@ export class ProductComponent implements OnInit {
   fetchRelatedProducts(collectionName: string) {
     this.productService.getCollections().subscribe({
       next: (collectionsData) => {
-        // console.log('All collections:', collectionsData);
-
-        // Find the collection by name
         const collection = collectionsData.find((col: any) => col.CollectionName === collectionName);
-        // console.log(collection)
 
         if (!collection) {
           console.error('Collection not found');
@@ -216,7 +211,6 @@ export class ProductComponent implements OnInit {
           ? collection.ProductIds.filter((id: string) => id !== this.productId)  // Filter out the current product's ID
           : [];
         if (relatedProductIds.length === 0) {
-          console.log('No related products found.');
           this.relatedProducts = [];
           return;
         }
@@ -224,7 +218,6 @@ export class ProductComponent implements OnInit {
         // Fetch all products to match related product IDs
         this.productService.getProductsByIds(relatedProductIds).subscribe({
           next: (allProducts) => {
-            console.log("all prod", allProducts)
             // Filter products by the related product IDs and map them into a simplified format
             this.relatedProducts = (allProducts || [])
               // .filter((product: any) => relatedProductIds.includes(product.id))
@@ -240,8 +233,6 @@ export class ProductComponent implements OnInit {
             if (this.relatedProducts.length > 4) {
               this.relatedProducts = this.relatedProducts.slice(0, 4);
             }
-
-            // console.log('Related products:', this.relatedProducts);
           },
           error: (err) => {
             console.error('Error fetching products:', err);

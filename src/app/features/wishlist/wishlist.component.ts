@@ -50,7 +50,6 @@ export class WishlistComponent implements OnInit {
     this.loading = true;
     this.wishlistService.getWishlist().subscribe({
       next: (data) => {
-        console.log('Raw wishlist items:', data);
 
         const productIds = data.map(item => item.productId);
         this.totalCount = productIds.length;
@@ -67,7 +66,6 @@ export class WishlistComponent implements OnInit {
             this.products = products;
             this.totalCount = products.length;
             this.loading = false;
-            console.log('Fetched wishlist products:', this.products);
           },
           error: (err) => {
             console.error('Failed to fetch products by IDs:', err);

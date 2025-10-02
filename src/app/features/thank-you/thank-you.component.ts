@@ -86,7 +86,6 @@ export class ThankYouComponent implements OnInit {
       if (token) {
         try {
           const payload = JSON.parse(atob(token.split('.')[1]));
-          console.log(payload.sub)
           return payload.sub || null;
         } catch (e) {
           console.error('Invalid token:', e);
@@ -101,7 +100,6 @@ export class ThankYouComponent implements OnInit {
   fetchUser(id: string): void {
     this.userService.getUserById(id).subscribe({
       next: (user) => {
-        console.log(user)
         this.userData.id = user.id,
           this.userData.firstName = user.first_name,
           this.userData.lastName = user.last_name,
@@ -152,8 +150,6 @@ export class ThankYouComponent implements OnInit {
   fetchProductsByIds(productIds: string[]) {
     this.productService.getProductsByIds(productIds).subscribe({
       next: (allProducts) => {
-        // console.log('Fetched products:', allProducts);
-
         this.orderedProducts = allProducts.map((product: any) => ({
           id: product.id,
           image: product.image,
@@ -165,8 +161,6 @@ export class ThankYouComponent implements OnInit {
           price: product.price,
           quantity: product.stock
         }));
-
-        // console.log('Mapped orderedProducts:', this.orderedProducts);
       },
       error: (err) => {
         console.error('Error fetching products:', err);

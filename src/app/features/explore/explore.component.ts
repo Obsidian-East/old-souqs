@@ -67,7 +67,6 @@ export class ExploreComponent {
 	fetchCollections() {
 		this.productService.getCollections().subscribe({
 			next: (data) => {
-				console.log(data);
 				this.categories = data.map((collection: any) => ({
 					id: collection.id,
 					name: collection.collectionName,
@@ -75,7 +74,6 @@ export class ExploreComponent {
 				}));
 				this.selectedCategoryNumber = this.categories.reduce((sum, c) => sum + c.count, 0);
 				this.totalCount = this.selectedCategoryNumber;
-				console.log("Categories:", this.categories);
 			},
 			error: (error) => {
 				console.error('Error fetching collections:', error);
@@ -164,9 +162,6 @@ export class ExploreComponent {
 					instock: product.stock > 0,
 					originalPrice: product.originalPrice,
 				}));
-				console.log(data);
-				console.log("Collection Products:", this.originalProducts)
-
 				this.allproducts = [...this.originalProducts];
 				this.totalCount = this.allproducts.length
 				this.setPriceLimits();

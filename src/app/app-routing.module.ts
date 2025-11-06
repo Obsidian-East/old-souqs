@@ -23,7 +23,7 @@ import { AuthGuard } from './services/auth.guard';
 import { adminAuthGuard } from './services/admin-auth.guard';
 import { CustomizedComponent } from './features/customized/customized.component';
 
-const routes: Routes = [
+const baseRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
@@ -53,6 +53,14 @@ const routes: Routes = [
   { path: 'login-admin', component: LoginAdminComponent },
   { path: 'thank-you/:id', component: ThankYouComponent },
   { path: 'customized', component: CustomizedComponent }
+];
+
+const routes: Routes = [
+  ...baseRoutes,
+  {
+    path: 'ar',
+    children: baseRoutes, // <— Reuses all the same routes under /ar
+  }
 ];
 
 @NgModule({

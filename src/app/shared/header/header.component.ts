@@ -7,6 +7,7 @@ import { WishlistService } from '../../services/wishlist.service';
 import { EventBusService } from '../event-bus.service';
 import { Subscription } from 'rxjs';
 import { AnnouncementService } from '../../services/announcement.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-header',
@@ -26,8 +27,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private readonly announcementKey = 'sliderMessages';
 
-  private getAnnouncements(){
-        this.announcementService.getAllAnnouncements().subscribe({
+  private getAnnouncements() {
+    this.announcementService.getAllAnnouncements().subscribe({
       next: (data) => {
         this.announcements = data;
       },
@@ -45,7 +46,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     private wishlistService: WishlistService,
     private eventBus: EventBusService,
-    private announcementService: AnnouncementService) {
+    private announcementService: AnnouncementService,
+    public lang: LanguageService) {
 
     this.ngZone.runOutsideAngular(() => {
       this.intervalId = setInterval(() => {
@@ -69,7 +71,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.intervalId) clearInterval(this.intervalId);
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   isLoggedIn = false;
@@ -77,6 +81,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   totalAmount: number = 0;
 
   ngOnInit() {
+    document.documentElement.lang = this.lang.getCurrentLang();
+    const currentLang = this.lang.getCurrentLang();
+    this.lang.setLanguage(currentLang, false); // ensures TranslateService is ready
     this.subscription = this.eventBus.openCart$.subscribe(() => {
       this.openCart();
     });
@@ -133,7 +140,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   closeCart() {
     this.isCartVisible = false;
   }
-  openCart(){
+  openCart() {
     this.isCartVisible = true;
   }
 
@@ -151,7 +158,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   increaseQuantity(item: CartItem) {
-    if(item.quantity<item.stock)
+    if (item.quantity < item.stock)
       this.cartService.updateQuantity(item.id, item.quantity + 1);
   }
 
@@ -209,8 +216,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   goToProduct(id: string) {
-  this.router.navigate(['/product', id]);
-}
+    this.router.navigate(['/product', id]);
+  }
 
 
   loadWishlistCount(): void {

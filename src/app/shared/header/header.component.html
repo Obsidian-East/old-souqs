@@ -38,10 +38,10 @@
 
                 <span class="hide-in-tablet">
                 <span class="menu-item-container">
-                    <li class="menu-item"><a routerLink="/home">{{ 'HEADER.HOME' | translate }}</a></li>
-                    <li class="menu-item"><a routerLink="/explore">{{ 'HEADER.SHOP' | translate }}</a></li>
-                    <li class="menu-item"><a routerLink="/contact">{{ 'HEADER.CONTACT' | translate }}</a></li>
-                    <li class="menu-item"><a routerLink="/aboutus">{{ 'HEADER.ABOUT_US' | translate }}</a></li>        
+                    <li class="menu-item"><a [routerLink]="lang.getLangPrefix() + '/home'">{{ 'HEADER.HOME' | translate }}</a></li>
+                    <li class="menu-item"><a [routerLink]="lang.getLangPrefix() + '/explore'">{{ 'HEADER.SHOP' | translate }}</a></li>
+                    <li class="menu-item"><a [routerLink]="lang.getLangPrefix() + '/contact'">{{ 'HEADER.CONTACT' | translate }}</a></li>
+                    <li class="menu-item"><a [routerLink]="lang.getLangPrefix() + '/aboutus'">{{ 'HEADER.ABOUT_US' | translate }}</a></li>        
                 </span>
                 </span>
                 <span class="show-in-tablet menu-tablet">

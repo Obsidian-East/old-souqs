@@ -6,6 +6,8 @@ import { ProductService } from '../../services/product.service';
 import { CartService, CartItem } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
 import { EventBusService } from '../../shared/event-bus.service';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-home',
@@ -19,22 +21,7 @@ export class HomeComponent implements OnInit {
 	@ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
 	isAtStart = true;
 	isAtEnd = false;
-
-	scrollLeft() {
-		this.scrollContainer.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
-		setTimeout(() => this.checkScrollPosition(), 400); // wait for smooth scroll
-	}
-
-	scrollRight() {
-		this.scrollContainer.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
-		setTimeout(() => this.checkScrollPosition(), 400);
-	}
-
-	checkScrollPosition() {
-		const el = this.scrollContainer.nativeElement;
-		this.isAtStart = el.scrollLeft <= 0;
-		this.isAtEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
-	}
+	private langSub!: Subscription;
 
 	trendingCollectionId = '67ea6d0cc4338e7d55573ac4';
 	newArrivedCollectionId = '6877b1ba607a5079c14c6649';
@@ -65,7 +52,8 @@ export class HomeComponent implements OnInit {
 		public wishlistService: WishlistService,
 		private cd: ChangeDetectorRef,
 		private ngZone: NgZone,
-		private eventBus: EventBusService) {
+		private eventBus: EventBusService,
+		private langService: LanguageService) {
 
 		this.ngZone.runOutsideAngular(() => {
 			this.intervalId = setInterval(() => {
@@ -86,9 +74,14 @@ export class HomeComponent implements OnInit {
 
 	ngOnDestroy() {
 		if (this.intervalId) clearInterval(this.intervalId);
+		if (this.langSub) this.langSub.unsubscribe();
 	}
+
 	ngOnInit(): void {
 		this.fetchProductsByCollection();
+		this.langSub = this.langService.currentLang$.subscribe(() => {
+			this.fetchProductsByCollection();
+		});
 		setTimeout(() => {
 			if (!this.subscribed) {
 				this.showSubscribe = true;
@@ -172,23 +165,49 @@ export class HomeComponent implements OnInit {
 
 	// using width only 2 is showing on click on a dot we got an index to translate so another item is showing
 	moveCollection(index: number): void {
-		let carousel = document.getElementById("collection");
-		if (!carousel) { return };
-		this.currentIndex = index;
-		carousel.style.transform = `translateX(-${this.currentIndex * 50}%)`; /* use 33.33 to show 3 items*/
-		this.updateCollectionDots();// to update the color of the clicked dot
+
+		const carousel = document.getElementById("collection");
+		if (!carousel) return;
+
+		// Clamp index between 0 and max slides
+		const maxIndex = Math.max(0, this.products.length - this.visibleItems);
+		this.currentIndex = Math.min(index, maxIndex);
+
+		// Calculate shift based on visible items (100% / visibleItems)
+		const shiftPercent = 100 / this.visibleItems;
+		carousel.style.transform = `translateX(-${this.currentIndex * shiftPercent}%)`;
+		console.log('Moving collection:', this.currentIndex, document.getElementById("collection"));
+
+		this.updateCollectionDots();
 	}
 
-	updateCollectionDots() {
-		let dots = document.querySelectorAll(".dot-collection");
+	scrollRight(): void {
+		const maxIndex = Math.max(0, this.products.length - this.visibleItems);
+		if (this.currentIndex < maxIndex) {
+			this.currentIndex++;
+			this.moveCollection(this.currentIndex);
+		}
+	}
+
+	scrollLeft(): void {
+		if (this.currentIndex > 0) {
+			this.currentIndex--;
+			this.moveCollection(this.currentIndex);
+		}
+	}
+
+	// If you're using checkScrollPosition for desktop gradient overlays:
+	checkScrollPosition(): void {
+		const el = this.scrollContainer.nativeElement;
+		this.isAtStart = el.scrollLeft === 0;
+		this.isAtEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 5;
+	}
+
+	updateCollectionDots(): void {
+		const dots = document.querySelectorAll(".dot-collection");
 		dots.forEach((dot, i) => {
 			if (dot) {
-				if (i === this.currentIndex) {//clicked dot
-					dot.classList.add("active-dot")
-				}
-				else {
-					dot.classList.remove("active-dot")
-				}
+				dot.classList.toggle("active-dot", i === this.currentIndex);
 			}
 		});
 	}
@@ -211,7 +230,15 @@ export class HomeComponent implements OnInit {
 		this.hoveredDeal = product; // Set hovered item
 	}
 
-	private currentIndex: number = 0;
+	currentIndex: number = 0;
+	visibleItems = window.innerWidth <= 1024 ? 2 : 3;
+
+	@HostListener('window:resize')
+	onResize() {
+		this.adjustFontSizes();
+		this.checkScrollPosition();
+		this.visibleItems = window.innerWidth <= 1024 ? 2 : 3;
+	}
 
 	// using width only 2 is showing on click on a dot we got an index to translate so another item is showing
 	moveToSlide(index: number): void {
@@ -400,11 +427,6 @@ export class HomeComponent implements OnInit {
 
 	@ViewChildren('nameRef') nameRefs!: QueryList<ElementRef>;
 
-	@HostListener('window:resize')
-	onResize() {
-		this.adjustFontSizes();
-		this.checkScrollPosition();
-	}
 
 	ngAfterViewInit() {
 		this.adjustFontSizes();

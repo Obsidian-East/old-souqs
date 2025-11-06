@@ -195,13 +195,23 @@
                     </div>
                 </div>
             </span>
+            <button class="nav-button left hide-on-mobile" (click)="scrollLeft()" [disabled]="currentIndex === 0"
+                aria-label="Previous">
+                &#10094;
+            </button>
+
+            <button class="nav-button right hide-on-mobile" (click)="scrollRight()"
+                [disabled]="currentIndex >= products.length - visibleItems" aria-label="Next">
+                &#10095;
+            </button>
+
             <div class="dots show-in-tablet">
                 <span *ngFor="let num of products; let i = index; let first=first; let last=last">
                     <div *ngIf="first && !last" class="dot-collection active-dot" (click)="moveCollection(i)"></div>
                     <div *ngIf="!first && !last" class="dot-collection" (click)="moveCollection(i)"></div>
                 </span>
             </div>
-            <button class="nav-button right" (click)="scrollRight()" [disabled]="isAtEnd">&#10095;</button>
+            <!-- left + right nav buttons for desktop; hidden on mobile -->
 
             <!-- Gradient overlays -->
             <div class="gradient-overlay left" *ngIf="!isAtStart"></div>

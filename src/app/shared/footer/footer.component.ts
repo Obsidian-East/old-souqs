@@ -1,5 +1,7 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-footer',
@@ -10,11 +12,15 @@ export class FooterComponent {
   showButton: boolean = false;
   currentLanguage: string = "";
 
-  constructor(private translate: TranslateService) {
-    if (this.isBrowser()) {
-      const savedLang = localStorage.getItem('lang') || 'en';
-      this.translate.use(savedLang);
-      this.currentLanguage = savedLang;
+  constructor(
+    private translate: TranslateService,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public lang: LanguageService
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.translate.onLangChange.subscribe((event) => {
+        this.currentLanguage = event.lang;
+      });
     }
   }
 
@@ -25,10 +31,6 @@ export class FooterComponent {
 
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined' && !!window.localStorage;
   }
 
   isCompanyInfoVisible: boolean = false;
@@ -43,11 +45,7 @@ export class FooterComponent {
   }
 
   toggleLanguage() {
-    this.currentLanguage = this.currentLanguage === 'en' ? 'ar' : 'en';
-    this.translate.use(this.currentLanguage);
-    if (this.isBrowser()) {
-      localStorage.setItem('lang', this.currentLanguage);
-    }
+    this.lang.toggleLanguage();
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, HostListener , QueryList, ViewChildren, ElementRef } from '@angular/core';
+import { Component, HostListener, QueryList, ViewChildren, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { Router } from '@angular/router';
@@ -6,7 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { CartService, CartItem } from '../../services/cart.service';
 import { EventBusService } from '../../shared/event-bus.service';
-
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-search',
@@ -16,18 +16,20 @@ import { EventBusService } from '../../shared/event-bus.service';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
-    constructor(private router: Router,
-        private route: ActivatedRoute, 
-        private productService: ProductService,
-        private cartService: CartService,
-        private eventBus: EventBusService) {}
-      // searchText: string | null = null;
-      ngOnInit() {
-        if (typeof window !== 'undefined') { //  Ensure we are in the browser
-          this.searchText = window.history.state.SearchText;
-        }
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private cartService: CartService,
+    private eventBus: EventBusService,
+    private lang: LanguageService) { }
 
-        // Fetch all products when the component loads
+  // searchText: string | null = null;
+  ngOnInit() {
+    if (typeof window !== 'undefined') { //  Ensure we are in the browser
+      this.searchText = window.history.state.SearchText;
+    }
+
+    // Fetch all products when the component loads
     this.productService.getProducts().subscribe(
       (products) => {
         this.allProducts = products;
@@ -39,35 +41,46 @@ export class SearchComponent {
       },
       (error) => console.error('Error loading products:', error)
     );
-      }
-      hoveredItem: any = null; // Tracks the currently hovered product
-  
-      showProductActions(product: any): void {
-        this.hoveredItem = product; // Set hovered item
-      }
-    
-      hideProductActions(): void {
-        this.hoveredItem = null; // Reset on mouse leave
-      }
+  }
+  hoveredItem: any = null; // Tracks the currently hovered product
+
+  showProductActions(product: any): void {
+    this.hoveredItem = product; // Set hovered item
+  }
+
+  hideProductActions(): void {
+    this.hoveredItem = null; // Reset on mouse leave
+  }
 
 
-      searchText: string = ''; // Search text from the URL
+  searchText: string = ''; // Search text from the URL
   allProducts: any[] = []; // Holds all products from the database
   filteredProducts: any[] = []; // Products filtered by search query
   availableProducts: boolean = true; // To toggle between list of products and "no products found"
   finalSearchText: string = ''; // Search text to display after searching
-  
+
 
 
   // Search function based on the input search text
   runSearch(): void {
     const query = this.searchText.trim().toLowerCase();
+    const isArabic = this.lang.currentLang === 'ar';
+
     if (query) {
-      this.filteredProducts = this.allProducts.filter((product) =>
-        product.title.toLowerCase().includes(query) // Filter based on title
-      );
+      this.filteredProducts = this.allProducts.filter((product) => {
+        // pick the correct title field depending on the language
+        const title = isArabic
+          ? (product.titleAr || '').toLowerCase()
+          : (product.title || '').toLowerCase();
+        const description = isArabic
+          ? (product.descriptionAr || '').toLowerCase()
+          : (product.description || '').toLowerCase();
+
+        return title.includes(query);
+      });
+
       this.availableProducts = this.filteredProducts.length > 0;
-      this.finalSearchText = this.searchText
+      this.finalSearchText = this.searchText;
     } else {
       this.filteredProducts = [];
       this.availableProducts = false;
@@ -82,39 +95,39 @@ export class SearchComponent {
       this.router.navigate(['/search'], { queryParams: { q: this.searchText.trim() } });
     }
   }
-    
+
   // to send the product id to the product page when clicking on a product name
   goToProduct(id: string) {
-  this.router.navigate(['/product', id]);
-}
+    this.router.navigate(['/product', id]);
+  }
 
 
-    addToCart(product: any): void {
-      const item: CartItem = {
-        id: product.id,
-        title: product.name,
-        image: product.image,
-        price: product.price,
-        quantity: 1,
-        stock: product.stock
-      };
-      this.cartService.addToCart(item);
-      this.eventBus.triggerOpenCart();
-      }
+  addToCart(product: any): void {
+    const item: CartItem = {
+      id: product.id,
+      title: product.name,
+      image: product.image,
+      price: product.price,
+      quantity: 1,
+      stock: product.stock
+    };
+    this.cartService.addToCart(item);
+    this.eventBus.triggerOpenCart();
+  }
 
-      // to adjust font size for product name
-      @ViewChildren('nameRef') nameRefs!: QueryList<ElementRef>;
+  // to adjust font size for product name
+  @ViewChildren('nameRef') nameRefs!: QueryList<ElementRef>;
 
-	@HostListener('window:resize')
-	onResize() {
-	this.adjustFontSizes();
-	}
+  @HostListener('window:resize')
+  onResize() {
+    this.adjustFontSizes();
+  }
 
-	ngAfterViewInit() {
-	this.adjustFontSizes();
-	}
+  ngAfterViewInit() {
+    this.adjustFontSizes();
+  }
 
-	adjustFontSizes() {
+  adjustFontSizes() {
     this.nameRefs.forEach((elRef: ElementRef) => {
       const el = elRef.nativeElement as HTMLElement;
       let fontSize = 1.1; // rem
@@ -129,5 +142,5 @@ export class SearchComponent {
     });
   }
 
-  
+
 }
